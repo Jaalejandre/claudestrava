@@ -40,7 +40,8 @@ Jarvis/
 ├── 01 Journals/           ← 2026 Journals
 ├── 02 Chess Moves (Long-Term Planning)/  ← Sesiones de planeación estratégica
 ├── 03 Projects/           ← Proyectos individuales
-│   └── Claude Strava/     ← Agente entrenador conectado a Strava para carrera de 60 km en bici
+│   ├── Claude Strava/     ← Agente entrenador conectado a Strava para carrera de 60 km en bici
+│   └── GromacsMexicano/   ← Optimización + paralelización GPU de un código de DM tipo GROMACS
 ├── 04 Reviews/            ← Monthly, Quarterly, Yearly, Weekly Reviews
 ├── 05 Skills/             ← brain-setup, new-project, weekly-update
 ```
@@ -83,3 +84,7 @@ Jarvis/
 ### Claude Strava — `03 Projects/Claude Strava/`
 **Status:** Just created
 Agente conectado a mi Strava que me ayuda a entrenar para una carrera de 60 km en bici, ajustando el plan semana a semana según mi progreso real (Strava + InBody).
+
+### GromacsMexicano — `03 Projects/GromacsMexicano/`
+**Status:** Just created
+Adaptación de un código de dinámica molecular tipo GROMACS (Fortran + CUDA, ecuaciones propias de un grupo de científicos). Mi trabajo: analizarlo y optimizarlo para correr en paralelo con GPU, verificando que la física no cambie. El código y la GPU (RTX 5070 Ti) viven en el contenedor Proxmox CT 901 `ubuntu`, no en `claude-dev`.
