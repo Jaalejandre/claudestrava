@@ -1,0 +1,479 @@
+{
+  "schemaVersion": 1,
+  "conversationId": "conv-1788463416918-2pv76srh7",
+  "records": [
+    {
+      "schemaVersion": 1,
+      "id": "msg-1788463416990-8b1rf0r",
+      "userTurnOrdinal": 1,
+      "state": "accepted",
+      "localMessageId": "msg-1788463416913-yl97ctn",
+      "timestamp": 1788463416913,
+      "rawDisplayText": "hola",
+      "canonicalText": "hola",
+      "context": {
+        "linkedContent": {
+          "path": "CLAUDE.md"
+        }
+      },
+      "images": [],
+      "contentDigest": "63de4877a78cacd93878831235dc3120a13189b491e996d24b879106069b7a23",
+      "providerUserMessageId": "72c628dd-779b-4616-a384-87d0f667be9d",
+      "providerAssistantMessageId": "94b90e26-b6d6-4009-be7f-57e22896e7c9"
+    },
+    {
+      "schemaVersion": 1,
+      "id": "msg-1788463531414-fb8jt5l",
+      "userTurnOrdinal": 2,
+      "state": "accepted",
+      "localMessageId": "msg-1788463531409-dmwgg7g",
+      "timestamp": 1788463531409,
+      "rawDisplayText": "'run the brain-setup skill in the 05 skills folder'",
+      "canonicalText": "'run the brain-setup skill in the 05 skills folder'",
+      "context": {
+        "editorSelection": {
+          "notePath": "SETUP GUIDE.md",
+          "mode": "selection",
+          "selectedText": "'run the brain-setup skill in the 05 skills folder'",
+          "lineCount": 1,
+          "startLine": 28
+        }
+      },
+      "images": [],
+      "contentDigest": "4c7e12dca30ea25ff2cd0749c9840fdb6259234d3f7029930f27acfcdabdeac8",
+      "providerUserMessageId": "f543bc51-872b-49b3-82be-723c21310607",
+      "providerAssistantMessageId": "994e116d-140a-4ba2-8c29-85fda46ed339"
+    },
+    {
+      "schemaVersion": 1,
+      "id": "msg-1788463621706-mi4n7ch",
+      "userTurnOrdinal": 3,
+      "state": "accepted",
+      "localMessageId": "msg-1788463621701-5kkxlgy",
+      "timestamp": 1788463621701,
+      "rawDisplayText": "Se va llamar Jarvis",
+      "canonicalText": "Se va llamar Jarvis",
+      "context": {
+        "editorSelection": {
+          "notePath": "SETUP GUIDE.md",
+          "mode": "selection",
+          "selectedText": "'run the brain-setup skill in the 05 skills folder'",
+          "lineCount": 1,
+          "startLine": 28
+        }
+      },
+      "images": [],
+      "contentDigest": "cf1bdef06f9a98d4a103956e57bac65d4ed88abd232df26ddfa15771bf5c720c",
+      "providerUserMessageId": "b6d35948-d6e5-4324-97f4-7d90b0f3c36d",
+      "providerAssistantMessageId": "ec622d97-740b-43e8-bddd-8013c89b7d88"
+    },
+    {
+      "schemaVersion": 1,
+      "id": "msg-1788463634184-tqwyob1",
+      "userTurnOrdinal": 4,
+      "state": "accepted",
+      "localMessageId": "msg-1788463634178-hp5404f",
+      "timestamp": 1788463634178,
+      "rawDisplayText": "devloper emprendedor",
+      "canonicalText": "devloper emprendedor",
+      "context": {
+        "editorSelection": {
+          "notePath": "SETUP GUIDE.md",
+          "mode": "selection",
+          "selectedText": "'run the brain-setup skill in the 05 skills folder'",
+          "lineCount": 1,
+          "startLine": 28
+        }
+      },
+      "images": [],
+      "contentDigest": "be9493dfa77935db833be460ecef8afa96af42b176e980ca514babedd5788a0c",
+      "providerUserMessageId": "4c0b2155-d214-4c09-93a8-221e9f306950",
+      "providerAssistantMessageId": "65368222-fb64-49c1-83e9-d432dff39345"
+    },
+    {
+      "schemaVersion": 1,
+      "id": "msg-1788463662937-f20afzy",
+      "userTurnOrdinal": 5,
+      "state": "accepted",
+      "localMessageId": "msg-1788463662931-yf60tir",
+      "timestamp": 1788463662931,
+      "rawDisplayText": "quiero optimizar codigo y quitar tareas repetitivas en ciertos aspectos de mi vida",
+      "canonicalText": "quiero optimizar codigo y quitar tareas repetitivas en ciertos aspectos de mi vida",
+      "context": {
+        "editorSelection": {
+          "notePath": "SETUP GUIDE.md",
+          "mode": "selection",
+          "selectedText": "'run the brain-setup skill in the 05 skills folder'",
+          "lineCount": 1,
+          "startLine": 28
+        }
+      },
+      "images": [],
+      "contentDigest": "8de16ddcdad0ed1859e0f5b5a81c1ffd7ab2b9087e4a33db37b0fe02c82b776e",
+      "providerUserMessageId": "6bc8266f-0181-459e-96cb-cdb7155ba623",
+      "providerAssistantMessageId": "a387bb9b-ac8b-4398-aefd-5de93b1b6d58"
+    },
+    {
+      "schemaVersion": 1,
+      "id": "msg-1788463674836-omolko0",
+      "userTurnOrdinal": 6,
+      "state": "accepted",
+      "localMessageId": "msg-1788463674831-7uhk7t5",
+      "timestamp": 1788463674831,
+      "rawDisplayText": "andar en bicicleta",
+      "canonicalText": "andar en bicicleta",
+      "context": {
+        "editorSelection": {
+          "notePath": "SETUP GUIDE.md",
+          "mode": "selection",
+          "selectedText": "'run the brain-setup skill in the 05 skills folder'",
+          "lineCount": 1,
+          "startLine": 28
+        }
+      },
+      "images": [],
+      "contentDigest": "a9836e26ce4ec25158458567d0ede19c81117319416ec7efc1537c0148dc9a2f",
+      "providerUserMessageId": "a9c0fa09-0bea-455a-9ed2-4c59767bb44f",
+      "providerAssistantMessageId": "f1359fa3-905d-49e1-9996-82671b19135e"
+    },
+    {
+      "schemaVersion": 1,
+      "id": "msg-1788463701353-nxeu838",
+      "userTurnOrdinal": 7,
+      "state": "accepted",
+      "localMessageId": "msg-1788463701347-4b8awua",
+      "timestamp": 1788463701347,
+      "rawDisplayText": "hacer las cosas sin proposito y vivo en mexico cdmx",
+      "canonicalText": "hacer las cosas sin proposito y vivo en mexico cdmx",
+      "context": {
+        "editorSelection": {
+          "notePath": "SETUP GUIDE.md",
+          "mode": "selection",
+          "selectedText": "'run the brain-setup skill in the 05 skills folder'",
+          "lineCount": 1,
+          "startLine": 28
+        }
+      },
+      "images": [],
+      "contentDigest": "01c21ca2b61e437f56507a4e1fddfae3b8fbf4e2668e461b5136b07166eb2ddc",
+      "providerUserMessageId": "665f9df0-9a70-4f2c-b0d3-96b44b147ce4",
+      "providerAssistantMessageId": "dc1a4a4a-8c8e-4710-b1b0-9b514baf6c91"
+    },
+    {
+      "schemaVersion": 1,
+      "id": "msg-1788463776761-i6kxqz4",
+      "userTurnOrdinal": 8,
+      "state": "accepted",
+      "localMessageId": "msg-1788463776678-tlc5kut",
+      "timestamp": 1788463776678,
+      "rawDisplayText": "optimizar el flujo de programar y desarollar en ia todo lo anterior optimizar codigo scientifico",
+      "canonicalText": "optimizar el flujo de programar y desarollar en ia todo lo anterior optimizar codigo scientifico",
+      "context": {
+        "editorSelection": {
+          "notePath": "SETUP GUIDE.md",
+          "mode": "selection",
+          "selectedText": "'run the brain-setup skill in the 05 skills folder'",
+          "lineCount": 1,
+          "startLine": 28
+        }
+      },
+      "images": [],
+      "contentDigest": "fa7b0d232dd10334cf2cf6cf2aaf84bc144be8f05397f58d6e687132e1c92b40",
+      "providerUserMessageId": "204961af-89f4-49ab-a2cb-9e7217425aea",
+      "providerAssistantMessageId": "73e4c6a6-7546-4bdb-bd9f-642cb56e98b0"
+    },
+    {
+      "schemaVersion": 1,
+      "id": "msg-1788463835053-uj13mcv",
+      "userTurnOrdinal": 9,
+      "state": "accepted",
+      "localMessageId": "msg-1788463835044-ns5m0yq",
+      "timestamp": 1788463835044,
+      "rawDisplayText": "darme la respuesta directa el defeto esta bien",
+      "canonicalText": "darme la respuesta directa el defeto esta bien",
+      "images": [],
+      "contentDigest": "e7446d591fb28b04d734c911807d5fedfaae41e9a987791e33fb0dba2d07e983",
+      "providerUserMessageId": "1ca87738-7a77-41fd-98b4-88b29a0567f6",
+      "providerAssistantMessageId": "26bb2aec-809e-4ef9-b516-7c438ea10920"
+    },
+    {
+      "schemaVersion": 1,
+      "id": "msg-1788463846157-70rfv7s",
+      "userTurnOrdinal": 10,
+      "state": "accepted",
+      "localMessageId": "msg-1788463846152-5ko93cd",
+      "timestamp": 1788463846152,
+      "rawDisplayText": "ronda 4",
+      "canonicalText": "ronda 4",
+      "images": [],
+      "contentDigest": "60e01f5fa8b9c58a7bf12fa204a828d9ed438d8c7f16d78eaabdebc280dcf8db",
+      "providerUserMessageId": "0041374f-56dd-4074-b422-b46c67c9eff2",
+      "providerAssistantMessageId": "aeb7d244-0feb-49fd-9b38-5babc5e91220"
+    },
+    {
+      "schemaVersion": 1,
+      "id": "msg-1788463857613-yj2ihon",
+      "userTurnOrdinal": 11,
+      "state": "accepted",
+      "localMessageId": "msg-1788463857603-622o1jy",
+      "timestamp": 1788463857603,
+      "rawDisplayText": "pensamiento critico",
+      "canonicalText": "pensamiento critico",
+      "images": [],
+      "contentDigest": "87323ea73bc391d7a3f9d88abfcf845301e5ed4178dbbb6f29a715df69ab4e63",
+      "providerUserMessageId": "43d629b9-4cd6-4b21-95f7-683339edc526",
+      "providerAssistantMessageId": "c9144ed4-e6b0-449a-8b2a-677a7319e8d8"
+    },
+    {
+      "schemaVersion": 1,
+      "id": "msg-1788463881469-uq47qb9",
+      "userTurnOrdinal": 12,
+      "state": "accepted",
+      "localMessageId": "msg-1788463881467-xror4kx",
+      "timestamp": 1788463881467,
+      "rawDisplayText": "entrar en bucle de errores y no poder solucionarlo",
+      "canonicalText": "entrar en bucle de errores y no poder solucionarlo",
+      "images": [],
+      "contentDigest": "d9ac69a857779b24075f50d2e1b4e570e30c118eccd98b6500485599cfd74c0f",
+      "providerUserMessageId": "6bae9ce6-7304-4664-92c7-1b244330de97",
+      "providerAssistantMessageId": "125a236e-ac3d-49fc-8df4-8f2f49c3ad3c"
+    },
+    {
+      "schemaVersion": 1,
+      "id": "msg-1788463906236-pbl9a7z",
+      "userTurnOrdinal": 13,
+      "state": "accepted",
+      "localMessageId": "msg-1788463906232-3tx05hx",
+      "timestamp": 1788463906232,
+      "rawDisplayText": "hago otra cosa salgo en bici o pasear con los perros",
+      "canonicalText": "hago otra cosa salgo en bici o pasear con los perros",
+      "images": [],
+      "contentDigest": "2b90a769933baf7703814b3020649dd7e6d077a35cbc076e4a607859bc7987ee",
+      "providerUserMessageId": "9db3ed9c-2312-44a7-9aec-a661deb34fff",
+      "providerAssistantMessageId": "c5f24a1c-0350-454a-ac09-c995c4ed038c"
+    },
+    {
+      "schemaVersion": 1,
+      "id": "msg-1788463944868-pvj4eyi",
+      "userTurnOrdinal": 14,
+      "state": "accepted",
+      "localMessageId": "msg-1788463944864-2rtg8xe",
+      "timestamp": 1788463944864,
+      "rawDisplayText": "quiero crecer en mi trabajo profesional ahorita no tengo trabajao renuncie hace dos meses, quiero en 3 meses concretar un trabajo formal",
+      "canonicalText": "quiero crecer en mi trabajo profesional ahorita no tengo trabajao renuncie hace dos meses, quiero en 3 meses concretar un trabajo formal",
+      "images": [],
+      "contentDigest": "e5db5ba39694030dc12904ec8bde78a678b10c5a9e4e725e1bdfbf4b195fcec4",
+      "providerUserMessageId": "f347bf0a-9d0f-46eb-af69-152e71d0db0c",
+      "providerAssistantMessageId": "ae604aa2-3ac1-48ff-a86a-42c5394c32e5"
+    },
+    {
+      "schemaVersion": 1,
+      "id": "msg-1788463960825-z4zvru8",
+      "userTurnOrdinal": 15,
+      "state": "accepted",
+      "localMessageId": "msg-1788463960811-xx1w0ww",
+      "timestamp": 1788463960811,
+      "rawDisplayText": "desarollar conocimiento en ia",
+      "canonicalText": "desarollar conocimiento en ia",
+      "images": [],
+      "contentDigest": "820ac85099ee7e29c18755bacc86d10fd055ea7a146ba1f3583f289223f03c0d",
+      "providerUserMessageId": "22f72871-953c-4f31-bdd8-cb93bd872faa",
+      "providerAssistantMessageId": "ffe0e35b-f599-413b-946d-c391e8368ae3"
+    },
+    {
+      "schemaVersion": 1,
+      "id": "msg-1788463969128-o1ty0s1",
+      "userTurnOrdinal": 16,
+      "state": "accepted",
+      "localMessageId": "msg-1788463969122-bq3zj3a",
+      "timestamp": 1788463969122,
+      "rawDisplayText": "no",
+      "canonicalText": "no",
+      "images": [],
+      "contentDigest": "8819d58f72ee14780c4f668d0e7799d8f0728fa51150afc965b2c10366f0e99b",
+      "providerUserMessageId": "b0582afe-dfb0-4247-a586-5586166cab3a",
+      "providerAssistantMessageId": "4a603f2f-8790-4ec5-a26f-5fd9cfc38a27"
+    },
+    {
+      "schemaVersion": 1,
+      "id": "msg-1788463994280-5zt7ezh",
+      "userTurnOrdinal": 17,
+      "state": "accepted",
+      "localMessageId": "msg-1788463994276-z4quzt1",
+      "timestamp": 1788463994276,
+      "rawDisplayText": "todo esta bien",
+      "canonicalText": "todo esta bien",
+      "images": [],
+      "contentDigest": "b998d0c35b225ed4e6249790511a9ec99d2db16c8439a144d8c32e8de28d4d4b",
+      "providerUserMessageId": "8e851dd1-fcfd-4147-b45f-fe6ca0544ffc",
+      "providerAssistantMessageId": "23ee58bf-b876-4b2e-9b76-ca00053fcd45"
+    },
+    {
+      "schemaVersion": 1,
+      "id": "msg-1788464036104-429c0e7",
+      "userTurnOrdinal": 18,
+      "state": "accepted",
+      "localMessageId": "msg-1788464036101-gocwtsg",
+      "timestamp": 1788464036101,
+      "rawDisplayText": "primer proyecto",
+      "canonicalText": "primer proyecto",
+      "images": [],
+      "contentDigest": "2362c42a84480353a2231ac970ecd3bcf3c727aa888e0b46ac91804633345b50",
+      "providerUserMessageId": "09e663be-728f-4ddb-ab6e-21d42b981fbc",
+      "providerAssistantMessageId": "82194f4e-97c8-48b5-9620-d63520acac11"
+    },
+    {
+      "schemaVersion": 1,
+      "id": "msg-1788464052394-blgneyw",
+      "userTurnOrdinal": 19,
+      "state": "accepted",
+      "localMessageId": "msg-1788464052389-8x7lfrj",
+      "timestamp": 1788464052389,
+      "rawDisplayText": "Claude Strava",
+      "canonicalText": "Claude Strava",
+      "images": [],
+      "contentDigest": "1793c2ed6c1c34990ce5ad31a1e0dbd371d6d40f108e044254b9ea01ba34d29e",
+      "providerUserMessageId": "b92b5160-f1cc-42ff-afcd-1fe5670aa674",
+      "providerAssistantMessageId": "3e629016-09cf-4bc0-8510-56b512db7c31"
+    },
+    {
+      "schemaVersion": 1,
+      "id": "msg-1788464076566-peoqtzm",
+      "userTurnOrdinal": 20,
+      "state": "accepted",
+      "localMessageId": "msg-1788464076564-klaa3nv",
+      "timestamp": 1788464076564,
+      "rawDisplayText": "un agente que me ayude a entrenar para una carrera en bici de 60 km conectando a mi strava",
+      "canonicalText": "un agente que me ayude a entrenar para una carrera en bici de 60 km conectando a mi strava",
+      "images": [],
+      "contentDigest": "fdf8d09c1c248feba6e022df4e006a72b04c8f2ba7895f90fb347b50935a9676",
+      "providerUserMessageId": "81492f0f-0852-43dc-bc1b-ccc697f0316e",
+      "providerAssistantMessageId": "9f542c3e-9900-4d0c-874c-eb5e33b9d910"
+    },
+    {
+      "schemaVersion": 1,
+      "id": "msg-1788464112434-f39zt60",
+      "userTurnOrdinal": 21,
+      "state": "accepted",
+      "localMessageId": "msg-1788464112430-4azfbs5",
+      "timestamp": 1788464112430,
+      "rawDisplayText": "terinar la carrera lo mejor possible",
+      "canonicalText": "terinar la carrera lo mejor possible",
+      "images": [],
+      "contentDigest": "ed0d189afc394b468ab7a615adb60b2cf42034360347341ab41386730ebea26d",
+      "providerUserMessageId": "945062f7-5a46-4708-abd1-6698cbab9e59",
+      "providerAssistantMessageId": "8e95ab02-6fa2-48f9-83f8-cb01a1539275"
+    },
+    {
+      "schemaVersion": 1,
+      "id": "msg-1788464120487-i80ukue",
+      "userTurnOrdinal": 22,
+      "state": "accepted",
+      "localMessageId": "msg-1788464120482-7ftg7mk",
+      "timestamp": 1788464120482,
+      "rawDisplayText": "solo yo",
+      "canonicalText": "solo yo",
+      "images": [],
+      "contentDigest": "1c907c69f233233f24729294376834734452995e90e341f578ed286d5c0f2f72",
+      "providerUserMessageId": "08b14d8b-3fa9-46d9-91f5-1bffbc52b42a",
+      "providerAssistantMessageId": "a5ac0da1-8554-4340-9663-fafafeebceb3"
+    },
+    {
+      "schemaVersion": 1,
+      "id": "msg-1788464154470-asluzwg",
+      "userTurnOrdinal": 23,
+      "state": "accepted",
+      "localMessageId": "msg-1788464154468-hvn5gt1",
+      "timestamp": 1788464154468,
+      "rawDisplayText": "crear un plan de hoy hasta la carrera y checar progreso los domingos de strava junto con mi inbodies",
+      "canonicalText": "crear un plan de hoy hasta la carrera y checar progreso los domingos de strava junto con mi inbodies",
+      "images": [],
+      "contentDigest": "73a2a47d54d3d902bdcc5feaa0cc54138c351e5711fda030a33d6823db5ba669",
+      "providerUserMessageId": "dbeee333-b944-41ad-a50a-a1a94eb15e36",
+      "providerAssistantMessageId": "05651e2e-a20b-4183-b3df-ad96474bdb9d"
+    },
+    {
+      "schemaVersion": 1,
+      "id": "msg-1788464243316-gls5hwl",
+      "userTurnOrdinal": 24,
+      "state": "accepted",
+      "localMessageId": "msg-1788464243310-1cdjsxy",
+      "timestamp": 1788464243310,
+      "rawDisplayText": "Estoy entrenando para competir en [NOMBRE DEL EVENTO] ([DISTANCIA], [FECHA APROX. O \"aún no confirmo fecha\"]).\nEres un entrenador profesional de [DEPORTE] y me vas a ayudar a conseguir el mejor rendimiento posible.\n\nLuego, en el chat, el flujo de mensajes que replica exactamente lo que hicimos:\n\n1) [Adjunta la imagen/mapa de la ruta]\n   \"Esta es la ruta que se va a hacer, guárdala en memoria por favor.\"\n\n2) \"Es la edición [AÑO]\" \n   (o directamente: \"confirma la fecha oficial de la edición [AÑO] del [EVENTO] y guárdala en memoria\")\n\n3) \"Checa mi InBody y mi Strava para hacerme un plan de entrenamiento por favor.\"\n   → Aquí Claude te va a preguntar: días/semana disponibles, lesiones o\n     restricciones, y cómo manejar nutrición (si ya tienes nutriólogo o no).\n     Responde eso y te arma el plan completo como página publicada\n     (fases, semana a semana, zonas de potencia/FC, equipo que tengas en casa).\n\n4) \"Esto puede checar todos los días el Strava y recalcular la rutina?\"\n   → Te va a preguntar frecuencia (recomendado: semanal, no diario) y qué\n     hacer cuando detecte algo (recomendado: ajustar y avisarte).\n     Con eso configura una tarea programada que revisa tu Strava cada\n     semana y actualiza la misma página del plan.",
+      "canonicalText": "Estoy entrenando para competir en [NOMBRE DEL EVENTO] ([DISTANCIA], [FECHA APROX. O \"aún no confirmo fecha\"]).\nEres un entrenador profesional de [DEPORTE] y me vas a ayudar a conseguir el mejor rendimiento posible.\n\nLuego, en el chat, el flujo de mensajes que replica exactamente lo que hicimos:\n\n1) [Adjunta la imagen/mapa de la ruta]\n   \"Esta es la ruta que se va a hacer, guárdala en memoria por favor.\"\n\n2) \"Es la edición [AÑO]\" \n   (o directamente: \"confirma la fecha oficial de la edición [AÑO] del [EVENTO] y guárdala en memoria\")\n\n3) \"Checa mi InBody y mi Strava para hacerme un plan de entrenamiento por favor.\"\n   → Aquí Claude te va a preguntar: días/semana disponibles, lesiones o\n     restricciones, y cómo manejar nutrición (si ya tienes nutriólogo o no).\n     Responde eso y te arma el plan completo como página publicada\n     (fases, semana a semana, zonas de potencia/FC, equipo que tengas en casa).\n\n4) \"Esto puede checar todos los días el Strava y recalcular la rutina?\"\n   → Te va a preguntar frecuencia (recomendado: semanal, no diario) y qué\n     hacer cuando detecte algo (recomendado: ajustar y avisarte).\n     Con eso configura una tarea programada que revisa tu Strava cada\n     semana y actualiza la misma página del plan.",
+      "images": [],
+      "contentDigest": "23a4c4a0a552c33e20e3caaafb97c3a5130b310bd485aae66213de8dc9db5e27",
+      "providerUserMessageId": "03bbd394-8d83-4a42-b0ba-582d0eecfb9d",
+      "providerAssistantMessageId": "a72faec1-1d90-455b-afda-a83a7d2d8020"
+    },
+    {
+      "schemaVersion": 1,
+      "id": "msg-1788464473600-swljhzk",
+      "userTurnOrdinal": 25,
+      "state": "accepted",
+      "localMessageId": "msg-1788464473587-i8dtn6m",
+      "timestamp": 1788464473587,
+      "rawDisplayText": "https://ciudaddemexico.letapeseries.com/ \n\n5 dias para entrenar sin leciones estoy tomando monjaro con nutriologo",
+      "canonicalText": "https://ciudaddemexico.letapeseries.com/ \n\n5 dias para entrenar sin leciones estoy tomando monjaro con nutriologo",
+      "images": [],
+      "contentDigest": "787c96c51a950e8ee5dc2e4d2d1394bee15d3367f40df92a87434610406f14bb",
+      "providerUserMessageId": "1780bf5f-e532-47a2-8371-a2e0c7eb3a87",
+      "providerAssistantMessageId": "a586e78e-66f9-4e5e-bb34-6ce2bfd15dc1"
+    },
+    {
+      "schemaVersion": 1,
+      "id": "msg-1788464591827-kvl3csf",
+      "userTurnOrdinal": 26,
+      "state": "accepted",
+      "localMessageId": "msg-1788464591817-jq8qwt7",
+      "timestamp": 1788464591817,
+      "rawDisplayText": "lo tengo en pdf como lo subo",
+      "canonicalText": "lo tengo en pdf como lo subo",
+      "images": [],
+      "contentDigest": "f9d3ebc944863f90a30f0947bc20c171aa0d17b929ca9032f016c7ed5236bbd4",
+      "providerUserMessageId": "e39721db-a101-484a-a126-3f1c74a1eec8",
+      "providerAssistantMessageId": "a2aba036-dab6-4d35-b514-22d5d6120689"
+    },
+    {
+      "schemaVersion": 1,
+      "id": "msg-1788464673545-idufxea",
+      "userTurnOrdinal": 27,
+      "state": "accepted",
+      "localMessageId": "msg-1788464673535-9871877",
+      "timestamp": 1788464673535,
+      "rawDisplayText": "listo ya esta en el folder",
+      "canonicalText": "listo ya esta en el folder",
+      "images": [],
+      "contentDigest": "3583660754ea2e9bccc09d2a45564b57ad6573adea4a9997a8630d4068762b4d",
+      "providerUserMessageId": "307f20e6-d1b1-456d-81ca-7f25c8917d09",
+      "providerAssistantMessageId": "cd3af50b-cd97-4451-8c55-93d3ae27d950"
+    },
+    {
+      "schemaVersion": 1,
+      "id": "msg-1788464771897-6piq1zp",
+      "userTurnOrdinal": 28,
+      "state": "accepted",
+      "localMessageId": "msg-1788464771889-s7r2m2h",
+      "timestamp": 1788464771889,
+      "rawDisplayText": "semanal porfavor",
+      "canonicalText": "semanal porfavor",
+      "images": [],
+      "contentDigest": "448825bfb2c887e0d84c398852ebf955506e735970a44b21f17c5a45b26926c6",
+      "providerUserMessageId": "66d3b39c-b451-4f40-9ebc-aca4e300fcd0",
+      "providerAssistantMessageId": "f89ca36b-3006-4cef-adbf-ca3b8f17c1c7"
+    },
+    {
+      "schemaVersion": 1,
+      "id": "msg-1788465066738-qvsyyao",
+      "userTurnOrdinal": 29,
+      "state": "accepted",
+      "localMessageId": "msg-1788465066725-6owbqyd",
+      "timestamp": 1788465066725,
+      "rawDisplayText": "Set up GitHub Copilot\nUse GitHub's AI pair programmer to autocomplete suggestions as you code.\n\nAdd collaborators to this repository\nSearch for people using their GitHub username or email address.\n\nQuick setup — if you’ve done this kind of thing before\nor\t\nhttps://github.com/Jaalejandre/claudestrava.git\nGet started by creating a new file or uploading an existing file. We recommend every repository include a README, LICENSE, and .gitignore.\n\n…or create a new repository on the command line\necho \"# claudestrava\" >> README.md\ngit init\ngit add README.md\ngit commit -m \"first commit\"\ngit branch -M main\ngit remote add origin https://github.com/Jaalejandre/claudestrava.git\ngit push -u origin main\n…or push an existing repository from the command line\ngit remote add origin https://github.com/Jaalejandre/claudestrava.git\ngit branch -M main\ngit push -u origin main",
+      "canonicalText": "Set up GitHub Copilot\nUse GitHub's AI pair programmer to autocomplete suggestions as you code.\n\nAdd collaborators to this repository\nSearch for people using their GitHub username or email address.\n\nQuick setup — if you’ve done this kind of thing before\nor\t\nhttps://github.com/Jaalejandre/claudestrava.git\nGet started by creating a new file or uploading an existing file. We recommend every repository include a README, LICENSE, and .gitignore.\n\n…or create a new repository on the command line\necho \"# claudestrava\" >> README.md\ngit init\ngit add README.md\ngit commit -m \"first commit\"\ngit branch -M main\ngit remote add origin https://github.com/Jaalejandre/claudestrava.git\ngit push -u origin main\n…or push an existing repository from the command line\ngit remote add origin https://github.com/Jaalejandre/claudestrava.git\ngit branch -M main\ngit push -u origin main",
+      "images": [],
+      "contentDigest": "a303a7c5d24882939abaca1cc228fc525dcb9668278ab4e399a0788404d41ad2",
+      "providerUserMessageId": "e8279aea-8437-4284-a513-5e2bc2f6dffc"
+    }
+  ]
+}
