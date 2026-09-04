@@ -75,11 +75,12 @@ El código y la GPU **NO** viven en `claude-dev`. Viven en otro contenedor:
 
 ## Current Status
 
-> **Last updated:** 2026-09-04 (tarde)
-> **Status:** Copia de trabajo con git lista en CT 901, en `c698cc7` (release `-O3`, +27.7% vs. debug, física validada). Cambio #2 original (buffers persistentes) intentado y revertido — no ayudaba y crasheaba.
-> **Profiling real hecho (`nsys`)** — ver `01 Analisis/(C) 2026-09-04 Profiling real (nsys) - donde se va el tiempo.md`. Hallazgo clave: el malloc/free era solo 9.2% del tiempo de API, **no el ~80% que se asumía**. El tiempo real está en: `kernel_fzas_lj_st` (47.3% del tiempo GPU), Ewald/`KWALD` (39.8%), y `construir_pares`/lista de vecinos (12.7%) — los tres kernels ya identificados como caros, pero ahora se sabe que el kernel **en sí** es ineficiente (atomicAdd global, `pow()`), no solo la gestión de memoria alrededor.
-> **Plan re-priorizado** (tabla completa en el doc de profiling): (1) reducción por bloque para atomicAdd de energía/virial, (2) kernel por átomo-i sin atomicAdd de fuerza, (3) subir arreglos constantes (`iitipo`/`carga`/`sigma`/`eps`) una sola vez, (4) revisar `construir_pares`, (5) `pow()`→multiplicación, (6) OpenMP en CPU (aún sin tocar, el bucle sigue en 1 core).
-> **Nota sobre agentes en background:** un subagente autónomo se usó para el cambio de buffers y no entregó nada usable en ~30 min real (sin commits, parámetros de prueba incorrectos) — se mató. Trabajo de CUDA/Fortran con validación física estricta requiere supervisión directa paso a paso en este proyecto.
+> **Last updated:** 2026-09-04 (noche)
+> **Status:** En `978d385`. Acumulado validado: debug original 3:00.14 → release `-O3` 2:10.10 (`c698cc7`, +27.7%) → reducción por bloque de atomicAdd energía/virial en `kernel_fzas_lj_st` 2:06.21 promedio de 3 corridas (`978d385`, +3.0% adicional). **Total: −29.7% wall time acumulado, física validada en cada paso, cero crashes en el estado actual.**
+> **Profiling real hecho (`nsys`)** — ver `01 Analisis/(C) 2026-09-04 Profiling real (nsys) - donde se va el tiempo.md`. Tiempo GPU real: `kernel_fzas_lj_st` 47.3%, Ewald/`KWALD` 39.8%, lista de vecinos 12.7%.
+> **Siguiente en la cola** (plan re-priorizado, mismo doc): (2b hecho) reducción por bloque en LJ ✅ → falta aplicar el mismo patrón a los kernels de `KWALD` (39.8% del tiempo, mismo problema de atomicAdd probablemente) → luego #3 (kernel por átomo-i sin atomicAdd de fuerza, más riesgoso) → #4 (subir arreglos constantes una sola vez) → #5 (revisar `construir_pares`) → #6 (`pow()`→multiplicación) → #7 (OpenMP CPU, aún sin tocar).
+> **Nota sobre agentes en background:** un subagente autónomo se usó para un cambio anterior y no entregó nada usable en ~30 min real — se mató. Trabajo de CUDA/Fortran con validación física estricta requiere supervisión directa paso a paso en este proyecto, no delegación ciega.
+> **Nota de protocolo:** desde el crash del cambio #2 original, cada cambio se corre 3 veces completas (10 000 pasos) antes de aceptarlo, y se agregó `cudaGetLastError()` en los kernels tocados para diagnóstico.
 
 <!-- TODO: Confirmar con José si quiere que el acceso SSH a CT 901 sea directo (agregar llave a alejandre@901) o siempre vía el host Proxmox -->
 <!-- TODO: Confirmar ensamble/caso de prueba canónico para benchmarks (el actual: agua + NaCl, NPT) -->
