@@ -29,7 +29,7 @@ This plan fully details **Phase 0** only. Phases 1+ touch large, not-yet-fully-r
 | **0** (this plan) | CMake project skeleton; relocate the 8 existing `.cu` kernels unchanged; prove they compile and link under CMake+nvcc; one smoke-test call | ~1 session | Very low — no physics code changes |
 | 1 | Port I/O: `.gro` reader/writer (`gro0.f`/`grof.f`, 71 lines), `.mdp` key=value parser (`mdp.f`, 985 lines — mechanical, one `if/else` chain), `.top`/`.itp` topology parser (`top_gmx.f95`, 1362 lines — `[moleculetype]`/`[atoms]`/`[bonds]`/`[angles]`/`[molecules]` sections) | ~2-3 sessions | Low — no force/integration math, validate by round-tripping known test files and diffing parsed values against what the Fortran program prints at startup |
 | 2 | Port bonded forces: harmonic bonds (`fzas_de.f`, 105 lines) and angles (`fzas_angulo.f`, 145 lines) — both fully read this session, both small, both already isolated (no shared mutable state beyond `fx/fy/fz`) | ~1 session | Low — closed-form formulas, easy to unit-test against hand-computed values for a 2-3 atom system before wiring into the full loop |
-| 3 | Port link-cell + LJ-ST + Ewald **driver glue only** — call the existing validated `.cu` kernels (`lista_linkcell_cuda`, `fzas_lj_st_cuda`, `kwald_cuda`) directly from C++ instead of via the Fortran `ISO_C_BINDING` interface files (`interfaz_*.f95`, `*_cuda_f77.f95`) | ~1-2 sessions | Low — kernels themselves don't change, only who calls them |
+| 3 | Port link-cell + LJ-ST + Ewald **driver glue** — call the existing validated `.cu` kernels directly from C++ instead of via Fortran `ISO_C_BINDING`. **Correction (post Phase-0 final review):** the original plan assumed "kernels themselves don't change" — false. `fzas_lj_st_cuda.cu`'s persistent-buffer guard (`g_const_maxnat` set but never read) has no reinit-on-change check, and teardown is inconsistent across the 3 files (`ll_free_cuda` is `static`/unreachable, `fzas_lj_st_cuda.cu` has none). A C++ driver that owns process lifecycle and may run varying system sizes needs a working reinit guard and exported teardown on at least `fzas_lj_st_cuda.cu` before Phase 3 can safely call it more than once. This IS a kernel change and must go through the full 3x-clean physics/benchmark validation this project requires for any kernel edit — budget for that explicitly, don't treat it as free glue work. | ~2-3 sessions (was 1-2) | Medium (was Low) — real kernel changes required, not just glue |
 | 4 | Port the integration loop + Nosé-Hoover NPT barostat/thermostat (`baros_nh_system.f`, `thermo_nh_system.f`, `factores.f`) — the most delicate physics in the program | ~2-3 sessions | **High** — this is where subtle bugs hide; budget for a slower, more heavily-instrumented validation pass than earlier phases |
 | 5 | End-to-end: full C++ binary reproduces the 10 000-step reference run within the established statistical error, 3x clean | ~1 session | Gate, not new code |
 | 6 (stretch) | Mie/FDR potentials, other ensembles, packaging/installer for non-CLI users | Not scoped | — |
@@ -52,15 +52,21 @@ Total realistic estimate: **8-12 sessions** of focused work for phases 0-5, assu
 
 ```cmake
 cmake_minimum_required(VERSION 3.24)
-project(GromacsMexicanoCpp LANGUAGES CXX CUDA)
 
-set(CMAKE_CXX_STANDARD 17)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
-
+# MUST be set before project(... LANGUAGES CUDA) — enable_language(CUDA)
+# (which project() triggers) populates CMAKE_CUDA_ARCHITECTURES from the
+# compiler default immediately, so an `if(NOT DEFINED ...)` guard placed
+# after project() is always false and this override silently never
+# applies (found in final review of Phase 0: the build was shipping an
+# sm_75-only cubin, running on the 5070 Ti purely via PTX JIT).
 if(NOT DEFINED CMAKE_CUDA_ARCHITECTURES)
   set(CMAKE_CUDA_ARCHITECTURES 120)  # RTX 5070 Ti (Blackwell) on CT 901
 endif()
 
+project(GromacsMexicanoCpp LANGUAGES CXX CUDA)
+
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CUDA_STANDARD 17)
 set(CMAKE_CUDA_STANDARD_REQUIRED ON)
 
