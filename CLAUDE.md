@@ -43,7 +43,7 @@ Jarvis/
 │   ├── Claude Strava/     ← Agente entrenador conectado a Strava para carrera de 60 km en bici
 │   └── GromacsMexicano/   ← Optimización + paralelización GPU de un código de DM tipo GROMACS
 ├── 04 Reviews/            ← Monthly, Quarterly, Yearly, Weekly Reviews
-├── 05 Skills/             ← brain-setup, new-project, weekly-update
+├── 05 Skills/             ← brain-setup, new-project, new-dev-project, proxmox, weekly-update
 ```
 
 
