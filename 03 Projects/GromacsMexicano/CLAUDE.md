@@ -75,10 +75,11 @@ El código y la GPU **NO** viven en `claude-dev`. Viven en otro contenedor:
 
 ## Current Status
 
-> **Last updated:** 2026-09-04
-> **Status:** Copia de trabajo con git lista en CT 901. Cambio #1 (release `-O3 -march=native`) **validado y commiteado** (`c698cc7`): +27.7% wall time (3:00.14 → 2:10.10), física dentro de 1σ. Cambio #2 (buffers GPU persistentes) **intentado y revertido** — no dio mejora medible y produjo un crash no determinista (ver `07 Iteration Logs/(C) 2026-09-04 Intento fallido - buffers GPU persistentes.md`). El repo está limpio en `c698cc7`.
-> **Siguiente paso recomendado:** perfilar con `nsys`/`ncu` antes de seguir optimizando a ciegas — no se sabe con certeza dónde se va el tiempo real (la hipótesis de malloc/free no se confirmó con datos).
-> **Nota sobre agentes en background:** un subagente autónomo se usó para el cambio #2 y no entregó nada usable en ~30 min (sin commits, pruebas con parámetros incorrectos). Para este proyecto, el trabajo de CUDA/Fortran con validación física estricta requiere supervisión directa paso a paso, no delegación ciega — ajustar expectativas de multiagente en consecuencia.
+> **Last updated:** 2026-09-04 (tarde)
+> **Status:** Copia de trabajo con git lista en CT 901, en `c698cc7` (release `-O3`, +27.7% vs. debug, física validada). Cambio #2 original (buffers persistentes) intentado y revertido — no ayudaba y crasheaba.
+> **Profiling real hecho (`nsys`)** — ver `01 Analisis/(C) 2026-09-04 Profiling real (nsys) - donde se va el tiempo.md`. Hallazgo clave: el malloc/free era solo 9.2% del tiempo de API, **no el ~80% que se asumía**. El tiempo real está en: `kernel_fzas_lj_st` (47.3% del tiempo GPU), Ewald/`KWALD` (39.8%), y `construir_pares`/lista de vecinos (12.7%) — los tres kernels ya identificados como caros, pero ahora se sabe que el kernel **en sí** es ineficiente (atomicAdd global, `pow()`), no solo la gestión de memoria alrededor.
+> **Plan re-priorizado** (tabla completa en el doc de profiling): (1) reducción por bloque para atomicAdd de energía/virial, (2) kernel por átomo-i sin atomicAdd de fuerza, (3) subir arreglos constantes (`iitipo`/`carga`/`sigma`/`eps`) una sola vez, (4) revisar `construir_pares`, (5) `pow()`→multiplicación, (6) OpenMP en CPU (aún sin tocar, el bucle sigue en 1 core).
+> **Nota sobre agentes en background:** un subagente autónomo se usó para el cambio de buffers y no entregó nada usable en ~30 min real (sin commits, parámetros de prueba incorrectos) — se mató. Trabajo de CUDA/Fortran con validación física estricta requiere supervisión directa paso a paso en este proyecto.
 
 <!-- TODO: Confirmar con José si quiere que el acceso SSH a CT 901 sea directo (agregar llave a alejandre@901) o siempre vía el host Proxmox -->
 <!-- TODO: Confirmar ensamble/caso de prueba canónico para benchmarks (el actual: agua + NaCl, NPT) -->
