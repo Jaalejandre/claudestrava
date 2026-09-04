@@ -2,6 +2,8 @@
 
 Create a new project inside `03 Projects/` by interviewing the user, then scaffolding the folder structure, CLAUDE.md, and COMMANDS.md.
 
+> **Antes de empezar:** si el proyecto implica escribir/mantener código (apps, scripts, APIs, automatizaciones), usa la skill **`new-dev-project.md`** en su lugar — corre esta misma entrevista pero además provisiona el trabajo en el contenedor `claude-dev` y pregunta si usar Ruflo/OmniRoute. Si no está claro, pregunta directo: "¿este proyecto implica programar?"
+
 ## How It Works
 
 1. Duplicate `03 Projects/(PROJECT TEMPLATE)/` into a new folder (this preserves `.obsidian` config and plugins)
