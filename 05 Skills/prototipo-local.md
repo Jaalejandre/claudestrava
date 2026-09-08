@@ -1,11 +1,12 @@
 # Skill: Prototipo local (agente Ollama en el server)
 
-Generar prototipos web simples usando un modelo local en el servidor, con Claude como orquestador/revisor. Barato, local, privado. Ahorra cuota de Claude en trabajo desechable.
+Generar prototipos web simples usando un modelo local en el servidor, donde **EL MODELO LOCAL HACE TODO**: genera, prueba, encuentra sus errores y se corrige a sí mismo. Claude solo escrible el spec y reporta el resultado. Barato, local, privado. Esta skill también sirve para **medir la capacidad real del modelo local** de completar una tarea de principio a fin (DRIVER: iteración por errores, log de aprendizaje).
 
 ## Cuándo usar
 
 - El usuario pide un **prototipo simple**: landing page, app chica, demo CRUD, mockup, componente aislado, script de utilidad.
 - La tarea NO necesita corrección sutil ni decisiones de arquitectura. Si sí → hazlo tú con Claude directo, no delegues.
+- Ideal cuando el usuario quiere que el modelo local demuestre autonomía total (generar + testear + arreglar).
 
 ## Infraestructura
 
@@ -13,38 +14,52 @@ Generar prototipos web simples usando un modelo local en el servidor, con Claude
 |---|---|
 | Modelo | **Ollama en CT 103** (`192.168.0.99:11434`), GPU RTX 5070 Ti. Modelos en `nvme-fast` (`/opt/ollama-models`). |
 | Modelos disponibles | `qwen2.5-coder:14b` (por defecto, mejor para código), `gpt-oss:latest` (20B, razonamiento), `gemma3:latest` |
-| Endpoint | **Usar `http://192.168.0.99:11434/api/chat`** (nativo). El `/v1/chat/completions` (OpenAI-compat) **ignora `options.num_ctx` y trunca el contexto** → el modelo alucina. Para tareas con mucho contexto (analizar un repo), siempre `/api/chat` con `options.num_ctx` explícito. |
-| Modelos en `/opt/ollama-models` (nvme-fast) | `OLLAMA_MODELS` override vía drop-in de systemd en CT 103. |
-| También vía OmniRoute | `http://192.168.0.64:20128/v1` con modelo `ollama/qwen2.5-coder:14b` (key `sk-784af7b27f4f9ca0-3cf66f-a8d20cce`) — solo para prompts cortos. |
+| Endpoint | **Usar `http://192.168.0.99:11434/api/chat`** (nativo). El `/v1/chat/completions` (OpenAI-compat) **ignora `options.num_ctx` y trunca el contexto** → el modelo alucina. Para tareas con mucho contexto, siempre `/api/chat` con `options.num_ctx` explícito. |
+| **Harness agéntico** | `/project/prototipos/harness.py` en CT 109 — el cerebro del loop. Ver "El patrón" abajo. |
+| **Log de aprendizaje** | `/project/prototipos/error_log.json` — errores que el modelo cometió y corrigió. Se inyectan como "lecciones" en cada prompt nuevo → el modelo **aprende de sus errores** entre proyectos. |
+| Venv compartido | `/project/prototipos/.venv-harness/` (fastapi + uvicorn) para proyectos sin venv propio. |
 | Workspace del código | **CT 109** `/project/prototipos/<nombre>/` |
 | Notas / specs | `03 Projects/Prototipos/<nombre>/` en el vault |
 
-> **opencode** está instalado en CT 109 pero **NO se usa** para esto: su loop agéntico es poco fiable con modelos locales de 14–20B (emite tool-calls como texto, se cuelga). El patrón fiable es orquestación directa (abajo).
+> **opencode** está instalado en CT 109 pero **NO se usa** para esto: su loop agéntico emite tool-calls como texto y se cuelga con modelos 14–20B. El loop fiable es **harness.py**: sincrónico, contexto de texto plano, sin tool-calls — probado el 2026-09-08 (genera, testea rutas reales, corrige en 1–6 iteraciones).
 
-## El patrón (Claude orquesta)
+## El patrón (Ollama resuelve todo — Claude solo reporta)
 
-1. **Spec.** Claude escribe `03 Projects/Prototipos/<nombre>/(C) spec.md`: qué es, stack, archivos esperados, criterio de "funciona".
-2. **Generar.** Claude llama al modelo por `/api/chat` (una llamada = todos los archivos):
-   - **Generar código:** `qwen2.5-coder:14b`, system prompt "Responde SOLO con los archivos, cada uno como `=== ruta ===` … `=== FIN ===`, sin explicaciones".
-   - **Analizar/documentar un repo:** `gpt-oss:latest`, `options.num_ctx` = tokens fuente × 1.5 (ej. 40960 para ~66 KB). Volcar la fuente a `/tmp/*.txt` en CT 109 y construir el payload con un script Python (`json.dumps`), no con comillas en SSH.
-   - `temperature: 0.2–0.3`, `stream: false`, timeout 900s. Correr con `nohup ... < /dev/null &` y esperar con un `until ! kill -0 PID`.
-3. **Escribir.** Claude parsea los bloques `=== ruta ===` … `=== FIN ===` y escribe los archivos en `/project/prototipos/<nombre>/` por SSH.
-4. **Revisar.** Claude LEE cada archivo generado. Verifica sintaxis, que haga lo del spec, que no tenga placeholders (`/path/to/...`, `TODO`, `...`). **Nunca dar por bueno sin revisar** — el modelo local se equivoca en silencio.
-5. **Probar.** Servir y hacer `curl` / revisar. Para servir sin colgar el SSH:
-   ```bash
-   ssh root@192.168.0.64 "systemd-run --unit=proto-<nombre> --working-directory=/project/prototipos/<nombre> python3 -m http.server <puerto> --bind 0.0.0.0"
-   # parar: ssh root@192.168.0.64 "systemctl stop proto-<nombre>"
+**El harness hace el ciclo completo sin intervención:**
+
+```bash
+# En CT 109:
+python3 /project/prototipos/harness.py "<ruta-spec.md>" /project/prototipos/<nombre> <puerto 8850-8899>
+```
+
+1. **Spec.** Claude escribe `03 Projects/Prototipos/<nombre>/(C) spec.md`: qué es, stack, archivos esperados, criterio de "funciona". Este es el ÚNICO input humano/Claude.
+2. **Generar.** El harness pide a Ollama todos los archivos en una llamada (`=== ruta === … === FIN ===`, `temperature 0.3`, `num_ctx 32768`, timeout 950s).
+3. **Escribir.** El harness parsea los bloques (tolera rutas absolutas, fences, `ruta` literal) y los escribe en `/project/prototipos/<nombre>/`.
+4. **Testear (el harness NUNCA se salta esto).** Corre solo:
+   - `py_compile` de `app.py`
+   - fences de markdown en archivos de código
+   - que todos los `TemplateResponse("x.html")` apunten a templates que existen
+   - helpers invocados pero sin definir (heurística `find_undefined_names`)
+   - **probes HTTP reales**: levanta uvicorn y hace GET/POST a TODAS las rutas detectadas en `app.py`, verificando 200 (y `BEGIN:VCALENDAR` en rutas `.ics`; rutas dinámicas `{apartamento}` usan la primera key de `data/calendar_sources.json`).
+5. **Corregir.** Si algo falla, el harness manda al modelo el error real + los archivos actuales + el spec + las **lecciones del error_log.json**. El modelo devuelve SOLO los archivos corregidos. Repite hasta 6 iteraciones.
+6. **Entregar.** Con todos los chequeos verdes, el harness levanta el servicio con `systemd-run --unit=proto-<nombre>` e imprime:
    ```
-   Acceso LAN: `http://192.168.0.64:<puerto>`. Puertos sugeridos: 8850–8899.
-6. **Iterar.** Para arreglos, mandar al modelo el archivo actual + la instrucción puntual, pedir el archivo completo de vuelta. No conversación larga: prompts cerrados.
-7. **Log.** Breve entrada en `03 Projects/Prototipos/<nombre>/(C) log.md`: qué se pidió, qué modelo, qué falló, estado.
+   ✅ PROTOTIPO <nombre> LISTO
+      URL: http://192.168.0.64:<puerto>/
+      Iteraciones: N | Errores corregidos: M
+   ```
+7. **Aprender.** Cada fallo que el modelo corrige se registra en `error_log.json` (`{fecha, proyecto, error, fix, resuelto}`). Los próximos proyectos reciben las últimas 15 lecciones en el system prompt → evita repetirlos.
+
+**Si se agotan las 6 iteraciones** → el harness imprime `❌ OLLAMA NO PUDO COMPLETARLO` + el último error. Claude lo reporta TAL CUAL. **Claude NO toca el código** — esa es la regla de esta skill. Si el usuario quiere que Claude sí lo arregle, se sale del flujo (cambio explícito de modo).
 
 ## Reglas
 
-- **Antes de generar, verificar que la GPU esté libre de GromacsMexicano.** `qwen-coder` (9 GB) + un benchmark de Gromacs no caben juntos en 16 GB. Chequear: `ssh root@192.168.0.52 "nvidia-smi --query-gpu=memory.used --format=csv,noheader"` — si hay >6 GB en uso o CT 901 tiene un `dm_mx` corriendo, esperar o avisar al usuario.
-- **Claude siempre revisa antes de entregar.** El punto ciego del usuario son los bucles de errores; código local sin revisar los dispara.
+- **Verificar GPU libre antes de lanzar** (`pve-status` / `qct 103`): qwen-coder (9 GB) + un benchmark de Gromacs no caben en la RTX 5070 Ti.
+- **Nunca saltar el harness.** El loop manual paralelo (Claude escribiendo/leyendo archivos) solo para inspección, no para sustituirlo.
+- **Con datos viejos en el proyecto:** tolerar formato previo (loaders con default), como ya hace `load_sources`.
 - **Solo prototipos.** Si crece a algo real → se promueve a proyecto propio con New Dev Project y pasa a Claude.
-- Prototipos son **desechables**: `/project/prototipos/` no es sagrado. El vault solo guarda spec + log, no el código (a menos que el usuario lo pida).
+- Prototipos son **desechables**: `/project/prototipos/` no es sagrado. El vault solo guarda spec + log.
+- **El error_log.json es sagrado** — es la memoria del modelo local. No borrarlo (solo reemplazarlo por `[]` si los errores fueron bugs del harness, no del modelo).
 
 ## Modelo por rol
 
@@ -53,3 +68,14 @@ Generar prototipos web simples usando un modelo local en el servidor, con Claude
 | HTML/CSS/JS, componentes, CRUD | `qwen2.5-coder:14b` |
 | Lógica que necesita razonar un poco, algoritmos | `gpt-oss:latest` |
 | Respuestas rápidas triviales | `gemma3:latest` |
+
+## Entrega al usuario (obligatorio al terminar)
+
+Al completar el prototipo, **siempre dar la URL de acceso** (el harness la imprime, solo relayar):
+
+```
+✅ Prototipo <nombre> listo
+🔗 http://192.168.0.64:<puerto>/
+```
+
+Los puertos viven en rango **8850–8899**. El servicio corre con `systemd-run --unit=proto-<nombre>` y sobrevive al cierre del SSH. Para pararlo: `ssh root@192.168.0.52 "pct exec 109 -- systemctl stop proto-<nombre>"`.
