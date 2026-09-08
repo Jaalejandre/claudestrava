@@ -1,6 +1,6 @@
 ---
 tipo: referencia-infra
-actualizado: 2026-09-07
+actualizado: 2026-09-08
 fuente: barrido en vivo por SSH (ssh root@192.168.0.52)
 ---
 
@@ -14,7 +14,7 @@ Inventario completo del Proxmox VE personal y de qué usa cada proyecto. Complem
 | ---------- | ------------------------------------------------------------------------------------------------- |
 | Nodo       | `pve` — Proxmox VE **9.1.1**, kernel 6.17.2-1-pve, standalone (sin cluster, sin HA)               |
 | CPU        | Intel **i5-14600K** — 14 núcleos / 20 hilos                                                       |
-| RAM        | **31 GB** (~11 GB en uso) + **8 GB swap (4.4 GB en uso ⚠️)** — hay presión de memoria, ver notas  |
+| RAM        | **31 GB** (~17 GB en uso) + **8 GB swap (0 B en uso)** — `vm.swappiness=10` y límites right-sizeados 2026-09-08 (ver [[#Optimización de memoria 2026-09-08]]) |
 | Disco raíz | `/dev/mapper/pve-root` 94 GB, 20% usado                                                           |
 | GPU        | **NVIDIA RTX 5070 Ti 16 GB** (driver 580.105.08) — compartida por passthrough a CT 103, 109 y 901 |
 | Red        | bridge único `vmbr0` sobre `nic0`, `192.168.0.52/24`, gw `192.168.0.1`. Wi-Fi `wlp4s0` DOWN.      |
@@ -58,15 +58,15 @@ Todos con `onboot: 1`. IP `.x` = `192.168.0.x`.
 | 107 | docker | .61 | 2 / 2 GB / 16 GB | **Portainer CE** :9443 (+ :8000 edge) — gestión de Docker |
 | 108 | cloudflared | .12 | 1 / 512 MB / 2 GB | **Cloudflare Tunnel** (por token) — expone `*.satanzote.me` a internet |
 | 110 | n8n | .13 | 2 / 2 GB | **n8n** :5678 (automatización de workflows). Detectado 2026-09-08 por el chequeo diario. |
-| 109 | **claude-dev** | **.64** | 4 / 10 GB / 60 GB | **el nodo de IA** — ver detalle abajo. **usa GPU** |
+| 109 | **claude-dev** | **.64** | 4 / 6 GB / 60 GB | **el nodo de IA** — ver detalle abajo. **usa GPU** |
 | 111 | apps-prod | .20 | 4 / 4 GB / 40 GB | Docker: `mundial-app`+`mundial-db` (Mundial prod :8000), `nextcloud` :8088 (+redis+mariadb), `guacamole` :8090 (+guacd), `mint-portal` :5010, `open-webui` :3000, `portainer-agent`. Nativo: gunicorn :8085, `qr-counter` |
 | 112 | app-dev | .21 | 2 / 2 GB / 20 GB | Docker: `mundial-app` dev :8000 (+db), `airbnb-dashboard` :8090, `portainer-agent`. Nativo: gunicorn :8086, `gpu-top` (http :8095/:8091), `qr-counter-dev` |
 | 113 | rclone | .32 | 1 / 2 GB / 2 GB | **rclone-web** :3000 — sync a nube; monta `/mnt/backups` |
-| 114 | vaultwarden | .30 | 4 / 6 GB / 20 GB | **Vaultwarden** :8000 (`vault.satanzote.me`) — gestor de contraseñas |
-| 115 | debmediav2 | .164 | 10 / 12 GB / 60 GB | **stack de media** — ver detalle abajo; monta `/mnt/media` |
+| 114 | vaultwarden | .30 | 4 / 2 GB / 20 GB | **Vaultwarden** :8000 (`vault.satanzote.me`) — gestor de contraseñas |
+| 115 | debmediav2 | .164 | 10 / 6 GB / 60 GB | **stack de media** — ver detalle abajo; monta `/mnt/media` |
 | 116 | ntfy | .179 | 1 / 512 MB / 2 GB | **ntfy** :80 — notificaciones push self-hosted |
 | 400 | medinotes | .132 | 2 / 4 GB / 40 GB | Docker: `medinotes` (nginx :80/:443, backend :8000, postgres, redis) — SaaS de notas médicas |
-| 901 | `ubuntu` | **.230** | **12 / 24 GB / 100 GB** | **GromacsMexicano** — ver detalle abajo. **usa GPU**. tag `lxgpu` |
+| 901 | `ubuntu` | **.230** | **12 / 12 GB / 100 GB** | **GromacsMexicano** — ver detalle abajo. **usa GPU**. tag `lxgpu` |
 
 #### CT 109 `claude-dev` (.64) — nodo de IA
 
@@ -103,28 +103,28 @@ Plex `:32400`, Jellyseerr `:5055` (`pedirpeliculas.satanzote.me`), Sonarr `:8989
 | 100 | nginxproxymanager | ~0% | 0.1 / 2 GB | 2.3 / 7.8 GB |
 | 101 | debian | ~0% | 0.1 / 0.5 GB | 1.7 / 1.9 GB (lleno) |
 | 102 | uptimekuma | ~0% | 0.1 / 1 GB | 2.3 / 3.9 GB |
-| 103 | openwebui | ~0% | 0.4 / 8 GB | **45.5 / 48.9 GB ⚠️ 93%** |
+| 103 | openwebui | ~0% | 3.2 / 8 GB | **45.5 / 48.9 GB ⚠️ 93%** |
 | 104 | adguard | ~0% | 0.1 / 0.5 GB | 2.4 / 4.9 GB |
 | 105 | unbound | ~0% | 0.0 / 0.5 GB | 0.8 / 1.9 GB |
 | 106 | haos-17.1 (VM) | ~1% | 2.3 / 4 GB | — |
 | 107 | docker | ~0% | 0.1 / 2 GB | 1.4 / 15.6 GB |
 | 108 | cloudflared | ~0% | 0.1 / 0.5 GB | 1.0 / 1.9 GB |
-| 109 | claude-dev | ~0% | 1.2 / 10 GB | 24.6 / 58.9 GB |
+| 109 | claude-dev | ~0% | 2.5 / 6 GB | 24.6 / 58.9 GB |
 | 111 | apps-prod | ~0% | 0.9 / 4 GB | 17.3 / 39.2 GB |
 | 112 | app-dev | ~1% | 0.2 / 2 GB | 3.0 / 19.5 GB |
 | 113 | rclone | ~0% | 0.0 / 2 GB | 1.2 / 1.9 GB (lleno) |
-| 114 | vaultwarden | ~0% | 0.0 / 6 GB | 3.5 / 19.5 GB |
-| 115 | debmediav2 | ~1% | 2.2 / 12 GB | **50.7 / 58.8 GB ⚠️ 86%** |
+| 114 | vaultwarden | ~0% | 0.1 / 2 GB | 3.5 / 19.5 GB |
+| 115 | debmediav2 | ~0% | 4.7 / 6 GB | **50.7 / 58.8 GB ⚠️ 86%** |
 | 116 | ntfy | ~0% | 0.0 / 0.5 GB | 1.0 / 1.9 GB |
 | 200 | debian-brain (VM) | ~0% | 1.2 / 4 GB | — |
 | 400 | medinotes | ~1% | 0.1 / 4 GB | 7.1 / 39.1 GB |
-| 901 | ubuntu | ~0% | 0.3 / 24 GB | 26.6 / 97.9 GB |
+| 901 | ubuntu | ~0% | 0.5 / 12 GB | 26.6 / 97.9 GB |
 
-**RAM: uso real total ≈ 9.6 GB** · asignada 87.5 GB · host físico 31 GB. **GPU: 0 procesos activos** ahora mismo (Ollama carga bajo demanda; CT 109 y 901 tienen el passthrough pero no lo están usando).
+**RAM: uso real total ≈ 12 GB** · asignada ~58 GB · host físico 31 GB. **GPU: 0 procesos activos** ahora mismo (Ollama carga bajo demanda; CT 109 y 901 tienen el passthrough pero no lo están usando).
 
 ### Lectura
 
-- **El sobrecompromiso de RAM NO es un problema hoy** — corregí la nota anterior. Con todo idle se usan ~10 GB de 31. El swap (4.4 GB) viene de un pico pasado (build de GromacsMexicano, transcoding, o carga de modelo), no de presión sostenida. El riesgo real solo aparece si **coinciden** GromacsMexicano a full (puede pedir varios GB) + Plex transcodificando + un modelo grande en Ollama. Poco probable, pero por eso el `maxmem` de 24 GB en CT 901 conviene bajarlo a ~12 GB (nunca ha pasado de 0.3 GB idle; los picos de MD son de CPU/GPU, no de RAM masiva).
+- **El sobrecompromiso de RAM estaba controlándose con swap proactivo** — el 2026-09-08 se resolvió: `vm.swappiness=60 → 10`, swap drenado a 0, y 5 CTs right-sizeados (~87 GB → ~58 GB asignados). CT 103 se revertió a 8 GB el mismo día (carga de `qwen2.5-coder:14b`). Ver [[#Optimización de memoria 2026-09-08]]. Vigilar CT 115 (4.7/6 GB): si pega su límite, subir o mover el servicio.
 - **Discos que se van a llenar pronto** ⚠️: CT 103 openwebui (93%, los modelos de Ollama), CT 115 media (86%). CT 101 y CT 113 ya están al 100% de su disco raíz de 1.9 GB (funcionan pero sin margen).
 - **`nvme-fast` (245 GB, 3% usado)** sigue casi vacío — es el lugar obvio para mover el disco de CT 103 (modelos) o dar scratch a CT 901.
 
@@ -223,3 +223,21 @@ Claude Strava ──── rutina en la nube de Claude (no usa el server) + repo
 - **CT 901 `maxmem` 24 GB → bajar a ~12 GB** (uso real 0.3 GB idle; los picos de MD son CPU/GPU).
 - **GPU RTX 5070 Ti** compartida a 3 CTs sin particionar. Idle ahora. GromacsMexicano ya verifica `nvidia-smi` libre antes de medir; si se quita el passthrough de CT 109 (redundancia #5) solo compiten 103 y 901.
 - Sin HA ni replicación: si muere `local-lvm` se pierden todos los guests entre backups. El `vzdump` 21:00 → `backups` (3.8 TB) + `rclone` offsite (CT 113) es la única red.
+
+## Optimización de memoria 2026-09-08
+
+Aplicado en vivo por SSH (sin downtime, sin reinicios) para resolver swap alto (4.4 / 8 GB) y sobre-asignación de RAM (~87 GB asignados en 31 GB físicos).
+
+| Cambio | Valor |
+|---|---|
+| `vm.swappiness` | 60 (default) → **10**, persistido en `/etc/sysctl.d/99-swappiness.conf` |
+| Swap drenado | `swapoff -a && swapon -a` → **0 B** (estaba 4.4 GB viciado, sin thrashing activo) |
+| CT 103 openwebui | 8 GB → 4 GB → **8 GB** (revertido el mismo día: cargar `qwen2.5-coder:14b` de 8.4 GiB necesita RAM; con 4 GB quedaba en 805 MB libres y dependía 100% de VRAM) |
+| CT 109 claude-dev | 10 GB → **6 GB** (usual ~2.5 GB) |
+| CT 114 vaultwarden | 6 GB → **2 GB** (usa ~0.1 GB) |
+| CT 115 debmediav2 | 12 GB → **6 GB** (usa ~4.7 GB — monitorear, va justo) |
+| CT 901 ubuntu | 24 GB → **12 GB** (usa ~0.5 GB idle) |
+
+Asignación total: ~87 GB → ~58 GB (CT 103 revertido a 8 GB el mismo día por la carga de `qwen2.5-coder:14b`). Aplicado con `sysctl -w` y `pct set` (cgroup en vivo). Con swappiness 10 el kernel ya no envía páginas a swap proactivamente si hay RAM disponible; si un CT pega su límite se niega memoria dentro del CT (potencial OOM interno) en vez de llenar swap global.
+
+**Seguimiento:** vigilar CT 115 (usa 4.7/6 GB tras el right-size). Si pega el tope, subir límite o mover el servicio a otro CT. CT 103 quedó en 8 GB (necesario para cargar `qwen2.5-coder:14b`).

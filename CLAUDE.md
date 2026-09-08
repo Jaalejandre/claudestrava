@@ -42,6 +42,12 @@ La directiva principal: optimizar código científico.
 - **Notificaciones** — Telegram (bridge en CT 109, `notify_telegram.sh` en CT 901) para cosas de proyectos; ntfy (CT 116) para alertas de sistema. No mezclar.
 - **Agente local para prototipos** — Ollama en CT 103 (GPU, modelos en `nvme-fast`): `qwen2.5-coder:14b` + `gpt-oss:latest`. Para prototipos web simples y desechables, Claude orquesta y revisa, el modelo local genera. Skill [[prototipo-local.md]], carpeta `03 Projects/Prototipos/`.
 
+**Protocolo de consulta al server (no quemar tokens):**
+- Estado histórico/rutina → leer `00 Notes/Servidor Proxmox/Chequeos Diarios/` (ya escrito por el timer, costo ~0).
+- Estado en vivo del host → `ssh root@192.168.0.52 /usr/local/sbin/pve-status` (una línea compacta).
+- Estado de un CT/VM → `ssh root@192.168.0.52 /usr/local/sbin/qct <id>` (una línea: RAM/limit, swap, top CPU, GPU).
+- **Nunca** mandar outputs crudos (`free`, `ps`, `find`, `journalctl` completos): filtrar/compactar en el servidor antes de que viaje. Batch de consultas en una sola conexión (`&&`).
+
 
 ## Folder Structure
 
