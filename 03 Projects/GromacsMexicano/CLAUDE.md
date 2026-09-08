@@ -22,7 +22,7 @@ El código y la GPU **NO** viven en `claude-dev`. Viven en otro contenedor:
 
 | Dato | Valor |
 |---|---|
-| Contenedor | CT **901** `ubuntu` en Proxmox (`192.168.0.52`) |
+| Contenedor | CT **901** `ubuntu` en Proxmox (`192.168.0.52`) — inventario completo del server en [[(C) Mapa del servidor pve]] / skill [[proxmox.md]] |
 | IP (DHCP) | `192.168.0.230` — verificar con `ssh root@192.168.0.52 "pct exec 901 -- hostname -I"` |
 | Usuario del código | `alejandre` (home `/home/alejandre/`) |
 | GPU | NVIDIA RTX 5070 Ti (Blackwell, `sm_120`), CUDA disponible en el PATH de `alejandre` |
