@@ -38,7 +38,7 @@ La directiva principal: optimizar código científico.
 - **El vault vive físicamente en el contenedor `claude-dev` (CT 109)** del servidor Proxmox (`192.168.0.52`), en `/root/JarvisVault`, servido por Samba y montado en la Mac (`/Volumes/JarvisVault` / `~/JarvisVault`). Obsidian + Claudian apuntan al montaje, no a una copia local.
 - **OmniRoute** — gateway LLM en CT 109 `:20128` (systemd, siempre encendido), más una instancia local en la Mac. Gestión de tokens y providers. Todo acceso a LLM debería pasar por aquí.
 - **Servidor Proxmox** — skill [[proxmox.md]], inventario completo en [[(C) Mapa del servidor pve]], energía/UPS en [[UPS y energía]]. Rutina diaria en CT 109 escribe chequeos en `00 Notes/Servidor Proxmox/Chequeos Diarios/` y alerta por **ntfy** (topic `pve-alerts`).
-- **git** — solo `03 Projects/` está en el repo `git@github.com:Jaalejandre/claudestrava.git` (privado). ⚠️ El resto del vault (`00 Notes/`, `05 Skills/`, `CLAUDE.md`, `GOALS.md`) **no está versionado todavía**, y el branch local `main` está divergido del remoto — pendiente de arreglar.
+- **git** — **todo el vault** está en el repo `git@github.com:Jaalejandre/claudestrava.git` (privado; nombre pendiente de renombrar a algo tipo `satanzote-vault`). Se ignora config de Obsidian, estado de herramientas y node_modules. **Respaldo automático:** timer `vault-backup.timer` en CT 109, diario 23:30 CDMX → `git add -A` + commit + push (con `pull --rebase` y reintentos; alerta ntfy si falla). La rutina semanal de Claude Strava también hace push al mismo repo los domingos.
 - **Notificaciones** — Telegram (bridge en CT 109, `notify_telegram.sh` en CT 901) para cosas de proyectos; ntfy (CT 116) para alertas de sistema. No mezclar.
 
 
