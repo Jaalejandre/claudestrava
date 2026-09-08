@@ -1,3 +1,6 @@
+> [!warning] SUPERSEDIDO 2026-09-07 (misma noche)
+> Ruflo fue **reemplazado por BASE** como capa de memoria del rewrite. Ver [[(C) 2026-09-07 BASE para memoria del rewrite C++.md]]. Ruflo quedó desinstalado de CT 901 (`npm -g`), su estado local borrado (`.claude-flow`, `.swarm`, `.hive-mind`, `.mcp.json`, `ruvector.db`, `claude-flow.config.json`, `memory/`). Commit `6ffd0f8`. La sección "Enrutamiento por OmniRoute" de abajo **sigue vigente** — OmniRoute no cambió, ahora lo consume Claude Code en CT 901 en vez de Ruflo. El resto de este documento es histórico.
+
 # Ruflo — orquestación del rewrite C++ (setup 2026-09-07)
 
 Ruflo (claude-flow v3.38.21) está instalado en **CT 901**, junto al código, para dar **memoria persistente entre sesiones** y **tracking de tareas** al rewrite a C++. Configurado en modo **secuencial** (un agente a la vez), NO swarm paralelo — coherente con el diseño del plan del rewrite ("una subsistema por fase, un commit por subsistema validado").
@@ -49,3 +52,27 @@ Listar: `ruflo memory list --namespace rewrite`
 - Cada comando de Ruflo imprime warnings de `onnxruntime`/`pthread_setaffinity` y a veces "Unable to add response to browser cache" — cosméticos, no rompen nada. Filtrar con `grep -v`.
 - `ruflo task list --all` no muestra las tareas; usar `ruflo task list` a secas.
 - El MCP server (`.mcp.json`) permite que un Claude Code corriendo en CT901 consulte la memoria de Ruflo vía herramientas MCP directamente (sin shell).
+
+---
+
+## Enrutamiento por OmniRoute (gestión de tokens) — 2026-09-07
+
+Ruflo ya no llama a la API de Anthropic directo. Pasa por **OmniRoute** para tener visibilidad de tokens/costo y poder ponerle budget/límites.
+
+| Dato | Valor |
+|---|---|
+| OmniRoute vive en | **claude-dev** (CT 109, `192.168.0.64:20128`), servicio systemd `omniroute` (enable + Restart on-failure), siempre encendido |
+| Binding | `0.0.0.0:20128` con `REQUIRE_API_KEY=true` (LAN de casa, con key obligatoria) |
+| Dashboard | `http://192.168.0.64:20128` — user `admin`, pass `11deabril5` |
+| API key de Ruflo | `sk-784af7b27f4f9ca0-517c0c-b8dff9fe` (nombre `ruflo-rewrite`) |
+| Ruflo provider `anthropic` | endpoint `http://192.168.0.64:20128/v1`, model `cc/claude-sonnet-4-5-20250929` |
+| Backend real | proveedor `cc` = **suscripción Claude Code (OAuth)** — usa cuota de suscripción, no créditos de API pay-per-token |
+| OmniRoute de la Mac | **decomisionada** (LaunchAgent → `.disabled`, config conservada en `~/.omniroute/`) |
+
+**PENDIENTE (requiere navegador de José):** el OAuth de Claude Code en la OmniRoute de claude-dev es del 3-sep y caducó (da `404 model: Claude Sonnet 5`). Re-autorizar:
+1. Abrir `http://192.168.0.64:20128` en el navegador de la Mac
+2. Login con `admin` / `11deabril5`
+3. Providers → reconectar/re-autorizar **Claude Code (OAuth)**
+4. Verificar: `ssh root@192.168.0.52 "pct exec 901 -- su - alejandre -c 'cd ~/GromacsMexicano && ruflo providers test -p anthropic'"`
+
+Mientras el OAuth no se renueve, los agentes de Ruflo no pueden llamar al LLM.
