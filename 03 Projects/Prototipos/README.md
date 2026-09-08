@@ -18,6 +18,8 @@ Dile a Claude: *"prototipo local de …"* o *"hazme un prototipo de …"*. Claud
 3. revisa todo
 4. lo sirve en un puerto de CT 109 y te pasa el link (`http://192.168.0.64:88xx`)
 
-## Prototipos
+## Trabajos
 
-_(ninguno todavía)_
+| Fecha | Qué | Modelo | Estado |
+|---|---|---|---|
+| 2026-09-08 | [[(C) analisis y mejoras (revisado)\|Análisis del proyecto airbnb-dashboard]] (CT 112) — documentación + mejoras priorizadas | gpt-oss:latest | ✅ entregado |

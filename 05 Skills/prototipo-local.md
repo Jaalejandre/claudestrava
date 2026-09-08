@@ -13,8 +13,9 @@ Generar prototipos web simples usando un modelo local en el servidor, con Claude
 |---|---|
 | Modelo | **Ollama en CT 103** (`192.168.0.99:11434`), GPU RTX 5070 Ti. Modelos en `nvme-fast` (`/opt/ollama-models`). |
 | Modelos disponibles | `qwen2.5-coder:14b` (por defecto, mejor para código), `gpt-oss:latest` (20B, razonamiento), `gemma3:latest` |
-| Endpoint OpenAI-compat | `http://192.168.0.99:11434/v1/chat/completions` |
-| También vía OmniRoute | `http://192.168.0.64:20128/v1` con modelo `ollama/qwen2.5-coder:14b` (key `sk-784af7b27f4f9ca0-3cf66f-a8d20cce`) |
+| Endpoint | **Usar `http://192.168.0.99:11434/api/chat`** (nativo). El `/v1/chat/completions` (OpenAI-compat) **ignora `options.num_ctx` y trunca el contexto** → el modelo alucina. Para tareas con mucho contexto (analizar un repo), siempre `/api/chat` con `options.num_ctx` explícito. |
+| Modelos en `/opt/ollama-models` (nvme-fast) | `OLLAMA_MODELS` override vía drop-in de systemd en CT 103. |
+| También vía OmniRoute | `http://192.168.0.64:20128/v1` con modelo `ollama/qwen2.5-coder:14b` (key `sk-784af7b27f4f9ca0-3cf66f-a8d20cce`) — solo para prompts cortos. |
 | Workspace del código | **CT 109** `/project/prototipos/<nombre>/` |
 | Notas / specs | `03 Projects/Prototipos/<nombre>/` en el vault |
 
@@ -23,11 +24,10 @@ Generar prototipos web simples usando un modelo local en el servidor, con Claude
 ## El patrón (Claude orquesta)
 
 1. **Spec.** Claude escribe `03 Projects/Prototipos/<nombre>/(C) spec.md`: qué es, stack, archivos esperados, criterio de "funciona".
-2. **Generar.** Claude llama al modelo directo (una llamada = todos los archivos) con este system prompt:
-   > Eres un generador de código. Responde SOLO con los archivos pedidos, cada uno como:
-   > `=== ruta/archivo.ext ===` en su línea, luego el contenido completo, luego `=== FIN ===`.
-   > Sin explicaciones ni markdown extra.
-   - `temperature: 0.3`, `stream: false`, timeout 120s. Payload como archivo `.json` + `curl -d @archivo` (evita el infierno de comillas por SSH).
+2. **Generar.** Claude llama al modelo por `/api/chat` (una llamada = todos los archivos):
+   - **Generar código:** `qwen2.5-coder:14b`, system prompt "Responde SOLO con los archivos, cada uno como `=== ruta ===` … `=== FIN ===`, sin explicaciones".
+   - **Analizar/documentar un repo:** `gpt-oss:latest`, `options.num_ctx` = tokens fuente × 1.5 (ej. 40960 para ~66 KB). Volcar la fuente a `/tmp/*.txt` en CT 109 y construir el payload con un script Python (`json.dumps`), no con comillas en SSH.
+   - `temperature: 0.2–0.3`, `stream: false`, timeout 900s. Correr con `nohup ... < /dev/null &` y esperar con un `until ! kill -0 PID`.
 3. **Escribir.** Claude parsea los bloques `=== ruta ===` … `=== FIN ===` y escribe los archivos en `/project/prototipos/<nombre>/` por SSH.
 4. **Revisar.** Claude LEE cada archivo generado. Verifica sintaxis, que haga lo del spec, que no tenga placeholders (`/path/to/...`, `TODO`, `...`). **Nunca dar por bueno sin revisar** — el modelo local se equivoca en silencio.
 5. **Probar.** Servir y hacer `curl` / revisar. Para servir sin colgar el SSH:
