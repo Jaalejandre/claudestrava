@@ -15,7 +15,7 @@ Archivos que mantiene:
 
 Salida: PASS en stdout con URL, o FAIL con el último error.
 """
-import datetime, json, pathlib, re, subprocess, sys, urllib.request
+import datetime, hashlib, json, pathlib, re, subprocess, sys, urllib.request
 
 OLLAMA = "http://192.168.0.99:11434/api/chat"
 MODEL = "qwen2.5-coder:14b"
@@ -214,6 +214,19 @@ def main():
     spec_text = spec_path.read_text(encoding="utf-8")
     proj.mkdir(parents=True, exist_ok=True)
 
+    def _snapshot():
+        snap = {}
+        for f in sorted(proj.rglob("*")):
+            if f.is_file() and f.suffix in (".py", ".html", ".css"):
+                snap[str(f.relative_to(proj))] = hashlib.sha256(f.read_bytes()).hexdigest()
+        return snap
+
+    baseline = _snapshot() if list(proj.rglob("*.py")) else {}
+    mod = re.search(r"## Archivos modificables\s*\n((?:-\s*[^\n]+\n)+)", spec_text)
+    modificables = {ln.strip()[2:].strip() for ln in (mod.group(1).strip().splitlines() if mod else [])}
+    if modificables:
+        print(f"  [integridad] solo se pueden modificar: {sorted(modificables)}")
+
     print(f"=== HARNESS: {proj.name} | modelo {MODEL} | max {MAX_ITERS} iteraciones ===")
     print(f"=== spec: {spec_path.name} ===")
     lecciones = lecciones_prefijo()
@@ -231,8 +244,9 @@ No explicaciones. No resúmenes. No 'no pude'. Si algo falla, dices dónde falla
     for it in range(1, MAX_ITERS + 1):
         print(f"\n--- Iteración {it}/{MAX_ITERS} ---")
         if it == 1:
-            existing = sorted(proj.rglob("*.py")) + (sorted((proj / "templates").glob("*.html")) if (proj / "templates").exists() else [])
-            existing += sorted((proj / "static").glob("*.css")) if (proj / "static").exists() else []
+            existing = (sorted(proj.rglob("*.css")) if (proj / "static").exists() else [])
+            existing += sorted(proj.rglob("*.html"))
+            existing += sorted(proj.rglob("*.py"))
             files_ctx = []
             for f in existing:
                 files_ctx.append(f"----- INICIO ARCHIVO: {f.relative_to(proj)} -----\n{f.read_text(encoding='utf-8', errors='replace')}\n----- FIN ARCHIVO -----")
@@ -241,7 +255,7 @@ No explicaciones. No resúmenes. No 'no pude'. Si algo falla, dices dónde falla
                         f"ninguna funcionalidad actual (todos los endpoints, templates y datos se respetan). "
                         f"Devuelve SOLO los archivos que cambian, COMPLETOS, en el formato habitual "
                         f"(=== ruta === ... === FIN ===).\n\n"
-                        f"----- CÓDIGO ACTUAL -----\n" + "\n".join(files_ctx)[-18000:] +
+                        f"----- CÓDIGO ACTUAL -----\n" + "\n".join(files_ctx)[-30000:] +
                         f"\n----- FIN CÓDIGO ACTUAL -----\n\n=== SPEC ===\n{spec_text}\n")
             else:
                 user = (f"Genera el prototipo completo siguiendo el spec. Archivos a producir:\n{proj}"
@@ -265,6 +279,16 @@ No explicaciones. No resúmenes. No 'no pude'. Si algo falla, dices dónde falla
 
         write_blocks(blocks, proj)
         current_fails = validate(proj)
+
+        if baseline:
+            snap2 = _snapshot()
+            changed = [k for k in baseline if snap2.get(k) != baseline[k]]
+            fuera = [k for k in changed if modificables and k not in modificables]
+            if fuera:
+                current_fails.append(f"[integridad] se modificaron archivos NO autorizados: {fuera}")
+                for f in fuera:
+                    subprocess.run(["git", "-C", str(proj), "checkout", "--", f], capture_output=True)
+                print(f"  [restaurando] archivos tocados fuera del área permitida: {fuera}")
 
         if current_fails:
             prev_signature = getattr(validate, "_prev", None)
