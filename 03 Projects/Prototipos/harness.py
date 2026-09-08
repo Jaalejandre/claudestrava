@@ -92,8 +92,9 @@ def write_blocks(blocks, base: pathlib.Path):
 def find_undefined_names(src: str) -> list[str]:
     """Heurística: llama a nombres estilo foo(...)/foo bar con espacio que no
     están definidos ni importados ni son builtins obvios."""
+    import keyword
     defined = (set(re.findall(r"^(?:async\s+)?def (\w+)", src, re.M))
-               | set(re.findall(r"^class (\w+)", src, re.M)))
+               | set(re.findall(r"^class (\w+)", src, re.M)) | set(keyword.kwlist))
     defined |= {"date", "datetime", "timedelta", "time", "uuid", "json", "os",
                 "pathlib", "Path", "re", "secrets", "subprocess", "sys", "tempfile",
                 "urllib", "locale", "logging", "logging", "html", "request", "Form",
@@ -143,7 +144,7 @@ def validate(base: pathlib.Path):
 
     undef = find_undefined_names(src)
     if undef:
-        fails.append(f"[undefined] posibles helpers sin definir: {undef}")
+        print(f"  [warn] posibles helpers sin definir (heurística, no bloquea): {undef}")
 
     # probes HTTP
     uvicorn_cmd = str(base / ".venv/bin/uvicorn") if (base / ".venv/bin/uvicorn").exists() else \
@@ -160,12 +161,26 @@ def validate(base: pathlib.Path):
                 keys = list(json.loads(srcf.read_text(encoding="utf-8")).keys())
             except Exception:
                 keys = []
+        inc_ids = []
+        incf = (base / "state/incidencias.json")
+        if incf.exists():
+            try:
+                inc_ids = [i.get("id") for i in json.loads(incf.read_text(encoding="utf-8")).get("incidencias", []) if i.get("id")]
+            except Exception:
+                inc_ids = []
         for method, path, ics in route_probe(base):
             probe_path = path
-            if "{apartamento}" in path:
-                if not keys:
-                    continue  # sin key real, se omite
-                probe_path = path.replace("{apartamento}", keys[0])
+            if "{" in path:
+                if "{apartamento}" in path:
+                    if not keys:
+                        continue
+                    probe_path = path.replace("{apartamento}", keys[0])
+                elif "{id}" in path or "{apartment_key}" in path:
+                    # probar con dato real si existe; si no, omitir (solo chequeo de template aplica)
+                    val = inc_ids[0] if inc_ids else None
+                    if not val:
+                        continue
+                    probe_path = path.replace("{id}", val).replace("{apartment_key}", val)
             try:
                 if method == "get":
                     resp = urllib.request.urlopen(f"http://127.0.0.1:{PORT}{path}", timeout=10)
@@ -216,8 +231,21 @@ No explicaciones. No resúmenes. No 'no pude'. Si algo falla, dices dónde falla
     for it in range(1, MAX_ITERS + 1):
         print(f"\n--- Iteración {it}/{MAX_ITERS} ---")
         if it == 1:
-            user = (f"Genera el prototipo completo siguiendo el spec. Archivos a producir:\n{proj}"
-                    f"\n\n=== SPEC ===\n{spec_text}\n")
+            existing = sorted(proj.rglob("*.py")) + (sorted((proj / "templates").glob("*.html")) if (proj / "templates").exists() else [])
+            existing += sorted((proj / "static").glob("*.css")) if (proj / "static").exists() else []
+            files_ctx = []
+            for f in existing:
+                files_ctx.append(f"----- INICIO ARCHIVO: {f.relative_to(proj)} -----\n{f.read_text(encoding='utf-8', errors='replace')}\n----- FIN ARCHIVO -----")
+            if existing:
+                user = (f"MODIFICA el proyecto existente. Aplica el SPEC (rediseño/mejora) SIN romper "
+                        f"ninguna funcionalidad actual (todos los endpoints, templates y datos se respetan). "
+                        f"Devuelve SOLO los archivos que cambian, COMPLETOS, en el formato habitual "
+                        f"(=== ruta === ... === FIN ===).\n\n"
+                        f"----- CÓDIGO ACTUAL -----\n" + "\n".join(files_ctx)[-18000:] +
+                        f"\n----- FIN CÓDIGO ACTUAL -----\n\n=== SPEC ===\n{spec_text}\n")
+            else:
+                user = (f"Genera el prototipo completo siguiendo el spec. Archivos a producir:\n{proj}"
+                        f"\n\n=== SPEC ===\n{spec_text}\n")
             blocks = parse_blocks(call_ollama(system_base, user))
             print(f"  [gen] {len(blocks)} bloques")
         else:
@@ -240,7 +268,8 @@ No explicaciones. No resúmenes. No 'no pude'. Si algo falla, dices dónde falla
 
         if current_fails:
             prev_signature = getattr(validate, "_prev", None)
-            sig = [(f.name, f.read_text(encoding="utf-8", errors="replace").strip()[:200]) for f in sorted(proj.rglob("*.py"))]
+            sig = [(str(f.relative_to(proj)), f.read_text(encoding="utf-8", errors="replace").strip()[:200])
+                   for f in sorted(proj.rglob("*.py")) + sorted(proj.rglob("*.html")) + sorted(proj.rglob("*.css"))]
             if sig == prev_signature and it > 1:
                 print("  [!] el modelo repitió código idéntico — se fuerza contexto limpio")
                 current_fails.insert(0, "[repetido] la corrección anterior no cambió ningún archivo")

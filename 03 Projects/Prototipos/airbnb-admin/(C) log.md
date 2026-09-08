@@ -3,10 +3,26 @@ tipo: log-prototipo
 fecha: 2026-09-08
 proyecto: airbnb-admin
 modelo: qwen2.5-coder:14b (CT 103)
-estado: ✅ funcionando v2
+estado: ✅ funcionando v3 (rediseño)
 ---
 
-# (C) Log — airbnb-admin v2: inventario + incidencias + bloqueo iCal
+# (C) Log — airbnb-admin
+
+## v3 — Rediseño visual con harness agéntico (2026-09-08)
+
+Con la nueva skill (Ollama hace TODO), el **harness.py** corrió el rediseño completo:
+- **1 iteración** → PASS. qwen2.5-coder:14b generó `style.css` (6.7 KB) + 7 templates rediseñados (paleta moderna, tarjetas, badges, responsive).
+- El harness **encontró 2 bugs reales de v2** que se me escaparon en el review manual:
+  - fences ` ```html ` en 3 templates (se renderizaban como texto en pantalla)
+  - `incidencia_detail.html` referenciado por una ruta pero nunca generado
+- **Hotfix aplicado** (fences + template nuevo) y commit `110c2e4` antes de relanzar.
+- Bugs del harness descubiertos en el camino (3 fixes a la heurística de helpers, guarda anti-repetición, rutas dinámicas `{id}`).
+- Verificación post-harness: navegación completa, POSTs siguen funcionando (303), pages 200.
+- Commit rediseño: `d34fce0`.
+
+## v2 — inventario + incidencias + bloqueo iCal (2026-09-08)
+
+…(ver sección previa)…
 
 ## Qué se pidió
 - **Inventario** por apartamento con mínimos, badges de stock (🔴🟡🟢), historial de compras, patrón "queda X días de stock", y lista de compras programada (`minimo*2 - cantidad`).
