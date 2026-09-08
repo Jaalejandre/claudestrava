@@ -102,3 +102,13 @@ Ejecuto la integración con backup del único archivo diferente:El rebase insist
 
 
 [Timestamp: 2026/09/08 13:59:58]
+
+**user**: puedes cehcar para que sirve el ethernet y como se conecta en mi ups
+[Timestamp: 2026/09/08 14:57:03]
+
+**ai**: 
+
+Tu UPS está documentado en [[UPS y energía]] — es un **CyberPower CP1500AVRLCDa** conectado por **USB** al host Proxmox con NUT. Déjame confirmar qué son exactamente sus puertos RJ45/Ethernet, porque en muchos modelos no son lo que parecen:
+
+Resultados de búsqueda con ruido. Voy directo a la página oficial de CyberPower:
+[Timestamp: 2026/09/08 14:57:03]

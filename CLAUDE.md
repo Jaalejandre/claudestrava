@@ -40,6 +40,7 @@ La directiva principal: optimizar código científico.
 - **Servidor Proxmox** — skill [[proxmox.md]], inventario completo en [[(C) Mapa del servidor pve]], energía/UPS en [[UPS y energía]]. Rutina diaria en CT 109 escribe chequeos en `00 Notes/Servidor Proxmox/Chequeos Diarios/` y alerta por **ntfy** (topic `pve-alerts`).
 - **git** — **todo el vault** está en el repo `git@github.com:Jaalejandre/claudestrava.git` (privado; nombre pendiente de renombrar a algo tipo `satanzote-vault`). Se ignora config de Obsidian, estado de herramientas y node_modules. **Respaldo automático:** timer `vault-backup.timer` en CT 109, diario 23:30 CDMX → `git add -A` + commit + push (con `pull --rebase` y reintentos; alerta ntfy si falla). La rutina semanal de Claude Strava también hace push al mismo repo los domingos.
 - **Notificaciones** — Telegram (bridge en CT 109, `notify_telegram.sh` en CT 901) para cosas de proyectos; ntfy (CT 116) para alertas de sistema. No mezclar.
+- **Agente local para prototipos** — Ollama en CT 103 (GPU, modelos en `nvme-fast`): `qwen2.5-coder:14b` + `gpt-oss:latest`. Para prototipos web simples y desechables, Claude orquesta y revisa, el modelo local genera. Skill [[prototipo-local.md]], carpeta `03 Projects/Prototipos/`.
 
 
 ## Folder Structure

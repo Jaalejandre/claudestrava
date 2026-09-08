@@ -52,7 +52,7 @@ Todos con `onboot: 1`. IP `.x` = `192.168.0.x`.
 | 100 | nginxproxymanager | .109 | 1 / 2 GB / 8 GB | **Nginx Proxy Manager** + openresty — reverse proxy :80 / :81 (admin) / :443 |
 | 101 | debian | .203 | 1 / 512 MB / 2 GB | Docker: `enlinea-saas` (:8091), `satanzote-studio` (nginx :8085) |
 | 102 | uptimekuma | .216 | 1 / 1 GB / 4 GB | **Uptime Kuma** :3001 (monitoreo) |
-| 103 | openwebui | .99 | 4 / 8 GB / 50 GB | **Ollama** :11434 + **Open WebUI** :8080 — **usa GPU** |
+| 103 | openwebui | .99 | 4 / 8 GB / 50 GB | **Ollama** :11434 + **Open WebUI** :8080 — **usa GPU**. Modelos movidos a `nvme-fast` (`mp0` → `/opt/ollama-models`, `OLLAMA_MODELS` override) el 2026-09-08; disco raíz bajó de 97% a 63%. Modelos: `qwen2.5-coder:14b`, `gpt-oss:latest`, `gemma3`. Usado por el skill `prototipo-local.md`. |
 | 104 | adguard | .10 | 1 / 512 MB / 5 GB | **AdGuard Home** — DNS :53 + panel :80 (`adguard.home`) |
 | 105 | unbound | .11 | 1 / 512 MB / 2 GB | **Unbound** — resolver DNS recursivo :5335 (upstream de AdGuard) |
 | 107 | docker | .61 | 2 / 2 GB / 16 GB | **Portainer CE** :9443 (+ :8000 edge) — gestión de Docker |
