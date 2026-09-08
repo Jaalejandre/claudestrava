@@ -32,15 +32,16 @@ Generar prototipos web simples usando un modelo local en el servidor, donde **EL
 python3 /project/prototipos/harness.py "<ruta-spec.md>" /project/prototipos/<nombre> <puerto 8850-8899>
 ```
 
-1. **Spec.** Claude escribe `03 Projects/Prototipos/<nombre>/(C) spec.md`: qué es, stack, archivos esperados, criterio de "funciona". Este es el ÚNICO input humano/Claude.
-2. **Generar.** El harness pide a Ollama todos los archivos en una llamada (`=== ruta === … === FIN ===`, `temperature 0.3`, `num_ctx 32768`, timeout 950s).
+1. **Spec.** Claude escribe `03 Projects/Prototipos/<nombre>/(C) spec.md`: qué es, stack, archivos esperados, criterio de "funciona". **En proyectos EXISTENTES agregar la sección `## Archivos modificables`** con la lista de archivos que el modelo tiene permitido tocar. Este es el ÚNICO input humano/Claude.
+2. **Generar.** El harness pide a Ollama todos los archivos en una llamada (`=== ruta === … === FIN ===`, `temperature 0.3`, `num_ctx 32768`, timeout 950s). Si el proyecto ya existe, le pasa el código actual (CSS/templates primero, app.py al final) y le pide MODIFICAR sin romper nada.
 3. **Escribir.** El harness parsea los bloques (tolera rutas absolutas, fences, `ruta` literal) y los escribe en `/project/prototipos/<nombre>/`.
 4. **Testear (el harness NUNCA se salta esto).** Corre solo:
    - `py_compile` de `app.py`
    - fences de markdown en archivos de código
    - que todos los `TemplateResponse("x.html")` apunten a templates que existen
-   - helpers invocados pero sin definir (heurística `find_undefined_names`)
-   - **probes HTTP reales**: levanta uvicorn y hace GET/POST a TODAS las rutas detectadas en `app.py`, verificando 200 (y `BEGIN:VCALENDAR` en rutas `.ics`; rutas dinámicas `{apartamento}` usan la primera key de `data/calendar_sources.json`).
+   - helpers invocados pero sin definir (heurística `find_undefined_names` — solo warning)
+   - **probes HTTP reales**: levanta uvicorn y hace GET/POST a TODAS las rutas detectadas en `app.py`, verificando 200 (y `BEGIN:VCALENDAR` en rutas `.ics`; rutas dinámicas `{apartamento}`/`{id}` usan datos reales del proyecto).
+   - **INTEGRIDAD (v7+)**: compara hashes de cada archivo del proyecto contra el baseline inicial; si el spec declaró `## Archivos modificables` y el modelo tocó algo fuera de la lista → FALLA y el harness restaura por git. Esto evita que un "rediseño" borre contenido (lección del v3 de airbnb-admin).
 5. **Corregir.** Si algo falla, el harness manda al modelo el error real + los archivos actuales + el spec + las **lecciones del error_log.json**. El modelo devuelve SOLO los archivos corregidos. Repite hasta 6 iteraciones.
 6. **Entregar.** Con todos los chequeos verdes, el harness levanta el servicio con `systemd-run --unit=proto-<nombre>` e imprime:
    ```
@@ -51,6 +52,10 @@ python3 /project/prototipos/harness.py "<ruta-spec.md>" /project/prototipos/<nom
 7. **Aprender.** Cada fallo que el modelo corrige se registra en `error_log.json` (`{fecha, proyecto, error, fix, resuelto}`). Los próximos proyectos reciben las últimas 15 lecciones en el system prompt → evita repetirlos.
 
 **Si se agotan las 6 iteraciones** → el harness imprime `❌ OLLAMA NO PUDO COMPLETARLO` + el último error. Claude lo reporta TAL CUAL. **Claude NO toca el código** — esa es la regla de esta skill. Si el usuario quiere que Claude sí lo arregle, se sale del flujo (cambio explícito de modo).
+
+**Límite conocido del harness (IMPORTANTE):** valida funcionamiento técnico (compile, rutas, integridad de archivos) pero NO render visual ni calidad de diseño. Un diseño puede "pasar" y verse mal (lección v3: vació templates y respondió 200 en todo). Regla práctica:
+- Para **rediseño / estética**: usar specs **solo-CSS** (`## Archivos modificables: static/style.css`) que estilicen las clases existentes, o revisión visual humana después del PASS.
+- Para **features nuevas**: primar checks HTTP sobre cualquier review de código del modelo.
 
 ## Reglas
 

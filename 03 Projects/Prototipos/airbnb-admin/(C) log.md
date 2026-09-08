@@ -3,58 +3,53 @@ tipo: log-prototipo
 fecha: 2026-09-08
 proyecto: airbnb-admin
 modelo: qwen2.5-coder:14b (CT 103)
-estado: ✅ funcionando v3 (rediseño)
+estado: ✅ funcionando (baseline v2 + hotfixes, commit c79f10d) — rediseño EN PAUSA
 ---
 
 # (C) Log — airbnb-admin
 
-## v3 — Rediseño visual con harness agéntico (2026-09-08)
+## Línea de tiempo de commits (estado actual)
 
-Con la nueva skill (Ollama hace TODO), el **harness.py** corrió el rediseño completo:
-- **1 iteración** → PASS. qwen2.5-coder:14b generó `style.css` (6.7 KB) + 7 templates rediseñados (paleta moderna, tarjetas, badges, responsive).
-- El harness **encontró 2 bugs reales de v2** que se me escaparon en el review manual:
-  - fences ` ```html ` en 3 templates (se renderizaban como texto en pantalla)
-  - `incidencia_detail.html` referenciado por una ruta pero nunca generado
-- **Hotfix aplicado** (fences + template nuevo) y commit `110c2e4` antes de relanzar.
-- Bugs del harness descubiertos en el camino (3 fixes a la heurística de helpers, guarda anti-repetición, rutas dinámicas `{id}`).
-- Verificación post-harness: navegación completa, POSTs siguen funcionando (303), pages 200.
-- Commit rediseño: `d34fce0`.
+| Commit | Qué | Estado |
+|---|---|---|
+| `58f1396` | Copia base de airbnb-dashboard (CT112) | base |
+| `fa8cab3` | **v2**: inventario + incidencias + bloqueo iCal (spec v2) | ✅ entregado |
+| `110c2e4` | **hotfix v2**: quitar fences markdown de 3 templates + crear `incidencia_detail.html` (bugs que encontró el harness) | ✅ aplicado |
+| `d34fce0` | **v3 rediseño visual** (harness, 1 iteración) | ❌ **REGREGIÓN — revertido** |
+| `c79f10d` | **revert v3** + state limpio | ✅ **ESTE ES EL BUENO (actual)** |
 
-## v2 — inventario + incidencias + bloqueo iCal (2026-09-08)
+## ✅ Estado actual (tras revertir la regresión)
 
-…(ver sección previa)…
+- **App 100% funcional v2 + hotfixes.** Servicio `proto-airbnb` corriendo en puerto 8877 → `http://192.168.0.64:8877/`.
+- **Features:** dashboard con estados, limpieza, config iCal, inventario (badges 🔴🟡🟢 + compras), incidencias (prioridad/estado/bloqueo), bloqueos (`/api/bloqueos/<key>.ics`), Telegram.
+- `state/incidencias.json` e `state/inventory.json` = `{}` (limpios).
 
-## Qué se pidió
-- **Inventario** por apartamento con mínimos, badges de stock (🔴🟡🟢), historial de compras, patrón "queda X días de stock", y lista de compras programada (`minimo*2 - cantidad`).
-- **Incidencias** reportables por admin/limpieza (tipo, prioridad, estado abierta/en_proceso/resuelta).
-- **Bloqueo de calendario Airbnb** vía iCal: Airbnb no tiene API pública de hosts, pero sí importa calendarios iCal por URL → la app sirve `/api/bloqueos/<key>.ics`.
+## ❌ Lección v3 — el rediseño de Ollama fue REGRESIÓN (no mejora)
 
-## Flujo seguido (skill prototipo-local)
-1. Spec v2 escrito en vault → `(C) spec v2 - inventario e incidencias.md`
-2. Generación con `qwen2.5-coder:14b` vía `/api/chat` (2 llamadas: app.py 1032 líneas + 4 templates)
-3. Escritura con backup (`backup_v2_*`, luego limpiado)
-4. Revisión manual + 4 rondas de fixes de errores silenciosos del modelo:
-   - `KeyError: incidencias` con JSON vacío `{}` → loaders tolerantes
-   - `NameError: date_range` → helper agregado
-   - `inventory` no pasado al template → contexto completo
-   - Jinja2 `inventory.items` resuelve al método → `items`
-   - `inventario_compras` referenciaba template inexistente → reintegró a `inventario.html`
-   - ICS emitía fechas `2026-09-20` (ISO) → formato básico iCal `20260920`
-   - `bloqueos.html` venía envuelto en fence ```html → limpio
-   - checkbox `bloquea_booking` requerido → `Form(False)`
-5. Validación end-to-end: 15/15 ✓ (7 páginas 200, POSTs, ICS con fechas correctas, banner 🔒, limpieza al resolver)
-6. Servicio con `systemd-run --unit=proto-airbnb` puerto 8877
+- **Qué pasó:** el harness validó "rutas 200 + compile + templates existen" pero el modelo **eliminó 1,132 líneas de contenido** en los templates (index pasó de 8,982 → 2,904 chars). Todo seguía respondiendo 200 = harness dijo PASS con un producto vaciado. **La validación no medía preservación de contenido.**
+- **Error mío adicional:** antes de relanzar el rediseño reinicié `state/*.json` a `{}` (data de pruebas perdida — no había datos reales del usuario, pero no debí borrar así).
+- **Fix de raíz (harness v7/v8):** nueva sección en specs `## Archivos modificables` → el harness **bloquea y revierte por git** cualquier archivo modificado fuera de esa lista. Si el spec dice `static/style.css`, los templates NO se pueden tocar → regresión imposible.
+- **Siguiente intento en curso (spec v4):** rediseño **solo CSS** (`static/style.css` es el único archivo modificable) que estilice las clases EXISTENTES de los templates. Spec listo en vault; el run se quedó pendiente porque el usuario pidió pausar y actualizar memoria. **Continuar = correr:**
+  ```
+  python3 /project/prototipos/harness.py "/root/JarvisVault/03 Projects/Prototipos/airbnb-admin/(C) spec v4 - rediseño solo css.md" /project/prototipos/airbnb-admin 8877 6
+  ```
 
-## Errores que documentar para el futuro
-- El modelo local **sí mete fences de markdown** a pesar de instrucciones → checker al escribir.
-- Usa helpers que no define (`date_range`) → revisar nombres referenciados.
-- Referencia templates que no genera → validar todos los `TemplateResponse` contra `templates/`.
-- Fechea: el check de sintaxis (`py_compile`) no basta; correr prueba HTTP de todas las rutas.
+## Historia (resumen)
 
-## Costo aproximado
-- Tokens de modelo local: ~30k (2 gen + nada de iteraciones — los fixes los hizo Claude).
-- Claude: orquestación + fixes. GPU libre verificada antes de generar.
+- **v2 (fa8cab3):** inventario + incidencias + bloqueo iCal generados por qwen2.5-coder:14b en 2 llamadas (app.py 1,032 líneas + 4 templates). 15/15 chequeos manuales ✓. Errores silenciosos del modelo corregidos por mi (8): KeyError con JSON vacío, `NameError: date_range`, `inventory` no pasado al template, Jinja2 `inventory.items`→método, template inexistente `inventario_compras.html`, fechas ISO→iCal básico, fence en bloqueos.html, checkbox requerido.
+- **Hotfix (110c2e4):** el harness v1 encontró 2 bugs que mi review manual no vio: fences markdown ` ```html ` en index/inventario/incidencias (se renderizaban como texto en el navegador) y `incidencia_detail.html` referenciado pero nunca generado (ruta `/incidencias/{id}` fallaba).
+- **v3 (d34fce0):** rediseño por harness → regresión → revertido (ver arriba).
 
-## Estado al cierre
-- URL: `http://192.168.0.64:8877/`
-- Datos de test limpiados. Git commit `fa8cab3`.
+## Harness (`/project/prototipos/harness.py` — copia versionada en `03 Projects/Prototipos/harness.py`)
+
+Evolución en esta sesión: v1 (loop base) → v2 (rutas absolutas, mapeo `ruta`) → v4 (async def, marcadores `-----`, guarda anti-repetición) → v6 (keywords, rutas `{id}`, snapshots) → **v7/v8 (regla `## Archivos modificables` + integridad con revert por git + orden CSS/HTML primero en contexto)** → v8.1 (fix import hashlib).
+
+Funciones: genera → escribe → valida (compile, fences, templates existentes, probes HTTP a todas las rutas con datos reales para `{apartamento}`/`{id}`) → corrige con el modelo (max 6-8 iteraciones) → `systemd-run` → imprime URL. Aprende vía `error_log.json` (lecciones inyectadas al inicio del prompt).
+
+**Limite conocido (IMPORTANTE):** el harness valida funcionamiento y ahora integridad de archivos, pero NO render visual. Un diseño puede "pasar" y verse mal. Para diseño: usar specs CSS-only (v4) o revisión visual humana después del PASS.
+
+## Datos de estado
+
+- `error_log.json` en `/project/prototipos/` = `[]` (se limpió: los errores registrados eran bugs del harness, no del modelo).
+- Specs en vault: v2 (inventario/incidencias), v3 (rediseño ❌), v4 (rediseño solo CSS, pendiente de correr).
+- Skills: [[prototipo-local.md]] actualizada con filosofía "Ollama hace TODO" + sección de integridad.
