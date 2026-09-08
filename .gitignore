@@ -1,0 +1,31 @@
+# ── macOS / SMB cruft ───────────────────────────────
+.DS_Store
+._*
+.AppleDouble
+.LSOverride
+.Spotlight-V100
+.Trashes
+.fseventsd
+.TemporaryItems
+*.swp
+Thumbs.db
+
+# ── Obsidian: config y plugins (re-instalables, y hay node_modules pesados) ──
+.obsidian/
+**/.obsidian/
+
+# ── Estado de herramientas / agentes (por-máquina, efímero) ──
+.claudian/
+.claude/
+.agents/
+.opencode/
+.copilot/
+.cursor/
+
+# ── Copilot: cache (las conversaciones SÍ se versionan, ver abajo) ──
+copilot/.model-catalog-cache.json
+copilot/**/node_modules/
+
+# ── Ruido en la raíz ────────────────────────────────
+Screenshot *.png
+Untitled*.canvas
