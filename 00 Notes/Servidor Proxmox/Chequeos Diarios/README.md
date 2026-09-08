@@ -25,3 +25,4 @@ cat /usr/local/bin/proxmox-daily-check.py       # el script
 ```
 
 Si un reporte marca 🔴, entra en vivo con el skill [[proxmox.md]] para diagnosticar.
+- Respaldo automático verificado 2026-09-08
