@@ -6,7 +6,7 @@ fuente: barrido en vivo por SSH (ssh root@192.168.0.52)
 
 # Mapa del servidor `pve`
 
-Inventario completo del Proxmox VE personal y de qué usa cada proyecto. Complemento de [[proxmox.md]] y [[UPS y energía]]. Chequeos automáticos diarios en [[Chequeos Diarios]]. **Se desactualiza** — verificar en vivo antes de cambios (último barrido manual: ver `actualizado` en el frontmatter).
+Inventario completo del Proxmox VE personal y de qué usa cada proyecto. Complemento de [[proxmox.md]] y [[UPS y energía]]. **Topología visual (Graph View + Mermaid): [[Arquitectura]].** Chequeos automáticos diarios en [[Chequeos Diarios]]. **Se desactualiza** — verificar en vivo antes de cambios (último barrido manual: ver `actualizado` en el frontmatter).
 
 ## Host
 
@@ -66,13 +66,14 @@ Todos con `onboot: 1`. IP `.x` = `192.168.0.x`.
 | 115 | debmediav2 | .164 | 10 / 6 GB / 60 GB | **stack de media** — ver detalle abajo; monta `/mnt/media` |
 | 116 | ntfy | .179 | 1 / 512 MB / 2 GB | **ntfy** :80 — notificaciones push self-hosted |
 | 400 | medinotes | .132 | 2 / 4 GB / 40 GB | Docker: `medinotes` (nginx :80/:443, backend :8000, postgres, redis) — SaaS de notas médicas |
-| 901 | `ubuntu` | **.230** | **12 / 12 GB / 100 GB** | **GromacsMexicano** — ver detalle abajo. **usa GPU**. tag `lxgpu` |
+| 901 | `ubuntu` (Ubuntu 24.04.4 LTS) | **.230** | **12 / 12 GB / 100 GB** | **GromacsMexicano** — ver detalle abajo. **usa GPU**. tag `lxgpu` |
 
 #### CT 109 `claude-dev` (.64) — nodo de IA
 
 | Servicio | Puerto | Qué hace |
 |---|---|---|
-| `omniroute.service` | **20128** (0.0.0.0) | **OmniRoute** — gateway LLM, gestión de tokens. Dashboard `http://192.168.0.64:20128` (admin / `11deabril5`). Backend `cc` = suscripción Claude Code OAuth. Internos :20131/:20132. |
+| `omniroute.service` | **20128** (0.0.0.0) | **OmniRoute** — gateway LLM, gestión de tokens. Dashboard `http://192.168.0.64:20128` (admin / `11deabril5`). Backend `cc` = suscripción Claude Code OAuth. Todos sus componentes viven en `/root/.omniroute`. |
+| └─ servicios internos OmniRoute | 20131 / 20132 / 3456 (`dario`) / 8080 (`bifrost` v1.6.3) / 8317 (`cliproxyapi`) | componentes del gateway: API interna, proxy node (`dario`), proxy HTTP (`bifrost`), proxy CLI (`cliproxyapi`). Descubiertos en barrido 2026-09-08, ver [[(C) Tecnologías y proyectos por contenedor]]. |
 | `smbd.service` | 139 / 445 | **Samba** — comparte `[JarvisVault]` = `/root/JarvisVault`. **Aquí vive físicamente el vault SatanZote AI**; la Mac lo monta por SMB. |
 | `telegram-bridge.service` | 3001 | Puente **Telegram ↔ Claude Code** (`/project/telegram-bridge/bot.js`) |
 | `cloudcli.service` | — | **claudecodeui** — front web para Claude Code (`/project`) |
@@ -125,8 +126,8 @@ Plex `:32400`, Jellyseerr `:5055` (`pedirpeliculas.satanzote.me`), Sonarr `:8989
 ### Lectura
 
 - **El sobrecompromiso de RAM estaba controlándose con swap proactivo** — el 2026-09-08 se resolvió: `vm.swappiness=60 → 10`, swap drenado a 0, y 5 CTs right-sizeados (~87 GB → ~58 GB asignados). CT 103 se revertió a 8 GB el mismo día (carga de `qwen2.5-coder:14b`). Ver [[#Optimización de memoria 2026-09-08]]. Vigilar CT 115 (4.7/6 GB): si pega su límite, subir o mover el servicio.
-- **Discos que se van a llenar pronto** ⚠️: CT 103 openwebui (93%, los modelos de Ollama), CT 115 media (86%). CT 101 y CT 113 ya están al 100% de su disco raíz de 1.9 GB (funcionan pero sin margen).
-- **`nvme-fast` (245 GB, 3% usado)** sigue casi vacío — es el lugar obvio para mover el disco de CT 103 (modelos) o dar scratch a CT 901.
+- **Discos que se van a llenar pronto** ⚠️: CT 101 debian (94%, 1.9 GB de disco), CT 115 media (92%). CT 103 ya bajó a 63% tras mover modelos a `nvme-fast` el 2026-09-08 (dejó de ser problema). CT 113 al 68% — ya no está al 100% (se limpió).
+- **`nvme-fast` (245 GB, 13% usado)** sigue casi vacío — es el lugar obvio para mover el disco de CT 103 (modelos) o dar scratch a CT 901.
 
 ## Exposición a internet
 

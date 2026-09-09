@@ -1,17 +1,19 @@
 ---
 tipo: analisis-codigo
 fecha: 2026-09-08
-herramienta: graphify 0.9.56 (uv tool, en CT 901)
-commit: 6ffd0f87
+herramienta: graphify 0.9.56 (uv tool con extra [openai], en CT 901)
+commit: 475be68d
 ---
 
 # Graphify — grafo de código de GromacsMexicano
 
-Grafo de código generado con [Graphify](https://github.com/Graphify-Labs/graphify) (AST tree-sitter, local, sin LLM para el código; etiquetas de comunidad vía OmniRoute/Sonnet 5).
+Grafo de código generado con [Graphify](https://github.com/Graphify-Labs/graphify) (AST tree-sitter, local, sin LLM para el código; etiquetas de comunidad con modelo local `qwen2.5-coder:14b` vía Ollama en CT 103 — **sin OmniRoute**).
 
-- **609 nodos · 802 aristas · 122 comunidades** sobre Fortran + C++ + CUDA.
+- **751 nodos · 1 097 aristas · 136 comunidades** sobre Fortran + C++ + CUDA.
 - Grafo interactivo: `![[(C) 2026-09-08 graphify grafo de codigo.html]]` (abrir en navegador; en CT 901: `~/GromacsMexicano/graphify-out/graph.html`).
 - Regenerar tras cambios: `graphify update .` (sin costo de API) en `~/GromacsMexicano` de CT 901.
+- Etiquetado de comunidades (local, sin OmniRoute): `OLLAMA_BASE_URL=http://192.168.0.99:11434/v1 graphify label . --backend=ollama --model=qwen2.5-coder:14b --missing-only`
+- **Automatización (2026-09-08):** hook `post-commit` instalado (`graphify hook install`) → rebuild automático en cada commit (log: `~/.cache/graphify-rebuild.log`). Cron semanal dom 20:00 → `update` + `label --missing-only` (log: `/tmp/graphify-cron.log`).
 - Skill `/graphify` registrado en el Claude Code de CT 901.
 
 ## Complementa a BASE (no lo reemplaza)
@@ -49,4 +51,4 @@ Parsers C++: *Topology Atom Parsing*, *MDP Parameter Parsing*, *ITP Topology Lin
 
 ## Costo
 
-4,451 tokens in / 2,262 out (solo el etiquetado de comunidades, vía OmniRoute → suscripción). El parseo del código fue 100% local.
+Parseo 100% local. Re-etiquetado completo (2026-09-08, 136 comunidades) con `qwen2.5-coder:14b` local: 3,428 tokens in / 1,539 out, **costo $0**. El etiquetado original (122 comunidades) fue vía OmniRoute/Sonnet 5 → suscripción.

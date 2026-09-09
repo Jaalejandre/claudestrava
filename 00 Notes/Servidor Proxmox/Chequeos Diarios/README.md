@@ -10,8 +10,8 @@ Reportes automáticos del estado del servidor Proxmox, uno por día.
 
 - **Dónde corre:** CT 109 `claude-dev` (systemd timer `proxmox-daily-check.timer`), no en la nube — una rutina en la nube no alcanza la IP privada `192.168.0.52`.
 - **Cuándo:** todos los días ~08:00 hora CDMX.
-- **Qué hace:** SSH a `pve`, junta uptime/carga, RAM/swap, disco por storage, estado de cada VM/CT, último `vzdump`, UPS y GPU. Escribe el reporte `(C) YYYY-MM-DD.md` aquí.
-- **Alertas:** si detecta algo mal (guest caído, storage >88%, swap alto, UPS en batería, backup fallido, o no puede conectar) manda push a **ntfy** → topic `pve-alerts` (`http://192.168.0.179/pve-alerts`). Suscríbete a ese topic en la app de ntfy.
+- **Qué hace:** SSH a `pve`, junta uptime/carga, RAM/swap, disco por storage, **disco raíz de cada CT** (batch en una conexión), estado de cada VM/CT, último `vzdump`, UPS y GPU. Escribe el reporte `(C) YYYY-MM-DD.md` aquí.
+- **Alertas:** si detecta algo mal (guest caído, storage >88%, disco CT >85%, swap alto, UPS en batería, backup fallido, o no puede conectar) manda push a **ntfy** → topic `pve-alerts` (`http://192.168.0.179/pve-alerts`). Suscríbete a ese topic en la app de ntfy.
 - **Retención:** borra reportes de más de 30 días.
 
 ## Operación

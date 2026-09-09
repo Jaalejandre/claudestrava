@@ -62,6 +62,22 @@ El código y la GPU **NO** viven en `claude-dev`. Viven en otro contenedor:
 - `06 Attachments/` — imágenes, gráficas, PDFs (papers, diagramas).
 - `07 Iteration Logs/` — qué se probó, qué funcionó, qué no, qué mejorar.
 
+## Cómo leer este vault (ahorro de tokens)
+
+El historial documentado pesa ~30k tokens; el estado al día cabe en 2 notas. **Por defecto lee SOLO estas dos, sin escanear el resto:**
+
+1. `02 Optimizacion/(C) 2026-09-08 Analisis - todo lo que falta (Fase 3 Task 6 + Fase 4 + Fase 5).md` — estado verificado del rewrite C++: snapshot del repo (commit, tests), qué está hecho y qué falta.
+2. `04 System/(C) 2026-09-07 BASE para memoria del rewrite C++.md` — la memoria persistente del rewrite en CT 901 (qué es, dónde vive, cómo enruta por OmniRoute).
+
+**NO leer por defecto** (leer solo si la tarea los toca explícitamente):
+
+- Planes de fases ya implementadas en `02 Optimizacion/` (Fase 1 IO → `4547b7a`, Fase 2 bonded → `ee500a3`) — el código ya está en CT 901, el plan no aporta contexto nuevo.
+- `03 Benchmarks/` y `07 Iteration Logs/` — histórico de la ronda de optimización GPU (cerrada 2026-09-04).
+- `01 Analisis/` — mapeo/profiling del Fortran original; útil solo para entender el código base.
+- `00 Codigo Fuente Original/` — solo si se necesita el Fortran de referencia.
+- El bloque `Current Status` de abajo puede estar desactualizado (último update 2026-09-04); el estado vivo está en la nota 1.
+- En CT 901, no leer `build/`, binarios ni `.base*/` — estado de herramienta, no contexto.
+
 ## Rules & Conventions
 
 - **`(C)` prefix** — Archivos creados por Claude llevan prefijo `(C)`.
