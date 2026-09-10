@@ -3,6 +3,17 @@ tipo: analisis-rewrite
 fecha: 2026-09-08
 proposito: mapa completo del trabajo restante del rewrite C++ para despachar agentes implementadores
 estado-repo-CT901: c3ba387 (Fase 3 Tasks 1-5 completas, 13/13 tests verde)
+progreso-2026-09-10: **REWRITE C++ FASES 0–5 COMPLETAS.** Task 6 (e9cb8b0), 4.1+4.6 (e69c046), 4.5 (bad440a), 4.4 (475be68), 4.2+4.3 NH Trotter (c4d3d63), 4.7 integrador MTS+NPT (22b5791 + física correcta 1065408 + perf), 4.8-lean + 4.9 main.cpp (a2fb576), **Fase 5 gate end-to-end** → ver `03 Benchmarks/(C) 2026-09-10 Fase 5 - Gate end-to-end`. 20/20 tests verde. Gate 5-pasos NVE/NVT bit-idéntico al Fortran; 10k pasos: promedios dentro de 1σ, deltaE 6× mejor que Fortran, ~1.5× más rápido. FALTA: confirmar fix NATQ con científicos; Fase 6 (empaquetado); writers per-step (diferidos).
+
+## ⚠️ BUG en el Fortran de referencia (encontrado 2026-09-10, Fase 4.7)
+
+`main.f:1641` — dentro del loop de MD llama `KWALD(NATQ,…,CARGAQ,…)` pero **`NATQ` nunca se inicializa (=0, confirmado en `dm.lis`)** y `CARGAQ` nunca se llena (`BUILD_CHARGED_ATOMS_EWALD` está comentado). Resultado: **durante la dinámica, la energía Y las fuerzas de Ewald recíproco son cero** — solo sobreviven el término self + la corrección erf intramolecular (`INTRA`). El bloque pre-loop "Valores iniciales" (`main.f:955`) sí pasa `NAT/CARGA`, así que las energías en t=0 son correctas (por eso Task 5 validó pero el loop divergía: `ukwald` congelado ~−36.7 vs Fortran −37.4 = −vkwaldi).
+
+- **Implicación física:** el run de referencia (y todos los benchmarks previos) corrió **sin Ewald recíproco en las fuerzas**. Electrostática = solo real-space apantallado + self. Preguntar a los científicos si es intencional (¿aproximación?) o un bug a corregir.
+- **En el rewrite:** `compute_ewald_recip()` / `compute_all_forces()` tienen un bool `recip_in_loop` (default `true` = física correcta). `IntegratorParams::recip_in_loop` default `false` = bit-match con la referencia. Cambiar a `true` cuando los científicos confirmen.
+
+### Estado gate 4.7 (nsteps=5, NVE/NVT/NPT vs Fortran fresco)
+etot rel 3.7e-4 · T rel 4.3e-3 · box rel 2.5e-5 (NPT) · deltaE (conservación) sigue a Fortran dentro de 2×. La divergencia de trayectoria per-step ~1e-4 es esperada (sistema caótico, ~100 evals de fuerza, `--fmad=false` CUDA vs `-O3` gfortran). Validación real = Fase 5 (10k pasos, promedios).
 regla: NO se programó nada en esta sesión — solo análisis
 ---
 	q
