@@ -75,7 +75,7 @@ El historial documentado pesa ~30k tokens; el estado al día cabe en 2 notas. **
 - `03 Benchmarks/` y `07 Iteration Logs/` — histórico de la ronda de optimización GPU (cerrada 2026-09-04).
 - `01 Analisis/` — mapeo/profiling del Fortran original; útil solo para entender el código base.
 - `00 Codigo Fuente Original/` — solo si se necesita el Fortran de referencia.
-- El bloque `Current Status` de abajo puede estar desactualizado (último update 2026-09-04); el estado vivo está en la nota 1.
+- El estado vivo y detallado del rewrite está en la nota 1 (`02 Optimizacion/(C) 2026-09-08...`) y en `03 Benchmarks/(C) 2026-09-10 Fase 5...`; el `Current Status` de abajo es el resumen.
 - En CT 901, no leer `build/`, binarios ni `.base*/` — estado de herramienta, no contexto.
 
 ## Rules & Conventions
@@ -91,23 +91,32 @@ El historial documentado pesa ~30k tokens; el estado al día cabe en 2 notas. **
 
 ## Current Status
 
-> **Last updated:** 2026-09-04 (noche) — **RONDA DE OPTIMIZACIÓN GPU CERRADA**
-> **Status:** En `ca9ef61`. Acumulado validado (CT 901 verificado libre con `who`/`ps aux`/`nvidia-smi` antes de cada medición): debug original 3:00.14 → release `-O3` 2:10.10 (`c698cc7`) → reducción por bloque atomicAdd 2:06.21 (`978d385`) → buffers constantes persistentes 2:04.79 (`6c8db7d`) → `pow()`→multiplicación directa 1:57.02 (`90b2995`, cambio #6) → reestructura kernels Ewald por ocupación 1:39.98 (`2110700`, cambio #2c) → buffers persistentes en `lista_linkcell_cuda` 1:37.77 (`ca9ef61`, cambio #5). **Total: −45.7% wall time acumulado, física validada en cada paso, cero crashes.** Cerrado aquí por decisión explícita del usuario (2026-09-04) tras revisar las opciones restantes (ver abajo) y concluir que el riesgo/esfuerzo ya no compensa.
-> **Corrección importante sobre Ewald:** una entrada anterior de este status decía "ya está bien optimizado — sin atomicAdd, no hay ganancia fácil ahí". Esa conclusión solo revisó si había `atomicAdd` (no lo hay) pero no revisó **ocupación de GPU**: con `nk≈2900` k-vectors, los kernels de Ewald lanzaban solo ~20-25 bloques (1 hilo por ik/átomo, loop serial larguísimo adentro) — la GPU quedaba casi vacía. Se reestructuró a 1 bloque por ik/átomo con reducción en memoria compartida (mismo patrón que ya funcionó en LJ) → −14.6% adicional. Lección: "sin atomicAdd" no es lo mismo que "bien paralelizado" — siempre revisar tamaño de grid vs. SMs disponibles antes de descartar un kernel.
-> **Profiling real hecho (`nsys`)** — ver `01 Analisis/(C) 2026-09-04 Profiling real (nsys) - donde se va el tiempo.md` (nota: su tabla de prioridades quedó desactualizada por el punto anterior).
-> **Cambio #3 INTENTADO Y REVERTIDO** — kernel por átomo-i sin atomicAdd de fuerza en LJ. Física correcta pero **≈4.1× MÁS LENTO** (construir la lista de adyacencia simétrica en cada llamada cuadruplicó el trabajo por-par). Revertido, sin commit. Detalle en `07 Iteration Logs/(C) 2026-09-04 Intento fallido - kernel por atomo-i sin atomicAdd de fuerza (cambio 3).md`.
-> **#7 (OpenMP en CPU) y "bonos a GPU" (enlaces/ángulos/check) EVALUADOS Y DESCARTADOS** — con `gprof` (sin recompilar con privilegios, `perf` no se pudo instalar por falta de sudo) se midió que `fzas_angulo_`/`fzas_de_`/`check_` son ~19% del tiempo de pared pero se llaman ~200 000 veces con solo 14-20µs de trabajo cada una (enlaces=1600, ángulos=800 elementos — muy pocos). El overhead de abrir una región OpenMP o lanzar un kernel CUDA por llamada (15-30µs típico) es del mismo orden o mayor que el trabajo en sí — mismo modo de falla que el cambio #3. La única vía viable sería fusionar estos cálculos dentro del lanzamiento de kernel LJ ya existente (reusar posiciones ya residentes en GPU, un solo round-trip), pero eso es una reestructura de arquitectura de alto riesgo (condiciones de carrera silenciosas en `fx/fy/fz`) por, en el mejor caso, ~7% adicional. No se justifica frente a los cambios ya capturados.
-> **Nota sobre concurrencia:** este proyecto se trabajó por al menos dos vías a la vez (Claude vía SSH + José directo en terminal en CT 901) en la misma sesión. Esto causó una corrida matada a medio camino (`SIGKILL`, exit 137) y una medición contaminada (2:15.76 en vez de ~2:00). **Regla: siempre verificar `who` + `ps aux | grep dm_mx_npt` en CT 901 inmediatamente antes de lanzar una corrida de benchmark**, y si hay trabajo concurrente ajeno sin commitear en el working tree, aislarlo con `git stash` (con permiso) antes de tocar los mismos archivos.
-> **Nota sobre agentes en background:** un subagente autónomo no entregó nada usable en ~30 min y dejó procesos huérfanos que contaminaron mediciones posteriores — evitar delegar en agentes background sin verificar que terminen limpio antes de continuar.
-> **Nota de protocolo:** cada cambio se corre 3 veces completas (10 000 pasos) antes de aceptarlo, con `cudaGetLastError()` en los kernels tocados, y verificación de que CT 901 esté libre de otra actividad antes de medir tiempo.
-> **Si se retoma la optimización más adelante:** no repetir OpenMP ni bonos-a-GPU tal cual (ver arriba, ya descartados con datos). Caminos no explorados: fusionar cálculos de enlaces/ángulos en el kernel LJ existente (alto riesgo, ~7% techo), o pasar a la fase de reescritura a otro lenguaje mencionada como objetivo a largo plazo del proyecto.
+> **Last updated:** 2026-09-10 — **REWRITE C++/CUDA COMPLETO (Fases 0–6).**
+>
+> **Repo CT 901** `/home/alejandre/GromacsMexicano/Programa_DM_cpp/`, rama `master` hasta `53b8dd0`. 20/20 tests (`ctest`) verde. El binario es `gmx_mexicano` (`build/src/`).
+>
+> **Qué hace hoy:** lee `file.gro`/`file.mdp`/`file.top`, corre dinámica **NPT** (integrador MTS r-RESPA velocity-Verlet + cadenas Nosé-Hoover para termostato y barostato MTTK isotrópico, LJ-ST + Coulomb real + Ewald recíproco en GPU, corrección de dispersión LRC), y reporta promedios ± σ. `--help`, detección automática de GPU/CPU, `install()` + CPack (tarball).
+>
+> **Validación (Fase 5, gate end-to-end):**
+> - Gate corto 5 pasos NVE/NVT: **bit-idéntico** al Fortran (`etot` rel ~5e-15). NPT rel 1.1e-5.
+> - 10 000 pasos NPT vs Fortran de referencia **parcheado**: todos los promedios dentro de 1σ (Total a 1.6σ = error estadístico), **`deltaE` 6× mejor que el Fortran**, T≈298 K y P≈1 bar (objetivos). **C++ ~1.5× más rápido** (10 ms/paso).
+> - Detalle: `03 Benchmarks/(C) 2026-09-10 Fase 5 - Gate end-to-end (rewrite C++).md`.
+>
+> **⚠️ BUG en el Fortran de referencia (pendiente de confirmar con los científicos):** `main.f:1641` llama `KWALD` con `NATQ` (nunca inicializado → 0) y `CARGAQ` (nunca llenado) → **el Ewald recíproco está inactivo en la dinámica del Fortran** (energía y fuerzas). El bloque pre-loop "Valores iniciales" (`main.f:955`) sí es correcto. **Todos los benchmarks previos de este proyecto (incl. la ronda GPU −45.7%) corrieron con este bug.** El rewrite C++ corre la física correcta por default (`IntegratorParams::recip_in_loop = true`) y se valida contra un Fortran parcheado (`Programa_DM_cpp/reference/natq_ewald_fix.patch`). Flag para volver al comportamiento stock si los científicos dicen que era intencional.
+>
+> **Falta (nada bloqueante):**
+> - Confirmar el fix de `NATQ` con el grupo de DM (decisión de física, es de ellos).
+> - Fase 6: paquetes deb/rpm (CPack ya hace tarball; deb/rpm necesita decidir bundling del runtime CUDA).
+> - Writers per-step (`energy.dat`/`movie.gro`/`dm.log`) — diferidos, YAGNI hasta que alguien quiera trayectorias.
+> - `main.cpp` solo cubre casos MTS B/C; casos A/D, `fzas_diedro` y `fzas_15` (todos cero en el sistema de prueba) sin portar.
+> - Benchmark de timing riguroso (3× limpio) vs GROMACS real — tarea aparte.
 
-> **REWRITE A C++ — Fase 0 completa (2026-09-04 noche).** Empezó la reescritura a C++ (meta: instalable multiplataforma, como GROMACS real). Ver plan completo en `02 Optimizacion/(C) 2026-09-04 Plan de reescritura a C++.md` y el registro de ejecución en `07 Iteration Logs/(C) 2026-09-04 Fase 0 del rewrite a C++ - completa.md`.
-> - Nuevo directorio en CT 901: `/home/alejandre/GromacsMexicano/Programa_DM_cpp/` (proyecto CMake), junto al `Programa_DM/` de Fortran que **sigue siendo la referencia congelada, nunca se toca**. Commits `ca9ef61..ddbc798` en `master` (sin branches, mismo patrón que todo este proyecto).
-> - Fase 0 (plomería, cero física portada): los 3 kernels CUDA ya validados se reubicaron byte-por-byte sin cambios; prueba de humo real vía CTest confirma que uno de ellos (`lista_linkcell_cuda`) funciona correctamente a través del build nuevo.
-> - Ejecutado con subagentes (dispatcher/reviewer separados) — la revisión final de rama completa encontró un bug real y serio: el `CMakeLists.txt` tenía mal el orden de `CMAKE_CUDA_ARCHITECTURES` vs. `project()`, y el build compilaba para `sm_75` en vez de `sm_120`, corriendo en la RTX 5070 Ti solo por JIT del driver, no porque el binario fuera el correcto. Corregido y verificado con `cuobjdump` sobre el binario compilado. **Lección que aplica a cualquier build system nuevo:** verificar el binario compilado, no solo que la variable de configuración tenga el valor esperado.
-> - **Corrección al roadmap:** la Fase 3 (portar el driver de LJ/Ewald/linkcell a C++) NO es solo pegamento — `fzas_lj_st_cuda.cu` tiene una guarda de buffers persistentes sin reinicio-si-cambia y teardown inconsistente entre los 3 archivos. Tocar eso es un cambio real de kernel que requiere el protocolo completo de validación física (3 corridas limpias, 1σ), no un simple cambio de quién llama a qué.
-> - **Siguiente paso:** Fase 1 (parsers de `.gro`/`.mdp`/`.top`) — se planea en detalle recién cuando toque empezarla, no antes (mismo principio de nunca portar a ciegas que guio toda la optimización GPU).
+> **RONDA DE OPTIMIZACIÓN GPU sobre el Fortran — cerrada 2026-09-04 en `ca9ef61`, −45.7% wall time** (3:00.14 → 1:37.77, física validada en cada paso). Lecciones que siguen valiendo:
+> - **"Sin `atomicAdd`" ≠ "bien paralelizado":** revisar siempre tamaño de grid vs. SMs disponibles antes de descartar un kernel. Los kernels de Ewald lanzaban ~20 bloques con `nk≈2900` k-vectors; reestructurar a 1 bloque/ik con reducción en shared memory dio −14.6%.
+> - **OpenMP en CPU y "bonos a GPU" (enlaces/ángulos/check): descartados con datos.** Se llaman ~200k veces con 14-20µs de trabajo; el overhead de abrir región OpenMP / lanzar kernel (15-30µs) es igual o mayor que el trabajo. Único camino viable (no explorado): fusionar en el kernel LJ existente, alto riesgo por ~7%.
+> - **Concurrencia:** verificar `who` + `ps aux | grep -E "dm_mx_npt|gmx_mexicano"` + `nvidia-smi` en CT 901 **antes** de cualquier corrida de benchmark. Trabajo concurrente contamina mediciones (histórico: exit 137, 2:15 en vez de 2:00).
+> - **Build systems nuevos:** verificar el binario compilado (`cuobjdump`/`cuobjdump -sass`), no solo que la variable de config tenga el valor esperado (Fase 0 shipeaba `sm_75` con `CMAKE_CUDA_ARCHITECTURES=120` mal puesto).
+> - Detalle histórico en `03 Benchmarks/` y `07 Iteration Logs/` (2026-09-04).
 
 <!-- TODO: Confirmar con José si quiere que el acceso SSH a CT 901 sea directo (agregar llave a alejandre@901) o siempre vía el host Proxmox -->
 <!-- TODO: Confirmar ensamble/caso de prueba canónico para benchmarks (el actual: agua + NaCl, NPT) -->
