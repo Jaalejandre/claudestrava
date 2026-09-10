@@ -3,9 +3,9 @@ contenedor: 109
 nombre: claude-dev
 ip: 192.168.0.64
 so: Debian 13 (trixie)
-servicios: OmniRoute, Samba, telegram-bridge, cloudcli, proto-airbnb-admin, Docker
-puertos: 20128, 20130-32, 3456, 8080, 8317, 3001, 8877, 139/445
-proyectos: vault SatanZote AI, OmniRoute, prototipos
+servicios: OmniRoute, Samba, telegram-bridge, cloudcli, proto-airbnb-admin, confirma-citas, Docker
+puertos: 20128, 20130-32, 3456, 8080, 8317, 3001, 8877, 8090, 139/445
+proyectos: vault SatanZote AI, OmniRoute, prototipos, ConfirmaCitas
 gpu: RTX 5070 Ti (passthrough, no usada)
 actualizado: 2026-09-08
 ---
@@ -24,6 +24,7 @@ actualizado: 2026-09-08
 | `smbd.service` | 139/445 | Samba — comparte `[JarvisVault]` |
 | `telegram-bridge.service` | 3001 | puente Telegram ↔ Claude Code |
 | `cloudcli.service` | — | claudecodeui (front web) |
+| `confirma-citas.service` | **8090** | **ConfirmaCitas** — dashboard citas de la doctora → `citas.satanzote.me` |
 | `proto-airbnb-admin.service` | 8877 | dashboard prototipo `airbnb-admin` (uvicorn) |
 | `docker` + `containerd` | — | instalado, sin contenedores activos |
 | `crowdsec` | 8083 (LAPI) | **CrowdSec agent** — monitoring SSH/Samba/postfix |
