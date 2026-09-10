@@ -104,11 +104,14 @@ El historial documentado pesa ~30k tokens; el estado al día cabe en 2 notas. **
 >
 > **⚠️ BUG en el Fortran de referencia (pendiente de confirmar con los científicos):** `main.f:1641` llama `KWALD` con `NATQ` (nunca inicializado → 0) y `CARGAQ` (nunca llenado) → **el Ewald recíproco está inactivo en la dinámica del Fortran** (energía y fuerzas). El bloque pre-loop "Valores iniciales" (`main.f:955`) sí es correcto. **Todos los benchmarks previos de este proyecto (incl. la ronda GPU −45.7%) corrieron con este bug.** El rewrite C++ corre la física correcta por default (`IntegratorParams::recip_in_loop = true`) y se valida contra un Fortran parcheado (`Programa_DM_cpp/reference/natq_ewald_fix.patch`). Flag para volver al comportamiento stock si los científicos dicen que era intencional.
 >
+> **Añadido 2026-09-10 (post Fases 0–6):**
+> - **Writers per-paso** (`ed417d9`): `energy.dat` (formato `es24.15` del Fortran), `dm.log`, `movie.gro`, `confout.gro` (config final; NO toca `file.gro`). `test_output`.
+> - **Diedros + pares 1-5 + casos MTS A/D** (`308867f`): `fzas_diedro`/`fzas_15` portados línea por línea, casos A/D en `main.cpp`. **No validados contra Fortran** (no hay sistema de prueba con diedros) — solo F=−dU/dr a 1e-6 (`test_bonded_extra`). No-op para agua → 22/22 verde, Fase 5 sin regresión.
+>
 > **Falta (nada bloqueante):**
 > - Confirmar el fix de `NATQ` con el grupo de DM (decisión de física, es de ellos).
-> - Fase 6: paquetes deb/rpm (CPack ya hace tarball; deb/rpm necesita decidir bundling del runtime CUDA).
-> - Writers per-step (`energy.dat`/`movie.gro`/`dm.log`) — diferidos, YAGNI hasta que alguien quiera trayectorias.
-> - `main.cpp` solo cubre casos MTS B/C; casos A/D, `fzas_diedro` y `fzas_15` (todos cero en el sistema de prueba) sin portar.
+> - Validación end-to-end de diedros: fixture tipo IPA, verificar conversión funct-1→coefs del parser (`top_gmx.f95`), correr Fortran parcheado, gate.
+> - Fase 6: paquetes deb/rpm (CPack ya hace tarball; falta decidir bundling del runtime CUDA).
 > - Benchmark de timing riguroso (3× limpio) vs GROMACS real — tarea aparte.
 
 > **RONDA DE OPTIMIZACIÓN GPU sobre el Fortran — cerrada 2026-09-04 en `ca9ef61`, −45.7% wall time** (3:00.14 → 1:37.77, física validada en cada paso). Lecciones que siguen valiendo:

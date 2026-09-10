@@ -3,7 +3,10 @@ tipo: analisis-rewrite
 fecha: 2026-09-08
 proposito: mapa completo del trabajo restante del rewrite C++ para despachar agentes implementadores
 estado-repo-CT901: c3ba387 (Fase 3 Tasks 1-5 completas, 13/13 tests verde)
-progreso-2026-09-10: **REWRITE C++ FASES 0–6 COMPLETAS.** (Fase 6 = `53b8dd0`: detección GPU/CPU, `--help`, `install()`+CPack TGZ. Falta deb/rpm — decisión de bundling del runtime CUDA.)
+progreso-2026-09-10: **REWRITE C++ FASES 0–6 COMPLETAS + writers + diedros/1-5 + casos A/D.**
+- Writers per-paso (`ed417d9`): `energy.dat` (formato Fortran exacto), `dm.log`, `movie.gro`, `confout.gro` (config final, NO sobrescribe `file.gro`). `test_output`.
+- Diedros + pares 1-5 + casos MTS A/D (`308867f`): `compute_dihedral_forces` (fzas_diedro), `compute_pair15_forces` (fzas_15), casos A/D en main.cpp. Port línea por línea. **NO validado contra Fortran** (no hay sistema de prueba con diedros) — solo consistencia F=−dU/dr a 1e-6 (`test_bonded_extra`). No-op para agua → 22/22 tests verde, Fase 5 sin regresión. Falta para producción en moléculas orgánicas: fixture tipo IPA (.gro/.top), verificar conversión funct-1→coefs del parser (`top_gmx.f95`), correr Fortran parcheado, gate end-to-end.
+- Fase 6 (`53b8dd0`): detección GPU/CPU, `--help`, `install()`+CPack TGZ. Falta deb/rpm — decisión de bundling del runtime CUDA.
 progreso-2026-09-10: **REWRITE C++ FASES 0–5 COMPLETAS.** Task 6 (e9cb8b0), 4.1+4.6 (e69c046), 4.5 (bad440a), 4.4 (475be68), 4.2+4.3 NH Trotter (c4d3d63), 4.7 integrador MTS+NPT (22b5791 + física correcta 1065408 + perf), 4.8-lean + 4.9 main.cpp (a2fb576), **Fase 5 gate end-to-end** → ver `03 Benchmarks/(C) 2026-09-10 Fase 5 - Gate end-to-end`. 20/20 tests verde. Gate 5-pasos NVE/NVT bit-idéntico al Fortran; 10k pasos: promedios dentro de 1σ, deltaE 6× mejor que Fortran, ~1.5× más rápido. FALTA: confirmar fix NATQ con científicos; Fase 6 (empaquetado); writers per-step (diferidos).
 
 ## ⚠️ BUG en el Fortran de referencia (encontrado 2026-09-10, Fase 4.7)
