@@ -92,6 +92,6 @@ Z1: 0-119 · Z2: 120-148 · Z3: 149-163 · Z4: 164-178 · Z5: 179+
 - **Esta página se actualiza in-place** — no se crean planes nuevos cada semana.
 
 ## Pendientes
-- [ ] Test de FTP real (semana 1)
-- [ ] Mapa/perfil de elevación detallado de la ruta de 60 km (para simular desnivel en rodada larga de fase 2)
-- [ ] Configurar revisión automática semanal (dominical) de Strava — ver `04 System/`
+- [ ] Test de FTP real (semana 1) — **bloqueado en el usuario, no en el agente**
+- [x] Mapa/perfil de elevación detallado de la ruta de 60 km → [[(C) L'Étape CDMX 2026#Perfil de elevación — Ruta 60 km]] y [[(C) Perfil de elevación - Ruta 60km.svg]] (recorte GPX oficial; pico 2 405 m @ ~20 km para simular en fase 2)
+- [x] Configurar revisión automática semanal (dominical) de Strava → corriendo en la nube (Claude cloud, dom 7pm CDMX); documentada en [[(C) Revisión semanal automática]]

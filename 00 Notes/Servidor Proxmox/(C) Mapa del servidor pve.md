@@ -70,15 +70,15 @@ Todos con `onboot: 1`. IP `.x` = `192.168.0.x`.
 
 #### CT 109 `claude-dev` (.64) — nodo de IA
 
-| Servicio | Puerto | Qué hace |
-|---|---|---|
-| `omniroute.service` | **20128** (0.0.0.0) | **OmniRoute** — gateway LLM, gestión de tokens. Dashboard `http://192.168.0.64:20128` (admin / `11deabril5`). Backend `cc` = suscripción Claude Code OAuth. Todos sus componentes viven en `/root/.omniroute`. |
-| └─ servicios internos OmniRoute | 20131 / 20132 / 3456 (`dario`) / 8080 (`bifrost` v1.6.3) / 8317 (`cliproxyapi`) | componentes del gateway: API interna, proxy node (`dario`), proxy HTTP (`bifrost`), proxy CLI (`cliproxyapi`). Descubiertos en barrido 2026-09-08, ver [[(C) Tecnologías y proyectos por contenedor]]. |
-| `smbd.service` | 139 / 445 | **Samba** — comparte `[JarvisVault]` = `/root/JarvisVault`. **Aquí vive físicamente el vault SatanZote AI**; la Mac lo monta por SMB. |
-| `telegram-bridge.service` | 3001 | Puente **Telegram ↔ Claude Code** (`/project/telegram-bridge/bot.js`) |
-| `cloudcli.service` | — | **claudecodeui** — front web para Claude Code (`/project`) |
-| `cloudflared` | 20241 (local) | túnel Cloudflare para exponer el UI de Claude Code |
-| `docker` + `containerd` | — | instalado, sin contenedores corriendo ahora |
+| Servicio                        | Puerto                                                                          | Qué hace                                                                                                                                                                                                       |
+| ------------------------------- | ------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `omniroute.service`             | **20128** (0.0.0.0)                                                             | **OmniRoute** — gateway LLM, gestión de tokens. Dashboard `http://192.168.0.64:20128` (admin / `11deabril5`). Backend `cc` = suscripción Claude Code OAuth. Todos sus componentes viven en `/root/.omniroute`. |
+| └─ servicios internos OmniRoute | 20131 / 20132 / 3456 (`dario`) / 8080 (`bifrost` v1.6.3) / 8317 (`cliproxyapi`) | componentes del gateway: API interna, proxy node (`dario`), proxy HTTP (`bifrost`), proxy CLI (`cliproxyapi`). Descubiertos en barrido 2026-09-08, ver [[(C) Tecnologías y proyectos por contenedor]].         |
+| `smbd.service`                  | 139 / 445                                                                       | **Samba** — comparte `[JarvisVault]` = `/root/JarvisVault`. **Aquí vive físicamente el vault SatanZote AI**; la Mac lo monta por SMB.                                                                          |
+| `telegram-bridge.service`       | 3001                                                                            | Puente **Telegram ↔ Claude Code** (`/project/telegram-bridge/bot.js`)                                                                                                                                          |
+| `cloudcli.service`              | —                                                                               | **claudecodeui** — front web para Claude Code (`/project`)                                                                                                                                                     |
+| `cloudflared`                   | 20241 (local)                                                                   | túnel Cloudflare para exponer el UI de Claude Code                                                                                                                                                             |
+| `docker` + `containerd`         | —                                                                               | instalado, sin contenedores corriendo ahora                                                                                                                                                                    |
 
 #### CT 115 `debmediav2` (.164) — stack de media (Docker)
 
