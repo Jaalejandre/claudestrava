@@ -22,9 +22,11 @@ Thumbs.db
 .copilot/
 .cursor/
 
-# ── Copilot: cache (las conversaciones SÍ se versionan, ver abajo) ──
+# ── Copilot: cache y conversaciones (NUNCA versionar: log 2026-09-12
+#    API key de Anthropic filtrada en una conversación → push bloqueado) ──
 copilot/.model-catalog-cache.json
 copilot/**/node_modules/
+copilot/copilot-conversations/
 
 # ── Ruido en la raíz ────────────────────────────────
 Screenshot *.png
