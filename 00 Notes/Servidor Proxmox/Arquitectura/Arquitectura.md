@@ -10,6 +10,7 @@ fuente: barrido en vivo por SSH 2026-09-08 + "(C) Mapa del servidor pve"
 Mapa de contenido (MOC) de la topología: qué corre en cada CT/VM y cómo se conectan. Cada nodo es una nota — **abre el Graph View filtrado a esta carpeta para ver la topología como grafo**.
 
 - Datos a nivel host: [[(C) Mapa del servidor pve]]
+- **Topología de la red LAN (todos los dispositivos)**: [[(C) Mapa de red LAN]]
 - Detalle de tecnologías: [[(C) Tecnologías y proyectos por contenedor]]
 - **Seguridad (CrowdSec)**: [[(C) CrowdSec - monitoring seguridad]]
 

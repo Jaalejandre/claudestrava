@@ -1,5 +1,7 @@
 # (C) Benchmark Web Dashboard — 2026-09-10
 
+> **Actualización 2026-09-11:** el dashboard vivo (`http://192.168.0.64:8851`) ahora solo muestra los tiempos de **Fortran Original** (151.4s) y **Fortran Optimizado** (98.0s), marcados como histórico/descontinuado. Se quitaron DM_UAMI v3, C++ v2, C++ Rewrite, C++ Objetivo y GROMACS de las tarjetas/gráfica/tabla — esos números venían de corridas sobre programas incompletos (ver **[[(C) UAMI_TEST_1000_PASOS_REAL.md]]**: el UAMI que se probó el 2026-09-10 nunca corrió los pasos completos, y hoy 2026-09-11 se encontraron y corrigieron los bugs reales que lo bloqueaban). El programa nuevo (DM_UAMI baseline, validado hoy en CT901) sí corre completo; sus tiempos se agregarán cuando haya benchmark real medido sobre él.
+
 ## Qué se construyó
 
 Dashboard web interactivo en Flask para comparar los tres motores de GromacsMexicano en tiempo real.
