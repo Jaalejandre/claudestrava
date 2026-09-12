@@ -1,6 +1,6 @@
 ---
 tipo: referencia-infra
-actualizado: 2026-09-08
+actualizado: 2026-09-11
 fuente: barrido en vivo por SSH (ssh root@192.168.0.52)
 ---
 
@@ -16,7 +16,7 @@ Inventario completo del Proxmox VE personal y de qué usa cada proyecto. Complem
 | CPU        | Intel **i5-14600K** — 14 núcleos / 20 hilos                                                       |
 | RAM        | **31 GB** (~17 GB en uso) + **8 GB swap (0 B en uso)** — `vm.swappiness=10` y límites right-sizeados 2026-09-08 (ver [[#Optimización de memoria 2026-09-08]]) |
 | Disco raíz | `/dev/mapper/pve-root` 94 GB, 20% usado                                                           |
-| GPU        | **NVIDIA RTX 5070 Ti 16 GB** (driver 580.105.08) — compartida por passthrough a CT 103, 109 y 901 |
+| GPU        | **NVIDIA RTX 5070 Ti 16 GB** (driver 580.105.08) — compartida por passthrough a CT 103 y 901 |
 | Red        | bridge único `vmbr0` sobre `nic0`, `192.168.0.52/24`, gw `192.168.0.1`. Wi-Fi `wlp4s0` DOWN.      |
 | Tailscale  | `100.85.38.121` (tailscale0 activo en el host)                                                    |
 | Acceso     | SSH por llave (`ssh root@192.168.0.52`), dashboard `https://192.168.0.52:8006`                    |
@@ -43,7 +43,7 @@ Todos con `onboot: 1`. IP `.x` = `192.168.0.x`.
 | ID | Nombre | IP | vCPU/RAM/disco | Qué es |
 |---|---|---|---|---|
 | 106 | `haos-17.1` | .103 | 2 / 4 GB / 32 GB | **Home Assistant OS** (domótica) |
-| 200 | `debian-brain` | .204 (prob.) | 2 / 4 GB / 32 GB | ⚠️ **sin guest-agent, sin acceso por llave desde el host** — creada 2025-11. Identidad sin confirmar (¿"segundo cerebro" / experimentos LLM?). **Pendiente: entrar y documentar.** |
+| 200 | ~~`debian-brain`~~ **ELIMINADA 2026-09-11** | — | — | Cerebro de automatización precursora (Debian 13, nov-2025): n8n, telegram bots PVE, airbnb-dashboard, Strava/triathlon, backups SSH. Inactiva desde ~abr-2026; tubería de backup al CT 901 muerta. **Destruida con `qm destroy 200 --purge`** — disco liberado. Backup final: `backup/vzdump-qemu-200-2026_09_10-21_16_59.vma.zst` (recuperable con `qmrestore`). |
 
 ### Contenedores LXC
 
@@ -58,13 +58,14 @@ Todos con `onboot: 1`. IP `.x` = `192.168.0.x`.
 | 107 | docker | .61 | 2 / 2 GB / 16 GB | **Portainer CE** :9443 (+ :8000 edge) — gestión de Docker |
 | 108 | cloudflared | .12 | 1 / 512 MB / 2 GB | **Cloudflare Tunnel** (por token) — expone `*.satanzote.me` a internet |
 | 110 | n8n | .13 | 2 / 2 GB | **n8n** :5678 (automatización de workflows). Detectado 2026-09-08 por el chequeo diario. |
-| 109 | **claude-dev** | **.64** | 4 / 6 GB / 60 GB | **el nodo de IA** — ver detalle abajo. **usa GPU** |
+| 109 | **claude-dev** | **.64** | 4 / 6 GB / 60 GB | **el nodo de IA** — ver detalle abajo. ~~usa GPU~~ (passthrough quitado 2026-09-11, pendiente restart) |
 | 111 | apps-prod | .20 | 4 / 4 GB / 40 GB | Docker: `mundial-app`+`mundial-db` (Mundial prod :8000), `nextcloud` :8088 (+redis+mariadb), `guacamole` :8090 (+guacd), `mint-portal` :5010, `open-webui` :3000, `portainer-agent`. Nativo: gunicorn :8085, `qr-counter` |
 | 112 | app-dev | .21 | 2 / 2 GB / 20 GB | Docker: `mundial-app` dev :8000 (+db), `airbnb-dashboard` :8090, `portainer-agent`. Nativo: gunicorn :8086, `gpu-top` (http :8095/:8091), `qr-counter-dev` |
 | 113 | rclone | .32 | 1 / 2 GB / 2 GB | **rclone-web** :3000 — sync a nube; monta `/mnt/backups` |
 | 114 | vaultwarden | .30 | 4 / 2 GB / 20 GB | **Vaultwarden** :8000 (`vault.satanzote.me`) — gestor de contraseñas |
 | 115 | debmediav2 | .164 | 10 / 6 GB / 60 GB | **stack de media** — ver detalle abajo; monta `/mnt/media` |
 | 116 | ntfy | .179 | 1 / 512 MB / 2 GB | **ntfy** :80 — notificaciones push self-hosted |
+| 117 | `difybot` | .14 (dhcp) | 2 / 4 GB / 4 GB | ⚠️ **NUEVO 2026-09-11 12:39, sin confirmar** — Ubuntu 24.04 + docker vacío, sin `onboot`, nada corriendo. ¿Creado por el usuario o un agente? Ver [[(C) Mapa de red LAN]]. |
 | 400 | medinotes | .132 | 2 / 4 GB / 40 GB | Docker: `medinotes` (nginx :80/:443, backend :8000, postgres, redis) — SaaS de notas médicas |
 | 901 | `ubuntu` (Ubuntu 24.04.4 LTS) | **.230** | **12 / 12 GB / 100 GB** | **GromacsMexicano** — ver detalle abajo. **usa GPU**. tag `lxgpu` |
 
@@ -117,11 +118,10 @@ Plex `:32400`, Jellyseerr `:5055` (`pedirpeliculas.satanzote.me`), Sonarr `:8989
 | 114 | vaultwarden | ~0% | 0.1 / 2 GB | 3.5 / 19.5 GB |
 | 115 | debmediav2 | ~0% | 4.7 / 6 GB | **50.7 / 58.8 GB ⚠️ 86%** |
 | 116 | ntfy | ~0% | 0.0 / 0.5 GB | 1.0 / 1.9 GB |
-| 200 | debian-brain (VM) | ~0% | 1.2 / 4 GB | — |
 | 400 | medinotes | ~1% | 0.1 / 4 GB | 7.1 / 39.1 GB |
 | 901 | ubuntu | ~0% | 0.5 / 12 GB | 26.6 / 97.9 GB |
 
-**RAM: uso real total ≈ 12 GB** · asignada ~58 GB · host físico 31 GB. **GPU: 0 procesos activos** ahora mismo (Ollama carga bajo demanda; CT 109 y 901 tienen el passthrough pero no lo están usando).
+**RAM: uso real total ≈ 12 GB** · asignada ~58 GB · host físico 31 GB. **GPU: 0 procesos activos** ahora mismo (Ollama carga bajo demanda; CT 103 y 901 tienen el passthrough).
 
 ### Lectura
 
@@ -206,7 +206,7 @@ Claude Strava ──── rutina en la nube de Claude (no usa el server) + repo
 | 2 | **Dos capas de acceso LLM**: Ollama (CT 103, local/GPU) y OmniRoute (CT 109, nube). No son lo mismo pero se solapan. | Poner **OpenWebUI → OmniRoute → {Ollama, Claude}**. Un solo punto de entrada y de conteo de tokens. |
 | 3 | **CT 107 existe solo para Portainer** (2 GB / 16 GB para 1 contenedor) | Mover Portainer a un host Docker que ya existe (CT 111 o 115) y apagar CT 107. |
 | 4 | **CT 101 `debian`** (512 MB, 2 sitios en Docker) duplica el rol de CT 111 apps-prod | Migrar `enlinea-saas` y `satanzote-studio` a CT 111 y apagar CT 101. |
-| 5 | **CT 109 tiene passthrough de GPU pero no la usa** (OmniRoute llama a la nube) | Quitar el passthrough de CT 109 → menos riesgo de pelea de VRAM con GromacsMexicano. Confirmar antes que nada en 109 dependa de CUDA. |
+| 5 | ✅ **Resuelto 2026-09-11** — passthrough de GPU quitado de CT 109 (staged en config; **reinicio automático programado para 2026-09-12 03:00 CST** vía `ct109-reboot-gpu.timer`). Se confirmó **cero dependencias CUDA** en 109: chequeo diario y benchmark consultan GPU vía SSH a CT 901. Config respaldada en `/root/lxc-109.conf.bak-20260911` en el host. Queda pendiente decidir si también se quita `lxc.apparmor.profile: unconfined`. |
 | 6 | **Monitoreo de GPU disperso**: `gpu-api` (CT 901 :5000), `gpu-top` (CT 112 :8095 — ¡y CT 112 ni tiene GPU!), Glances (CT 115) | Quedarse con `gpu-api` en CT 901. Quitar `gpu-top` de CT 112. |
 | 7 | **BASE solo en GromacsMexicano** | Cuando arranque Claude Strava, **reusar el mismo BASE** (otro proyecto en el mismo grafo, o BASE en CT 109), no montar otra herramienta de memoria. |
 
@@ -219,10 +219,10 @@ Claude Strava ──── rutina en la nube de Claude (no usa el server) + repo
 
 ## Otras notas / pendientes
 
-- ⚠️ **VM 200 `debian-brain`**: sin identificar (creada 2025-11, 1.2 GB RAM en uso, sin guest-agent, sin llave SSH desde el host). Entrar y decidir si sigue.
+- ✅ **VM 200 `debian-brain`** — **IDENTIFICADA y ELIMINADA 2026-09-11**: precursora de automatización, inactiva desde ~abr-26, duplicaba funciones ya migradas (n8n→CT 110, airbnb→CT 112, strava→nube). `qm destroy 200 --purge` con backup final en `backups` (09-10). Disk LVM liberado.
 - **Discos casi llenos**: CT 103 (93%), CT 115 (86%), CT 101 y CT 113 al 100% de sus 1.9 GB. Mover CT 103 a `nvme-fast`.
 - **CT 901 `maxmem` 24 GB → bajar a ~12 GB** (uso real 0.3 GB idle; los picos de MD son CPU/GPU).
-- **GPU RTX 5070 Ti** compartida a 3 CTs sin particionar. Idle ahora. GromacsMexicano ya verifica `nvidia-smi` libre antes de medir; si se quita el passthrough de CT 109 (redundancia #5) solo compiten 103 y 901.
+- **GPU RTX 5070 Ti** compartida a **2 CTs (103 y 901)** desde 2026-09-11 (se quitó el passthrough de CT 109). GromacsMexicano ya verifica `nvidia-smi` libre antes de medir.
 - Sin HA ni replicación: si muere `local-lvm` se pierden todos los guests entre backups. El `vzdump` 21:00 → `backups` (3.8 TB) + `rclone` offsite (CT 113) es la única red.
 
 ## Optimización de memoria 2026-09-08

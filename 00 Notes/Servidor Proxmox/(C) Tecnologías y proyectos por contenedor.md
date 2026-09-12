@@ -76,7 +76,7 @@ Todos en Docker (`/opt/media-stack`), ~20 contenedores: Plex, Jellyseerr, Sonarr
 | VM | Nombre | Estado | Qué es |
 |---|---|---|---|
 | 106 | haos-17.1 | running | **Home Assistant OS** (4 GB / 32 GB) |
-| 200 | debian-brain | running | **sin identificar** ⚠️ — creada 2025-11, sin guest-agent, sin llave SSH desde el host. Pendiente entrar y decidir. |
+| 200 | ~~debian-brain~~ | ~~running~~ | **ELIMINADA 2026-09-11** — cerebro de automatización precursora (Debian 13, nov-2025: n8n, telegram bots PVE, airbnb-dashboard, Strava/triathlon). Inactiva desde ~abr-26; destruida con `qm destroy 200 --purge` tras identificar el contenido montando su disco read-only. |
 
 ## Hallazgos del barrido (2026-09-08)
 
