@@ -1,6 +1,6 @@
 ---
 tipo: referencia-infra
-actualizado: 2026-09-11
+actualizado: 2026-09-12
 fuente: barrido en vivo por SSH (ssh root@192.168.0.52)
 ---
 
@@ -65,7 +65,8 @@ Todos con `onboot: 1`. IP `.x` = `192.168.0.x`.
 | 114 | vaultwarden | .30 | 4 / 2 GB / 20 GB | **Vaultwarden** :8000 (`vault.satanzote.me`) — gestor de contraseñas |
 | 115 | debmediav2 | .164 | 10 / 6 GB / 60 GB | **stack de media** — ver detalle abajo; monta `/mnt/media` |
 | 116 | ntfy | .179 | 1 / 512 MB / 2 GB | **ntfy** :80 — notificaciones push self-hosted |
-| 117 | `difybot` | .14 (dhcp) | 2 / 4 GB / 4 GB | ⚠️ **NUEVO 2026-09-11 12:39, sin confirmar** — Ubuntu 24.04 + docker vacío, sin `onboot`, nada corriendo. ¿Creado por el usuario o un agente? Ver [[(C) Mapa de red LAN]]. |
+| 117 | `difybot` | **.14** (fija) | 2 / 4 GB / 20 GB | ⚠️ **Dify 1.17.1** (plataforma agente LLM) — nginx :80/:443 + api + web + agent + postgres + sandbox. **Regularizado 2026-09-12: IP fija + onboot 1.** Creado 2026-09-11. Ver [[(C) Reglas por LXC]]. |
+| 118 | `control` | **.23** | 1 / 1 GB / 5 GB | **🆕 Controlador (2026-09-12)** — SSH keys a los 19 CTs + host pve, script `audit-stack.sh`, base de deploys. Ver [[(C) Reglas por LXC]]. |
 | 400 | medinotes | .132 | 2 / 4 GB / 40 GB | Docker: `medinotes` (nginx :80/:443, backend :8000, postgres, redis) — SaaS de notas médicas |
 | 901 | `ubuntu` (Ubuntu 24.04.4 LTS) | **.230** | **12 / 12 GB / 100 GB** | **GromacsMexicano** — ver detalle abajo. **usa GPU**. tag `lxgpu` |
 
@@ -73,17 +74,36 @@ Todos con `onboot: 1`. IP `.x` = `192.168.0.x`.
 
 | Servicio                        | Puerto                                                                          | Qué hace                                                                                                                                                                                                       |
 | ------------------------------- | ------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `omniroute.service`             | **20128** (0.0.0.0)                                                             | **OmniRoute** — gateway LLM, gestión de tokens. Dashboard `http://192.168.0.64:20128` (admin / `11deabril5`). Backend `cc` = suscripción Claude Code OAuth. Todos sus componentes viven en `/root/.omniroute`. |
-| └─ servicios internos OmniRoute | 20131 / 20132 / 3456 (`dario`) / 8080 (`bifrost` v1.6.3) / 8317 (`cliproxyapi`) | componentes del gateway: API interna, proxy node (`dario`), proxy HTTP (`bifrost`), proxy CLI (`cliproxyapi`). Descubiertos en barrido 2026-09-08, ver [[(C) Tecnologías y proyectos por contenedor]].         |
-| `smbd.service`                  | 139 / 445                                                                       | **Samba** — comparte `[JarvisVault]` = `/root/JarvisVault`. **Aquí vive físicamente el vault SatanZote AI**; la Mac lo monta por SMB.                                                                          |
-| `telegram-bridge.service`       | 3001                                                                            | Puente **Telegram ↔ Claude Code** (`/project/telegram-bridge/bot.js`)                                                                                                                                          |
-| `cloudcli.service`              | —                                                                               | **claudecodeui** — front web para Claude Code (`/project`)                                                                                                                                                     |
-| `cloudflared`                   | 20241 (local)                                                                   | túnel Cloudflare para exponer el UI de Claude Code                                                                                                                                                             |
-| `docker` + `containerd`         | —                                                                               | instalado, sin contenedores corriendo ahora                                                                                                                                                                    |
+| `omniroute.service`             | **20128** (0.0.0.0)                                                             | **OmniRoute** — gateway LLM, gestión de tokens. Dashboard `http://192.168.0.64:20128`. Backend `cc` = suscripción Claude Code OAuth. Todos sus componentes viven en `/root/.omniroute`. |
+| └─ servicios internos OmniRoute | 20131 / 20132 / 3456 (`dario`) / 8080 (`bifrost` v1.6.3) / 8317 (`cliproxyapi`) | componentes del gateway: API interna, proxy node (`dario`), proxy HTTP (`bifrost`), proxy CLI (`cliproxyapi`). |
+| `smbd.service`                  | 139 / 445                                                                       | **Samba** — comparte `[JarvisVault]` = `/root/JarvisVault`. **Aquí vive físicamente el vault SatanZote AI**; la Mac lo monta por SMB. |
+| `telegram-bridge.service`       | 3001                                                                            | Puente **Telegram ↔ Claude Code** (`/project/telegram-bridge/bot.js`) |
+| `cloudcli.service`              | —                                                                               | **claudecodeui** — front web para Claude Code (`/project`) |
+| `hermes-gateway.service`        | 6060                                                                            | **Hermes** — orquestador LLM (default: combo `orquestador` de OmniRoute). Ver [[(C) OmniRoute - arquitectura y routing]] |
+| `airbnb-admin.service`          | 8877                                                                            | **airbnb-admin — INSTANCIA CANÓNICA** (v2, auto-sync, DIAS_SEMANA; app.py md5 `182353d9`). `/project/prototipos/airbnb-admin/` |
+| `confirma-citas.service`        | 8090                                                                            | App de confirmación de citas. `/project/confirma-citas/app.py` |
+| `gromacs-benchmark.service`     | 8851                                                                            | Benchmark del rewrite de GromacsMexicano |
+| `crowdsec` + bouncer            | 8083                                                                            | seguridad del nodo |
+| `cloudflared`                   | 20241 (local)                                                                   | túnel Cloudflare para exponer el UI de Claude Code |
+| `docker` + `containerd`         | —                                                                               | instalado, sin contenedores corriendo (2026-09-12) |
 
 #### CT 115 `debmediav2` (.164) — stack de media (Docker)
 
 Plex `:32400`, Jellyseerr `:5055` (`pedirpeliculas.satanzote.me`), Sonarr `:8989` (`sonarr.home`), Radarr `:7878`, Prowlarr `:9696`, Bazarr `:6767`, Transmission `:9091` (`transmissions.home`), SABnzbd `:8080`, Tdarr `:8265-66`, Tautulli `:8181`, Navidrome `:4533`, Maintainerr `:6246`, Wizarr `:5690`, Flaresolverr `:8191`, Threadfin/xTeVe `:34400-01` (IPTV), Dispatcharr `:9191`, Kima `:3030`, Glances.
+
+#### CT 118 `control` (.23) — controlador (NUEVO 2026-09-12)
+
+- **SSH keys (ed25519) → los 19 CTs + host pve** — el punto único de gestión del stack. Key pública en `/root/.ssh/authorized_keys` de cada CT + host.
+- `audit-stack.sh` (`/usr/local/bin/`) — barrido de estado de todos los CTs en una pasada (hostname/load/disco).
+- `~/.ssh/config` con hosts abreviados (ct109, ct111, ct114, ct901…).
+- Plantilla: Debian 13, 1 vCPU / 1 GB / 5 GB. IP `.23` fija, onboot 1.
+- **Reglas**: [[(C) Reglas por LXC]].
+
+#### CT 117 `difybot` (.14) — Dify (regularizado 2026-09-12)
+
+- **Dify 1.17.1** — plataforma visual de agentes LLM. 15 contenedores Docker: nginx :80/:443, dify-api (websocket :5001), dify-web, agent-backend :5050, sandbox, postgres:15, ssrf-proxy.
+- IP fija `.14` + `onboot 1` (antes DHCP sin onboot — hubiera muerto en reinicio).
+- Creado 2026-09-11 12:39. Ver [[(C) Reglas por LXC]] — pendiente confirmar propósito con el usuario.
 
 #### CT 901 `ubuntu` (.230) — GromacsMexicano
 
@@ -93,6 +113,7 @@ Plex `:32400`, Jellyseerr `:5055` (`pedirpeliculas.satanzote.me`), Sonarr `:8989
 - **Claude Code** (`/usr/bin/claude`) → enruta por OmniRoute (CT 109) → suscripción Claude Code
 - **BASE** (`~/.local/bin/base`) — memoria/grafo del rewrite (reemplazó a Ruflo). Ver [[(C) 2026-09-07 BASE para memoria del rewrite C++.md]]
 - `gpu-api.service` :5000 (`/usr/local/bin/gpu-api.py`) — API de estado de GPU
+- **EntrenadorLEtape** — `uvicorn src.plan_api:app` en 127.0.0.1:8877 (`/home/alejandre/EntrenadorLEtape/`) — API del entrenador de la L'Étape (corriendo desde 2026-09-09, identificado 2026-09-12)
 - `fail2ban`, `notify_telegram.sh` (script de alertas a Telegram)
 - Usuario del trabajo: `alejandre`. GPU RTX 5070 Ti, CUDA 13.0.
 
@@ -113,13 +134,15 @@ Plex `:32400`, Jellyseerr `:5055` (`pedirpeliculas.satanzote.me`), Sonarr `:8989
 | 108 | cloudflared | ~0% | 0.1 / 0.5 GB | 1.0 / 1.9 GB |
 | 109 | claude-dev | ~0% | 2.5 / 6 GB | 24.6 / 58.9 GB |
 | 111 | apps-prod | ~0% | 0.9 / 4 GB | 17.3 / 39.2 GB |
-| 112 | app-dev | ~1% | 0.2 / 2 GB | 3.0 / 19.5 GB |
-| 113 | rclone | ~0% | 0.0 / 2 GB | 1.2 / 1.9 GB (lleno) |
-| 114 | vaultwarden | ~0% | 0.1 / 2 GB | 3.5 / 19.5 GB |
-| 115 | debmediav2 | ~0% | 4.7 / 6 GB | **50.7 / 58.8 GB ⚠️ 86%** |
+| 112 | app-dev | ~0% | 0.1 / 2 GB | 3.4 / 19.5 GB |
+| 113 | rclone | ~0% | 0.5 / 2 GB | 1.2 / 1.9 GB (lleno) |
+| 114 | vaultwarden | ~0% | 0.0 / 2 GB | 3.5 / 19.5 GB |
+| 115 | debmediav2 | ~0% | 1.7 / 6 GB | **50.8 / 58.8 GB ⚠️ 86%** |
 | 116 | ntfy | ~0% | 0.0 / 0.5 GB | 1.0 / 1.9 GB |
+| 117 | difybot | ~1% | 1.7 / 4 GB | 13.3 / 19.6 GB |
+| 118 | control | ~0% | — / 1 GB | — / 5 GB |
 | 400 | medinotes | ~1% | 0.1 / 4 GB | 7.1 / 39.1 GB |
-| 901 | ubuntu | ~0% | 0.5 / 12 GB | 26.6 / 97.9 GB |
+| 901 | ubuntu | ~0% | 0.1 / 12 GB | 28.0 / 97.9 GB |
 
 **RAM: uso real total ≈ 12 GB** · asignada ~58 GB · host físico 31 GB. **GPU: 0 procesos activos** ahora mismo (Ollama carga bajo demanda; CT 103 y 901 tienen el passthrough).
 
@@ -158,7 +181,7 @@ Segundo túnel Cloudflare en CT 109 para el UI de Claude Code.
 ### GromacsMexicano — `03 Projects/GromacsMexicano/`
 - **CT 901 `ubuntu`** (todo el cómputo): código Fortran+CUDA, reescritura C++, RTX 5070 Ti, Claude Code, BASE.
 - **CT 109**: OmniRoute como gateway de tokens para el Claude Code de CT 901.
-- **CT 112**: `gpu-top` (:8095) y **CT 901** `gpu-api` (:5000) para monitorear la GPU.
+- **CT 901**: `gpu-api` (:5000) para monitorear la GPU (único canónico; `gpu-top` de CT 112 eliminado 2026-09-12).
 
 ### Claude Strava — `03 Projects/Claude Strava/`
 - **No usa un contenedor propio.** La revisión semanal corre como **rutina en la nube de Claude** (domingos ~7pm CDMX), lee Strava por MCP y hace push al repo GitHub `Jaalejandre/claudestrava`. No toca el servidor.
@@ -207,7 +230,7 @@ Claude Strava ──── rutina en la nube de Claude (no usa el server) + repo
 | 3 | **CT 107 existe solo para Portainer** (2 GB / 16 GB para 1 contenedor) | Mover Portainer a un host Docker que ya existe (CT 111 o 115) y apagar CT 107. |
 | 4 | **CT 101 `debian`** (512 MB, 2 sitios en Docker) duplica el rol de CT 111 apps-prod | Migrar `enlinea-saas` y `satanzote-studio` a CT 111 y apagar CT 101. |
 | 5 | ✅ **Resuelto 2026-09-11** — passthrough de GPU quitado de CT 109 (staged en config; **reinicio automático programado para 2026-09-12 03:00 CST** vía `ct109-reboot-gpu.timer`). Se confirmó **cero dependencias CUDA** en 109: chequeo diario y benchmark consultan GPU vía SSH a CT 901. Config respaldada en `/root/lxc-109.conf.bak-20260911` en el host. Queda pendiente decidir si también se quita `lxc.apparmor.profile: unconfined`. |
-| 6 | **Monitoreo de GPU disperso**: `gpu-api` (CT 901 :5000), `gpu-top` (CT 112 :8095 — ¡y CT 112 ni tiene GPU!), Glances (CT 115) | Quedarse con `gpu-api` en CT 901. Quitar `gpu-top` de CT 112. |
+| 6 | ✅ **Resuelto 2026-09-12** — Monitoreo de GPU: `gpu-top` de CT 112 eliminado (sin GPU). Queda `gpu-api` (CT 901 :5000) como único. |
 | 7 | **BASE solo en GromacsMexicano** | Cuando arranque Claude Strava, **reusar el mismo BASE** (otro proyecto en el mismo grafo, o BASE en CT 109), no montar otra herramienta de memoria. |
 
 ### Regla para no volver a ser redundante

@@ -24,7 +24,7 @@ Topología completa de la red local, resultado del barrido del 2026-09-11. Compl
 | .11 | BC:24:11:53:ED:49 | Proxmox | CT 105 Unbound | Documentado |
 | .12 | BC:24:11:DB:79:83 | Proxmox | CT 108 cloudflared | Documentado |
 | .13 | BC:24:11:32:40:29 | Proxmox | CT 110 n8n | Documentado |
-| .14 | BC:24:11:F8:8D:81 | Proxmox | **CT 117 `difybot`** — Ubuntu 24.04 + docker, vacío. **Creado 2026-09-11 12:39** ⚠️ | ⚠️ Confirmar |
+| .14 | BC:24:11:F8:8D:81 | Proxmox | **CT 117 `difybot`** — Dify 1.17.1 (15 contenedores), IP fija + onboot ✅ 2026-09-12 | ✅ Regularizado |
 | .20 | BC:24:11:54:56:D2 | Proxmox | CT 111 apps-prod | Documentado |
 | .21 | BC:24:11:34:A6:BE | Proxmox | CT 112 app-dev | Documentado |
 | .30 | BC:24:11:90:6B:8F | Proxmox | CT 114 vaultwarden | Documentado |
@@ -51,10 +51,11 @@ Topología completa de la red local, resultado del barrido del 2026-09-11. Compl
 | .221 | 68:7F:F0:68:69:8D | TP-Link Limited | ¿Deco/Archer (mesh)? | Smart home |
 | .228 | 6A:BB:4B:B0:DA:1F | MAC aleatoria | **Apple iOS 15.x/macOS** — SSH :22, Kerberos :88, ARD VNC :5900, AirTunes :5000/:7000, eppc :3031 | ⚠️ Sin identificar |
 | .230 | BC:24:11:58:B9:C7 | Proxmox | CT 901 ubuntu (GromacsMexicano) | Documentado |
+| .23 | BC:24:11:* | Proxmox | **CT 118 `control`** — controlador SSH del stack (NUEVO 2026-09-12) | Documentado |
 
 ## Hallazgos del barrido
 
-1. **═ CT 117 `difybot` — contenedor NUEVO sin confirmar ═** — creado hoy 12:39 (minutos antes del scan). Ubuntu 24.04, 2 cores/4 GB/4 GB, dhcp, docker instalado y **vacío** (0 contenedores). Sin `onboot` (no sobrevive reinicio). ¿Lo creaste tú o un agente (telegram-bridge)? **Decidir: documentar y darle IP fija + onboot, o eliminarlo.**
+1. **═ CT 117 `difybot` — ✅ REGULARIZADO 2026-09-12** — IP fija .14 + onboot 1. Corre Dify 1.17.1 con 15 contenedores (nginx :80/:443 + api + agent + postgres). Ver [[(C) Reglas por LXC]].
 2. **.65 (AA:F3:52)** — MAC aleatoria (privada). Responde solo en puertos altos efímeros con tcpwrapped. Patrón compatible con **celular/Mac en Wi-Fi con dirección privada** (continuity/Bonjour ocupan puertos altos). ⚠️ Verificar: en tu Mac/iPhone, ¿Wi-Fi con "dirección privada"?
 3. **.228 (6A:BB:4B)** — MAC aleatoria, fingerprint **Apple (iOS 15.7 / Darwin 21)** con SSH :22 + ARD VNC :5900 + AirTunes. Muy probablemente un **Mac/iPhone viejo con Remote Management activo** (o jailbroken). ⚠️ ¿Qué equipo es?
 4. **.175 = Amazon** (Echo/Fire TV/Kindle) — sin puertos abiertos al escanear (dormido).
