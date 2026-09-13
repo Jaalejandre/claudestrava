@@ -1,0 +1,107 @@
+===== PHASE 1 OpenMP Pragma Implementation =====
+Date: September 12, 2024
+Plan: /root/JarvisVault/01\ Projects/GromacsMexicano/(C)\ PHASE1_IMPLEMENTATION_PLAN.md
+
+Summary: Added 6 #pragma omp directives to parallelizable loops in:
+  - integrator.cpp (4 loops)
+  - forces.cpp (1 loop)
+  - ewald.cpp (1 loop)
+
+COMPILATION: ✓ SUCCESS (0 errors, 5 warnings)
+EXECUTION: ✓ SUCCESS (1000 steps without segfault)
+PERFORMANCE: 76.47 steps/sec (13.08 ms/step on 4 cores)
+
+===== FILE: src/integrator.cpp =====
+
+LOOP 1 - Velocity Update (Line 12)
+--- BEFORE:
+    for (int i = 0; i < cfg.natoms; i++) {
+        double ax = fx[i] / cfg.mass[i];
+        ...
+
++++ AFTER:
++   #pragma omp parallel for schedule(static)
+    for (int i = 0; i < cfg.natoms; i++) {
+        double ax = fx[i] / cfg.mass[i];
+        ...
+
+---
+
+LOOP 2 - Position Update (Line 21)
+--- BEFORE:
+    for (int i = 0; i < cfg.natoms; i++) {
+        cfg.x[i] += cfg.vx[i] * dt;
+        ...
+
++++ AFTER:
++   #pragma omp parallel for schedule(static)
+    for (int i = 0; i < cfg.natoms; i++) {
+        cfg.x[i] += cfg.vx[i] * dt;
+        ...
+
+---
+
+LOOP 3 - Velocity Scaling (Line 59)
+--- BEFORE:
+    for (int i = 0; i < cfg.natoms; i++) {
+        cfg.vx[i] *= lambda;
+        ...
+
++++ AFTER:
++   #pragma omp parallel for schedule(static)
+    for (int i = 0; i < cfg.natoms; i++) {
+        cfg.vx[i] *= lambda;
+        ...
+
+---
+
+LOOP 4 - Kinetic Energy Reduction (Line 71)
+--- BEFORE:
+    for (int i = 0; i < cfg.natoms; i++) {
+        double vx2 = cfg.vx[i] * cfg.vx[i];
+        ...
+        temp += 0.5 * cfg.mass[i] * (vx2 + vy2 + vz2);
+
++++ AFTER:
++   #pragma omp parallel for reduction(+:temp)
+    for (int i = 0; i < cfg.natoms; i++) {
+        double vx2 = cfg.vx[i] * cfg.vx[i];
+        ...
+        temp += 0.5 * cfg.mass[i] * (vx2 + vy2 + vz2);
+
+===== FILE: src/forces.cpp =====
+
+LOOP 5 - Energy Aggregation (Line 85)
+--- BEFORE:
+    double E_lj = 0.0;
+    for (int i = 0; i < npairs; i++) {
+        E_lj += energy_pairs[i].value;
+    }
+
++++ AFTER:
+    double E_lj = 0.0;
++   #pragma omp parallel for reduction(+:E_lj)
+    for (int i = 0; i < npairs; i++) {
+        E_lj += energy_pairs[i].value;
+    }
+
+===== FILE: src/ewald.cpp =====
+
+LOOP 6 - Ewald K-space Reduction (Line 45)
+--- BEFORE:
+    double E_temp = 0.0;
+    for (int kx = -kmax; kx <= kmax; kx++) {
+        for (int ky = -kmax; ky <= kmax; ky++) {
+            for (int kz = -kmax; kz <= kmax; kz++) {
+                ...
+                E_temp += contrib;
+
++++ AFTER:
+    double E_temp = 0.0;
++   #pragma omp parallel for collapse(3) reduction(+:E_temp)
+    for (int kx = -kmax; kx <= kmax; kx++) {
+        for (int ky = -kmax; ky <= kmax; ky++) {
+            for (int kz = -kmax; kz <= kmax; kz++) {
+                ...
+                E_temp += contrib;
+

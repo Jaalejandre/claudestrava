@@ -1,0 +1,24 @@
+{
+	"name": "gromacs-analyzer",
+	"version": "0.0.0",
+	"private": true,
+	"scripts": {
+		"deploy": "wrangler deploy",
+		"dev": "wrangler dev",
+		"start": "wrangler dev",
+		"test": "vitest",
+		"cf-typegen": "wrangler types"
+	},
+	"devDependencies": {
+		"@cloudflare/vitest-plugin": "^1.0.0",
+		"@cloudflare/workers-types": "^5.20260911.1",
+		"typescript": "^5.5.2",
+		"vitest": "~4.1.0",
+		"wrangler": "^4"
+	},
+	"dependencies": {
+		"@cloudflare/ai": "^1.2.2",
+		"base64-js": "^1.5.1",
+		"mustache": "^4.2.0"
+	}
+}

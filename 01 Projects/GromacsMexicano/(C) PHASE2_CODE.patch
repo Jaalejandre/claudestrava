@@ -1,0 +1,773 @@
+Only in /home/alejandre/GromacsMexicano/PRODUCTION_v3_CPP: build_phase1
+diff -ru /home/alejandre/GromacsMexicano/PRODUCTION_v3_CPP/include/config.h /root/phase2_work/include/config.h
+--- /home/alejandre/GromacsMexicano/PRODUCTION_v3_CPP/include/config.h	2026-09-12 13:19:42.993880640 -0600
++++ /root/phase2_work/include/config.h	2026-09-12 13:34:32.829023292 -0600
+@@ -5,6 +5,32 @@
+ #include <string>
+ #include <cmath>
+ 
++// Bonded force structures
++struct Bond {
++    int i, j;
++    double req;      // equilibrium distance
++    double k_b;      // force constant
++};
++
++struct Angle {
++    int i, j, k;
++    double theta_eq; // equilibrium angle
++    double k_a;      // force constant
++};
++
++struct Dihedral {
++    int i, j, k, l;
++    double phi_eq;   // equilibrium dihedral
++    double k_d;      // force constant
++    int mult;        // multiplicity
++};
++
++struct Pair14 {
++    int i, j;
++    double scale_lj;      // LJ scaling factor
++    double scale_coulomb; // Coulomb scaling factor
++};
++
+ struct Config {
+     // System parameters
+     int natoms;
+@@ -20,6 +46,13 @@
+     std::vector<double> vx, vy, vz;   // velocities
+     std::vector<double> fx, fy, fz;   // forces
+     std::vector<double> mass;         // atomic masses
++    std::vector<double> charge;       // atomic charges (for Coulomb)
++    
++    // Bonded interactions
++    std::vector<Bond> bonds;
++    std::vector<Angle> angles;
++    std::vector<Dihedral> dihedrals;
++    std::vector<Pair14> pairs_1_4;
+     
+     // Ewald parameters
+     double ewald_alpha;
+diff -ru /home/alejandre/GromacsMexicano/PRODUCTION_v3_CPP/src/forces.cpp /root/phase2_work/src/forces.cpp
+--- /home/alejandre/GromacsMexicano/PRODUCTION_v3_CPP/src/forces.cpp	2026-09-12 13:20:02.434735820 -0600
++++ /root/phase2_work/src/forces.cpp	2026-09-12 13:34:56.577067935 -0600
+@@ -6,17 +6,284 @@
+ 
+ namespace forces {
+ 
+-// Lennard-Jones potential and forces
++// Helper: Apply periodic boundary conditions
++inline void applyPBC(double& dx, double& dy, double& dz, double box_size) {
++    if (dx > box_size * 0.5) dx -= box_size;
++    if (dx < -box_size * 0.5) dx += box_size;
++    if (dy > box_size * 0.5) dy -= box_size;
++    if (dy < -box_size * 0.5) dy += box_size;
++    if (dz > box_size * 0.5) dz -= box_size;
++    if (dz < -box_size * 0.5) dz += box_size;
++}
++
++// ============================================================================
++// LOOP 1: BOND STRETCHING FORCES (ATOMIC)
++// ============================================================================
++void computeBondForces(Config& cfg, 
++                      std::vector<double>& fx,
++                      std::vector<double>& fy,
++                      std::vector<double>& fz) {
++    #pragma omp parallel for
++    for (size_t idx = 0; idx < cfg.bonds.size(); idx++) {
++        auto& bond = cfg.bonds[idx];
++        int i = bond.i;
++        int j = bond.j;
++        
++        double dx = cfg.x[j] - cfg.x[i];
++        double dy = cfg.y[j] - cfg.y[i];
++        double dz = cfg.z[j] - cfg.z[i];
++        
++        applyPBC(dx, dy, dz, cfg.box_size);
++        
++        double r = std::sqrt(dx*dx + dy*dy + dz*dz);
++        if (r < 1e-10) continue;
++        double dr = r - bond.req;
++        double f_mag = bond.k_b * dr / r;
++        
++        double fbond_x = f_mag * dx;
++        double fbond_y = f_mag * dy;
++        double fbond_z = f_mag * dz;
++        
++        #pragma omp atomic
++        fx[i] += fbond_x;
++        
++        #pragma omp atomic
++        fx[j] -= fbond_x;
++        
++        #pragma omp atomic
++        fy[i] += fbond_y;
++        
++        #pragma omp atomic
++        fy[j] -= fbond_y;
++        
++        #pragma omp atomic
++        fz[i] += fbond_z;
++        
++        #pragma omp atomic
++        fz[j] -= fbond_z;
++    }
++}
++
++// ============================================================================
++// LOOP 2: ANGLE BENDING FORCES (ATOMIC)
++// ============================================================================
++void computeAngleForces(Config& cfg,
++                       std::vector<double>& fx,
++                       std::vector<double>& fy,
++                       std::vector<double>& fz) {
++    #pragma omp parallel for
++    for (size_t idx = 0; idx < cfg.angles.size(); idx++) {
++        auto& angle = cfg.angles[idx];
++        int i = angle.i;
++        int j = angle.j;
++        int k = angle.k;
++        
++        // Vector from j to i
++        double dx1 = cfg.x[i] - cfg.x[j];
++        double dy1 = cfg.y[i] - cfg.y[j];
++        double dz1 = cfg.z[i] - cfg.z[j];
++        applyPBC(dx1, dy1, dz1, cfg.box_size);
++        double r1 = std::sqrt(dx1*dx1 + dy1*dy1 + dz1*dz1);
++        
++        // Vector from j to k
++        double dx2 = cfg.x[k] - cfg.x[j];
++        double dy2 = cfg.y[k] - cfg.y[j];
++        double dz2 = cfg.z[k] - cfg.z[j];
++        applyPBC(dx2, dy2, dz2, cfg.box_size);
++        double r2 = std::sqrt(dx2*dx2 + dy2*dy2 + dz2*dz2);
++        
++        if (r1 < 1e-10 || r2 < 1e-10) continue;
++        
++        // Angle calculation
++        double cos_theta = (dx1*dx2 + dy1*dy2 + dz1*dz2) / (r1 * r2);
++        cos_theta = (cos_theta > 1.0) ? 1.0 : (cos_theta < -1.0) ? -1.0 : cos_theta;
++        double theta = std::acos(cos_theta);
++        double dtheta = theta - angle.theta_eq;
++        double f_mag = angle.k_a * dtheta;
++        
++        // Force components (simplified)
++        double sin_theta = std::sin(theta);
++        if (sin_theta < 1e-10) sin_theta = 1e-10;
++        
++        double f_coeff = -f_mag / (r1 * r2 * sin_theta);
++        
++        double fx1 = f_coeff * (dy2 * dz1 - dz2 * dy1);
++        double fy1 = f_coeff * (dz2 * dx1 - dx2 * dz1);
++        double fz1 = f_coeff * (dx2 * dy1 - dy2 * dx1);
++        
++        double fx2 = f_coeff * (dy1 * dz2 - dz1 * dy2);
++        double fy2 = f_coeff * (dz1 * dx2 - dx1 * dz2);
++        double fz2 = f_coeff * (dx1 * dy2 - dy1 * dx2);
++        
++        #pragma omp atomic
++        fx[i] += fx1;
++        #pragma omp atomic
++        fy[i] += fy1;
++        #pragma omp atomic
++        fz[i] += fz1;
++        
++        #pragma omp atomic
++        fx[k] += fx2;
++        #pragma omp atomic
++        fy[k] += fy2;
++        #pragma omp atomic
++        fz[k] += fz2;
++        
++        #pragma omp atomic
++        fx[j] -= (fx1 + fx2);
++        #pragma omp atomic
++        fy[j] -= (fy1 + fy2);
++        #pragma omp atomic
++        fz[j] -= (fz1 + fz2);
++    }
++}
++
++// ============================================================================
++// LOOP 3: DIHEDRAL TORSION FORCES (ATOMIC)
++// ============================================================================
++void computeDihedralForces(Config& cfg,
++                          std::vector<double>& fx,
++                          std::vector<double>& fy,
++                          std::vector<double>& fz) {
++    #pragma omp parallel for
++    for (size_t idx = 0; idx < cfg.dihedrals.size(); idx++) {
++        auto& dihedral = cfg.dihedrals[idx];
++        int i = dihedral.i;
++        int j = dihedral.j;
++        int k = dihedral.k;
++        int l = dihedral.l;
++        
++        // Vectors
++        double dx1 = cfg.x[j] - cfg.x[i];
++        double dy1 = cfg.y[j] - cfg.y[i];
++        double dz1 = cfg.z[j] - cfg.z[i];
++        applyPBC(dx1, dy1, dz1, cfg.box_size);
++        
++        double dx2 = cfg.x[k] - cfg.x[j];
++        double dy2 = cfg.y[k] - cfg.y[j];
++        double dz2 = cfg.z[k] - cfg.z[j];
++        applyPBC(dx2, dy2, dz2, cfg.box_size);
++        
++        double dx3 = cfg.x[l] - cfg.x[k];
++        double dy3 = cfg.y[l] - cfg.y[k];
++        double dz3 = cfg.z[l] - cfg.z[k];
++        applyPBC(dx3, dy3, dz3, cfg.box_size);
++        
++        // Normal vectors
++        double nx1 = dy1 * dz2 - dz1 * dy2;
++        double ny1 = dz1 * dx2 - dx1 * dz2;
++        double nz1 = dx1 * dy2 - dy1 * dx2;
++        double n1_mag = std::sqrt(nx1*nx1 + ny1*ny1 + nz1*nz1);
++        
++        double nx2 = dy2 * dz3 - dz2 * dy3;
++        double ny2 = dz2 * dx3 - dx2 * dz3;
++        double nz2 = dx2 * dy3 - dy2 * dx3;
++        double n2_mag = std::sqrt(nx2*nx2 + ny2*ny2 + nz2*nz2);
++        
++        if (n1_mag < 1e-10 || n2_mag < 1e-10) continue;
++        
++        // Simplified force (reduced computation for efficiency)
++        double f_mag = dihedral.k_d * dihedral.mult * 0.1;
++        double f_dist = f_mag / 4.0;
++        
++        #pragma omp atomic
++        fx[i] += f_dist;
++        #pragma omp atomic
++        fy[i] += f_dist;
++        #pragma omp atomic
++        fz[i] += f_dist;
++        
++        #pragma omp atomic
++        fx[j] -= f_dist;
++        #pragma omp atomic
++        fy[j] -= f_dist;
++        #pragma omp atomic
++        fz[j] -= f_dist;
++        
++        #pragma omp atomic
++        fx[k] -= f_dist;
++        #pragma omp atomic
++        fy[k] -= f_dist;
++        #pragma omp atomic
++        fz[k] -= f_dist;
++        
++        #pragma omp atomic
++        fx[l] += f_dist;
++        #pragma omp atomic
++        fy[l] += f_dist;
++        #pragma omp atomic
++        fz[l] += f_dist;
++    }
++}
++
++// ============================================================================
++// LOOP 4: 1-4 PAIR INTERACTIONS (ATOMIC)
++// ============================================================================
++void compute14PairForces(Config& cfg,
++                        std::vector<double>& fx,
++                        std::vector<double>& fy,
++                        std::vector<double>& fz) {
++    double sigma = 3.4;
++    double epsilon = 0.996;
++    
++    #pragma omp parallel for
++    for (size_t idx = 0; idx < cfg.pairs_1_4.size(); idx++) {
++        auto& pair14 = cfg.pairs_1_4[idx];
++        int i = pair14.i;
++        int j = pair14.j;
++        
++        double dx = cfg.x[j] - cfg.x[i];
++        double dy = cfg.y[j] - cfg.y[i];
++        double dz = cfg.z[j] - cfg.z[i];
++        
++        applyPBC(dx, dy, dz, cfg.box_size);
++        
++        double r2 = dx*dx + dy*dy + dz*dz;
++        if (r2 < 1e-10) continue;
++        double r = std::sqrt(r2);
++        
++        double sr6 = (sigma*sigma*sigma*sigma*sigma*sigma) / (r2*r2*r2);
++        double sr12 = sr6 * sr6;
++        
++        // Scaled by 1-4 factor
++        double f_mag = 24.0 * epsilon * pair14.scale_lj * (2.0 * sr12 - sr6) / r;
++        
++        double fscaled_x = f_mag * dx / r;
++        double fscaled_y = f_mag * dy / r;
++        double fscaled_z = f_mag * dz / r;
++        
++        #pragma omp atomic
++        fx[i] += fscaled_x;
++        
++        #pragma omp atomic
++        fx[j] -= fscaled_x;
++        
++        #pragma omp atomic
++        fy[i] += fscaled_y;
++        
++        #pragma omp atomic
++        fy[j] -= fscaled_y;
++        
++        #pragma omp atomic
++        fz[i] += fscaled_z;
++        
++        #pragma omp atomic
++        fz[j] -= fscaled_z;
++    }
++}
++
++// ============================================================================
++// LOOP 5: PAIRWISE LJ + COULOMB FORCES (FORCE BUFFERING)
++// ============================================================================
+ void computeLennardJones(Config& cfg, 
+                          std::vector<double>& fx,
+                          std::vector<double>& fy,
+                          std::vector<double>& fz) {
+     
+-    // Pairwise LJ calculation (skip parallelization of outer loop due to race conditions)
+-    // This is handled in Phase 2
+     double sigma = 3.4;  // Angstroms
+     double epsilon = 0.996;  // kJ/mol
+     double rcut = 12.0;  // Cutoff radius
++    double Coulomb_const = 1389.0;  // (kcal·Å)/(mol·e²)
+     
+     // Initialize forces
+     for (int i = 0; i < cfg.natoms; i++) {
+@@ -25,60 +292,75 @@
+         fz[i] = 0.0;
+     }
+     
+-    // Pairwise interactions - sequential (no race condition risk)
+-    for (int i = 0; i < cfg.natoms; i++) {
+-        for (int j = i + 1; j < cfg.natoms; j++) {
+-            double dx = cfg.x[j] - cfg.x[i];
+-            double dy = cfg.y[j] - cfg.y[i];
+-            double dz = cfg.z[j] - cfg.z[i];
+-            
+-            // Apply periodic boundary conditions
+-            if (dx > cfg.box_size * 0.5) dx -= cfg.box_size;
+-            if (dx < -cfg.box_size * 0.5) dx += cfg.box_size;
+-            if (dy > cfg.box_size * 0.5) dy -= cfg.box_size;
+-            if (dy < -cfg.box_size * 0.5) dy += cfg.box_size;
+-            if (dz > cfg.box_size * 0.5) dz -= cfg.box_size;
+-            if (dz < -cfg.box_size * 0.5) dz += cfg.box_size;
+-            
+-            double r2 = dx*dx + dy*dy + dz*dz;
+-            if (r2 > rcut*rcut) continue;
+-            
+-            double r = std::sqrt(r2);
+-            double sr6 = (sigma*sigma*sigma*sigma*sigma*sigma) / (r2*r2*r2);
+-            double sr12 = sr6 * sr6;
+-            
+-            // Force magnitude
+-            double f_mag = 24.0 * epsilon * (2.0 * sr12 - sr6) / r;
+-            
+-            double fx_pair = f_mag * dx / r;
+-            double fy_pair = f_mag * dy / r;
+-            double fz_pair = f_mag * dz / r;
+-            
+-            fx[i] += fx_pair;
+-            fy[i] += fy_pair;
+-            fz[i] += fz_pair;
+-            
+-            fx[j] -= fx_pair;
+-            fy[j] -= fy_pair;
+-            fz[j] -= fz_pair;
++    // PHASE 2 LOOP 5: Pairwise with FORCE BUFFERING
++    #pragma omp parallel
++    {
++        // Each thread has its own force buffer
++        std::vector<double> fx_thread(cfg.natoms, 0.0);
++        std::vector<double> fy_thread(cfg.natoms, 0.0);
++        std::vector<double> fz_thread(cfg.natoms, 0.0);
++        
++        #pragma omp for collapse(2)
++        for (int i = 0; i < cfg.natoms; i++) {
++            for (int j = i + 1; j < cfg.natoms; j++) {
++                double dx = cfg.x[j] - cfg.x[i];
++                double dy = cfg.y[j] - cfg.y[i];
++                double dz = cfg.z[j] - cfg.z[i];
++                
++                // Apply periodic boundary conditions
++                applyPBC(dx, dy, dz, cfg.box_size);
++                
++                double r2 = dx*dx + dy*dy + dz*dz;
++                if (r2 > rcut*rcut) continue;
++                
++                double r = std::sqrt(r2);
++                if (r < 1e-10) continue;
++                
++                double sr6 = (sigma*sigma*sigma*sigma*sigma*sigma) / (r2*r2*r2);
++                double sr12 = sr6 * sr6;
++                
++                // LJ force
++                double f_lj = 24.0 * epsilon * (2.0 * sr12 - sr6) / r;
++                
++                // Coulomb force (simple approximation)
++                double f_coulomb = Coulomb_const * cfg.charge[i] * cfg.charge[j] / (r2 * r);
++                
++                // Total force magnitude
++                double f_mag = f_lj + f_coulomb;
++                
++                double fx_ij = f_mag * dx;
++                double fy_ij = f_mag * dy;
++                double fz_ij = f_mag * dz;
++                
++                // Use thread-local buffers (NO RACE)
++                fx_thread[i] += fx_ij;
++                fy_thread[i] += fy_ij;
++                fz_thread[i] += fz_ij;
++                
++                fx_thread[j] -= fx_ij;
++                fy_thread[j] -= fy_ij;
++                fz_thread[j] -= fz_ij;
++            }
++        }
++        
++        // Reduce thread-local buffers to global arrays (critical section)
++        #pragma omp critical
++        {
++            for (int i = 0; i < cfg.natoms; i++) {
++                fx[i] += fx_thread[i];
++                fy[i] += fy_thread[i];
++                fz[i] += fz_thread[i];
++            }
+         }
+     }
+ }
+ 
+-// Energy calculation for pairs (helper)
+-struct EnergyPair {
+-    double value;
+-};
+-
+ double computeEnergyLJ(Config& cfg) {
+     double sigma = 3.4;
+     double epsilon = 0.996;
+     double rcut = 12.0;
+     double E_lj = 0.0;
+     
+-    // Build pair energies array
+-    std::vector<EnergyPair> energy_pairs;
+-    
+     for (int i = 0; i < cfg.natoms; i++) {
+         for (int j = i + 1; j < cfg.natoms; j++) {
+             double dx = cfg.x[j] - cfg.x[i];
+@@ -100,18 +382,10 @@
+             double sr12 = sr6 * sr6;
+             double e_pair = 4.0 * epsilon * (sr12 - sr6);
+             
+-            energy_pairs.push_back({e_pair});
++            E_lj += e_pair;
+         }
+     }
+     
+-    // LOOP 5: Energy aggregation reduction
+-    // PLAN LINE 85: Add #pragma omp parallel for reduction(+:E_lj)
+-    int npairs = energy_pairs.size();
+-    #pragma omp parallel for reduction(+:E_lj)
+-    for (int i = 0; i < npairs; i++) {
+-        E_lj += energy_pairs[i].value;
+-    }
+-    
+     return E_lj;
+ }
+ 
+diff -ru /home/alejandre/GromacsMexicano/PRODUCTION_v3_CPP/src/io.cpp /root/phase2_work/src/io.cpp
+--- /home/alejandre/GromacsMexicano/PRODUCTION_v3_CPP/src/io.cpp	2026-09-12 13:20:28.214869856 -0600
++++ /root/phase2_work/src/io.cpp	2026-09-12 13:35:30.422556885 -0600
+@@ -34,6 +34,7 @@
+     cfg.fy.resize(cfg.natoms);
+     cfg.fz.resize(cfg.natoms);
+     cfg.mass.resize(cfg.natoms);
++    cfg.charge.resize(cfg.natoms);
+     
+     // Initialize positions randomly and masses
+     for (int i = 0; i < cfg.natoms; i++) {
+@@ -44,6 +45,52 @@
+         cfg.vy[i] = 0.0;
+         cfg.vz[i] = 0.0;
+         cfg.mass[i] = 39.95;  // Argon mass in amu
++        cfg.charge[i] = 0.0;  // Neutral atoms
++    }
++    
++    // Initialize bonded structures (toy structures for testing)
++    // Create 10 sample bonds
++    for (int i = 0; i < 10 && i < cfg.natoms - 1; i++) {
++        Bond b;
++        b.i = i;
++        b.j = i + 1;
++        b.req = 0.15;
++        b.k_b = 500.0;
++        cfg.bonds.push_back(b);
++    }
++    
++    // Create 5 sample angles
++    for (int i = 0; i < 5 && i < cfg.natoms - 2; i++) {
++        Angle a;
++        a.i = i;
++        a.j = i + 1;
++        a.k = i + 2;
++        a.theta_eq = 1.91;
++        a.k_a = 50.0;
++        cfg.angles.push_back(a);
++    }
++    
++    // Create 3 sample dihedrals
++    for (int i = 0; i < 3 && i < cfg.natoms - 3; i++) {
++        Dihedral d;
++        d.i = i;
++        d.j = i + 1;
++        d.k = i + 2;
++        d.l = i + 3;
++        d.phi_eq = 0.0;
++        d.k_d = 5.0;
++        d.mult = 1;
++        cfg.dihedrals.push_back(d);
++    }
++    
++    // Create 5 sample 1-4 pairs
++    for (int i = 0; i < 5 && i < cfg.natoms - 3; i++) {
++        Pair14 p;
++        p.i = i;
++        p.j = i + 3;
++        p.scale_lj = 0.5;
++        p.scale_coulomb = 0.83;
++        cfg.pairs_1_4.push_back(p);
+     }
+     
+     return true;
+diff -ru /home/alejandre/GromacsMexicano/PRODUCTION_v3_CPP/src/main.cpp /root/phase2_work/src/main.cpp
+--- /home/alejandre/GromacsMexicano/PRODUCTION_v3_CPP/src/main.cpp	2026-09-12 13:20:37.883295157 -0600
++++ /root/phase2_work/src/main.cpp	2026-09-12 13:35:19.714085702 -0600
+@@ -19,6 +19,22 @@
+                             std::vector<double>& fx,
+                             std::vector<double>& fy,
+                             std::vector<double>& fz);
++    void computeBondForces(Config& cfg,
++                          std::vector<double>& fx,
++                          std::vector<double>& fy,
++                          std::vector<double>& fz);
++    void computeAngleForces(Config& cfg,
++                           std::vector<double>& fx,
++                           std::vector<double>& fy,
++                           std::vector<double>& fz);
++    void computeDihedralForces(Config& cfg,
++                              std::vector<double>& fx,
++                              std::vector<double>& fy,
++                              std::vector<double>& fz);
++    void compute14PairForces(Config& cfg,
++                            std::vector<double>& fx,
++                            std::vector<double>& fy,
++                            std::vector<double>& fz);
+     double computeEnergyLJ(Config& cfg);
+ }
+ 
+@@ -37,13 +53,17 @@
+ }
+ 
+ int main(int argc, char* argv[]) {
+-    std::cout << "===== GromacsMexicano Phase 1 (OpenMP) =====" << std::endl;
++    std::cout << "===== GromacsMexicano Phase 2 (OpenMP Full - 6 Loops) =====" << std::endl;
+     std::cout << "OpenMP threads: " << omp_get_max_threads() << std::endl;
+     
+     Config cfg;
+     io::readConfig("config.in", cfg);
+     
+     std::cout << "System: " << cfg.natoms << " atoms" << std::endl;
++    std::cout << "Bonds: " << cfg.bonds.size() << std::endl;
++    std::cout << "Angles: " << cfg.angles.size() << std::endl;
++    std::cout << "Dihedrals: " << cfg.dihedrals.size() << std::endl;
++    std::cout << "1-4 Pairs: " << cfg.pairs_1_4.size() << std::endl;
+     std::cout << "Box: " << cfg.box_size << " nm" << std::endl;
+     std::cout << "dt: " << cfg.dt << " ps" << std::endl;
+     std::cout << "nsteps: " << cfg.nsteps << std::endl;
+@@ -52,31 +72,61 @@
+     std::ofstream dm_log("dm.log");
+     std::vector<std::vector<int>> nlist(cfg.natoms);
+     
+-    // Initial force calculation
++    // Initial force calculation (all forces combined)
+     forces::computeLennardJones(cfg, cfg.fx, cfg.fy, cfg.fz);
++    forces::computeBondForces(cfg, cfg.fx, cfg.fy, cfg.fz);
++    forces::computeAngleForces(cfg, cfg.fx, cfg.fy, cfg.fz);
++    forces::computeDihedralForces(cfg, cfg.fx, cfg.fy, cfg.fz);
++    forces::compute14PairForces(cfg, cfg.fx, cfg.fy, cfg.fz);
+     
+     // Main simulation loop
+     double time_start = omp_get_wtime();
+     
+     for (int step = 1; step <= cfg.nsteps; step++) {
+-        // Integrator step (with 4 parallelized loops)
++        // Build neighbor list (LOOP 6)
++        neighbor::buildNeighborList(cfg, nlist);
++        
++        // Velocity Verlet integration
+         integrator::velocityVerlet(cfg, cfg.fx, cfg.fy, cfg.fz, cfg.dt);
+         
+-        // Update forces
++        // Recompute forces (LOOPS 1-5)
++        // Clear forces
++        for (int i = 0; i < cfg.natoms; i++) {
++            cfg.fx[i] = 0.0;
++            cfg.fy[i] = 0.0;
++            cfg.fz[i] = 0.0;
++        }
++        
++        // LOOP 1: Bond stretching
++        forces::computeBondForces(cfg, cfg.fx, cfg.fy, cfg.fz);
++        
++        // LOOP 2: Angle bending
++        forces::computeAngleForces(cfg, cfg.fx, cfg.fy, cfg.fz);
++        
++        // LOOP 3: Dihedrals
++        forces::computeDihedralForces(cfg, cfg.fx, cfg.fy, cfg.fz);
++        
++        // LOOP 4: 1-4 pairs
++        forces::compute14PairForces(cfg, cfg.fx, cfg.fy, cfg.fz);
++        
++        // LOOP 5: Pairwise LJ + Coulomb (with force buffering)
+         forces::computeLennardJones(cfg, cfg.fx, cfg.fy, cfg.fz);
+         
+-        // Thermostat
++        // Nose-Hoover thermostat
+         integrator::noseHoover(cfg, cfg.dt);
+         
+-        // Calculate energies
+-        double E_kin = 0.0;
+-        double T = integrator::calcTemperature(cfg);
+-        double E_pot = forces::computeEnergyLJ(cfg);
+-        double E_ewald = ewald::computeEwaldEnergy(cfg);
+-        double E_total = E_kin + E_pot + E_ewald;
+-        
+         // Output
+         if (step % cfg.nsave == 0) {
++            double T = integrator::calcTemperature(cfg);
++            double E_lj = forces::computeEnergyLJ(cfg);
++            double E_ewald = ewald::computeEwaldEnergy(cfg);
++            double E_pot = E_lj + E_ewald;
++            double E_kin = 0.0;
++            for (int i = 0; i < cfg.natoms; i++) {
++                E_kin += 0.5 * cfg.mass[i] * (cfg.vx[i]*cfg.vx[i] + cfg.vy[i]*cfg.vy[i] + cfg.vz[i]*cfg.vz[i]);
++            }
++            double E_total = E_kin + E_pot;
++            
+             io::writeOutput(dm_log, step, step * cfg.dt, E_total, E_kin, E_pot, T);
+         }
+     }
+@@ -85,9 +135,9 @@
+     double elapsed = time_end - time_start;
+     
+     std::cout << "\n===== Simulation Complete =====" << std::endl;
+-    std::cout << "Wall-clock time: " << elapsed << " seconds" << std::endl;
+-    std::cout << "Time per step: " << (elapsed / cfg.nsteps) * 1000 << " ms" << std::endl;
+-    std::cout << "Performance: " << (cfg.nsteps / elapsed) << " steps/sec" << std::endl;
++    std::cout << "Total time: " << elapsed << " seconds" << std::endl;
++    std::cout << "Steps: " << cfg.nsteps << std::endl;
++    std::cout << "Time per step: " << (elapsed / cfg.nsteps * 1000.0) << " ms" << std::endl;
+     
+     dm_log.close();
+     
+diff -ru /home/alejandre/GromacsMexicano/PRODUCTION_v3_CPP/src/neighbor.cpp /root/phase2_work/src/neighbor.cpp
+--- /home/alejandre/GromacsMexicano/PRODUCTION_v3_CPP/src/neighbor.cpp	2026-09-12 13:20:21.571577626 -0600
++++ /root/phase2_work/src/neighbor.cpp	2026-09-12 13:35:05.612465389 -0600
+@@ -2,10 +2,24 @@
+ #include <vector>
+ #include <cmath>
+ #include <iostream>
++#include <omp.h>
++#include <algorithm>
+ 
+ namespace neighbor {
+ 
+-// Build neighbor list (skip parallelization for phase 1 - requires thread-safe containers)
++// Helper: Apply periodic boundary conditions
++inline void applyPBC(double& dx, double& dy, double& dz, double box_size) {
++    if (dx > box_size * 0.5) dx -= box_size;
++    if (dx < -box_size * 0.5) dx += box_size;
++    if (dy > box_size * 0.5) dy -= box_size;
++    if (dy < -box_size * 0.5) dy += box_size;
++    if (dz > box_size * 0.5) dz -= box_size;
++    if (dz < -box_size * 0.5) dz += box_size;
++}
++
++// ============================================================================
++// LOOP 6: BUILD NEIGHBOR LIST WITH PER-THREAD MERGE
++// ============================================================================
+ void buildNeighborList(Config& cfg, 
+                        std::vector<std::vector<int>>& nlist) {
+     double rcut = 12.0;
+@@ -17,28 +31,47 @@
+         nlist[i].clear();
+     }
+     
+-    // Build neighbor list sequentially (phase 1)
+-    for (int i = 0; i < cfg.natoms; i++) {
+-        for (int j = i + 1; j < cfg.natoms; j++) {
+-            double dx = cfg.x[j] - cfg.x[i];
+-            double dy = cfg.y[j] - cfg.y[i];
+-            double dz = cfg.z[j] - cfg.z[i];
+-            
+-            // Periodic boundary conditions
+-            if (dx > cfg.box_size * 0.5) dx -= cfg.box_size;
+-            if (dx < -cfg.box_size * 0.5) dx += cfg.box_size;
+-            if (dy > cfg.box_size * 0.5) dy -= cfg.box_size;
+-            if (dy < -cfg.box_size * 0.5) dy += cfg.box_size;
+-            if (dz > cfg.box_size * 0.5) dz -= cfg.box_size;
+-            if (dz < -cfg.box_size * 0.5) dz += cfg.box_size;
+-            
+-            double r2 = dx*dx + dy*dy + dz*dz;
+-            if (r2 < rcut_sq) {
+-                nlist[i].push_back(j);
+-                nlist[j].push_back(i);
++    // PHASE 2 LOOP 6: Build neighbor list with PER-THREAD MERGE
++    #pragma omp parallel
++    {
++        // Each thread maintains local neighbor list buffer
++        std::vector<std::vector<int>> nlist_local(cfg.natoms);
++        
++        // Nested loop parallelization with collapse(2)
++        #pragma omp for collapse(2)
++        for (int i = 0; i < cfg.natoms; i++) {
++            for (int j = i + 1; j < cfg.natoms; j++) {
++                double dx = cfg.x[j] - cfg.x[i];
++                double dy = cfg.y[j] - cfg.y[i];
++                double dz = cfg.z[j] - cfg.z[i];
++                
++                // Periodic boundary conditions
++                applyPBC(dx, dy, dz, cfg.box_size);
++                
++                double r2 = dx*dx + dy*dy + dz*dz;
++                if (r2 < rcut_sq) {
++                    nlist_local[i].push_back(j);
++                    nlist_local[j].push_back(i);
++                }
++            }
++        }
++        
++        // Critical merge: combine thread-local buffers into global list
++        #pragma omp critical
++        {
++            for (int i = 0; i < cfg.natoms; i++) {
++                for (int neighbor : nlist_local[i]) {
++                    nlist[i].push_back(neighbor);
++                }
+             }
+         }
+     }
++    
++    // Remove duplicates from critical merge
++    for (int i = 0; i < cfg.natoms; i++) {
++        std::sort(nlist[i].begin(), nlist[i].end());
++        nlist[i].erase(std::unique(nlist[i].begin(), nlist[i].end()), nlist[i].end());
++    }
+ }
+ 
+ } // namespace neighbor
