@@ -8,6 +8,11 @@
 ## RECENT ENTRIES
 
 [Items will appear here chronologically]
+### 2026-09-13 16:03 — SOCIAL: Instagram Post
+- **Link:** [https://www.instagram.com/p/DcW7WNuCBse/?img_index=2&stkn=MWhiNHRiZHE4OTF6Yw==](https://www.instagram.com/p/DcW7WNuCBse/?img_index=2&stkn=MWhiNHRiZHE4OTF6Yw==)
+- **Category:** Social-Media
+- **Relevance:** MEDIUM
+- **Saved to:** SOCIAL/2026-09-13_160338-instagram-post.md
 
 ### 2026-09-13 16:00 — SOCIAL: TikTok Video #2
 - **Link:** [https://vt.tiktok.com/ZSq9XXSd2/](https://vt.tiktok.com/ZSq9XXSd2/)
