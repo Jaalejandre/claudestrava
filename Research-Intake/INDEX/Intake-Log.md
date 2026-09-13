@@ -9,6 +9,14 @@
 
 [Items will appear here chronologically]
 
+### 2026-09-13 16:00 — SOCIAL: TikTok Video #2
+- **Link:** [https://vt.tiktok.com/ZSq9XXSd2/](https://vt.tiktok.com/ZSq9XXSd2/)
+- **Category:** Social-Media
+- **Relevance:** MEDIUM
+- **Action:** ARCHIVE (content pending manual review)
+- **Saved to:** SOCIAL/2026-09-13_160038-tiktok-video-2.md
+
+
 ### 2026-09-13 15:59 — SOCIAL: TikTok Video
 - **Link:** [https://vt.tiktok.com/ZSq9XYsNs/](https://vt.tiktok.com/ZSq9XYsNs/)
 - **Category:** Social-Media
