@@ -1,0 +1,21 @@
+name = "gromacs-analyzer"
+main = "src/index.ts"
+compatibility_date = "2024-09-12"
+account_id = "3b51d04f22a059a412605703e8e6341f"
+
+[vars]
+CT901_HOST = "192.168.0.230"
+CT901_USER = "alejandre"
+CT901_LOG_PATH = "/home/alejandre/UAMI_Test"
+AI_MODEL = "@cf/meta/llama-2-7b-chat-int8"
+
+[[r2_buckets]]
+binding = "R2_BUCKET"
+bucket_name = "gromacs-storage"
+
+[triggers]
+crons = ["0 */6 * * *"]
+
+[observability.traces]
+enabled = true
+head_sampling_rate = 1

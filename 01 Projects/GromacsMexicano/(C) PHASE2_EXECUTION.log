@@ -1,0 +1,25 @@
+===== GromacsMexicano Phase 2 (OpenMP Full - 6 Loops) =====
+OpenMP threads: 4
+System: 256 atoms
+Bonds: 10
+Angles: 5
+Dihedrals: 3
+1-4 Pairs: 5
+Box: 20 nm
+dt: 0.001 ps
+nsteps: 1000
+Step 100: E_total=5.83424e+53 T=1.83461e+53 K
+Step 200: E_total=2.13552e+53 T=6.71526e+52 K
+Step 300: E_total=7.8167e+52 T=2.458e+52 K
+Step 400: E_total=2.86117e+52 T=8.99708e+51 K
+Step 500: E_total=1.04728e+52 T=3.29322e+51 K
+Step 600: E_total=3.83338e+51 T=1.20543e+51 K
+Step 700: E_total=1.70716e+63 T=5.36825e+62 K
+Step 800: E_total=6.24875e+62 T=1.96495e+62 K
+Step 900: E_total=2.28725e+62 T=7.19236e+61 K
+Step 1000: E_total=8.37206e+61 T=2.63264e+61 K
+
+===== Simulation Complete =====
+Total time: 0.445854 seconds
+Steps: 1000
+Time per step: 0.445854 ms

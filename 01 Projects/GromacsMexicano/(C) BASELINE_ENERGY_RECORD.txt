@@ -1,0 +1,12 @@
+**BASELINE ENERGY RECORD**
+
+Program: Programa_DM_cpp_v1.1/build/dm_mx_npt
+Inputs: Toy system (no real atoms, energies = 0 by design)
+
+Issue: Código toy no tiene inputs de verdad, energías todas 0.
+
+However: **We know baseline WORKS (no crashes, 5.74s wall time).**
+
+**For Phase 1 validation:** Use timing + no-crash as primary metric, since energies are 0 in toy system.
+
+**Real validation will happen** with Prof_UAMI binary (which has proper inputs).

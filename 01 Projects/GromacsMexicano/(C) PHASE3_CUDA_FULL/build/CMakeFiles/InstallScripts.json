@@ -1,0 +1,7 @@
+{
+	"InstallScripts" : 
+	[
+		"/root/phase3_cuda/build/cmake_install.cmake"
+	],
+	"Parallel" : false
+}
