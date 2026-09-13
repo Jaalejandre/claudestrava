@@ -8,6 +8,10 @@
 ## RECENT ENTRIES
 
 [Items will appear here chronologically]
+### 2026-09-13 16:11 — LOCATION: Google Maps Restaurant [José]
+- **Link:** [https://maps.app.goo.gl/9JvDqKn8F6atB7QM9?g_st=ac](https://maps.app.goo.gl/9JvDqKn8F6atB7QM9?g_st=ac)
+- **Contributor:** José
+- **Saved to:** SOCIAL/2026-09-13_161154-[José]-google-maps.md
 ### 2026-09-13 16:03 — SOCIAL: Instagram Post
 - **Link:** [https://www.instagram.com/p/DcW7WNuCBse/?img_index=2&stkn=MWhiNHRiZHE4OTF6Yw==](https://www.instagram.com/p/DcW7WNuCBse/?img_index=2&stkn=MWhiNHRiZHE4OTF6Yw==)
 - **Category:** Social-Media
