@@ -24,7 +24,7 @@ echo 'OPCIÓN A: Usar wrangler login (recomendado)'
 echo '  wrangler login'
 echo ''
 echo 'OPCIÓN B: Usar token directo'
-echo '  export CLOUDFLARE_API_TOKEN="cfut_929uylLoJXl5FmWxYeWOgXMBb04Ag3NreGEUHOp2a6d51ed3"'
+echo '  export CLOUDFLARE_API_TOKEN="cfut_REDACTED"'
 echo ''
 read -p 'Presiona ENTER cuando hayas configurado el token... '
 
