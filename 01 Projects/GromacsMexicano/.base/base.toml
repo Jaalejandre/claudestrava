@@ -1,0 +1,13 @@
+[base]
+version = "1.2.0"
+name = "GromacsMexicano"
+domains = ["Fortran", "CUDA", "C++"]
+
+[domains]
+Fortran = { source = "src/", patterns = ["*.f*", "*.F*"] }
+CUDA = { source = "src/", patterns = ["*.cu"] }
+CXX = { source = "src/", patterns = ["*.cpp", "*.h"] }
+
+[changes]
+track = true
+log_file = "changes.jsonl"

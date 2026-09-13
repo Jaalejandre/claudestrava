@@ -1,0 +1,770 @@
+{
+  "(C) FABLE - examples.cpp": {
+    "mtime": 1789239889.9110854,
+    "seen": 1789313944.369004,
+    "ast_hash": "ce2ed5daf43441d48ebd474c548cd2fc",
+    "semantic_hash": ""
+  },
+  "(C) PHASE1_SRC_CODE/include/config.h": {
+    "mtime": 1789241124.9022834,
+    "seen": 1789313944.3690083,
+    "ast_hash": "778e513c87dcbaae0d4c22b39b0000e4",
+    "semantic_hash": ""
+  },
+  "(C) PHASE1_SRC_CODE/src/ewald.cpp": {
+    "mtime": 1789241124.9021904,
+    "seen": 1789313944.3690107,
+    "ast_hash": "2aa897433600d395a2e55eb3d3e3d329",
+    "semantic_hash": ""
+  },
+  "(C) PHASE1_SRC_CODE/src/forces.cpp": {
+    "mtime": 1789241124.9021707,
+    "seen": 1789313944.3690116,
+    "ast_hash": "4ce87bcfcefe5361ae569187402a4637",
+    "semantic_hash": ""
+  },
+  "(C) PHASE1_SRC_CODE/src/integrator.cpp": {
+    "mtime": 1789241124.902148,
+    "seen": 1789313944.3690126,
+    "ast_hash": "459131ed191e86b2b14e51000810cfdc",
+    "semantic_hash": ""
+  },
+  "(C) PHASE1_SRC_CODE/src/io.cpp": {
+    "mtime": 1789241124.9022262,
+    "seen": 1789313944.369013,
+    "ast_hash": "42e2826e26458887b5b2d1c675586735",
+    "semantic_hash": ""
+  },
+  "(C) PHASE1_SRC_CODE/src/main.cpp": {
+    "mtime": 1789241124.902244,
+    "seen": 1789313944.3690138,
+    "ast_hash": "94e271920a74661ac5e92263bf5c8c31",
+    "semantic_hash": ""
+  },
+  "(C) PHASE1_SRC_CODE/src/neighbor.cpp": {
+    "mtime": 1789241124.9022086,
+    "seen": 1789313944.3690143,
+    "ast_hash": "b27545b8e53a16294336c2c67bba57df",
+    "semantic_hash": ""
+  },
+  "(C) PHASE2_SRC_CODE/include/config.h": {
+    "mtime": 1789241906.6273973,
+    "seen": 1789313944.369015,
+    "ast_hash": "dc322d5b0adc6d837e9bb75271f1a8b2",
+    "semantic_hash": ""
+  },
+  "(C) PHASE2_SRC_CODE/src/ewald.cpp": {
+    "mtime": 1789241906.6273155,
+    "seen": 1789313944.3690155,
+    "ast_hash": "2aa897433600d395a2e55eb3d3e3d329",
+    "semantic_hash": ""
+  },
+  "(C) PHASE2_SRC_CODE/src/forces.cpp": {
+    "mtime": 1789241906.6272614,
+    "seen": 1789313944.3690164,
+    "ast_hash": "04d29b3559d30324af4c34936f5c2190",
+    "semantic_hash": ""
+  },
+  "(C) PHASE2_SRC_CODE/src/integrator.cpp": {
+    "mtime": 1789241906.627359,
+    "seen": 1789313944.3690171,
+    "ast_hash": "459131ed191e86b2b14e51000810cfdc",
+    "semantic_hash": ""
+  },
+  "(C) PHASE2_SRC_CODE/src/io.cpp": {
+    "mtime": 1789241906.627231,
+    "seen": 1789313944.3690176,
+    "ast_hash": "415920fa5abfd6deb57dcd9b827d3ba1",
+    "semantic_hash": ""
+  },
+  "(C) PHASE2_SRC_CODE/src/main.cpp": {
+    "mtime": 1789241906.6273365,
+    "seen": 1789313944.369018,
+    "ast_hash": "789ea9cbdb519dd24b74d93ac777ab54",
+    "semantic_hash": ""
+  },
+  "(C) PHASE2_SRC_CODE/src/neighbor.cpp": {
+    "mtime": 1789241906.6272936,
+    "seen": 1789313944.3690186,
+    "ast_hash": "1388c5fe4eceb87674cd0823ac2bcdf4",
+    "semantic_hash": ""
+  },
+  "(C) PHASE3_CUDA_FULL/include/config.h": {
+    "mtime": 1789242782.0602653,
+    "seen": 1789313944.3690195,
+    "ast_hash": "dc322d5b0adc6d837e9bb75271f1a8b2",
+    "semantic_hash": ""
+  },
+  "(C) PHASE3_CUDA_FULL/src/forces_bonded.cu": {
+    "mtime": 1789242782.0602,
+    "seen": 1789313944.36902,
+    "ast_hash": "472899f067ee083d6ff26102cbd7bcca",
+    "semantic_hash": ""
+  },
+  "(C) PHASE3_CUDA_FULL/src/forces_pairwise.cu": {
+    "mtime": 1789242782.0602221,
+    "seen": 1789313944.3690207,
+    "ast_hash": "ee55b3388eb1f0520f1657ed03ff5e12",
+    "semantic_hash": ""
+  },
+  "(C) PHASE3_CUDA_FULL/src/main.cpp": {
+    "mtime": 1789242782.0601752,
+    "seen": 1789313944.3690212,
+    "ast_hash": "e72c4030c557774db71733a46a1c74c1",
+    "semantic_hash": ""
+  },
+  "(C) PHASE3_CUDA_FULL/src/neighbor.cu": {
+    "mtime": 1789242782.060147,
+    "seen": 1789313944.369022,
+    "ast_hash": "7c11c830549df57d16c6c7af32d6bd97",
+    "semantic_hash": ""
+  },
+  "(C) PHASE4_CUDA_PINNED/include/config.h": {
+    "mtime": 1789243708.836117,
+    "seen": 1789313944.3690224,
+    "ast_hash": "dc322d5b0adc6d837e9bb75271f1a8b2",
+    "semantic_hash": ""
+  },
+  "(C) PHASE4_CUDA_PINNED/src/forces.cu": {
+    "mtime": 1789243708.8360252,
+    "seen": 1789313944.369023,
+    "ast_hash": "58355f4674a9f9710b3ea040c210d029",
+    "semantic_hash": ""
+  },
+  "(C) PHASE4_CUDA_PINNED/src/integrator.cu": {
+    "mtime": 1789243708.8360534,
+    "seen": 1789313944.3690238,
+    "ast_hash": "55da95c264195a1536c327e7b5a338cc",
+    "semantic_hash": ""
+  },
+  "(C) PHASE4_CUDA_PINNED/src/main.cu": {
+    "mtime": 1789243708.8360746,
+    "seen": 1789313944.3690245,
+    "ast_hash": "563b13c658c419830e87ab47b4a1956b",
+    "semantic_hash": ""
+  },
+  "gromacs-analyzer-worker/gromacs-analyzer/DEPLOY.sh": {
+    "mtime": 1789312170.8306596,
+    "seen": 1789313944.3690252,
+    "ast_hash": "c7b52b040a8acae902a8fa3b7383331e",
+    "semantic_hash": ""
+  },
+  "gromacs-analyzer-worker/gromacs-analyzer/package.json": {
+    "mtime": 1789227116.5154085,
+    "seen": 1789313944.3690257,
+    "ast_hash": "4e34ffe38918877e2f0ff7f3dab217f9",
+    "semantic_hash": ""
+  },
+  "gromacs-analyzer-worker/gromacs-analyzer/src/index.ts": {
+    "mtime": 1789227116.5152469,
+    "seen": 1789313944.3690267,
+    "ast_hash": "1e9ed9ce9f541239424c3c2c6f6747ab",
+    "semantic_hash": ""
+  },
+  "gromacs-analyzer-worker/gromacs-analyzer/test/index.spec.ts": {
+    "mtime": 1789227116.5153468,
+    "seen": 1789313944.3690274,
+    "ast_hash": "5682b65cc8fd749f9d2f5b9f34177597",
+    "semantic_hash": ""
+  },
+  "gromacs-analyzer-worker/gromacs-analyzer/test/tsconfig.json": {
+    "mtime": 1789227116.515306,
+    "seen": 1789313944.369028,
+    "ast_hash": "10fd237662d8329cee5498fa9d76e576",
+    "semantic_hash": ""
+  },
+  "gromacs-analyzer-worker/gromacs-analyzer/tsconfig.json": {
+    "mtime": 1789227116.714312,
+    "seen": 1789313944.3690286,
+    "ast_hash": "31914348758c4768a4d9224872b333c8",
+    "semantic_hash": ""
+  },
+  "gromacs-analyzer-worker/gromacs-analyzer/vitest.config.mts": {
+    "mtime": 1789227116.5152016,
+    "seen": 1789313944.3690293,
+    "ast_hash": "64b67c31bc4049bc0de7461bfe25f397",
+    "semantic_hash": ""
+  },
+  "gromacs-analyzer-worker/package.json": {
+    "mtime": 1789227473.6420457,
+    "seen": 1789313944.36903,
+    "ast_hash": "4e34ffe38918877e2f0ff7f3dab217f9",
+    "semantic_hash": ""
+  },
+  "gromacs-analyzer-worker/src/index.ts": {
+    "mtime": 1789226355.853984,
+    "seen": 1789313944.3690305,
+    "ast_hash": "1e9ed9ce9f541239424c3c2c6f6747ab",
+    "semantic_hash": ""
+  },
+  "gromacs-analyzer-worker/test/index.spec.ts": {
+    "mtime": 1789226355.8540413,
+    "seen": 1789313944.369031,
+    "ast_hash": "5682b65cc8fd749f9d2f5b9f34177597",
+    "semantic_hash": ""
+  },
+  "gromacs-analyzer-worker/test/tsconfig.json": {
+    "mtime": 1789226355.854018,
+    "seen": 1789313944.3690317,
+    "ast_hash": "10fd237662d8329cee5498fa9d76e576",
+    "semantic_hash": ""
+  },
+  "gromacs-analyzer-worker/tsconfig.json": {
+    "mtime": 1789226356.0882318,
+    "seen": 1789313944.3690321,
+    "ast_hash": "31914348758c4768a4d9224872b333c8",
+    "semantic_hash": ""
+  },
+  "gromacs-analyzer-worker/vitest.config.mts": {
+    "mtime": 1789226355.8539593,
+    "seen": 1789313944.3690326,
+    "ast_hash": "64b67c31bc4049bc0de7461bfe25f397",
+    "semantic_hash": ""
+  },
+  "main_uami.f": {
+    "mtime": 1789142983.2266798,
+    "seen": 1789313944.369033,
+    "ast_hash": "cca0fd6e561c09272417ded6dbe14e84",
+    "semantic_hash": ""
+  },
+  "(C) BASE vs GRAPHIFY - An\u00e1lisis.md": {
+    "mtime": 1789224644.7742934,
+    "seen": 1789313944.3690345,
+    "ast_hash": "0133076591620442fa3613ffd94179d6",
+    "semantic_hash": ""
+  },
+  "(C) BASELINE_ENERGY_RECORD.txt": {
+    "mtime": 1789240712.8347945,
+    "seen": 1789313944.369035,
+    "ast_hash": "15735082d83350610119dc4c437a0536",
+    "semantic_hash": ""
+  },
+  "(C) BENCHMARK_PHASE1_vs_PHASE4_REAL_DATA.md": {
+    "mtime": 1789243999.9342055,
+    "seen": 1789313944.3690355,
+    "ast_hash": "339a808888507ae7ad62dd142930ce22",
+    "semantic_hash": ""
+  },
+  "(C) BENCHMARK_REAL_DELEGACION_VIVA.md": {
+    "mtime": 1789244200.6699407,
+    "seen": 1789313944.3690362,
+    "ast_hash": "5078c83c95b8d975a9fb895be75f1bd8",
+    "semantic_hash": ""
+  },
+  "(C) BENCHMARK_REAL_DELEGATION_PLAN.md": {
+    "mtime": 1789244185.0462608,
+    "seen": 1789313944.369037,
+    "ast_hash": "2f40a37cb4b8449ba5683fce543be82e",
+    "semantic_hash": ""
+  },
+  "(C) BENCHMARK_REAL_FINAL_OFFICIAL.md": {
+    "mtime": 1789244671.276474,
+    "seen": 1789313944.369038,
+    "ast_hash": "9aeae06a984001e6bb6a6057d6d665cb",
+    "semantic_hash": ""
+  },
+  "(C) BENCHMARK_REAL_PLAN.md": {
+    "mtime": 1789244088.7700713,
+    "seen": 1789313944.3690386,
+    "ast_hash": "aa994acd75e6f59d1d4c17e4d4938f42",
+    "semantic_hash": ""
+  },
+  "(C) BENCHMARK_gmx_mexicano_v1_final_2026-09-12.md": {
+    "mtime": 1789259249.32334,
+    "seen": 1789313944.3690393,
+    "ast_hash": "809654f02d78be9d59c1e6c93911c2bd",
+    "semantic_hash": ""
+  },
+  "(C) CONTEXTO F\u00cdSICA - Para Fable.md": {
+    "mtime": 1789236771.5271125,
+    "seen": 1789313944.36904,
+    "ast_hash": "8dafd61f541f87db2c8ffc4da5f47023",
+    "semantic_hash": ""
+  },
+  "(C) Cloudflare Automation - Plan Completo.md": {
+    "mtime": 1789225964.777046,
+    "seen": 1789313944.3690407,
+    "ast_hash": "bce696936ac8694c3f0e5d7bee551159",
+    "semantic_hash": ""
+  },
+  "(C) Cloudflare Worker - Gromacs Analysis.md": {
+    "mtime": 1789225873.030032,
+    "seen": 1789313944.3690412,
+    "ast_hash": "cb7cd568f04d1c9de52c6c26fa98554f",
+    "semantic_hash": ""
+  },
+  "(C) DECISI\u00d3N EJECUTIVA - Paralelizaci\u00f3n.md": {
+    "mtime": 1789237156.321051,
+    "seen": 1789313944.369042,
+    "ast_hash": "b27cf8aa149abb0c7ddead3d744bb1be",
+    "semantic_hash": ""
+  },
+  "(C) DECISI\u00d3N FINAL - Fortran vs C++.md": {
+    "mtime": 1789239026.874642,
+    "seen": 1789313944.3690426,
+    "ast_hash": "4e1ac4ba67712a44e480435e28502442",
+    "semantic_hash": ""
+  },
+  "(C) DEPLOYMENT EXITOSO.md": {
+    "mtime": 1789228110.8869247,
+    "seen": 1789313944.3690434,
+    "ast_hash": "14f69f02886cf1afeeaa9e09143e0353",
+    "semantic_hash": ""
+  },
+  "(C) DM-UAMI Phase 4 - v1 STABLE RELEASE.md": {
+    "mtime": 1789258507.925964,
+    "seen": 1789313944.369044,
+    "ast_hash": "ec3ef4cf0bee2d549658edce0732ce97",
+    "semantic_hash": ""
+  },
+  "(C) FABLE - ANALYSIS_SUMMARY.txt": {
+    "mtime": 1789239889.9085433,
+    "seen": 1789313944.3690445,
+    "ast_hash": "0768e920a810f49f96d427923f020c33",
+    "semantic_hash": ""
+  },
+  "(C) FABLE - QUICK_REFERENCE.md": {
+    "mtime": 1789239889.9094307,
+    "seen": 1789313944.3690453,
+    "ast_hash": "8a5095fb3ba02950506022ef957e233d",
+    "semantic_hash": ""
+  },
+  "(C) FABLE - checklist.md": {
+    "mtime": 1789239889.9119387,
+    "seen": 1789313944.3690457,
+    "ast_hash": "453e43d16fa87ef05c04f2ff21300120",
+    "semantic_hash": ""
+  },
+  "(C) FABLE - openmp_analysis.md": {
+    "mtime": 1789239889.9101975,
+    "seen": 1789313944.3690462,
+    "ast_hash": "3103e615ad985605e2bb4f9855e55ea3",
+    "semantic_hash": ""
+  },
+  "(C) FASE 1 COMPLETA - Worker Ready.md": {
+    "mtime": 1789226380.2562215,
+    "seen": 1789313944.369047,
+    "ast_hash": "adc5aebc7d6918c7767d13973f4e1e34",
+    "semantic_hash": ""
+  },
+  "(C) GET CLOUDFLARE API TOKEN.md": {
+    "mtime": 1789226452.6253867,
+    "seen": 1789313944.3690476,
+    "ast_hash": "74ec5f547f587b8da6a330c281d3ed26",
+    "semantic_hash": ""
+  },
+  "(C) MASTER PLAN - Paralelizaci\u00f3n Sept 12.md": {
+    "mtime": 1789239919.7598722,
+    "seen": 1789313944.3690484,
+    "ast_hash": "e5ab0958c5012d14aeeb12738ef8ed95",
+    "semantic_hash": ""
+  },
+  "(C) PHASE1_DELIVERABLES_MANIFEST.txt": {
+    "mtime": 1789241124.9012873,
+    "seen": 1789313944.3690488,
+    "ast_hash": "edaf9989b0e3f1a3c7f7e225282694db",
+    "semantic_hash": ""
+  },
+  "(C) PHASE1_FINAL_SUMMARY.txt": {
+    "mtime": 1789241124.8989205,
+    "seen": 1789313944.3690493,
+    "ast_hash": "5f99b6b9d60f47d005571cc89bf4cfd7",
+    "semantic_hash": ""
+  },
+  "(C) PHASE1_IMPLEMENTATION_PLAN.md": {
+    "mtime": 1789240696.3710701,
+    "seen": 1789313944.3690498,
+    "ast_hash": "c5eb0a766fcb78edac0e1c25b9423091",
+    "semantic_hash": ""
+  },
+  "(C) PHASE1_SRC_CODE/CMakeLists.txt": {
+    "mtime": 1789241124.9023118,
+    "seen": 1789313944.3690507,
+    "ast_hash": "7ce3894ff0f01b554322cbfdfbea494a",
+    "semantic_hash": ""
+  },
+  "(C) PHASE2_COMPLETION_SUMMARY.md": {
+    "mtime": 1789241906.623598,
+    "seen": 1789313944.3690512,
+    "ast_hash": "4c86d9fb6cb394601c616c523c7c26f3",
+    "semantic_hash": ""
+  },
+  "(C) PHASE2_DELEGACION_VIVA.md": {
+    "mtime": 1789241521.8303812,
+    "seen": 1789313944.3690517,
+    "ast_hash": "9cf204bea07bf6c5a8642d2adbee22bd",
+    "semantic_hash": ""
+  },
+  "(C) PHASE2_DELEGATION_PLAN_FULL.md": {
+    "mtime": 1789241499.5764022,
+    "seen": 1789313944.3690524,
+    "ast_hash": "11c8375386ee3a2425ad774c0cee517a",
+    "semantic_hash": ""
+  },
+  "(C) PHASE2_ESTADO_ACTUAL.md": {
+    "mtime": 1789241283.248886,
+    "seen": 1789313944.369053,
+    "ast_hash": "f09089e734eaae8e53e49438c991f330",
+    "semantic_hash": ""
+  },
+  "(C) PHASE2_IMPLEMENTATION_PLAN.md": {
+    "mtime": 1789241245.0182045,
+    "seen": 1789313944.3690534,
+    "ast_hash": "554ec7b222ee38ef0e5ad1778e3d82d1",
+    "semantic_hash": ""
+  },
+  "(C) PHASE2_OPTIONS_COMPARATIVO.md": {
+    "mtime": 1789241274.0284805,
+    "seen": 1789313944.3690538,
+    "ast_hash": "99049e16d4101a6bafc96a4dc842e3ef",
+    "semantic_hash": ""
+  },
+  "(C) PHASE2_RESUMEN_EJECUTIVO.md": {
+    "mtime": 1789241259.0978239,
+    "seen": 1789313944.3690548,
+    "ast_hash": "941a84724a72e9dfb21fdbe8737e9bde",
+    "semantic_hash": ""
+  },
+  "(C) PHASE2_SRC_CODE/CMakeLists.txt": {
+    "mtime": 1789241906.627423,
+    "seen": 1789313944.3690553,
+    "ast_hash": "7ce3894ff0f01b554322cbfdfbea494a",
+    "semantic_hash": ""
+  },
+  "(C) PHASE2_TIMING_RESULTS.txt": {
+    "mtime": 1789241906.6254113,
+    "seen": 1789313944.3690557,
+    "ast_hash": "f07bc8f08e4b4ade2744b283cc336b5c",
+    "semantic_hash": ""
+  },
+  "(C) PHASE3_ANALYSIS.md": {
+    "mtime": 1789242107.5781527,
+    "seen": 1789313944.3690562,
+    "ast_hash": "de1d3048ddd192769f7e5bc56c2c3916",
+    "semantic_hash": ""
+  },
+  "(C) PHASE3_CUDA_FULL/CMakeLists.txt": {
+    "mtime": 1789242782.060029,
+    "seen": 1789313944.369057,
+    "ast_hash": "15d95aa24a98114c55fb57cdd4a0c48c",
+    "semantic_hash": ""
+  },
+  "(C) PHASE3_CUDA_FULL/DELIVERY_CHECKLIST.txt": {
+    "mtime": 1789242782.0659366,
+    "seen": 1789313944.369058,
+    "ast_hash": "e7ea4e4213e2acd5fc0b5f81be7f2f29",
+    "semantic_hash": ""
+  },
+  "(C) PHASE3_CUDA_FULL/PHASE3_REPORT.md": {
+    "mtime": 1789242782.0600688,
+    "seen": 1789313944.3690584,
+    "ast_hash": "3ddf32eab2c798ec3de8a1f4e0cf2e89",
+    "semantic_hash": ""
+  },
+  "(C) PHASE3_CUDA_FULL/README.md": {
+    "mtime": 1789242782.0600958,
+    "seen": 1789313944.3690588,
+    "ast_hash": "88c7dcd6b0be7714d20d5f7ab42cbb85",
+    "semantic_hash": ""
+  },
+  "(C) PHASE3_CUDA_FULL/TIMING_REPORT.txt": {
+    "mtime": 1789242782.0658998,
+    "seen": 1789313944.3690596,
+    "ast_hash": "4fb0616d075c5e56aa68bfa2ce8c8f1f",
+    "semantic_hash": ""
+  },
+  "(C) PHASE3_DELEGACION_VIVA.md": {
+    "mtime": 1789242255.2466505,
+    "seen": 1789313944.3690603,
+    "ast_hash": "9cc37cbb6ed7d51db4bd8c87c660eef8",
+    "semantic_hash": ""
+  },
+  "(C) PHASE3_DELEGATION_PLAN_FULL.md": {
+    "mtime": 1789242221.3371584,
+    "seen": 1789313944.3690612,
+    "ast_hash": "c97e80f3b6dea540c997a5df54868a9a",
+    "semantic_hash": ""
+  },
+  "(C) PHASE3_OPTIONS_QUICK.md": {
+    "mtime": 1789242115.7165108,
+    "seen": 1789313944.369062,
+    "ast_hash": "f9af213f2048d0a5f2cc4b3ab0bfed93",
+    "semantic_hash": ""
+  },
+  "(C) PHASE3_TIMING_RESULTS.txt": {
+    "mtime": 1789242782.0691054,
+    "seen": 1789313944.3690627,
+    "ast_hash": "4fb0616d075c5e56aa68bfa2ce8c8f1f",
+    "semantic_hash": ""
+  },
+  "(C) PHASE4_ANALYSIS.md": {
+    "mtime": 1789243016.022098,
+    "seen": 1789313944.3690631,
+    "ast_hash": "e4780b5c291d4f3b9550491717fcc5d4",
+    "semantic_hash": ""
+  },
+  "(C) PHASE4_CUDA_PINNED/CMakeLists.txt": {
+    "mtime": 1789243708.8410952,
+    "seen": 1789313944.3690639,
+    "ast_hash": "e2d1372d38374927e98c49d48ddfff2b",
+    "semantic_hash": ""
+  },
+  "(C) PHASE4_CUDA_PINNED/DELIVERY_CHECKLIST.txt": {
+    "mtime": 1789243708.8359745,
+    "seen": 1789313944.3690643,
+    "ast_hash": "b4d4494e9ccc5d52857720e5f8985ec0",
+    "semantic_hash": ""
+  },
+  "(C) PHASE4_CUDA_PINNED/MANIFEST.txt": {
+    "mtime": 1789243708.8410544,
+    "seen": 1789313944.3690658,
+    "ast_hash": "72fbaf8bdcaf8d7ae6d7eb464e2a86de",
+    "semantic_hash": ""
+  },
+  "(C) PHASE4_CUDA_PINNED/PHASE4_REPORT.md": {
+    "mtime": 1789243708.840987,
+    "seen": 1789313944.3690662,
+    "ast_hash": "fa00078ad8c91ddcb0c2309652c502ee",
+    "semantic_hash": ""
+  },
+  "(C) PHASE4_CUDA_PINNED/README.md": {
+    "mtime": 1789243708.8410213,
+    "seen": 1789313944.369067,
+    "ast_hash": "2e30bd207566761192baa5b1d89dc127",
+    "semantic_hash": ""
+  },
+  "(C) PHASE4_CUDA_PINNED/TIMING_REPORT.txt": {
+    "mtime": 1789243708.8359237,
+    "seen": 1789313944.3690674,
+    "ast_hash": "43fc2071596871ef82e9686f1b616f91",
+    "semantic_hash": ""
+  },
+  "(C) PHASE4_DELEGACION_VIVA.md": {
+    "mtime": 1789243138.8274884,
+    "seen": 1789313944.3690684,
+    "ast_hash": "5fd13051c1cff51fb3967e91cc9b6fd3",
+    "semantic_hash": ""
+  },
+  "(C) PHASE4_DELEGATION_PLAN_FULL.md": {
+    "mtime": 1789243118.927615,
+    "seen": 1789313944.3690689,
+    "ast_hash": "05c0404e9da38102c550eb0cb9b439f1",
+    "semantic_hash": ""
+  },
+  "(C) PHASE4_OPTIONS_QUICK.md": {
+    "mtime": 1789243025.929533,
+    "seen": 1789313944.3690693,
+    "ast_hash": "eeda4689a55738824f3c8ddfec5550f4",
+    "semantic_hash": ""
+  },
+  "(C) PHASE5_ANALYSIS.md": {
+    "mtime": 1789243859.8871112,
+    "seen": 1789313944.36907,
+    "ast_hash": "f17746e435af98d3893bedea74a9698f",
+    "semantic_hash": ""
+  },
+  "(C) PLAN DE ATAQUE - Borrador.md": {
+    "mtime": 1789235586.7960403,
+    "seen": 1789313944.3690705,
+    "ast_hash": "44b122bd75ef760917991a7051754fe3",
+    "semantic_hash": ""
+  },
+  "(C) PLAN DE ATAQUE - FINAL PARA REVISI\u00d3N.md": {
+    "mtime": 1789235708.2423763,
+    "seen": 1789313944.3690712,
+    "ast_hash": "d5a136d25fb9d0355950e575517a478b",
+    "semantic_hash": ""
+  },
+  "(C) PLAN PARALELIZACI\u00d3N - GPU+CPU.md": {
+    "mtime": 1789235167.857661,
+    "seen": 1789313944.3690722,
+    "ast_hash": "75011b68ee994c1da83f87dc01b172bc",
+    "semantic_hash": ""
+  },
+  "(C) PROYECTO_EPICICO_FINAL_COMPLETO.md": {
+    "mtime": 1789245115.2617753,
+    "seen": 1789313944.3690727,
+    "ast_hash": "a84fb1fd8c7c1d990bc00333fb159d30",
+    "semantic_hash": ""
+  },
+  "(C) QUICK REFERENCE - Paralelizaci\u00f3n C++.md": {
+    "mtime": 1789239051.4487205,
+    "seen": 1789313944.3690734,
+    "ast_hash": "c21276e1a03607f029418292c9e7bf8f",
+    "semantic_hash": ""
+  },
+  "(C) REPORTE FINAL - Sept 12.md": {
+    "mtime": 1789240296.6694698,
+    "seen": 1789313944.369074,
+    "ast_hash": "bc554177d9f14bd67f3d6d39f99bf5a7",
+    "semantic_hash": ""
+  },
+  "(C) REPORTE SUPERVISI\u00d3N - OpenMP Fallido.md": {
+    "mtime": 1789236520.219052,
+    "seen": 1789313944.369075,
+    "ast_hash": "97c24d20b99fa5972e2376cab304abaf",
+    "semantic_hash": ""
+  },
+  "(C) REPORTE_FINAL_PHASE1.md": {
+    "mtime": 1789241142.9037125,
+    "seen": 1789313944.369077,
+    "ast_hash": "2b532568fc8820afa5fede98a823a932",
+    "semantic_hash": ""
+  },
+  "(C) REPORTE_FINAL_PHASES_1_2_3.md": {
+    "mtime": 1789242815.2692862,
+    "seen": 1789313944.3690777,
+    "ast_hash": "7c648220399bf9e3f39e30881dc9328d",
+    "semantic_hash": ""
+  },
+  "(C) REPORTE_FINAL_PHASES_1_2_3_4_EPIC.md": {
+    "mtime": 1789243747.4252021,
+    "seen": 1789313944.3690782,
+    "ast_hash": "3aab0964be775a621e926072d92b4b8f",
+    "semantic_hash": ""
+  },
+  "(C) REPORTE_FINAL_PHASE_1_2.md": {
+    "mtime": 1789241933.3744874,
+    "seen": 1789313944.3690789,
+    "ast_hash": "cfee86f2770e1bc9f1136bd33101a64d",
+    "semantic_hash": ""
+  },
+  "(C) RESUMEN EJECUTIVO - Sesi\u00f3n 2026-09-12.md": {
+    "mtime": 1789234881.8671184,
+    "seen": 1789313944.3690796,
+    "ast_hash": "31a8d9c41d50cf3e3065c678f1dbf9f5",
+    "semantic_hash": ""
+  },
+  "(C) RESUMEN EJECUTIVO.md": {
+    "mtime": 1789228122.5564353,
+    "seen": 1789313944.3690803,
+    "ast_hash": "fc445cd728a84ab726a7e081bdd62903",
+    "semantic_hash": ""
+  },
+  "(C) RESUMEN_FINAL_TELEGRAM_EPIC.txt": {
+    "mtime": 1789242838.1762917,
+    "seen": 1789313944.369081,
+    "ast_hash": "3ca2fb33ddb56593ba1fdf8c99812baf",
+    "semantic_hash": ""
+  },
+  "(C) RESUMEN_TELEGRAM.txt": {
+    "mtime": 1789241158.3433917,
+    "seen": 1789313944.369082,
+    "ast_hash": "67cb87a86e54091964a945521c7b6b12",
+    "semantic_hash": ""
+  },
+  "(C) RESUMEN_TELEGRAM_FINAL.txt": {
+    "mtime": 1789242008.9128113,
+    "seen": 1789313944.3690825,
+    "ast_hash": "5275f19db822ce9aaa46942249a8085f",
+    "semantic_hash": ""
+  },
+  "(C) ROADMAP - Cloudflare Automation.md": {
+    "mtime": 1789225988.2870746,
+    "seen": 1789313944.3690832,
+    "ast_hash": "54503bc91341f304cd1ffc619c8de20b",
+    "semantic_hash": ""
+  },
+  "(C) STATUS_Sept12_PHASE1.md": {
+    "mtime": 1789240733.6357095,
+    "seen": 1789313944.3690836,
+    "ast_hash": "e273ce7059f5a1643546d81e93caa593",
+    "semantic_hash": ""
+  },
+  "(C) TELEGRAM_EPIC_FINAL.txt": {
+    "mtime": 1789244701.0547826,
+    "seen": 1789313944.3690844,
+    "ast_hash": "1f5118bd0f1158142122b0b37c140b22",
+    "semantic_hash": ""
+  },
+  "(C) UAMI_TEST_1000_PASOS_REAL.md": {
+    "mtime": 1789145492.4758828,
+    "seen": 1789313944.3690848,
+    "ast_hash": "89fa68ef4d197e3be3396a3ba27100ed",
+    "semantic_hash": ""
+  },
+  "(C) UAMI_TEST_1000_PASOS_SUCCESS.md": {
+    "mtime": 1789145469.8652608,
+    "seen": 1789313944.3690856,
+    "ast_hash": "fc47075a18f08a654626c4d2c85079f7",
+    "semantic_hash": ""
+  },
+  "(C) VALIDACI\u00d3N EXITOSA - UAM DM_NPT_gmx_v3.md": {
+    "mtime": 1789234867.4094844,
+    "seen": 1789313944.3690865,
+    "ast_hash": "a24ff0ca0a75bc8e5ad84574b3f8ee4f",
+    "semantic_hash": ""
+  },
+  "(C) WORKFLOW - Paralelizaci\u00f3n Sin Rework.md": {
+    "mtime": 1789240627.1390224,
+    "seen": 1789313944.3690872,
+    "ast_hash": "a21d0123532035c70c785737ecc096d8",
+    "semantic_hash": ""
+  },
+  "(C) gmx_mexicano v1.0 FINAL - OFFICIAL RELEASE.md": {
+    "mtime": 1789259013.1880283,
+    "seen": 1789313944.3690877,
+    "ast_hash": "b7274f187edc82025fab4ce683b03158",
+    "semantic_hash": ""
+  },
+  "(C) phase4_cuda_v1_FINAL_STABLE_2026-09-12.md": {
+    "mtime": 1789259721.1579728,
+    "seen": 1789313944.3690884,
+    "ast_hash": "c21a225adba9852afdf3a87f22794aeb",
+    "semantic_hash": ""
+  },
+  "DEPLOY_INSTRUCTIONS.md": {
+    "mtime": 1789227116.716432,
+    "seen": 1789313944.3690896,
+    "ast_hash": "505e229aef4caf093256ac0af1959888",
+    "semantic_hash": ""
+  },
+  "ESTADO_v3_FINAL.md": {
+    "mtime": 1789139786.9442706,
+    "seen": 1789313944.3690903,
+    "ast_hash": "b441d41b949faa9349f978895328f9d2",
+    "semantic_hash": ""
+  },
+  "ESTRATEGIA_v3_UAMI.md": {
+    "mtime": 1789143003.6796045,
+    "seen": 1789313944.3690908,
+    "ast_hash": "3c2eb3ae4d9297363cefbd919ffe4342",
+    "semantic_hash": ""
+  },
+  "README.md": {
+    "mtime": 1789226021.7405384,
+    "seen": 1789313944.3690915,
+    "ast_hash": "f5bf3eddf2957fd3ec1f40ba309e3467",
+    "semantic_hash": ""
+  },
+  "UAMI_BASELINE_LISTO.md": {
+    "mtime": 1789143173.2360466,
+    "seen": 1789313944.3690925,
+    "ast_hash": "fff3be7008c433ca155a5920ef8c10b4",
+    "semantic_hash": ""
+  },
+  "UAMI_TEST_CT901_SUCCESS.md": {
+    "mtime": 1789144475.0681922,
+    "seen": 1789313944.369093,
+    "ast_hash": "1184d46620350a0be0257be180d18a27",
+    "semantic_hash": ""
+  },
+  "UAMI_TEST_STATUS.md": {
+    "mtime": 1789143417.903785,
+    "seen": 1789313944.3690934,
+    "ast_hash": "18664d10b41d0b89ee6851e48470fd02",
+    "semantic_hash": ""
+  },
+  "gromacs-analyzer-worker/README.md": {
+    "mtime": 1789226356.0882585,
+    "seen": 1789313944.369094,
+    "ast_hash": "82d08b1fb3b24c5bb16ffa8fe088d853",
+    "semantic_hash": ""
+  },
+  "gromacs-analyzer-worker/gromacs-analyzer/README.md": {
+    "mtime": 1789227116.7143393,
+    "seen": 1789313944.3690946,
+    "ast_hash": "82d08b1fb3b24c5bb16ffa8fe088d853",
+    "semantic_hash": ""
+  }
+}
