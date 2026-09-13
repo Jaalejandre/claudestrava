@@ -1,0 +1,141 @@
+
+╔════════════════════════════════════════════════════════════════════════════════╗
+║                                                                                ║
+║               🎉 HERMES BOT TEAM MODE — LISTO PARA USAR 🚀                   ║
+║                                                                                ║
+║                    2026-09-13 14:22:47                                       ║
+║                                                                                ║
+╚════════════════════════════════════════════════════════════════════════════════╝
+
+═════════════════════════════════════════════════════════════════════════════════
+
+## CREADO ESTA SESIÓN (OPCIÓN A: Implementar Ahora — HECHO ✅)
+
+### 3 Bots Especializados
+
+✅ **Orchestrator Bot** (~/.hermes/profiles/orchestrator-bot/)
+   Role: Coordinator (clarify → delegate → review → gate)
+   SOUL.md: Complete instructions
+   config.yaml: Tool allowlist (File Ops, Skills, Memory only)
+
+✅ **Researcher Bot** (~/.hermes/profiles/researcher-bot/)
+   Role: Investigator (search → cite → report)
+   SOUL.md: Complete instructions
+   config.yaml: Tool allowlist (Web Search, Browser, Vision, Code Exec)
+
+✅ **Librarian Bot** (~/.hermes/profiles/librarian-bot/)
+   Role: Knowledge Organizer (propose → stage → gate)
+   SOUL.md: Complete instructions
+   config.yaml: Tool allowlist (Wiki tools only, no unilateral edits)
+
+### Research Directories
+
+✅ ~/JarvisVault/03 Projects/Research Reports/  (Researcher saves reports)
+✅ ~/JarvisVault/.wiki-staging/                 (Librarian stages proposals)
+✅ ~/JarvisVault/.wiki-archive/                 (Approved changes archived)
+
+### Test Guides
+
+✅ TEST-1-Quick-Hermes-Bot-Test.md             (10 min quick test)
+✅ TEST-2-Full-Workflow-Hermes-Bot.md          (30 min full workflow)
+✅ TEST-3 (Real Use) prompt in TEST-2 document
+
+═════════════════════════════════════════════════════════════════════════════════
+
+## HOW IT WORKS: TWO APPROVAL GATES
+
+Gate 1: Orchestrator reviews research
+  ↓
+  YOU DECIDE: "Approve" or "Revise"
+  ↓
+Gate 2: Librarian proposes Wiki changes
+  ↓
+  YOU DECIDE: "Approve" or "Reject"
+  ↓
+  Wiki updated ✅
+
+NO bot can bypass your approval. You're always in control.
+
+═════════════════════════════════════════════════════════════════════════════════
+
+## PRÓXIMOS PASOS (ORDEN ESTRICTO)
+
+### Hoy (TEST 1 — 10 min)
+Copy-paste TEST 1 prompt in Hermes:
+  Everyone, say hi and tell me your favourite colour.
+  Then @orchestrator, tell me each bot's favourite colour.
+
+Expected: All 3 bots respond + Orchestrator summarizes.
+
+### Mañana (TEST 2 — 30 min)
+Copy-paste TEST 2 prompt in Hermes:
+  @orchestrator, research best practices for multi-agent AI workflows...
+
+Expected: Full workflow (research → review → staging → approval → wiki).
+
+### This Week (TEST 3 — Real Use, 60+ min)
+Use bots for actual Phase 4 or L'Étape research.
+
+═════════════════════════════════════════════════════════════════════════════════
+
+## FILES TO REMEMBER
+
+### Bots
+~/.hermes/profiles/orchestrator-bot/
+~/.hermes/profiles/researcher-bot/
+~/.hermes/profiles/librarian-bot/
+
+### Tests (Copy-paste these prompts in Hermes)
+~/JarvisVault/TEST-1-Quick-Hermes-Bot-Test.md
+~/JarvisVault/TEST-2-Full-Workflow-Hermes-Bot.md
+
+### Research Output
+~/JarvisVault/03 Projects/Research Reports/     (Researcher saves here)
+~/JarvisVault/.wiki-staging/                    (Librarian stages here)
+
+### Documentation
+~/JarvisVault/03 Projects/Hermes-Bot-Team-Mode-Setup.md
+
+═════════════════════════════════════════════════════════════════════════════════
+
+## COMANDOS ÚTILES
+
+# Ver SOUL.md de un bot
+cat ~/.hermes/profiles/orchestrator-bot/SOUL.md
+
+# Verificar directorios de research
+ls ~/JarvisVault/03\ Projects/Research\ Reports/
+ls ~/JarvisVault/.wiki-staging/
+
+# Cambiar a un bot (dentro de Hermes)
+/profile orchestrator-bot
+/profile researcher-bot
+/profile librarian-bot
+
+═════════════════════════════════════════════════════════════════════════════════
+
+## STATUS FINAL
+
+✅ 3 Bots: 100% configured + deployed
+✅ 2 Approval Gates: Enforced in SOUL.md
+✅ Test Guides: Ready to copy-paste
+✅ Documentation: Complete
+✅ Git Backup: Pushed to GitHub
+✅ Zero Blockers: All systems go
+
+═════════════════════════════════════════════════════════════════════════════════
+
+## 🎯 YOUR MISSION (RIGHT NOW)
+
+1. Open Hermes
+2. Copy TEST 1 prompt from ~/JarvisVault/TEST-1-Quick-Hermes-Bot-Test.md
+3. Paste in chat
+4. Report results back
+
+THAT'S IT. Bots do the rest.
+
+═════════════════════════════════════════════════════════════════════════════════
+
+Total Session: 5h 10m → 8 Grandes Completados → Bot Team Mode Ready ✅
+
+Vamos. 🚀
