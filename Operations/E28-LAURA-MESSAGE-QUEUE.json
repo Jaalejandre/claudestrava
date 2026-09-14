@@ -1,0 +1,10 @@
+{
+  "timestamp": "2026-09-13T19:24:36.183114",
+  "to": "Laura (6247704701)",
+  "platform": "WhatsApp (via E28)",
+  "status": "PENDING",
+  "message": "\u00a1Hola Laura! \ud83d\udc4b\n\nTe tengo buenas noticias. Acabo de activar EQUIPO DE VIAJES especializado para ayudarte a planear tu pr\u00f3ximo viaje. \ud83c\udf0d\u2708\ufe0f\n\nEl equipo tiene 5 bots trabajando 24/7:\n\u2708\ufe0f Busca vuelos en tiempo real\n\ud83c\udfe8 Encuentra hoteles con mejores precios\n\ud83d\udcc9 Te avisa si los precios bajan m\u00e1s de 10%\n\ud83c\udfaf Recomienda atracciones y actividades\n\ud83d\udcc5 Planifica tu itinerario d\u00eda por d\u00eda\n\nTODO AUTOM\u00c1TICO. T\u00fa solo dime:\n  \u2022 \u00bfCu\u00e1ndo es tu viaje?\n  \u2022 \u00bfA d\u00f3nde quieres ir?\n  \u2022 \u00bfCu\u00e1ntos d\u00edas?\n  \u2022 \u00bfPresupuesto aproximado?\n\nY el equipo comienza la b\u00fasqueda ahora mismo.\n\n\u00bfCu\u00e1ndo es el viaje? \ud83d\udcc5",
+  "priority": "CR\u00cdTICA",
+  "issued_by": "E28 (Travel Agency)",
+  "escalation": "E32 (Management) responsible if not sent in 15 min"
+}
