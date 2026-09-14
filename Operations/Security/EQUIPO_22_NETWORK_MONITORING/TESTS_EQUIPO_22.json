@@ -1,0 +1,24 @@
+{
+  "test_traffic_monitor": {
+    "endpoint": "/localhost:9010/traffic",
+    "method": "GET",
+    "expected_response": "traffic_metrics"
+  },
+  "test_anomaly_detector": {
+    "endpoint": "/localhost:9011/detect",
+    "method": "POST",
+    "payload": {
+      "detection_type": "ddos"
+    },
+    "expected_response": "anomaly_score"
+  },
+  "test_alert_enforcer": {
+    "endpoint": "/localhost:9012/alert",
+    "method": "POST",
+    "payload": {
+      "severity": "high",
+      "type": "network_attack"
+    },
+    "expected_response": "alert_id"
+  }
+}

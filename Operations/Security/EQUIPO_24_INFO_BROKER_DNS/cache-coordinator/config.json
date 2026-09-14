@@ -1,0 +1,28 @@
+{
+  "bot_id": "cache-coordinator",
+  "team": "EQUIPO_24",
+  "role": "cache_invalidation",
+  "endpoint": "http://localhost:6056",
+  "port": 6056,
+  "health_check": "/health",
+  "heartbeat_interval": 5,
+  "registry_service": "http://localhost:6000",
+  "pubsub_broker": "localhost:6379",
+  "dns_resolver": "localhost:6053",
+  "dependencies": [
+    "EQUIPO_21",
+    "EQUIPO_22",
+    "EQUIPO_23"
+  ],
+  "clustering": {
+    "enabled": true,
+    "mode": "distributed",
+    "replication": false,
+    "sync_interval_seconds": 10
+  },
+  "performance": {
+    "target_latency_ms": 100,
+    "cache_hit_target_percent": 85,
+    "pubsub_latency_ms": null
+  }
+}

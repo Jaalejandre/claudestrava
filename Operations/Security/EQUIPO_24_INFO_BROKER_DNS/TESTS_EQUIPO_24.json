@@ -1,0 +1,104 @@
+{
+  "test_registry_register": {
+    "endpoint": "/localhost:6000/register",
+    "method": "POST",
+    "payload": {
+      "service_name": "test-service",
+      "endpoint": "http://localhost:9100",
+      "team": "EQUIPO_21"
+    },
+    "expected_response": "service_registered"
+  },
+  "test_registry_list": {
+    "endpoint": "/localhost:6000/services",
+    "method": "GET",
+    "expected_response": "services_list",
+    "min_items": 4
+  },
+  "test_health_monitor": {
+    "endpoint": "/localhost:6001/health",
+    "method": "POST",
+    "payload": {
+      "check_all": true
+    },
+    "expected_response": "health_status"
+  },
+  "test_registry_sync": {
+    "endpoint": "/localhost:6002/sync",
+    "method": "POST",
+    "payload": {
+      "full_sync": true
+    },
+    "expected_response": "sync_complete"
+  },
+  "test_dns_resolve": {
+    "endpoint": "/localhost:6053/resolve",
+    "method": "GET",
+    "params": {
+      "query": "vuln-scanner.security.local"
+    },
+    "expected_response": "resolved_address"
+  },
+  "test_dns_srv_record": {
+    "endpoint": "/localhost:6053/srv",
+    "method": "GET",
+    "params": {
+      "service": "_http._tcp.security"
+    },
+    "expected_response": "srv_records"
+  },
+  "test_query_cache_hit": {
+    "endpoint": "/localhost:6054/cache/hit",
+    "method": "GET",
+    "params": {
+      "query": "vuln-scanner.security.local"
+    },
+    "expected_response": "cache_result"
+  },
+  "test_query_cache_miss": {
+    "endpoint": "/localhost:6054/cache/miss",
+    "method": "GET",
+    "params": {
+      "query": "nonexistent.service"
+    },
+    "expected_response": "cache_miss"
+  },
+  "test_query_logger": {
+    "endpoint": "/localhost:6055/logs",
+    "method": "GET",
+    "params": {
+      "limit": 100
+    },
+    "expected_response": "query_logs"
+  },
+  "test_pubsub_publish": {
+    "endpoint": "/localhost:6379/publish",
+    "method": "POST",
+    "payload": {
+      "channel": "security.alerts",
+      "message": "test_alert"
+    },
+    "expected_response": "subscribers_count"
+  },
+  "test_pubsub_subscribe": {
+    "endpoint": "/localhost:6379/subscribe",
+    "method": "POST",
+    "payload": {
+      "channel": "security.alerts"
+    },
+    "expected_response": "subscription_id"
+  },
+  "test_cache_invalidation": {
+    "endpoint": "/localhost:6056/invalidate",
+    "method": "POST",
+    "payload": {
+      "key_pattern": "dns:*"
+    },
+    "expected_response": "keys_invalidated"
+  },
+  "test_cache_consistency": {
+    "endpoint": "/localhost:6056/consistency",
+    "method": "GET",
+    "expected_response": "consistency_status"
+  }
+}

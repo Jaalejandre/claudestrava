@@ -1,0 +1,17 @@
+{
+  "bot_id": "anomaly-detector",
+  "team": "EQUIPO_22",
+  "role": "anomaly_detection",
+  "endpoint": "http://localhost:9011",
+  "ports": [
+    "9011"
+  ],
+  "health_check": "/health",
+  "heartbeat_interval": 15,
+  "registry_service": "http://localhost:6000",
+  "pubsub_broker": "localhost:6379",
+  "dns_resolver": "localhost:6053",
+  "dependencies": [
+    "EQUIPO_21"
+  ]
+}
