@@ -227,19 +227,55 @@ Anual:
 | ups-monitor | 🆕 A crear |
 | shutdown-coordinator | 🆕 A crear |
 
-## Información Necesaria
+## Configuración Actual (EN PROXMOX)
 
-**ANTES de crear equipos, necesitar:**
 ```
-1. ¿Qué UPS tenés? (modelo/marca)
-2. ¿Dónde está conectado? (Proxmox host, CT, red)
-3. ¿Cómo monitorea? (snmp, usb, serial)
-4. ¿IP/puerto del UPS?
-5. ¿Autonomía aproximada?
+MODELO: CyberPower CP1500AVRLCDa
+SERIAL: BHQQZ2000368
+FABRICANTE: CPS (CyberPower Systems)
+
+BATERÍA:
+  • Carga actual: 100%
+  • Carga baja: 5%
+  • Aviso: 20%
+  • Tipo: PbAcid (Plomo-ácido)
+  • Voltaje: 27.4V (nominal 24V)
+  • Autonomía total: 5400 segundos = 90 minutos
+  • Autonomía baja: 300 segundos = 5 minutos
+
+LÍNEA:
+  • Voltaje entrada: 131.0V AC
+  • Voltaje salida: 131.0V AC
+  • Voltaje nominal: 120V
+  • Estado: OL (On-Line)
+  • Carga: 10% (900W nominal)
+
+CONEXIÓN:
+  • Interfaz: USB (usbhid-ups)
+  • Driver: NUT 2.8.1
+  • Vendor ID: 0764
+  • Product ID: 0501
+  • Ubicación: Conectado al HOST PROXMOX (192.168.0.52)
+  • Servicio: nut-server (activo)
+
+MONITOREO:
+  • Poll frequency: 30 segundos
+  • Respaldando: HOST PROXMOX (poder CPU/RAM/red)
+```
+
+## Autonomía Según Carga
+
+```
+Carga actual: 10% (90W)
+  → Autonomía estimada: ~90 minutos
+
+Si carga sube a 50% (450W)
+  → Autonomía estimada: ~18 minutos
+
+Si carga sube a 100% (900W nominal)
+  → Autonomía estimada: ~6 minutos
 ```
 
 ---
 
-**FASE: 54 | ESTADO: 🚀 LISTO PARA CREAR**
-
-**NOTA:** Cuando tengas datos del UPS, completa esta información y crearemos los bots.
+**FASE: 54 | ESTADO: ✅ LISTO PARA CREAR (DATOS REALES CONFIRADOS)**
