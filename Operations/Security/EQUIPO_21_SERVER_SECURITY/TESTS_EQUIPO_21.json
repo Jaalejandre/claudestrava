@@ -1,0 +1,28 @@
+{
+  "test_vuln_scanner": {
+    "endpoint": "/localhost:9001/scan",
+    "method": "POST",
+    "payload": {
+      "scan_type": "0day"
+    },
+    "expected_response": "scan_results"
+  },
+  "test_exploit_docs": {
+    "endpoint": "/localhost:9002/search",
+    "method": "GET",
+    "params": {
+      "cve_id": "CVE-2024-0001"
+    },
+    "expected_response": "exploit_documentation"
+  },
+  "test_patch_manager": {
+    "endpoint": "/localhost:9003/status",
+    "method": "GET",
+    "expected_response": "patch_status"
+  },
+  "test_compliance": {
+    "endpoint": "/localhost:9004/audit",
+    "method": "POST",
+    "expected_response": "compliance_report"
+  }
+}

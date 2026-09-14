@@ -1,0 +1,41 @@
+{
+  "test_battery_status": {
+    "endpoint": "/localhost:9020/battery",
+    "method": "GET",
+    "expected_response": "battery_level",
+    "expected_range": [
+      0,
+      100
+    ]
+  },
+  "test_power_voltage": {
+    "endpoint": "/localhost:9020/voltage",
+    "method": "GET",
+    "expected_response": "voltage_status",
+    "expected_range": [
+      220,
+      240
+    ]
+  },
+  "test_load_check": {
+    "endpoint": "/localhost:9020/load",
+    "method": "GET",
+    "expected_response": "current_load_watts"
+  },
+  "test_power_failure_simulation": {
+    "endpoint": "/localhost:9021/simulate_failure",
+    "method": "POST",
+    "payload": {
+      "duration_minutes": 1
+    },
+    "expected_response": "failover_status"
+  },
+  "test_graceful_shutdown": {
+    "endpoint": "/localhost:9021/shutdown",
+    "method": "POST",
+    "payload": {
+      "graceful": true
+    },
+    "expected_response": "shutdown_sequence_id"
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "bot_id": "ups-monitor",
+  "team": "EQUIPO_23",
+  "role": "ups_status_monitoring",
+  "endpoint": "http://localhost:9020",
+  "ports": [
+    "9020"
+  ],
+  "health_check": "/health",
+  "heartbeat_interval": 10,
+  "registry_service": "http://localhost:6000",
+  "pubsub_broker": "localhost:6379",
+  "dns_resolver": "localhost:6053",
+  "dependencies": [
+    "EQUIPO_21",
+    "EQUIPO_22"
+  ],
+  "hardware": {
+    "device": "CyberPower CP1500AVRLCDa (USB via NUT driver)",
+    "battery_capacity_minutes": 90,
+    "connection_type": "USB",
+    "driver": "NUT",
+    "polling_interval_seconds": 10
+  },
+  "thresholds": {
+    "warning_battery_percent": 20,
+    "critical_battery_percent": 10,
+    "shutdown_battery_minutes": 5
+  }
+}

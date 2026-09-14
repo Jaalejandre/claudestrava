@@ -1,0 +1,17 @@
+{
+  "bot_id": "alert-enforcer",
+  "team": "EQUIPO_22",
+  "role": "alert_management",
+  "endpoint": "http://localhost:9012",
+  "ports": [
+    "9012"
+  ],
+  "health_check": "/health",
+  "heartbeat_interval": 15,
+  "registry_service": "http://localhost:6000",
+  "pubsub_broker": "localhost:6379",
+  "dns_resolver": "localhost:6053",
+  "dependencies": [
+    "EQUIPO_21"
+  ]
+}
