@@ -1,0 +1,29 @@
+{
+  "prototype_id": "PROTO_OPENMM_20260914_090006",
+  "proposal_id": "PROP_OPENMM_001",
+  "framework": "OpenMM",
+  "branch": "feature/proto-prop_openmm_001",
+  "created_date": "2026-09-14T09:00:06.076136",
+  "status": "BUILDING",
+  "code_structure": {
+    "src/openmm_wrapper.py": "GPU simulation wrapper",
+    "src/md_protocols.py": "Molecular dynamics protocols",
+    "src/gpu_utils.py": "GPU memory & device management",
+    "tests/test_simulation.py": "Unit tests",
+    "examples/water_box.py": "Example: water simulation",
+    "examples/protein_fold.py": "Example: protein folding"
+  },
+  "build_instructions": [
+    "Install CUDA 12.2+",
+    "pip install openmm openmm-cuda-toolkit",
+    "python setup.py install",
+    "pytest tests/"
+  ],
+  "test_plan": {
+    "unit_tests": "100+ test cases",
+    "benchmark_tests": "3 scenarios (LJ, Water, Protein)",
+    "stress_tests": "Multi-GPU scaling",
+    "validation": "Compare with published benchmarks"
+  },
+  "estimated_completion": "2024-10-15"
+}
