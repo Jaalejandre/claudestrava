@@ -1,4 +1,5 @@
 ---
+> ⚠️ **OBSOLETO (2026-09-14)** — Función absorbida: su fuente de datos (VAULT MASTER / SSOT) es ahora **EQUIPO-40 Memoria Canónica (CIO)**. Si el dashboard :3000 sigue activo, lo consume/custodia E40. Documento conservado como historial; NO operar bajo este rol.
 title: "EQUIPO 20: DASHBOARD MANAGER — Visualización Central"
 date: 2026-09-13T21:05:00-06:00
 phase: 53

@@ -1,3 +1,5 @@
+> ⚠️ **OBSOLETO** — Este mapa está DESACTUALIZADO. La única fuente de verdad es **[Mapa de Red y Contenedores - CANONICAL.md](%E2%80%8B(C)%20Mapa%20de%20Red%20y%20Contenedores%20-%20CANONICAL.md)** (verificado desde /etc/pve, 2026-09-14). No uses las IPs de este archivo para operar.
+
 ---
 tipo: referencia-infra
 actualizado: 2026-09-12

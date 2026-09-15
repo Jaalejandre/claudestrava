@@ -8,6 +8,7 @@ members: 8 bots gerenciales
 priority: "🔴 CRÍTICA"
 cron: "Diario 01:00 CST + Semanal domingo 23:00 CST"
 ---
+role_csuite: "CHRO (Chief Human Resources Officer)"
 
 # EQUIPO 32: MANAGEMENT EXECUTIVE BOARD
 

@@ -1,4 +1,5 @@
 ---
+> ⚠️ **OBSOLETO (2026-09-14)** — Borrador de nomenclatura para 34 equipos, REEMPLAZADO por la nomenclatura Daemon-* final adoptada en **`(C) ORGANIGRAMA EJECUTIVO SATANZOTE - C-SUITE.md`** (2026-09-14, decisión de José). Conservado como historial; NO tomar como vigente el conteo "34".
 title: "DELEGACIÓN: Nomenclatura SatanZote para 34 Equipos"
 date: 2026-09-14T03:30:00-06:00
 issued_by: "José"

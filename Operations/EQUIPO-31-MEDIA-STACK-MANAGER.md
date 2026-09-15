@@ -8,6 +8,7 @@ members: 5 bots especializados
 priority: "🟢 NORMAL"
 cron: "Diario 02:00 CST (Domingo + auditoría profunda)"
 ---
+role_csuite: "COO (Chief Operating Officer)"
 
 # EQUIPO 31: MEDIA STACK MANAGER
 

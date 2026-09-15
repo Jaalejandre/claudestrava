@@ -7,6 +7,7 @@ owner: José
 members: 5 bots especializados
 priority: "🟡 ALTA"
 ---
+role_csuite: "CMO (Chief Marketing Officer)"
 
 # EQUIPO 25: RESEARCH & INNOVATION ⚡
 

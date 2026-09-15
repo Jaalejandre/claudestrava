@@ -7,6 +7,7 @@ owner: Laura (6247704701)
 members: 5 bots especializados
 priority: "🟡 ALTA (Personal)"
 ---
+role_csuite: "CCO (Chief Customer Officer)"
 
 # EQUIPO 28: TRAVEL AGENCY 🧳
 
