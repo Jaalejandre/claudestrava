@@ -1,4 +1,5 @@
 ---
+> ⚠️ **OBSOLETO (2026-09-14)** — Borrador de nomenclatura FRIENDLY, REEMPLAZADO por la nomenclatura Daemon-* final adoptada en **`(C) ORGANIGRAMA EJECUTIVO SATANZOTE - C-SUITE.md`** (2026-09-14, decisión de José). Conservado como historial.
 title: "DELEGACIÓN: Cada Equipo elige su nombre FRIENDLY (SatanZote branding)"
 date: 2026-09-13T20:02:00-06:00
 issued_by: "José"

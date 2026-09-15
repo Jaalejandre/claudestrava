@@ -5,6 +5,7 @@ phase: 65
 status: "🚀 LISTO PARA ACTIVAR"
 directive: "Buscar proyectos autónomos para mantener servidor ($100-500/mes)"
 ---
+role_csuite: "CRO (Chief Revenue Officer)"
 
 # EQUIPO 34: ZEROS-VENDEDOR (Marketing & Revenue)
 

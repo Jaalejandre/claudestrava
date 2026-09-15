@@ -7,6 +7,7 @@ owner: Sistema
 members: 5 bots especializados
 priority: "🔴 CRÍTICA (Master Orchestrator)"
 ---
+role_csuite: "COO (Chief Operating Officer)"
 
 # EQUIPO 30: LOAD BALANCER CHIEF 👑
 

@@ -1,4 +1,5 @@
 ---
+> ⚠️ **OBSOLETO (2026-09-14)** — Este equipo es redundante: su función de "única fuente de verdad / custodia del vault / sync git / auditoría" es ahora de **EQUIPO-40 Memoria Canónica (CIO)**. Ver el canónico **`(C) ORGANIGRAMA EJECUTIVO SATANZOTE - C-SUITE.md`**. Documento conservado como historial; NO operar bajo este rol.
 title: "EQUIPO 19: VAULT MASTER — Autoridad Central"
 date: 2026-09-13T20:55:00-06:00
 phase: 53

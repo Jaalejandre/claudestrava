@@ -5,6 +5,7 @@ phase: 66
 status: "🚀 ACTIVADO"
 bots: 3
 ---
+role_csuite: "CEO (Chief Executive Officer) — Sofía, coordinadora general"
 
 # EQUIPO 35: DAEMON-DIRECTOR (Projects Manager PM)
 
