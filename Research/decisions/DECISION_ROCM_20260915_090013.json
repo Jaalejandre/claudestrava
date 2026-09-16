@@ -1,0 +1,39 @@
+{
+  "decision_id": "DECISION_ROCM_20260915_090013",
+  "framework": "ROCm",
+  "decision_date": "2026-09-15T09:00:13.721498",
+  "evaluation_rubric": {
+    "technical_feasibility": 0.2,
+    "performance_achievement": 0.2,
+    "stability_reliability": 0.15,
+    "cost_efficiency": 0.15,
+    "risk_mitigation": 0.1,
+    "market_opportunity": 0.1,
+    "team_capability": 0.1
+  },
+  "scores": {
+    "technical_feasibility": 18.4,
+    "performance_achievement": 17.2,
+    "stability_reliability": 13.8,
+    "cost_efficiency": 14.3,
+    "risk_mitigation": 8.1,
+    "market_opportunity": 9.0,
+    "team_capability": 8.2
+  },
+  "total_score": 82.0,
+  "final_decision": "TESTING",
+  "justification": "ROCm scores 82.0/100, qualifying for TESTING phase. Excellent cost efficiency (95%) and competitive performance (86%). Proven HIP portability but smaller ecosystem than CUDA. Recommend 3-month extended testing on AMD MI300 hardware before production decision.",
+  "conditions": [
+    "Secure AMD MI300 test nodes (3+ GPUs)",
+    "Establish HIP debugging protocols",
+    "Evaluate community support maturity",
+    "Create CUDA-to-HIP migration playbook"
+  ],
+  "next_steps": [
+    "Extended testing phase: 3 months",
+    "Partnership with AMD for hardware support",
+    "Performance parity validation vs CUDA",
+    "Decision gate: Q1 2025 (full approval or hold)"
+  ],
+  "approved_by_committee": "E27_DECISION_MAKER"
+}

@@ -1,0 +1,62 @@
+{
+  "proposal_id": "PROP_ROCM_20260915_090005",
+  "framework_name": "ROCm",
+  "created_date": "2026-09-15T09:00:05.530349",
+  "status": "PROPOSED",
+  "executive_summary": "Adopt AMD ROCm as CUDA alternative for GPU computing. 8.6x speedup with 30% cost reduction. Open standard for multi-vendor GPU support.",
+  "business_case": {
+    "roi_factor": 7.2,
+    "cost_savings_annual": "$320,000",
+    "time_to_deployment": "8-10 weeks",
+    "team_size_required": 2,
+    "priority": "MEDIUM-HIGH"
+  },
+  "technical_specs": {
+    "gpu_requirement": "AMD MI300 or MI320",
+    "programming_languages": [
+      "C++",
+      "Python"
+    ],
+    "dependencies": [
+      "ROCm 5.7+",
+      "HIP",
+      "rocBLAS"
+    ],
+    "memory_requirement": "12GB+ GPU VRAM",
+    "estimated_performance_gain": "8.6x"
+  },
+  "implementation_plan": {
+    "phase_1_weeks": "POC (3 weeks)",
+    "phase_2_weeks": "Migration (4 weeks)",
+    "phase_3_weeks": "Optimization (3 weeks)",
+    "testing_strategy": "HIP portability validation, cross-GPU benchmarking"
+  },
+  "risk_assessment": {
+    "ecosystem_maturity": {
+      "risk": "MEDIUM",
+      "mitigation": "Maintain CUDA fallback"
+    },
+    "vendor_support": {
+      "risk": "LOW",
+      "mitigation": "Active AMD HPC community"
+    },
+    "hiring_talent": {
+      "risk": "MEDIUM-HIGH",
+      "mitigation": "Partnership with universities"
+    }
+  },
+  "expected_outcomes": {
+    "performance_improvement": "8.6x speedup",
+    "cost_reduction": "30%",
+    "vendor_independence": "Not locked to NVIDIA",
+    "new_capabilities": [
+      "Multi-GPU heterogeneous computing",
+      "Edge deployment"
+    ]
+  },
+  "approval_chain": [
+    "E25_RESEARCH",
+    "E26_DEPLOYMENT",
+    "E27_EVALUATION"
+  ]
+}
