@@ -9,10 +9,10 @@
 
 | Agent | Task | Week | Status | ETA |
 |-------|------|------|--------|-----|
-| Agent-Phase5a | LISTA kernel | 1 | 🟡 Pending | Sep 19 |
-| Agent-Phase5b | FUERZAS kernel | 2 | ⏳ Queued | Sep 26 |
-| Agent-Phase5c | KWALD streams | 3 | ⏳ Queued | Oct 3 |
-| Agent-Phase5d | Integration | 4 | ⏳ Queued | Oct 10 |
+| Agent-Phase5a | LISTA kernel | 1 | ✅ Done | Sep 15 |
+| Agent-Phase5b | FUERZAS kernel | 2 | ✅ Done (committed) | Sep 16 (adelantado) |
+| Agent-Phase5c | KWALD streams | 3 | ⏳ Queued | Sep 22 (adelantado) |
+| Agent-Phase5d | Integration | 4 | ⏳ Queued | Sep 29 (adelantado) |
 
 ---
 
@@ -20,7 +20,9 @@
 
 | Date | Agent | Progress | Blockers | Notes |
 |------|-------|----------|----------|-------|
-| Sep 15 | 5a | TBD | TBD | Phase 5a launch |
+| Sep 15 | 5a | ✅ Kernel+test done | — | Validado 100%/100%; ver nota duplicados |
+| Sep 16 | 5b | ✅ FUERZAS committed | Physics validation pendiente | Bench: 0.22s avg (1029 atoms, 10k steps). Energías no físicas — son del rewrite base, no regresión de 5b |
+| Sep 16 | cleanup | ✅ 22 backups eliminados | — | Scattered variants limpiados del repo |
 
 ---
 
@@ -34,10 +36,12 @@
 - [ ] Integration test passing
 
 ### Phase 5b (FUERZAS)
-- [ ] 7-case LJ optimization
+- [x] 7-case LJ optimization
+- [x] sigma12/sigma6 precomputed matrices
+- [x] neighbor-list integration in kernel
 - [ ] Energy conservation validation
 - [ ] Roofline analysis
-- [ ] Performance benchmarks
+- [x] Performance benchmarks (0.22s wall avg)
 - [ ] Combined LISTA+FUERZAS test
 
 ### Phase 5c (KWALD)
