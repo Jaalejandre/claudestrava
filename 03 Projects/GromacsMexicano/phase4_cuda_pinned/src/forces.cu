@@ -36,6 +36,8 @@ __global__ void kernel_pairwise_async(
 ) {
     int i = blockIdx.x * blockDim.x + threadIdx.x;
     if (i >= natoms) return;
+    // Only OW atoms (index%3==0) carry LJ in the SPCE model
+    if (i % 3 != 0) return;
     
     double fx_local = 0.0, fy_local = 0.0, fz_local = 0.0;
     double xi = x[i], yi = y[i], zi = z[i];
@@ -46,6 +48,9 @@ __global__ void kernel_pairwise_async(
         int j = nlist[i * max_neighbors + jj];
         if (j < 0) break;
         if (j >= natoms) break;
+        // Only OW-OW LJ; skip HW atoms and intra-molecule 1-2/1-3 exclusions
+        if (j % 3 != 0) continue;
+        if (i / 3 == j / 3) continue;
         
         double dx = x[j] - xi;
         double dy = y[j] - yi;
@@ -57,7 +62,7 @@ __global__ void kernel_pairwise_async(
         double r2 = dx*dx + dy*dy + dz*dz;
         // Physical cutoffs: avoid division by zero & numerical instability
         const double r_min_sq = 1e-6;  // ~0.001 Å (exclude self-interactions)
-        const double r_max_sq = 144.0; // 12 Å (LJ cutoff)
+        const double r_max_sq = 1.0;  // 1 nm (rvdw LJ cutoff from MDP)
         if (r2 < r_min_sq || r2 > r_max_sq) continue;
         
         double r_inv = 1.0 / sqrt(r2);  // 1/r
@@ -70,9 +75,9 @@ __global__ void kernel_pairwise_async(
         // LJ force: F = 48*ε*(σ¹²/r¹³ - σ⁶/r⁷)
         // Derivada del potencial: -dU/dr donde U = 4ε[(σ/r)¹² - (σ/r)⁶]
         double factor = 48.0 * epsilon * (sigma12 * r13_inv - 0.5 * sigma6 * r6_inv * r_inv);
-        fx_local += factor * dx;
-        fy_local += factor * dy;
-        fz_local += factor * dz;
+        fx_local += factor * dx * r_inv;
+        fy_local += factor * dy * r_inv;
+        fz_local += factor * dz * r_inv;
     }
     
     // Atomic operations for thread safety

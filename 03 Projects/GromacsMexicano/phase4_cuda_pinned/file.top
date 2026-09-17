@@ -1,0 +1,27 @@
+[ defaults ]
+1 2 no 1.0 1.0 ; dm_nbfunc 1
+
+[ atomtypes ]
+OW 8 15.9994 -0.8476 A 0.3166 0.6502
+HW 1 1.008 0.4238 A 0.0000 0.0000
+
+[ moleculetype ]
+SOL 3
+
+[ atoms ]
+1 OW 1 SOL OW1 1 -0.8476 15.9994
+2 HW 1 SOL HW2 1  0.4238 1.008
+3 HW 1 SOL HW3 1  0.4238 1.008
+
+[ bonds ]
+1 2 1 0.1000 502416.0
+1 3 1 0.1000 502416.0
+
+[ angles ]
+2 1 3 1 109.47 628.02
+
+[ system ]
+SPCE water
+
+[ molecules ]
+SOL 33

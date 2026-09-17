@@ -162,15 +162,18 @@ void readMDP(const char* filename, Config& cfg) {
                 cfg.dt = std::stod(value);
                 std::cout << "  dt = " << cfg.dt << std::endl;
             } else if (key == "nsteps") {
-                cfg.nsteps = std::stoi(value);
-                std::cout << "  nsteps = " << cfg.nsteps << std::endl;
-            } else if (key == "nsave" || key == "nstxout") {
-                cfg.nsave = std::stoi(value);
-                std::cout << "  nsave = " << cfg.nsave << std::endl;
-            } else if (key == "temperature" || key == "ref_t") {
-                cfg.temperature = std::stod(value);
-                std::cout << "  temperature = " << cfg.temperature << std::endl;
-            } else if (key == "tau_t") {
+                           cfg.nsteps = std::stoi(value);
+                           std::cout << " nsteps = " << cfg.nsteps << std::endl;
+                       } else if (key == "nsave" || key == "nstlog" || key == "nstenergy") {
+                           int val = std::stoi(value);
+                           if (val > 0) cfg.nsave = val;
+                           std::cout << " nsave = " << cfg.nsave << std::endl;
+                       } else if (key == "nstxout") {
+                                      // Skip: GROMACS nstxout=0 means no coordinate output, unrelated to energy interval
+            } else if (key == "temperature" || key == "ref-t" || key == "ref_t" || key == "ref_temperature") {
+                               cfg.temperature = std::stod(value);
+                               std::cout << " temperature = " << cfg.temperature << std::endl;
+                           } else if (key == "tau-t" || key == "tau_t") {
                 cfg.tau_t = std::stod(value);
                 std::cout << "  tau_t = " << cfg.tau_t << std::endl;
             } else if (key == "rcut" || key == "rcoulomb") {

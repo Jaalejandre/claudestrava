@@ -1,0 +1,30 @@
+{
+  "prototype_id": "PROTO_ROCM_20260916_090006",
+  "proposal_id": "PROP_ROCM_001",
+  "framework": "ROCm",
+  "branch": "feature/proto-prop_rocm_001",
+  "created_date": "2026-09-16T09:00:06.060591",
+  "status": "BUILDING",
+  "code_structure": {
+    "src/rocm_wrapper.cpp": "HIP kernel wrappers",
+    "src/rocm_utils.py": "Python bindings",
+    "src/kernel_library.cu": "Custom kernels",
+    "tests/test_kernels.cpp": "C++ tests",
+    "examples/matrix_mul.py": "Example: matrix multiplication",
+    "examples/fft.py": "Example: FFT operations"
+  },
+  "build_instructions": [
+    "Install ROCm 5.7+ and HIP",
+    "mkdir build && cd build",
+    "cmake ..",
+    "make -j$(nproc)",
+    "ctest"
+  ],
+  "test_plan": {
+    "unit_tests": "80+ test cases",
+    "platform_tests": "AMD MI300, MI320 validation",
+    "portability_tests": "HIP vs CUDA comparison",
+    "performance_tests": "Cost-per-compute validation"
+  },
+  "estimated_completion": "2024-10-25"
+}
