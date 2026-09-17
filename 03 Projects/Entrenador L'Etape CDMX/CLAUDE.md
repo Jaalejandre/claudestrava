@@ -60,7 +60,7 @@ Build order: `garmin-ingest` + `strava-ingest` (paralelo) → `plan-engine` → 
 | Módulo | Estado | Detalle |
 |---|---|---|
 | `strava-ingest` | ✅ Testeado (22) | Auth OK, 3 actividades reales, km→horas→carga |
-| `garmin-ingest` | ⛔ Bloqueado | **Rate limit 429/403 por IP pública (Cloudflare)** — credenciales OK (`.V@q3r0`), esperar enfriamiento o probar desde otra IP |
+| `garmin-ingest` | ⛔ Bloqueado | **Rate limit 429/403 por IP pública (Cloudflare)** — credenciales en `.env` de CT 901 (permisos 0600), esperar enfriamiento o probar desde otra IP |
 | `plan-engine` | ✅ Testeado (13) | `plan_builder.py` (MD→plan.json, FTP 148, 11 semanas) + `plan_engine.py` (ajustes HRV/sueño/TSB, no-mutación) + `plan_api.py` :8877 |
 | `zwift-recommender` | ✅ Testeado (8) | Catálogo curado (7 workouts + 5 rutas), mapeo por tipo/zona/duración, `/zwift/today` |
 | `web-dashboard` | ✅ Testeado (6) | `http://192.168.0.230:8003` — tarjeta "Hoy toca", countdown 67 días, barra km, recomendación Zwift, mobile-first en español |
