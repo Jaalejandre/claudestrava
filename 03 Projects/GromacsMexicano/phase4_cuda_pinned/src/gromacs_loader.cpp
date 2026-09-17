@@ -20,7 +20,7 @@ void initialize_from_gromacs(Config& cfg, const std::string& top_file, const std
     cfg.nsave = 100;
     cfg.temperature = 300.0;
     cfg.tau_t = 0.1;
-    cfg.Q_mass = 100.0 * cfg.natoms * 1.380649e-23 * cfg.temperature;
+    cfg.Q_mass = 100.0 * cfg.natoms * 0.008314 * cfg.temperature;
     
     // Redimensionar vectores
     cfg.x.resize(cfg.natoms);

@@ -21,7 +21,7 @@ void initialize_system(Config& cfg, int natoms = 100) {
     cfg.nsave = 100;
     cfg.temperature = 300.0;
     cfg.tau_t = 0.1;
-    cfg.Q_mass = 100.0 * natoms * 1.380649e-23 * cfg.temperature;
+    cfg.Q_mass = 100.0 * natoms * 0.008314 * cfg.temperature;
     
     cfg.x.resize(natoms);
     cfg.y.resize(natoms);
@@ -64,15 +64,21 @@ double compute_KE(const Config& cfg) {
 }
 
 double compute_LJ_PE(const Config& cfg) {
-    double sigma = 1.0, epsilon = 0.01;
+    double sigma = 0.3166;   // OW sigma from topology (nm)
+    double epsilon = 0.6502; // OW epsilon from topology (kJ/mol)
     double pe = 0.0;
     double sigma6 = sigma * sigma * sigma * sigma * sigma * sigma;
     double sigma12 = sigma6 * sigma6;
-    double r_cut = 14.0;
+    double r_cut = 1.0;  // cutoff from MDP (rvdw=1.0 nm)
     double r_cut2 = r_cut * r_cut;
     
     for (int i = 0; i < cfg.natoms; i++) {
         for (int j = i+1; j < cfg.natoms; j++) {
+            // Only OW-OW pairs have LJ
+            if (i % 3 != 0 || j % 3 != 0) continue;
+            // 1-2 and 1-3 exclusion: skip same molecule
+            if (i / 3 == j / 3) continue;
+            
             double dx = cfg.x[j] - cfg.x[i];
             double dy = cfg.y[j] - cfg.y[i];
             double dz = cfg.z[j] - cfg.z[i];
@@ -97,6 +103,67 @@ double compute_LJ_PE(const Config& cfg) {
     return pe;
 }
 
+// Steepest descent energy minimization to remove bad atom contacts
+void minimize_energy(Config& cfg, std::vector<int>& nlist, std::vector<int>& nlist_count,
+                     int max_neighbors) {
+    double sigma_ow = 0.3166, epsilon_ow = 0.6502;
+    double r_cut = 1.0, r_cut2 = r_cut * r_cut;
+    double s6 = sigma_ow*sigma_ow*sigma_ow*sigma_ow*sigma_ow*sigma_ow;
+    double s12 = s6*s6;
+    int max_steps = 500;
+    
+    std::cout << "=== Steepest Descent Minimization ===\n";
+    
+    for (int step = 0; step < max_steps; step++) {
+        std::fill(cfg.fx.begin(), cfg.fx.end(), 0.0);
+        std::fill(cfg.fy.begin(), cfg.fy.end(), 0.0);
+        std::fill(cfg.fz.begin(), cfg.fz.end(), 0.0);
+        
+        for (int i = 0; i < cfg.natoms; i++) {
+            if (i % 3 != 0) continue;
+            double fxl=0,fyl=0,fzl=0;
+            int nc = nlist_count[i];
+            for (int jj = 0; jj < nc && jj < max_neighbors; jj++) {
+                int j = nlist[i*max_neighbors+jj];
+                if (j<0||j>=cfg.natoms) break;
+                if (j%3!=0) continue;
+                if (i/3==j/3) continue;
+                double dx=cfg.x[j]-cfg.x[i], dy=cfg.y[j]-cfg.y[i], dz=cfg.z[j]-cfg.z[i];
+                if (dx>cfg.box_size*0.5)dx-=cfg.box_size;if(dx<-cfg.box_size*0.5)dx+=cfg.box_size;
+                if (dy>cfg.box_size*0.5)dy-=cfg.box_size;if(dy<-cfg.box_size*0.5)dy+=cfg.box_size;
+                if (dz>cfg.box_size*0.5)dz-=cfg.box_size;if(dz<-cfg.box_size*0.5)dz+=cfg.box_size;
+                double r2=dx*dx+dy*dy+dz*dz;
+                if (r2<1e-10||r2>r_cut2) continue;
+                double sri=1.0/r2, sr6=sri*sri*sri, sr12=sr6*sr6;
+                double f = 48.0*epsilon_ow*(s12*sri*sr12-0.5*s6*sri*sr6);
+                fxl+=f*dx; fyl+=f*dy; fzl+=f*dz;
+            }
+            cfg.fx[i]+=fxl; cfg.fy[i]+=fyl; cfg.fz[i]+=fzl;
+        }
+        
+        double fmax=0;
+        for (int i=0;i<cfg.natoms;i++) {
+            double f = sqrt(cfg.fx[i]*cfg.fx[i]+cfg.fy[i]*cfg.fy[i]+cfg.fz[i]*cfg.fz[i]);
+            if (f>fmax) fmax=f;
+        }
+        if (fmax<5000.0) { std::cout << "  Converged step " << step << " fmax=" << fmax << "\n"; break; }
+        
+        double step_size = 0.00005;
+        if (fmax > 1e8) step_size = 0.00005 * (1e8 / fmax);
+        // Cap maximum displacement to 0.01 nm per step
+        double max_disp = step_size * fmax;
+        if (max_disp > 0.01) step_size *= 0.01 / max_disp;
+        for (int i=0;i<cfg.natoms;i++) {
+            cfg.x[i]+=cfg.fx[i]*step_size; cfg.y[i]+=cfg.fy[i]*step_size; cfg.z[i]+=cfg.fz[i]*step_size;
+            if (cfg.x[i]>cfg.box_size)cfg.x[i]-=cfg.box_size;if(cfg.x[i]<0)cfg.x[i]+=cfg.box_size;
+            if (cfg.y[i]>cfg.box_size)cfg.y[i]-=cfg.box_size;if(cfg.y[i]<0)cfg.y[i]+=cfg.box_size;
+            if (cfg.z[i]>cfg.box_size)cfg.z[i]-=cfg.box_size;if(cfg.z[i]<0)cfg.z[i]+=cfg.box_size;
+        }
+        if (step%50==0) std::cout << "  Step " << step << ": fmax=" << fmax << "\n";
+    }
+    std::cout << "Minimization complete.\n\n";
+}
+
 void build_neighbor_list(
     const Config& cfg,
     std::vector<int>& nlist,
@@ -104,7 +171,14 @@ void build_neighbor_list(
     int max_neighbors,
     double r_cut = 14.0
 ) {
-    nlist.assign(cfg.natoms * max_neighbors, -1);
+    // Bounds check: prevent integer overflow in host/GPU allocation
+    size_t required_nlist = (size_t)cfg.natoms * max_neighbors;
+    if (cfg.natoms <= 0 || max_neighbors <= 0 || required_nlist > 50000000) {
+        std::cerr << "ERROR: neighbor list dimensions invalid (natoms=" << cfg.natoms
+                  << ", max_neighbors=" << max_neighbors << ")\n";
+        exit(1);
+    }
+    nlist.assign(required_nlist, -1);
     nlist_count.assign(cfg.natoms, 0);
     
     double r_cut2 = r_cut * r_cut;
@@ -154,6 +228,15 @@ int main(int argc, char* argv[]) {
     // Initialize system
     Config cfg;
     
+    // Set robust defaults BEFORE parsing files (prevents uninitialized garbage)
+    cfg.box_size = 2.0;
+    cfg.dt = 0.002;
+    cfg.nsteps = 1000;
+    cfg.nsave = 100;
+    cfg.temperature = 300.0;
+    cfg.tau_t = 2.0;
+    cfg.Q_mass = 0.0;
+    
     // Read from GROMACS files instead of hardcoded values
     std::cout << "Loading system from GROMACS files...\n";
     try {
@@ -169,6 +252,46 @@ int main(int argc, char* argv[]) {
     // Override nsteps for benchmark
     cfg.nsteps = 100;
     std::cout << "  Override nsteps to 100 for benchmark\n\n";
+    
+    // Assign Maxwell-Boltzmann velocities at target T if not already set (GRO has no velocities)
+    {
+        double R = 0.008314; // kJ/(mol·K)
+        double T = cfg.temperature;
+        double cmx=0, cmy=0, cmz=0, M=0;
+        for (int i = 0; i < cfg.natoms; i++) {
+            double sig = sqrt(R * T / cfg.mass[i]);   // nm/ps
+            double vx = 0, vy = 0, vz = 0;
+            for (int k = 0; k < 6; k++) { vx += ((rand() % 2000) - 1000) / 1000.0; }
+            for (int k = 0; k < 6; k++) { vy += ((rand() % 2000) - 1000) / 1000.0; }
+            for (int k = 0; k < 6; k++) { vz += ((rand() % 2000) - 1000) / 1000.0; }
+            // sum of 6 uniforms ≈ normal (CLT); rescale to sigma
+            vx = vx / sqrt(6.0 / 12.0) * sig; // var of 6 U(-1,1)=2 → sigma per 6-sum = sqrt(2)
+            vy = vy / sqrt(2.0) * sig;
+            vz = vz / sqrt(2.0) * sig;
+            cfg.vx[i] = vx; cfg.vy[i] = vy; cfg.vz[i] = vz;
+            cmx += cfg.mass[i]*vx; cmy += cfg.mass[i]*vy; cmz += cfg.mass[i]*vz; M += cfg.mass[i];
+        }
+        // remove center-of-mass drift
+        for (int i = 0; i < cfg.natoms; i++) {
+            cfg.vx[i] -= cmx/M; cfg.vy[i] -= cmy/M; cfg.vz[i] -= cmz/M;
+        }
+        // rescale exactly to target T (standard thermalization step)
+        double KE_now = 0.0;
+        for (int i = 0; i < cfg.natoms; i++) {
+            double v2 = cfg.vx[i]*cfg.vx[i]+cfg.vy[i]*cfg.vy[i]+cfg.vz[i]*cfg.vz[i];
+            KE_now += 0.5 * cfg.mass[i] * v2;
+        }
+        double T_now = (2.0/3.0) * KE_now / (cfg.natoms * 0.008314);
+        if (T_now > 1e-12) {
+            double scale = sqrt(T / T_now);
+            for (int i = 0; i < cfg.natoms; i++) {
+                cfg.vx[i] *= scale; cfg.vy[i] *= scale; cfg.vz[i] *= scale;
+            }
+            std::cout << "  Rescaled velocities: T_measured=" << T_now
+                      << " K → target T=" << T << " K\n";
+        }
+        std::cout << "  Assigned Maxwell-Boltzmann velocities at T=" << T << " K, COM drift zeroed.\n";
+    }
     
     // Ensure force vectors are allocated (if not already)
     if (cfg.fx.empty()) cfg.fx.resize(cfg.natoms, 0.0);
@@ -186,13 +309,21 @@ int main(int argc, char* argv[]) {
     // Build neighbor list
     std::vector<int> nlist, nlist_count;
     int max_neighbors = 50;
-    build_neighbor_list(cfg, nlist, nlist_count, max_neighbors);
+    build_neighbor_list(cfg, nlist, nlist_count, max_neighbors, 1.0);  // rvdw=1.0 nm from MDP
     
-    std::cout << "Neighbor list built:\n"
-              << "  Max neighbors per atom: " << max_neighbors << "\n"
-              << "  Cutoff radius: 14.0 nm\n\n";
+        std::cout << "Neighbor list built:\n"
+                  << " Max neighbors per atom: " << max_neighbors << "\n"
+                  << " Cutoff radius: 1.0 nm\n\n";
+
+                  // Energy minimization to remove bad contacts
+                  minimize_energy(cfg, nlist, nlist_count, max_neighbors);
+
+                  // Debug: print first few masses and positions
+                  std::cerr << "DEBUG: masses[0]=" << cfg.mass[0] << " masses[1]=" << cfg.mass[1] << std::endl;
+       std::cerr << "DEBUG: tau_t=" << cfg.tau_t << " dt=" << cfg.dt << std::endl;
+           std::cerr << "DEBUG: compute_KE starting..." << std::endl;
     
-    // ========== PHASE 4 PINNED MEMORY ALLOCATION ==========
+           // ========== PHASE 4 PINNED MEMORY ALLOCATION ==========
     // In this CPU validation version, we'll just use regular arrays
     // In the full GPU version, these would be allocated with cudaMallocHost
     
@@ -222,14 +353,19 @@ int main(int argc, char* argv[]) {
               << "  Force arrays: " << (cfg.natoms * 3 * sizeof(double) / 1024.0) << " KB\n\n";
     
     // Initial energy
+    std::cerr << "DEBUG: Calling compute_KE..." << std::endl;
     double KE_init = compute_KE(cfg);
+    std::cerr << "DEBUG: Calling compute_LJ_PE..." << std::endl;
     double PE_init = compute_LJ_PE(cfg);
+    std::cerr << "DEBUG: Energies computed." << std::endl;
     double E_total_init = KE_init + PE_init;
     
+    std::cerr << "DEBUG: E_total_init = " << E_total_init << std::endl;
+    
     std::cout << "Initial Energies:\n"
-              << "  Kinetic Energy: " << KE_init << " J/mol\n"
-              << "  Potential Energy: " << PE_init << " J/mol\n"
-              << "  Total Energy: " << E_total_init << " J/mol\n\n";
+              << "  Kinetic Energy: " << KE_init << " kJ/mol\n"
+              << "  Potential Energy: " << PE_init << " kJ/mol\n"
+              << "  Total Energy: " << E_total_init << " kJ/mol\n\n";
     
     // ========== MAIN MD LOOP WITH PHASE 4 FEATURES ==========
     auto t_start = std::chrono::high_resolution_clock::now();
@@ -241,15 +377,22 @@ int main(int argc, char* argv[]) {
     double xi = 0.0;  // Nose-Hoover coupling parameter
     
     for (int step = 0; step < cfg.nsteps; step++) {
+        // Rebuild neighbor list each step (stale lists cause missing LJ repulsion → blowup)
+        build_neighbor_list(cfg, nlist, nlist_count, max_neighbors, 1.0);
         // Clear forces
         std::fill_n(cfg.fx.begin(), cfg.natoms, 0.0);
         std::fill_n(cfg.fy.begin(), cfg.natoms, 0.0);
         std::fill_n(cfg.fz.begin(), cfg.natoms, 0.0);
         
         // ===== KERNEL 1: LENNARD-JONES FORCE CALCULATION (CPU version) =====
-        double sigma = 1.0, epsilon = 0.01;
-        double sigma6 = sigma * sigma * sigma * sigma * sigma * sigma;
-        double sigma12 = sigma6 * sigma6;
+                       // Per-atom sigma/epsilon: water topology (OW index%3==0 has LJ, HW index%3!=0 has none)
+                       // SPCE water: atoms (3k=OW, 3k+1=HW, 3k+2=HW) per molecule
+                       double sigma_ow = 0.3166;    // OW sigma from topology (nm)
+                       double epsilon_ow = 0.6502;  // OW epsilon from topology (kJ/mol)
+                       double r_cut = 1.0;          // cutoff from MDP (rvdw=1.0 nm)
+                       double r_cut2 = r_cut * r_cut;
+                       double sigma_ow6 = sigma_ow * sigma_ow * sigma_ow * sigma_ow * sigma_ow * sigma_ow;
+                       double sigma_ow12 = sigma_ow6 * sigma_ow6;
         
         for (int i = 0; i < cfg.natoms; i++) {
             double fx_local = 0, fy_local = 0, fz_local = 0;
@@ -270,17 +413,29 @@ int main(int argc, char* argv[]) {
                 if (dz < -cfg.box_size * 0.5) dz += cfg.box_size;
                 
                 double r2 = dx*dx + dy*dy + dz*dz;
-                if (r2 < 1e-10) continue;
-                
-                double sr2_inv = 1.0 / r2;
-                double sr6_inv = sr2_inv * sr2_inv * sr2_inv;
-                double sr12_inv = sr6_inv * sr6_inv;
-                
-                double factor = 48.0 * epsilon * (sigma12 * sr2_inv * sr12_inv - 
-                                                  0.5 * sigma6 * sr2_inv * sr6_inv);
-                fx_local += factor * dx;
-                fy_local += factor * dy;
-                fz_local += factor * dz;
+                    if (r2 < 1e-10) continue;
+    
+                    // Only OW-OW pairs have LJ (HW has sigma=0, epsilon=0 in topology)
+                    bool i_is_ow = (i % 3 == 0);
+                    bool j_is_ow = (j % 3 == 0);
+                    if (!i_is_ow || !j_is_ow) continue;
+    
+                    // 1-2 and 1-3 exclusions: skip atoms in the same water molecule
+                    if (i / 3 == j / 3) continue;
+    
+                    // Check LJ cutoff
+                    if (r2 > r_cut2) continue;
+    
+                    double sr2_inv = 1.0 / r2;
+                    double sr6_inv = sr2_inv * sr2_inv * sr2_inv;
+                    double sr12_inv = sr6_inv * sr6_inv;
+    
+                    // LJ force: F = 48*ε*[(σ/r)^12 - 0.5*(σ/r)^6] * r̂
+                    double factor = 48.0 * epsilon_ow * (sigma_ow12 * sr2_inv * sr12_inv - 
+                                                         0.5 * sigma_ow6 * sr2_inv * sr6_inv);
+                    fx_local += factor * dx;
+                    fy_local += factor * dy;
+                    fz_local += factor * dz;
             }
             cfg.fx[i] += fx_local;
             cfg.fy[i] += fy_local;
@@ -300,10 +455,13 @@ int main(int argc, char* argv[]) {
             cfg.z[i] += cfg.vz[i] * cfg.dt + cfg.fz[i] * m_inv * dt2_2;
             
             // PBC
+            if (std::isnan(cfg.x[i])) cfg.x[i] = 0.0;
             if (cfg.x[i] > cfg.box_size) cfg.x[i] -= cfg.box_size;
             if (cfg.x[i] < 0.0) cfg.x[i] += cfg.box_size;
+            if (std::isnan(cfg.y[i])) cfg.y[i] = 0.0;
             if (cfg.y[i] > cfg.box_size) cfg.y[i] -= cfg.box_size;
             if (cfg.y[i] < 0.0) cfg.y[i] += cfg.box_size;
+            if (std::isnan(cfg.z[i])) cfg.z[i] = 0.0;
             if (cfg.z[i] > cfg.box_size) cfg.z[i] -= cfg.box_size;
             if (cfg.z[i] < 0.0) cfg.z[i] += cfg.box_size;
             
@@ -319,10 +477,11 @@ int main(int argc, char* argv[]) {
             double v2 = cfg.vx[i]*cfg.vx[i] + cfg.vy[i]*cfg.vy[i] + cfg.vz[i]*cfg.vz[i];
             KE += 0.5 * cfg.mass[i] * v2;
         }
-        double T_current = (2.0 / 3.0) * KE / (cfg.natoms * 1.380649e-23);
+        double T_current = (2.0 / 3.0) * KE / (cfg.natoms * 0.008314);  // R=8.314 J/(mol·K), KE in kJ/mol
+        if (std::isnan(T_current) || std::isinf(T_current)) T_current = 0.0;
         
         // ===== THERMOSTAT: NOSE-HOOVER SCALING =====
-        if (step % 10 == 0 && T_current > 1e-6) {
+        if (step % 10 == 0 && T_current > 1e-10) {
             double lambda = 1.0 + (cfg.dt / cfg.tau_t) * (cfg.temperature / T_current - 1.0);
             lambda = fmax(0.5, fmin(2.0, lambda));
             
@@ -332,11 +491,11 @@ int main(int argc, char* argv[]) {
                 cfg.vz[i] *= lambda;
             }
             KE *= lambda * lambda;
-            T_current = (2.0 / 3.0) * KE / (cfg.natoms * 1.380649e-23);
+            T_current = (2.0 / 3.0) * KE / (cfg.natoms * 0.008314);  // R=8.314 J/(mol·K)
         }
         
-        // Periodic output
-        if (step % cfg.nsave == 0) {
+        // Periodic output (guard against nsave=0 → division by zero)
+        if (cfg.nsave > 0 && step % cfg.nsave == 0) {
             double PE = compute_LJ_PE(cfg);
             double E_total = KE + PE;
             double dE = E_total - E_total_init;
@@ -378,12 +537,12 @@ int main(int argc, char* argv[]) {
               << "========================================\n\n";
     
     std::cout << "Final Energies:\n"
-              << "  Kinetic Energy: " << KE_final << " J/mol\n"
-              << "  Potential Energy: " << PE_final << " J/mol\n"
-              << "  Total Energy: " << E_total_final << " J/mol\n\n";
+              << "  Kinetic Energy: " << KE_final << " kJ/mol\n"
+              << "  Potential Energy: " << PE_final << " kJ/mol\n"
+              << "  Total Energy: " << E_total_final << " kJ/mol\n\n";
     
     std::cout << "Energy Conservation:\n"
-              << "  ΔE = " << dE_final << " J/mol\n"
+              << "  ΔE = " << dE_final << " kJ/mol\n"
               << "  ΔE/E₀ = " << dE_percent << "%\n\n";
     
     std::cout << "Performance Metrics:\n"

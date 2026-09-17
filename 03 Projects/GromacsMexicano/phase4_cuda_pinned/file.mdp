@@ -1,0 +1,17 @@
+dt = 0.002
+nsteps = 1000
+nstlog = 50
+nstenergy = 50
+rvdw = 1.0
+rcoulomb = 1.0
+rlist = 1.0
+tcoupl = Nose-Hoover
+ref-t = 300
+tau-t = 2.0
+pcoupl = no
+nstxout = 0
+nstvout = 0
+coulombtype = cut-off
+fourier-nx = 1
+fourier-ny = 1
+fourier-nz = 1

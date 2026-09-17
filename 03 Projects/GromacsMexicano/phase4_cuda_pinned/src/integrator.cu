@@ -219,7 +219,7 @@ double compute_temperature_GPU(
     cudaStreamSynchronize(stream);
     
     double KE = *h_KE_total;
-    double temp = (2.0 / 3.0) * KE / (natoms * 1.380649e-23);  // Boltzmann constant
+    double temp = (2.0 / 3.0) * KE / (natoms * 0.008314);  // R=8.314 J/(mol·K), KE in kJ/mol
     return temp;
 }
 
