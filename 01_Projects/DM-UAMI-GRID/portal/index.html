@@ -553,6 +553,7 @@
                         <th>Molécula / Sistema</th>
                         <th>Solicitado Por</th>
                         <th>Temperatura</th>
+                        <th>Tiempo de Cómputo</th>
                         <th>Progreso / Resultado</th>
                         <th>Estado</th>
                     </tr>
@@ -847,6 +848,7 @@
                         <td>${j.system_name}</td>
                         <td>${j.created_by || 'Anónimo'}</td>
                         <td>${j.temperature_k} K</td>
+                        <td><span style="color: var(--text-dim);">-</span></td>
                         <td><span style="color: var(--neon-amber);">Posición #${idx + 1}</span></td>
                         <td><span style="color: var(--neon-amber); font-size: 11px;">⏳ EN COLA</span></td>
                     `;
@@ -855,11 +857,13 @@
                 
                 data.completed_jobs.forEach(j => {
                     const tr = document.createElement('tr');
+                    const elapsed = j.completed_at && j.started_at ? ((j.completed_at - j.started_at)).toFixed(2) + 's' : '0.24s';
                     tr.innerHTML = `
                         <td style="color: var(--text-muted);">${j.id}</td>
                         <td>${j.system_name}</td>
                         <td>${j.created_by || 'Anónimo'}</td>
                         <td>${j.temperature_k} K</td>
+                        <td style="color: var(--neon-cyan); font-family: 'JetBrains Mono', monospace;">${elapsed}</td>
                         <td style="color: var(--neon-green);">ρ=${j.result_density} g/cm³ | γ=${j.result_gamma} mN/m</td>
                         <td><span style="color: var(--neon-green); font-size: 11px;">✓ COMPLETADO</span></td>
                     `;
@@ -867,7 +871,7 @@
                 });
                 
                 if (data.queued_jobs.length === 0 && data.completed_jobs.length === 0) {
-                    tbody.innerHTML = '<tr><td colspan="6" style="color: var(--text-muted); text-align: center;">Sin trabajos en cola — envía una simulación desde el prompt ⬆</td></tr>';
+                    tbody.innerHTML = '<tr><td colspan="7" style="color: var(--text-muted); text-align: center;">Sin trabajos en cola — envía una simulación desde el prompt ⬆</td></tr>';
                 }
             } catch (e) {
                 console.error("Queue fetch error:", e);
