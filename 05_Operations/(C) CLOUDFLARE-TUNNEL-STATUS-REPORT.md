@@ -1,0 +1,146 @@
+# Cloudflare Tunnel & Route Status Report
+**Date**: 2026-09-17  
+**Audited**: CT 108 (cloudflared) + CT 100 (nginx proxy manager)
+
+---
+
+## OVERALL STATUS
+
+✅ **Tunnel infrastructure ACTIVE**
+- CT 108 (cloudflared): Running ✓
+- CT 100 (nginx proxy manager): Running ✓
+- Cloudflared process: 1 active
+- NPM processes: 22 (node + nginx workers)
+
+---
+
+## CLOUDFLARE TUNNEL (CT 108)
+
+| Item | Status | Details |
+|------|--------|---------|
+| **Service** | ✅ Running | cloudflared daemon |
+| **PID** | 302 | `/usr/bin/cloudflared --no-autoupdate tunnel run --protocol http2 --token [REDACTED]` |
+| **Port** | :20241 | Listening on 127.0.0.1:20241 |
+| **Connectivity to CT 100** | ✅ OK | Can reach 192.168.0.109 (npm proxy manager) |
+| **Uptime** | ~72 hours | Last restart Sep 14 09:00 |
+
+---
+
+## NGINX PROXY MANAGER (CT 100)
+
+| Item | Status | Details |
+|------|--------|---------|
+| **Service** | ✅ Running | Node.js + nginx workers |
+| **Admin UI** | ✅ Online | :81 (dashboard) |
+| **HTTP Proxy** | ✅ Online | :80 (public routes) |
+| **HTTPS Proxy** | ✅ Online | :443 (SSL termination) |
+| **Database** | ✅ Valid | `/data/database.sqlite` (163 KB) |
+| **Config Files** | ✅ 9 routes | `/data/nginx/proxy_host/*.conf` |
+
+---
+
+## PROXY HOST ROUTES (9 CONFIGURED)
+
+### ✅ ACTIVE ROUTES (7/9)
+
+| Domain | Target | Status | Notes |
+|--------|--------|--------|-------|
+| **elinternetqr.satanzote.me** | 192.168.0.20:8085 | ✅ ACTIVE | Public app (Plex alternative?) |
+| **vault.satanzote.me** | 192.168.0.30:8000 | ✅ ACTIVE | Remote vault access |
+| **elmundial.satanzote.me** | 192.168.0.20:8000 | ✅ ACTIVE | Public app |
+| **plex.satanzote.me** | 192.168.0.164:32400 | ✅ ACTIVE | Plex media server |
+| **pedirpeliculas.satanzote.me** | 192.168.0.164:5055 | ✅ ACTIVE | Movie request service |
+| **soypirata.satanzote.me** | 192.168.0.164:5690 | ✅ ACTIVE | Private/unlisted service |
+| **adguard.home** | 192.168.0.10:80 | ✅ ACTIVE | DNS/ad-blocker (local domain) |
+
+### ❌ INACTIVE ROUTES (2/9)
+
+| Domain | Target | Status | Reason |
+|--------|--------|--------|--------|
+| **sonarr.home** | 192.168.0.60:8989 | ❌ DOWN | Target 192.168.0.60 unreachable (offline CT?) |
+| **transmissions.home** | 192.168.0.60:9091 | ❌ DOWN | Target 192.168.0.60 unreachable (offline CT?) |
+
+**Diagnosis**: Both dead routes point to same host (192.168.0.60). That CT/host is **offline** or **not on network**.
+
+---
+
+## CONNECTIVITY PATH (Cloudflare → You)
+
+```
+Internet
+    ↓
+[Cloudflare Edge] (*.satanzote.me DNS)
+    ↓ (tunnel)
+[CT 108 cloudflared, 192.168.0.12:20241]
+    ↓ (internal network)
+[CT 100 nginx proxy manager, 192.168.0.109:80/443]
+    ↓ (routes to service)
+[Target service] (7 active, 2 down)
+```
+
+**Status**: ✅ Tunnel routing infrastructure **FULLY OPERATIONAL** for active targets.
+
+---
+
+## DETAILED LOGS
+
+### Recent Access Log (CT 100)
+```
+[17/Sep/2026:11:03:31 -0600] 200 - GET http 127.0.0.1 "/" [Local test]
+[17/Sep/2026:11:34:46 -0600] 400 - GET http 192.168.0.109 "/" [Mac client, bad host header]
+```
+
+### Error Summary
+- ❌ 192.168.0.60 (sonarr, transmissions) — HOST OFFLINE
+- ✅ All other targets responding normally
+
+---
+
+## RECOMMENDATIONS
+
+### Immediate Actions
+1. **Investigate CT/host 192.168.0.60** — Sonarr & Transmissions targets are down
+   - Check if CT 60 exists in Proxmox
+   - If it's a shared host service, verify it's still configured
+   - Either fix or **remove routes 23 & 25 from NPM** to clean up dead routes
+
+2. **Verify .home domain routes** — They may be local-only (not through Cloudflare tunnel)
+   - `adguard.home`, `sonarr.home`, `transmissions.home` are internal DNS entries
+   - Cloudflare tunnel only exposes `*.satanzote.me` (public) — `.home` routes may not work from internet
+   - **Action**: Remove `.home` routes from NPM if they're internal-only, or configure custom DNS
+
+### Maintenance
+- ✅ CT 108 cloudflared looks healthy — log rotation working
+- ✅ CT 100 nginx proxy manager stable — 9 routes, 7 active
+- ✅ Database is intact, configs generated correctly
+
+### If You Want to Add New Routes
+1. Log in to CT 100 NPM admin UI (`:81`)
+2. Add new proxy host (domain + target)
+3. NPM auto-generates config in `/data/nginx/proxy_host/`
+4. CT 108 cloudflared automatically proxies it via tunnel
+
+---
+
+## CONFIGURATION FILES
+
+**CT 100 NPM routes**: `/data/nginx/proxy_host/` (9 .conf files)
+**CT 108 tunnel config**: Token-based (cloud-managed, no local file)
+**Database**: `/data/database.sqlite` (163 KB)
+
+---
+
+## SUMMARY
+
+| Aspect | Status | Details |
+|--------|--------|---------|
+| **Tunnel** | ✅ ACTIVE | Running, connected |
+| **Routing** | ✅ OK | 7/9 routes active |
+| **Issues** | 1 HOST OFFLINE | 192.168.0.60 (2 affected routes) |
+| **Action Needed** | LOW | Fix or remove dead routes |
+
+**Verdict**: Your Cloudflare tunnel is **working correctly**. The 2 dead routes are due to an offline host, not tunnel misconfiguration.
+
+---
+
+**Generated by**: SatanZote AI (2026-09-17 11:45 CDMX)

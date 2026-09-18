@@ -1,0 +1,28 @@
+// Exclude .obsidian configuration (node_modules, plugins, desktop settings)
+.obsidian
+
+// Exclude git internals (already backed up to GitHub)
+.git
+.gitignore
+
+// Exclude OS junk
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+
+// Exclude build/cache artifacts
+node_modules
+*.o
+*.so
+*.out
+*.bin
+
+// Exclude large binary files
+*.mp4
+*.mov
+*.mkv
+*.tar
+*.zip
+

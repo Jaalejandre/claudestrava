@@ -6,7 +6,7 @@ description: Create and edit Obsidian-specific Markdown syntax, including
   assumed knowledge.
 license: MIT
 metadata:
-  copilot-enabled-agents: codex,opencode
+  copilot-enabled-agents: opencode, claude, codex
   copilot-builtin-version: "1"
   copilot-upstream-revision: "a1dc48e68138490d522c04cbf5822214c6eb1202"
 ---
