@@ -184,10 +184,10 @@ def send_heartbeat(device_info, steps_done=0, safe_status="OK"):
         for url in req_urls:
             try:
                 req = urllib.request.Request(url, data=data, headers={"Content-Type": "application/json", "User-Agent": "DMUAMI-Worker"})
-                with urllib.request.urlopen(req, data=data, timeout=3, context=ctx) as res:
+                with urllib.request.urlopen(req, timeout=4, context=ctx) as res:
                     if res.status == 200:
                         return True
-            except:
+            except Exception as e:
                 continue
     except:
         pass
