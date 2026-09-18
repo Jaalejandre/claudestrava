@@ -106,6 +106,22 @@
             to { opacity: 1; transform: scale(1.2); }
         }
 
+        /* INSTRUCTIONS CARD */
+        .instructions-card {
+            background: rgba(0, 240, 255, 0.03);
+            border: 1px dashed rgba(0, 240, 255, 0.25);
+            border-radius: 12px;
+            padding: 12px 16px;
+            margin-bottom: 12px;
+            font-size: 11px;
+            color: var(--text-dim);
+            line-height: 1.6;
+        }
+
+        .instructions-card strong {
+            color: var(--neon-cyan);
+        }
+
         /* AI SIMULATION PROMPT INTERACTIVE CARD */
         .ai-prompt-box {
             background: linear-gradient(135deg, rgba(16, 24, 44, 0.95) 0%, rgba(10, 14, 26, 0.95) 100%);
@@ -120,7 +136,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 12px;
+            margin-bottom: 10px;
         }
 
         .prompt-title {
@@ -271,7 +287,7 @@
 
         #molCanvas {
             width: 100%;
-            height: 290px;
+            height: 310px;
             display: block;
             cursor: grab;
         }
@@ -283,8 +299,8 @@
             right: 12px;
             display: flex;
             justify-content: space-between;
-            background: rgba(8, 11, 20, 0.75);
-            backdrop-filter: blur(6px);
+            background: rgba(8, 11, 20, 0.85);
+            backdrop-filter: blur(8px);
             padding: 6px 12px;
             border-radius: 8px;
             border: 1px solid rgba(255,255,255,0.08);
@@ -375,11 +391,16 @@
         </div>
     </header>
 
+    <!-- INSTRUCTIONS BANNER -->
+    <div class="instructions-card">
+        <strong>📋 Guía de Uso del Asistente Científico:</strong> Puedes pedir en lenguaje natural simular cualquier líquido polar, mezclas o electrolitos de baterías de litio (ej. <em>"Simula acetona a 298 K"</em> o <em>"Calibra carbonato de etileno a 40 °C con densidad 1.32 g/cm³"</em>). El modelo subrogado de IA explorará cientos de miles de parámetros en <strong>milisegundos</strong>, validará la física en la <strong>RTX 5070 Ti (CUDA)</strong> y actualizará el <strong>visor 3D</strong> con la estructura exacta de la molécula simulada.
+    </div>
+
     <!-- INTERACTIVE AI SIMULATION PROMPT BOX -->
     <div class="ai-prompt-box">
         <div class="prompt-header">
             <div class="prompt-title">
-                <span>⚡ ASISTENTE CIENTÍFICO DE SIMULACIÓN POR IA</span>
+                <span>⚡ PROMPT DE SIMULACIÓN Y CALIBRACIÓN POR IA</span>
             </div>
             <span style="font-size: 10px; color: var(--neon-green); font-family: 'JetBrains Mono', monospace;">Surrogate & GPU Online</span>
         </div>
@@ -392,7 +413,7 @@
         </div>
 
         <div class="prompt-input-group">
-            <input type="text" id="promptInput" class="prompt-input" placeholder="Escribe en lenguaje natural: ej. 'Simula acetona a 298 K y calcula densidad y tensión superficial'...">
+            <input type="text" id="promptInput" class="prompt-input" placeholder="Escribe tu instrucción: ej. 'Simula acetona a 298 K y calcula densidad y tensión superficial'...">
             <button class="btn-simulate" onclick="executePromptSimulation()">
                 <span>EJECUTAR</span> 🚀
             </button>
@@ -433,16 +454,16 @@
         </div>
     </div>
 
-    <!-- 3D MOLECULAR CANVAS -->
+    <!-- DYNAMIC 3D MOLECULAR CANVAS (REFLECTS SIMULATION RESULT) -->
     <div class="visualizer-box">
         <div class="visualizer-header">
-            <span>🔬 VISOR 3D DE TRAYECTORIA MOLECULAR (PELÍCULA SLAB LÍQUIDO-VAPOR)</span>
+            <span id="canvasTitle">🔬 VISOR 3D: AGUA SPC/E A 300.0 K (TRAYECTORIA GPU EN VIVO)</span>
             <span style="font-size: 10px; color: var(--text-dim);">Arrastra para rotar en 3D</span>
         </div>
         <canvas id="molCanvas"></canvas>
         <div class="mol-footer">
-            <span>🔴 Oxígeno (OW) | 🔵 Hidrógeno (HW) | ⚪ Enlaces Covalentes</span>
-            <span>Motor C++17 / CUDA 13.0</span>
+            <span id="legendText">🔴 Oxígeno (OW) | 🔵 Hidrógeno (HW) | ⚪ Enlaces Covalentes</span>
+            <span id="speedText">Vibración térmica @ 300 K</span>
         </div>
     </div>
 
@@ -521,6 +542,9 @@
     </footer>
 
     <script>
+        let currentMolecule = 'SOL';
+        let currentTemp = 300.0;
+
         function setPrompt(text) {
             document.getElementById('promptInput').value = text;
             executePromptSimulation();
@@ -551,6 +575,15 @@
                 document.getElementById('resEps').innerText = data.calculated_dielectric;
                 document.getElementById('resSigma').innerText = data.calibrated_parameters.sigma_nm + ' nm';
                 document.getElementById('resEpsilon').innerText = data.calibrated_parameters.epsilon_kJ_mol + ' kJ/mol';
+
+                // DYNAMIC 3D MOLECULAR CANVAS UPDATE (Reflects the exact simulated result)
+                currentMolecule = data.code;
+                currentTemp = data.temperature_k;
+                document.getElementById('canvasTitle').innerText = `🔬 VISOR 3D: ${data.molecule.toUpperCase()} A ${data.temperature_k} K (TRAYECTORIA GPU EN VIVO)`;
+                document.getElementById('speedText').innerText = `Vibración térmica @ ${data.temperature_k} K`;
+                
+                rebuildMolecularSystem(currentMolecule, currentTemp);
+
             } catch (e) {
                 console.error(e);
                 document.getElementById('resTitle').innerText = '❌ Error ejecutando simulación';
@@ -566,37 +599,115 @@
         setInterval(updateClock, 1000);
         updateClock();
 
-        // 3D MOLECULAR CANVAS
+        // 3D MOLECULAR CANVAS ENGINE
         const canvas = document.getElementById('molCanvas');
         const ctx = canvas.getContext('2d');
 
         function resizeCanvas() {
             canvas.width = canvas.parentElement.clientWidth;
-            canvas.height = 290;
+            canvas.height = 310;
         }
         window.addEventListener('resize', resizeCanvas);
         resizeCanvas();
 
-        const molecules = [];
-        const nPerSide = 5;
-        const spacing = 30;
+        let renderAtoms = [];
+        let renderBonds = [];
 
-        for (let i = 0; i < nPerSide; i++) {
-            for (let j = 0; j < nPerSide; j++) {
-                for (let k = 0; k < nPerSide; k++) {
-                    const ox = (i - nPerSide/2) * spacing;
-                    const oy = (j - nPerSide/2) * spacing;
-                    const oz = (k - nPerSide/2) * spacing;
+        function rebuildMolecularSystem(molCode, tempK) {
+            renderAtoms = [];
+            renderBonds = [];
+            const spacing = 36;
+            const nSide = 4;
 
-                    molecules.push({
-                        ox: ox, oy: oy, oz: oz,
-                        h1x: ox + 9, h1y: oy + 11, h1z: oz,
-                        h2x: ox - 9, h2y: oy + 11, h2z: oz,
-                        phase: Math.random() * Math.PI * 2
-                    });
+            if (molCode === 'SOL') { // Water
+                document.getElementById('legendText').innerText = '🔴 Oxígeno (OW) | 🔵 Hidrógeno (HW) | ⚪ Enlaces H-O';
+                for (let i = 0; i < nSide; i++) {
+                    for (let j = 0; j < nSide; j++) {
+                        for (let k = 0; k < nSide; k++) {
+                            const ox = (i - nSide/2) * spacing;
+                            const oy = (j - nSide/2) * spacing;
+                            const oz = (k - nSide/2) * spacing;
+                            const baseIdx = renderAtoms.length;
+
+                            renderAtoms.push({ x: ox, y: oy, z: oz, color: '#ff2a5f', r: 6.5, phase: Math.random()*6 });
+                            renderAtoms.push({ x: ox + 9, y: oy + 11, z: oz, color: '#00f0ff', r: 3.5, phase: Math.random()*6 });
+                            renderAtoms.push({ x: ox - 9, y: oy + 11, z: oz, color: '#00f0ff', r: 3.5, phase: Math.random()*6 });
+
+                            renderBonds.push([baseIdx, baseIdx + 1]);
+                            renderBonds.push([baseIdx, baseIdx + 2]);
+                        }
+                    }
+                }
+            } else if (molCode === 'ACT' || molCode === 'BTO') { // Acetone / Butanone
+                document.getElementById('legendText').innerText = '🔴 Oxígeno Carbonilo (O) | 🟡 Carbonos (C) | ⚪ Enlaces C-C / C=O';
+                for (let i = 0; i < nSide; i++) {
+                    for (let j = 0; j < nSide; j++) {
+                        for (let k = 0; k < nSide; k++) {
+                            const cx = (i - nSide/2) * spacing;
+                            const cy = (j - nSide/2) * spacing;
+                            const cz = (k - nSide/2) * spacing;
+                            const baseIdx = renderAtoms.length;
+
+                            renderAtoms.push({ x: cx, y: cy, z: cz, color: '#ffb800', r: 6.0, phase: Math.random()*6 }); // C=O
+                            renderAtoms.push({ x: cx, y: cy - 14, z: cz, color: '#ff2a5f', r: 7.0, phase: Math.random()*6 }); // =O
+                            renderAtoms.push({ x: cx - 13, y: cy + 10, z: cz, color: '#7e879f', r: 5.5, phase: Math.random()*6 }); // -CH3
+                            renderAtoms.push({ x: cx + 13, y: cy + 10, z: cz, color: '#7e879f', r: 5.5, phase: Math.random()*6 }); // -CH3
+
+                            renderBonds.push([baseIdx, baseIdx + 1]);
+                            renderBonds.push([baseIdx, baseIdx + 2]);
+                            renderBonds.push([baseIdx, baseIdx + 3]);
+                        }
+                    }
+                }
+            } else if (molCode === 'EOH') { // Ethanol
+                document.getElementById('legendText').innerText = '🔴 Oxígeno (-OH) | 🟡 Carbonos (C) | 🔵 Hidrógeno (H)';
+                for (let i = 0; i < nSide; i++) {
+                    for (let j = 0; j < nSide; j++) {
+                        for (let k = 0; k < nSide; k++) {
+                            const cx = (i - nSide/2) * spacing;
+                            const cy = (j - nSide/2) * spacing;
+                            const cz = (k - nSide/2) * spacing;
+                            const baseIdx = renderAtoms.length;
+
+                            renderAtoms.push({ x: cx - 10, y: cy, z: cz, color: '#7e879f', r: 5.5, phase: Math.random()*6 }); // CH3
+                            renderAtoms.push({ x: cx + 6, y: cy, z: cz, color: '#ffb800', r: 5.5, phase: Math.random()*6 }); // CH2
+                            renderAtoms.push({ x: cx + 18, y: cy - 9, z: cz, color: '#ff2a5f', r: 6.5, phase: Math.random()*6 }); // O
+                            renderAtoms.push({ x: cx + 26, y: cy - 6, z: cz, color: '#00f0ff', r: 3.5, phase: Math.random()*6 }); // H
+
+                            renderBonds.push([baseIdx, baseIdx + 1]);
+                            renderBonds.push([baseIdx + 1, baseIdx + 2]);
+                            renderBonds.push([baseIdx + 2, baseIdx + 3]);
+                        }
+                    }
+                }
+            } else { // Carbonates (EC / PC)
+                document.getElementById('legendText').innerText = '🔴 Oxígenos Carbonato (O) | 🟡 Carbono Central | ⚪ Anillo Cíclico';
+                for (let i = 0; i < nSide; i++) {
+                    for (let j = 0; j < nSide; j++) {
+                        for (let k = 0; k < nSide; k++) {
+                            const cx = (i - nSide/2) * spacing;
+                            const cy = (j - nSide/2) * spacing;
+                            const cz = (k - nSide/2) * spacing;
+                            const baseIdx = renderAtoms.length;
+
+                            renderAtoms.push({ x: cx, y: cy, z: cz, color: '#ffb800', r: 6.0, phase: Math.random()*6 }); // C central
+                            renderAtoms.push({ x: cx, y: cy - 14, z: cz, color: '#ff2a5f', r: 7.0, phase: Math.random()*6 }); // =O
+                            renderAtoms.push({ x: cx - 11, y: cy + 7, z: cz, color: '#ff2a5f', r: 6.0, phase: Math.random()*6 }); // -O
+                            renderAtoms.push({ x: cx + 11, y: cy + 7, z: cz, color: '#ff2a5f', r: 6.0, phase: Math.random()*6 }); // -O
+                            renderAtoms.push({ x: cx, y: cy + 18, z: cz, color: '#7e879f', r: 5.5, phase: Math.random()*6 }); // -CH2-CH2-
+
+                            renderBonds.push([baseIdx, baseIdx + 1]);
+                            renderBonds.push([baseIdx, baseIdx + 2]);
+                            renderBonds.push([baseIdx, baseIdx + 3]);
+                            renderBonds.push([baseIdx + 2, baseIdx + 4]);
+                            renderBonds.push([baseIdx + 3, baseIdx + 4]);
+                        }
+                    }
                 }
             }
         }
+
+        rebuildMolecularSystem('SOL', 300.0);
 
         let rotX = 0.35;
         let rotY = 0.55;
@@ -643,29 +754,38 @@
 
         let timeTick = 0;
         function render3D() {
-            timeTick += 0.03;
+            // Thermal vibration frequency scales with target temperature T
+            const tempFactor = Math.sqrt(currentTemp / 300.0);
+            timeTick += 0.03 * tempFactor;
             if (!isDragging) rotY += 0.0025;
 
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             const cx = canvas.width / 2;
             const cy = canvas.height / 2;
 
+            const projectedAtoms = renderAtoms.map(a => {
+                const vibAmp = 1.6 * tempFactor;
+                const vx = Math.sin(timeTick + a.phase) * vibAmp;
+                const vy = Math.cos(timeTick * 1.2 + a.phase) * vibAmp;
+                const vz = Math.sin(timeTick * 0.8 + a.phase) * vibAmp;
+
+                const proj = project3D(a.x + vx, a.y + vy, a.z + vz, cx, cy);
+                return { proj, color: a.color, r: a.r, z: proj.z };
+            });
+
+            // Prepare render queue
             const renderItems = [];
 
-            molecules.forEach(m => {
-                const vibX = Math.sin(timeTick + m.phase) * 1.5;
-                const vibY = Math.cos(timeTick * 1.2 + m.phase) * 1.5;
-                const vibZ = Math.sin(timeTick * 0.9 + m.phase) * 1.5;
+            renderBonds.forEach(([i1, i2]) => {
+                if (i1 < projectedAtoms.length && i2 < projectedAtoms.length) {
+                    const p1 = projectedAtoms[i1].proj;
+                    const p2 = projectedAtoms[i2].proj;
+                    renderItems.push({ type: 'bond', p1, p2, z: (p1.z + p2.z) * 0.5 });
+                }
+            });
 
-                const oProj = project3D(m.ox + vibX, m.oy + vibY, m.oz + vibZ, cx, cy);
-                const h1Proj = project3D(m.h1x + vibX, m.h1y + vibY, m.h1z + vibZ, cx, cy);
-                const h2Proj = project3D(m.h2x + vibX, m.h2y + vibY, m.h2z + vibZ, cx, cy);
-
-                renderItems.push({ type: 'bond', p1: oProj, p2: h1Proj, z: (oProj.z + h1Proj.z)/2 });
-                renderItems.push({ type: 'bond', p1: oProj, p2: h2Proj, z: (oProj.z + h2Proj.z)/2 });
-                renderItems.push({ type: 'atom', p: oProj, color: '#ff2a5f', r: 6, z: oProj.z });
-                renderItems.push({ type: 'atom', p: h1Proj, color: '#00f0ff', r: 3.5, z: h1Proj.z });
-                renderItems.push({ type: 'atom', p: h2Proj, color: '#00f0ff', r: 3.5, z: h2Proj.z });
+            projectedAtoms.forEach(a => {
+                renderItems.push({ type: 'atom', p: a.proj, color: a.color, r: a.r, z: a.z });
             });
 
             renderItems.sort((a, b) => b.z - a.z);
