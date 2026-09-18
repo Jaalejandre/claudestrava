@@ -46,3 +46,10 @@
 8. **`CT 116 (ntfy)`**: Alertas push de infraestructura y CFE.
 9. **`CT 102 (uptimekuma)`**: Monitoreo de disponibilidad y SLAs.
 10. **`CT 111 (apps-prod)`**: Microservicios en producción (`qr-counter`, `confirma-citas`).
+
+
+---
+## 4. Estado de Ejecución (Completado 2026-09-18)
+- Se eliminaron con éxito los 8 contenedores redundantes: `CT 101, 103, 110, 113, 118, 120, 121, 400`.
+- Se liberaron **~75 GB de disco en local-lvm** (uso bajó del 38.6% al 29.8%).
+- Contenedores activos en Proxmox: 14 CTs esenciales en producción.
