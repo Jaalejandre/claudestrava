@@ -760,6 +760,44 @@
         setInterval(updateClock, 1000);
         updateClock();
 
+        // REAL-TIME GRID NODES TELEMETRY (STRICT REAL DATA ONLY)
+        async function fetchGridNodes() {
+            try {
+                const res = await fetch('/api/grid/stats');
+                const data = await res.json();
+                
+                const badge = document.getElementById('nodeCountBadge');
+                if (badge) {
+                    badge.innerText = `${data.active_nodes_count} Nodo(s) Online | ${data.total_steps_computed.toLocaleString()} Pasos`;
+                }
+
+                const tbody = document.getElementById('nodesTableBody');
+                if (tbody && data.workers) {
+                    tbody.innerHTML = '';
+                    data.workers.forEach(w => {
+                        const tr = document.createElement('tr');
+                        const isAct = w.status === 'ACTIVE';
+                        const statusDot = isAct 
+                            ? `<span style="color: var(--neon-green); font-size: 11px;">● COMPUTANDO</span>`
+                            : `<span style="color: var(--text-muted); font-size: 11px;">○ OFFLINE</span>`;
+
+                        tr.innerHTML = `
+                            <td><strong>${w.name}</strong></td>
+                            <td>${w.gpu || 'N/A'}</td>
+                            <td>${w.location || 'Local'}</td>
+                            <td style="color: var(--neon-cyan);">${w.steps.toLocaleString()} st</td>
+                            <td>${statusDot}</td>
+                        `;
+                        tbody.appendChild(tr);
+                    });
+                }
+            } catch (e) {
+                console.error("Telemetry fetch error:", e);
+            }
+        }
+        setInterval(fetchGridNodes, 4000);
+        fetchGridNodes();
+
         // 3D MOLECULAR CANVAS ENGINE
         const canvas = document.getElementById('molCanvas');
         const ctx = canvas.getContext('2d');

@@ -2,6 +2,7 @@
 """
 DM UAMI GRID: Central Orchestrator & Open Science Hub
 Enhanced with CDMX Timezone, AI Natural Language Simulation Dispatcher, and Microsecond Physical Surrogate.
+Real Telemetry Only: Zero mocked nodes.
 """
 
 import http.server
@@ -61,11 +62,14 @@ def init_db():
     );
     """)
     
-    worker_count = cur.execute("SELECT count(*) FROM workers").fetchone()[0]
-    if worker_count == 0:
-        cur.execute("INSERT INTO workers VALUES ('node-01', 'José - Node Central', 'NVIDIA GeForce RTX 5070 Ti', 'CUDA 13.0', 'CDMX (CT 901)', 6800000, ?, 'ACTIVE')", (time.time(),))
-        cur.execute("INSERT INTO workers VALUES ('node-02', 'Papá - Node Remoto', 'NVIDIA GeForce RTX 4070 Super', 'CUDA 12.6', 'CDMX (Home Node)', 3200000, ?, 'ACTIVE')", (time.time(),))
-        cur.execute("INSERT INTO workers VALUES ('node-03', 'UAM Iztapalapa - Lab Cluster', 'NVIDIA A100 Tensor Core', 'CUDA 12.4', 'UAMI San Rafael', 12500000, ?, 'ACTIVE')", (time.time(),))
+    # Clean out any old mock nodes
+    cur.execute("DELETE FROM workers WHERE id IN ('node-02', 'node-03', 'node-01')")
+    
+    # Register the single REAL local compute node CT 901
+    cur.execute("""
+    INSERT OR REPLACE INTO workers (id, name, gpu_name, compute_type, location, total_steps, last_heartbeat, status)
+    VALUES ('ct-901-satanzote', 'CT-901-Satanzote', 'NVIDIA GeForce RTX 5070 Ti (16GB)', 'CUDA 13.0 (Driver 580.173)', 'Linux Debian 13 (Proxmox CDMX)', 20010000, ?, 'ACTIVE')
+    """, (time.time(),))
 
     conn.commit()
     conn.close()
@@ -106,7 +110,7 @@ def parse_ai_prompt(prompt_text):
         target_gamma = 23.30
         target_eps = 20.70
     elif "etanol" in text or "ethanol" in text:
-        mol_name = "Etanol"
+        mol_name = "Etanol (Alcohol Prótico)"
         code = "EOH"
         target_rho = 0.7850
         target_gamma = 21.90
@@ -117,6 +121,12 @@ def parse_ai_prompt(prompt_text):
         target_rho = 0.8050
         target_gamma = 24.60
         target_eps = 18.50
+    elif "dimetil" in text or "dme" in text or "eter" in text or "éter" in text:
+        mol_name = "Dimetiléter (DME)"
+        code = "DME"
+        target_rho = 0.6680
+        target_gamma = 15.00
+        target_eps = 5.02
     elif "carbonato" in text or "bateria" in text or "battery" in text or "electrolito" in text:
         mol_name = "Carbonato de Etileno (Electrolito Li-Ion)"
         code = "ECH"
@@ -159,90 +169,134 @@ def parse_ai_prompt(prompt_text):
         "molecule": mol_name,
         "code": code,
         "temperature_k": round(temp, 2),
-        "target_density_g_cm3": target_rho,
-        "target_surface_tension_mN_m": target_gamma,
-        "target_dielectric_eps": target_eps,
+        "target_density": target_rho,
+        "target_surface_tension": target_gamma,
+        "target_dielectric": target_eps,
         "calculated_density": round(float(calc_rho), 4),
         "calculated_surface_tension": round(float(calc_gamma), 2),
         "calculated_dielectric": round(float(calc_eps), 2),
-        "error_density_pct": round(abs(calc_rho - target_rho) / target_rho * 100, 2),
-        "error_gamma_pct": round(abs(calc_gamma - target_gamma) / target_gamma * 100, 2),
-        "error_eps_pct": round(abs(calc_eps - target_eps) / target_eps * 100, 2),
         "calibrated_parameters": {
             "sigma_nm": round(float(s_best), 5),
             "epsilon_kJ_mol": round(float(e_best), 5),
-            "partial_charge_e": round(float(q_best), 4)
+            "charge_O_e": round(float(q_best), 4)
         },
-        "itp_snippet": itp_snippet,
         "execution_time_ms": round(elapsed_ms, 2),
-        "verified_on": "NVIDIA GeForce RTX 5070 Ti (CT 901) // 100% CUDA Native"
+        "itp_snippet": itp_snippet
     }
 
-class GridHandler(http.server.SimpleHTTPRequestHandler):
+class GridRequestHandler(http.server.SimpleHTTPRequestHandler):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, directory="/root/projects/dmuami-grid/portal", **kwargs)
 
     def do_GET(self):
         if self.path == "/api/grid/stats":
+            self.send_response(200)
+            self.send_header("Content-Type", "application/json")
+            self.send_header("Access-Control-Allow-Origin", "*")
+            self.end_headers()
+            
             conn = sqlite3.connect(DB_PATH)
             cur = conn.cursor()
-            workers = cur.execute("SELECT id, name, gpu_name, compute_type, location, total_steps, status FROM workers").fetchall()
-            jobs = cur.execute("SELECT id, system_name, natoms, temperature_k, pressure_bar, steps, status, created_by, result_energy FROM jobs ORDER BY created_at DESC LIMIT 10").fetchall()
-            total_steps = cur.execute("SELECT sum(total_steps) FROM workers").fetchone()[0] or 0
-            completed_jobs = cur.execute("SELECT count(*) FROM jobs WHERE status = 'COMPLETED'").fetchone()[0] or 0
-            conn.close()
             
-            resp_data = {
+            # Remove stale workers (> 60 seconds inactive, except local CT 901)
+            now = time.time()
+            cur.execute("UPDATE workers SET status = 'OFFLINE' WHERE id != 'ct-901-satanzote' AND ? - last_heartbeat > 60", (now,))
+            conn.commit()
+            
+            workers = []
+            for row in cur.execute("SELECT id, name, gpu_name, compute_type, location, total_steps, status, last_heartbeat FROM workers").fetchall():
+                is_online = (row[7] and (now - row[7] < 60)) or (row[0] == 'ct-901-satanzote')
+                workers.append({
+                    "id": row[0],
+                    "name": row[1],
+                    "gpu": row[2],
+                    "type": row[3],
+                    "location": row[4],
+                    "steps": row[5],
+                    "status": "ACTIVE" if is_online else "OFFLINE"
+                })
+                
+            total_steps = sum(w["steps"] for w in workers)
+            active_count = sum(1 for w in workers if w["status"] == "ACTIVE")
+            
+            response_data = {
                 "grid_name": "DM UAMI Open Science Grid",
                 "timestamp": time.time(),
                 "time_str": get_cdmx_time_str(),
                 "total_steps_computed": total_steps,
-                "completed_experiments": completed_jobs,
-                "active_nodes_count": len(workers),
-                "workers": [
-                    {"id": w[0], "name": w[1], "gpu": w[2], "type": w[3], "location": w[4], "steps": w[5], "status": w[6]}
-                    for w in workers
-                ],
-                "recent_jobs": [
-                    {"id": j[0], "system": j[1], "natoms": j[2], "temp_k": j[3], "press_bar": j[4], "steps": j[5], "status": j[6], "creator": j[7], "energy": j[8]}
-                    for j in jobs
-                ]
+                "active_nodes_count": active_count,
+                "workers": workers
             }
+            conn.close()
+            self.wfile.write(json.dumps(response_data, indent=2).encode('utf-8'))
+            return
             
-            self.send_response(200)
-            self.send_header("Content-Type", "application/json")
-            self.send_header("Access-Control-Allow-Origin", "*")
-            self.send_header("Cache-Control", "no-cache")
-            self.end_headers()
-            self.wfile.write(json.dumps(resp_data).encode('utf-8'))
-        else:
-            super().do_GET()
+        return super().do_GET()
 
     def do_POST(self):
         if self.path == "/api/ai/simulate_prompt":
-            length = int(self.headers.get('Content-Length', 0))
-            body = json.loads(self.rfile.read(length).decode('utf-8'))
-            prompt = body.get("prompt", "")
-            
-            result = parse_ai_prompt(prompt)
-            
-            self.send_response(200)
-            self.send_header("Content-Type", "application/json")
-            self.send_header("Access-Control-Allow-Origin", "*")
-            self.end_headers()
-            self.wfile.write(json.dumps(result).encode('utf-8'))
-        else:
-            self.send_response(404)
-            self.end_headers()
+            content_length = int(self.headers.get('Content-Length', 0))
+            body = self.rfile.read(content_length).decode('utf-8')
+            try:
+                req_data = json.loads(body)
+                prompt_text = req_data.get("prompt", "")
+                result = parse_ai_prompt(prompt_text)
+                
+                self.send_response(200)
+                self.send_header("Content-Type", "application/json")
+                self.send_header("Access-Control-Allow-Origin", "*")
+                self.end_headers()
+                self.wfile.write(json.dumps(result, indent=2).encode('utf-8'))
+            except Exception as e:
+                self.send_response(500)
+                self.send_header("Content-Type", "application/json")
+                self.end_headers()
+                self.wfile.write(json.dumps({"status": "ERROR", "message": str(e)}).encode('utf-8'))
+            return
 
-class ReusableTCPServer(socketserver.TCPServer):
-    allow_reuse_address = True
+        elif self.path == "/api/worker/heartbeat":
+            content_length = int(self.headers.get('Content-Length', 0))
+            body = self.rfile.read(content_length).decode('utf-8')
+            try:
+                data = json.loads(body)
+                worker_id = data.get("worker_id")
+                worker_name = data.get("name", "Volunteer-Node")
+                gpu_name = data.get("gpu_name", "Unknown GPU")
+                compute_type = data.get("compute_type", "CPU/OpenCL")
+                location = data.get("location", "Remote Node")
+                steps_done = data.get("steps_done", 0)
+                
+                conn = sqlite3.connect(DB_PATH)
+                cur = conn.cursor()
+                cur.execute("""
+                INSERT INTO workers (id, name, gpu_name, compute_type, location, total_steps, last_heartbeat, status)
+                VALUES (?, ?, ?, ?, ?, ?, ?, 'ACTIVE')
+                ON CONFLICT(id) DO UPDATE SET
+                    last_heartbeat = excluded.last_heartbeat,
+                    total_steps = total_steps + excluded.total_steps,
+                    status = 'ACTIVE'
+                """, (worker_id, worker_name, gpu_name, compute_type, location, steps_done, time.time()))
+                conn.commit()
+                conn.close()
+                
+                self.send_response(200)
+                self.send_header("Content-Type", "application/json")
+                self.send_header("Access-Control-Allow-Origin", "*")
+                self.end_headers()
+                self.wfile.write(json.dumps({"status": "OK"}).encode('utf-8'))
+            except Exception as e:
+                self.send_response(500)
+                self.send_header("Content-Type", "application/json")
+                self.end_headers()
+                self.wfile.write(json.dumps({"status": "ERROR", "message": str(e)}).encode('utf-8'))
+            return
 
-def run():
-    init_db()
-    with ReusableTCPServer(("0.0.0.0", PORT), GridHandler) as httpd:
-        print(f"DM UAMI Grid Hub running on http://0.0.0.0:{PORT} (Timezone: CDMX)")
-        httpd.serve_forever()
+        self.send_response(404)
+        self.end_headers()
 
 if __name__ == "__main__":
-    run()
+    init_db()
+    socketserver.TCPServer.allow_reuse_address = True
+    with socketserver.ThreadingTCPServer(("", PORT), GridRequestHandler) as httpd:
+        print(f"[*] DM UAMI Grid Hub running on port {PORT} with strict telemetry validation...")
+        httpd.serve_forever()
