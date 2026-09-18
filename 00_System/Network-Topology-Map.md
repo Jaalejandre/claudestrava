@@ -1,6 +1,6 @@
 # Mapa de Topología de Red (`192.168.0.0/24`)
 **Generado por**: Escuadrón BELSEBU `NetRunner` (`net-*`)  
-**Última actualización**: 2026-09-18 12:01:04 UTC
+**Última actualización**: 2026-09-18 13:01:05 UTC
 
 ---
 
@@ -13,7 +13,7 @@
 
 ---
 
-## 2. Tabla de Dispositivos y Reservas Detectadas (26 IPs Vivas)
+## 2. Tabla de Dispositivos y Reservas Detectadas (27 IPs Vivas)
 
 | Dirección IP | Nombre / Servicio | Tipo de Dispositivo | CT ID | Estado |
 | :--- | :--- | :--- | :--- | :--- |
@@ -25,6 +25,7 @@
 | `192.168.0.20` | **Apps Prod / ConfirmaCitas (CT 111)** | Web Apps (:8095) | `111` | 🟢 Activo |
 | `192.168.0.21` | **app-dev** | LXC Container | `112` | 🟢 Activo |
 | `192.168.0.30` | **Vaultwarden (CT 114)** | Password Manager (:8000) | `114` | 🟢 Activo |
+| `192.168.0.60` | **Unknown** | Dispositivo LAN / Host | `-` | 🟢 Activo |
 | `192.168.0.61` | **docker** | LXC Container | `107` | 🟢 Activo |
 | `192.168.0.64` | **Unknown** | Dispositivo LAN / Host | `-` | 🟢 Activo |
 | `192.168.0.65` | **Unknown** | Dispositivo LAN / Host | `-` | 🟢 Activo |
