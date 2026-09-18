@@ -3,9 +3,10 @@
 
 ## Meta principal
 
-**Conseguir trabajo formal en IA/ML (remoto o CDMX).** Sin plazo fijo — objetivo abierto, no vencido. Renunciaste al trabajo anterior hace ~2 meses (mediados de julio 2026). Rol no cerrado a una empresa/título específico: cualquier posición formal de IA/ML que valide el trabajo hecho en GromacsMexicano.
+**Construir un servidor autogestionable con un equipo de IA para tareas de programación y generación de dinero.**
+Simultáneamente: **Conseguir trabajo formal en IA/ML (remoto o CDMX)** utilizando GromacsMexicano como pieza insignia que demuestra capacidad técnica y evidencia de alto nivel.
 
-**Cómo se mide el avance:** no por currículum, por evidencia — GromacsMexicano es la pieza que demuestra la capacidad técnica. Mientras no haya una oferta formal, el trabajo es: (1) que el proyecto insignia esté terminado y validado, (2) que quede documentado/publicable, (3) exposición activa (aplicaciones, contactos, portfolio).
+El servidor debe ser capaz de autogestionar su infraestructura, ejecutar proyectos de código autónomamente y generar valor mediante equipos de agentes IA.
 
 ---
 

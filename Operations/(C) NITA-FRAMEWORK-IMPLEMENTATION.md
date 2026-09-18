@@ -25,74 +25,33 @@ Implemented Andrei Nita's cost optimization framework across 3 categories:
 - **Cost**: ~500K baseline tokens/session before any actual work.
 - **Noise**: Agent saw 50+ unrelated projects, hallucinations (e.g., L'Étape nutrition rules confused with Gromacs CUDA logic).
 
-### Solution: Profile-Scoped Workspaces
+### Solution: Workspace-Scoped Profiles
 
-Each Hermes profile now declares:
-```yaml
-context:
-  workspace_root: /path/to/project
-  include_patterns: ["*.md", "src/**/*.cpp", ...]
-  exclude_patterns: ["*.o", ".git", "node_modules", ...]
-  memory_scope: project_name
-```
+**CORRECT Hermes mechanism** (verified in source 2026-09-17):  
+Each profile sets `terminal.cwd` in its `config.yaml`. Hermes reads this via `_profile_configured_cwd()` and uses it as the session's working directory, scoping all file operations.
+
+**What was tried but does NOT work**:  
+`context.workspace_root`, `context.include_patterns`, `context.exclude_patterns`, `context.memory_scope` — NOT in Hermes's `DEFAULT_CONFIG`. Hermes saves them silently but **ignores** them. The `context` key only supports `engine` and `memory_trim` (trace `_validate_config_key()` / `_known_top_level_keys()` in `hermes_cli/config.py`).
 
 ### Profiles Configured (2026-09-17)
 
 #### 1. Profile: `gromacs`
-**Workspace Root**: `/root/JarvisVault/03 Projects/GromacsMexicano`
+**`terminal.cwd`**: `/root/JarvisVault/03 Projects/GromacsMexicano`
 
-**Include**:
-- `*.md` (CLAUDE.md, specs)
-- `CMakeLists.txt`, `src/**/*.cpp`, `src/**/*.h` (source code)
-- `specs/**/*.md` (design)
-
-**Exclude**: `node_modules`, `.git`, `build/`, `*.o`, `*.a`
-
-**Memory Scope**: `gromacs`
-
-**Token Load**:
-- **Before**: 500K baseline + 50K code work = 550K tokens
-- **After**: 20K baseline + 50K code work = 70K tokens
-- **Savings**: 87% ✅
+**Use**: C++ code review, GPU optimization, CMake, physics validation.
 
 #### 2. Profile: `letape`
-**Workspace Root**: `/root/JarvisVault/03 Projects/Entrenador L'Etape CDMX`
-
-**Include**:
-- `*.md` (CLAUDE.md, Garmin specs)
-- `**/*.py` (dashboard), `**/*.json` (config)
-- `02 Specs/**/*.md`, `03 Plan de Desarrollo/**/*`
-
-**Exclude**: `node_modules`, `.git`, `__pycache__`, `*.pyc`, `venv/`
-
-**Memory Scope**: `letape`
+**`terminal.cwd`**: `/root/JarvisVault/03 Projects/Entrenador L'Etape CDMX`
 
 **Use**: Training plan reviews, Garmin/Strava integration, race strategy.
 
 #### 3. Profile: `ops`
-**Workspace Root**: `/root/.hermes` (Hermes infrastructure)
-
-**Include**:
-- `*.md` (SOUL.md, README)
-- `cron/**/*` (cronjob definitions)
-- `skills/**/*.md` (skill docs)
-- `profiles/**/*.yaml` (config)
-- `logs/**/*` (execution logs)
-
-**Exclude**: `.git`, `*.db` (don't feed kanban SQLite to LLM)
-
-**Memory Scope**: `infrastructure`
+**`terminal.cwd`**: `/root/.hermes` (Hermes infrastructure)
 
 **Use**: Cronjob audits, skill creation, Hermes config, system health.
 
 #### 4. Profile: `infra-modular` (NEW)
-**Workspace Root**: `/root/.omniroute` (OmniRoute gateway config)
-
-**Include**: `*.yaml`, `*.yml`, `*.md`
-
-**Exclude**: `*.sqlite`, `*.db` (use MCP tools to query instead)
-
-**Memory Scope**: `omniroute`
+**`terminal.cwd`**: `/root/.omniroute` (OmniRoute gateway config)
 
 **Use**: Cost optimization, provider health, routing strategy. Queries OmniRoute DB via MCP tools (not file injection).
 
@@ -184,15 +143,15 @@ Updated `omniroute-usage-optimizer` skill to output **only JSON**, never Markdow
 
 ## Implementation Checklist
 
-- ✅ Profile `gromacs` updated with workspace_root + patterns
-- ✅ Profile `letape` updated with workspace_root + patterns
-- ✅ Profile `ops` updated with workspace_root + patterns
-- ✅ Profile `infra-modular` created with OmniRoute-scoped context
+- ✅ Profile `gromacs` — `terminal.cwd` set, invalid `context` block removed
+- ✅ Profile `letape` — `terminal.cwd` set, invalid `context` block removed
+- ✅ Profile `ops` — `terminal.cwd` set, invalid `context` block removed
+- ✅ Profile `infra-modular` — created with `terminal.cwd` (OmniRoute), invalid `context` block removed
+- ⏳ **VALIDATED**: all 4 `terminal.cwd` paths confirmed to exist on disk
 - ✅ Skill `omniroute-usage-optimizer` patched with prompt caching + JSON schema
 - ✅ Skill `claude-cost-optimization-framework` created (reference guide)
-- ⏳ **TODO (Manual)**: Test profiles with `hermes profile info <name>` to confirm file loading works.
+- ⏳ **TODO (Manual)**: Hermes gateway restart — cwd changes take effect only after server restart.
 - ⏳ **TODO (Manual)**: Telegram handler to allow José to choose profile before querying (or auto-detect keyword).
-- ⏳ **TODO (Manual)**: Monitor daily optimizer breakdowns by profile to validate cost savings.
 
 ---
 

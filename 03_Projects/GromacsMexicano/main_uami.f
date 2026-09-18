@@ -648,9 +648,9 @@ c-----------------------------------------------------------------------
       endif
 
 ! Lista de vecinos
-
-!     rlist = rcut + skin   
-      write(6,*) 'rcut,rlist, skin ', rcut,rlist,skin
+!
+ rlist = rcut + skin 
+ write(6,*) 'rcut,rlist, skin ', rcut,rlist,skin
       write(iunit_log,*) 'rcut,rlist, skin ', rcut,rlist,skin
 
       nupdate = 1
