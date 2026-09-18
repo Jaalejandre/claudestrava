@@ -29,9 +29,14 @@ CDMX_TZ = zoneinfo.ZoneInfo("America/Mexico_City")
 def get_cdmx_time_str():
     return datetime.now(CDMX_TZ).strftime("%H:%M:%S CDMX")
 
+def get_db():
+    conn = sqlite3.connect(DB_PATH, timeout=10)
+    conn.execute("PRAGMA journal_mode=WAL;")
+    return conn
+
 def init_db():
     os.makedirs(os.path.dirname(DB_PATH), exist_ok=True)
-    conn = sqlite3.connect(DB_PATH)
+    conn = get_db()
     cur = conn.cursor()
     
     cur.execute("""
@@ -192,7 +197,7 @@ def gpu_queue_dispatcher():
     """Continuously processes jobs in FIFO order, guaranteeing GPU concurrency protection."""
     while True:
         try:
-            conn = sqlite3.connect(DB_PATH)
+            conn = get_db()
             cur = conn.cursor()
             
             running = cur.execute("SELECT id FROM jobs WHERE status = 'RUNNING'").fetchone()
@@ -248,16 +253,20 @@ class GridRequestHandler(http.server.SimpleHTTPRequestHandler):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, directory="/root/projects/dmuami-grid/portal", **kwargs)
 
+    def send_json(self, data_dict, code=200):
+        body = json.dumps(data_dict, indent=2).encode('utf-8')
+        self.send_response(code)
+        self.send_header("Content-Type", "application/json")
+        self.send_header("Content-Length", str(len(body)))
+        self.send_header("Access-Control-Allow-Origin", "*")
+        self.send_header("Connection", "close")
+        self.end_headers()
+        self.wfile.write(body)
+
     def do_GET(self):
         if self.path == "/api/grid/stats":
-            self.send_response(200)
-            self.send_header("Content-Type", "application/json")
-            self.send_header("Access-Control-Allow-Origin", "*")
-            self.end_headers()
-            
-            conn = sqlite3.connect(DB_PATH)
+            conn = get_db()
             cur = conn.cursor()
-            
             now = time.time()
             cur.execute("UPDATE workers SET status = 'OFFLINE' WHERE id != 'ct-901-satanzote' AND ? - last_heartbeat > 60", (now,))
             conn.commit()
@@ -287,16 +296,11 @@ class GridRequestHandler(http.server.SimpleHTTPRequestHandler):
                 "workers": workers
             }
             conn.close()
-            self.wfile.write(json.dumps(response_data, indent=2).encode('utf-8'))
+            self.send_json(response_data)
             return
 
         elif self.path == "/api/jobs/queue":
-            self.send_response(200)
-            self.send_header("Content-Type", "application/json")
-            self.send_header("Access-Control-Allow-Origin", "*")
-            self.end_headers()
-            
-            conn = sqlite3.connect(DB_PATH)
+            conn = get_db()
             conn.row_factory = sqlite3.Row
             cur = conn.cursor()
             
@@ -314,7 +318,7 @@ class GridRequestHandler(http.server.SimpleHTTPRequestHandler):
                 "completed_jobs": [to_dict(r) for r in completed_jobs]
             }
             conn.close()
-            self.wfile.write(json.dumps(queue_data, indent=2).encode('utf-8'))
+            self.send_json(queue_data)
             return
             
         return super().do_GET()
@@ -329,9 +333,8 @@ class GridRequestHandler(http.server.SimpleHTTPRequestHandler):
                 user_name = req_data.get("user_name", "Anónimo")
                 parsed = parse_ai_prompt(prompt_text)
                 
-                # Insert job into SQLite FIFO Queue
                 job_id = f"JOB-{uuid.uuid4().hex[:6].upper()}"
-                conn = sqlite3.connect(DB_PATH)
+                conn = get_db()
                 cur = conn.cursor()
                 cur.execute("""
                 INSERT INTO jobs (id, system_name, code, natoms, temperature_k, target_density, target_gamma, target_eps, steps, status, progress, created_by, created_at)
@@ -369,17 +372,9 @@ class GridRequestHandler(http.server.SimpleHTTPRequestHandler):
                     "execution_time_ms": parsed["execution_time_ms"],
                     "itp_snippet": parsed["itp_snippet"]
                 }
-                
-                self.send_response(200)
-                self.send_header("Content-Type", "application/json")
-                self.send_header("Access-Control-Allow-Origin", "*")
-                self.end_headers()
-                self.wfile.write(json.dumps(response_payload, indent=2).encode('utf-8'))
+                self.send_json(response_payload)
             except Exception as e:
-                self.send_response(500)
-                self.send_header("Content-Type", "application/json")
-                self.end_headers()
-                self.wfile.write(json.dumps({"status": "ERROR", "message": str(e)}).encode('utf-8'))
+                self.send_json({"status": "ERROR", "message": str(e)}, 500)
             return
 
         elif self.path == "/api/worker/heartbeat":
@@ -394,7 +389,7 @@ class GridRequestHandler(http.server.SimpleHTTPRequestHandler):
                 location = data.get("location", "Remote Node")
                 steps_done = data.get("steps_done", 0)
                 
-                conn = sqlite3.connect(DB_PATH)
+                conn = get_db()
                 cur = conn.cursor()
                 cur.execute("""
                 INSERT INTO workers (id, name, gpu_name, compute_type, location, total_steps, last_heartbeat, status)
@@ -406,17 +401,9 @@ class GridRequestHandler(http.server.SimpleHTTPRequestHandler):
                 """, (worker_id, worker_name, gpu_name, compute_type, location, steps_done, time.time()))
                 conn.commit()
                 conn.close()
-                
-                self.send_response(200)
-                self.send_header("Content-Type", "application/json")
-                self.send_header("Access-Control-Allow-Origin", "*")
-                self.end_headers()
-                self.wfile.write(json.dumps({"status": "OK"}).encode('utf-8'))
+                self.send_json({"status": "OK"})
             except Exception as e:
-                self.send_response(500)
-                self.send_header("Content-Type", "application/json")
-                self.end_headers()
-                self.wfile.write(json.dumps({"status": "ERROR", "message": str(e)}).encode('utf-8'))
+                self.send_json({"status": "ERROR", "message": str(e)}, 500)
             return
 
         self.send_response(404)
