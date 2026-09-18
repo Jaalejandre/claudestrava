@@ -529,6 +529,39 @@
         </div>
     </div>
 
+    <!-- GPU JOB QUEUE (FIFO CONCURRENCY PROTECTION) -->
+    <div class="section-card">
+        <div class="sec-title">
+            <span>📋 FILA DE TRABAJOS GPU (FIFO — PROTECCIÓN DE CONCURRENCIA)</span>
+            <span style="font-size: 10px; color: var(--neon-amber);" id="queueCountBadge">0 en Cola</span>
+        </div>
+        <div id="activeJobPanel" style="display: none; background: rgba(0, 255, 136, 0.05); border: 1px solid rgba(0, 255, 136, 0.2); border-radius: 10px; padding: 12px; margin-bottom: 12px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                <strong style="color: var(--neon-green); font-size: 12px;" id="activeJobTitle">▶ Procesando...</strong>
+                <span style="font-size: 10px; color: var(--neon-cyan); font-family: 'JetBrains Mono', monospace;" id="activeJobWorker">CT-901</span>
+            </div>
+            <div style="background: rgba(0,0,0,0.3); border-radius: 6px; height: 8px; overflow: hidden;">
+                <div id="activeJobProgress" style="height: 100%; background: linear-gradient(90deg, #00f0ff, #00ff88); border-radius: 6px; width: 0%; transition: width 0.4s ease;"></div>
+            </div>
+        </div>
+        <div class="table-responsive">
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID del Trabajo</th>
+                        <th>Molécula / Sistema</th>
+                        <th>Temperatura</th>
+                        <th>Progreso / Resultado</th>
+                        <th>Estado</th>
+                    </tr>
+                </thead>
+                <tbody id="queueTableBody">
+                    <tr><td colspan="5" style="color: var(--text-muted); text-align: center;">Sin trabajos en cola — envía una simulación desde el prompt ⬆</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
     <!-- CONNECTED COMPUTE NODES TABLE (VOLUNTEER GPU GRID / DÓNDE ESTÁ INSTALADO) -->
     <div class="section-card">
         <div class="sec-title">
@@ -797,6 +830,65 @@
         }
         setInterval(fetchGridNodes, 4000);
         fetchGridNodes();
+
+        // REAL-TIME JOB QUEUE POLLING
+        async function fetchJobQueue() {
+            try {
+                const res = await fetch('/api/jobs/queue');
+                const data = await res.json();
+                
+                const badge = document.getElementById('queueCountBadge');
+                const activePanel = document.getElementById('activeJobPanel');
+                const tbody = document.getElementById('queueTableBody');
+                
+                // Active job progress bar
+                if (data.active_job) {
+                    activePanel.style.display = 'block';
+                    document.getElementById('activeJobTitle').innerText = `▶ ${data.active_job.system_name} a ${data.active_job.temperature_k} K`;
+                    document.getElementById('activeJobWorker').innerText = data.active_job.assigned_worker || 'CT-901';
+                    document.getElementById('activeJobProgress').style.width = `${data.active_job.progress || 0}%`;
+                } else {
+                    activePanel.style.display = 'none';
+                }
+                
+                badge.innerText = `${data.queued_count} en Cola`;
+                
+                // Build queue + completed rows
+                tbody.innerHTML = '';
+                
+                data.queued_jobs.forEach((j, idx) => {
+                    const tr = document.createElement('tr');
+                    tr.innerHTML = `
+                        <td><strong>${j.id}</strong></td>
+                        <td>${j.system_name}</td>
+                        <td>${j.temperature_k} K</td>
+                        <td><span style="color: var(--neon-amber);">Posición #${idx + 1}</span></td>
+                        <td><span style="color: var(--neon-amber); font-size: 11px;">⏳ EN COLA</span></td>
+                    `;
+                    tbody.appendChild(tr);
+                });
+                
+                data.completed_jobs.forEach(j => {
+                    const tr = document.createElement('tr');
+                    tr.innerHTML = `
+                        <td style="color: var(--text-muted);">${j.id}</td>
+                        <td>${j.system_name}</td>
+                        <td>${j.temperature_k} K</td>
+                        <td style="color: var(--neon-green);">ρ=${j.result_density} g/cm³ | γ=${j.result_gamma} mN/m</td>
+                        <td><span style="color: var(--neon-green); font-size: 11px;">✓ COMPLETADO</span></td>
+                    `;
+                    tbody.appendChild(tr);
+                });
+                
+                if (data.queued_jobs.length === 0 && data.completed_jobs.length === 0) {
+                    tbody.innerHTML = '<tr><td colspan="5" style="color: var(--text-muted); text-align: center;">Sin trabajos en cola — envía una simulación desde el prompt ⬆</td></tr>';
+                }
+            } catch (e) {
+                console.error("Queue fetch error:", e);
+            }
+        }
+        setInterval(fetchJobQueue, 2000);
+        fetchJobQueue();
 
         // 3D MOLECULAR CANVAS ENGINE
         const canvas = document.getElementById('molCanvas');
