@@ -1,6 +1,6 @@
 # OpenMP Parallelization Implementation Checklist
 
-**Project:** GromacsMexicano C++ Rewrite (PRODUCTION_v3_CPP)  
+**Project:** DM UAMI C++ Rewrite (PRODUCTION_v3_CPP)  
 **Target:** CPU parallelization via OpenMP, complement existing CUDA kernels  
 **Date:** 2026-09-12
 
@@ -16,7 +16,7 @@
 - [ ] Test single-threaded build: `OMP_NUM_THREADS=1 ./dm_mx_npt`
 
 ### Physics Validation Gate
-- [ ] Reference data ready: `/home/alejandre/GromacsMexicano/UAMI_baseline/dm.log` (Fortran single-threaded)
+- [ ] Reference data ready: `/home/alejandre/DM UAMI/UAMI_baseline/dm.log` (Fortran single-threaded)
 - [ ] Test case available: water+NaCl, 2544 atoms, 5 steps
 - [ ] Validation thresholds defined:
   - [ ] Energy precision: ±0.01 kJ/mol/atom
@@ -318,7 +318,7 @@ Checklist:
 
 ```bash
 # Clone the project
-cd /home/alejandre/GromacsMexicano/PRODUCTION_v3_CPP
+cd /home/alejandre/DM UAMI/PRODUCTION_v3_CPP
 
 # Create build directory
 mkdir -p build && cd build
@@ -459,11 +459,11 @@ done
 
 **Questions on parallelization strategy?** Refer to:
 - OpenMP spec: https://www.openmp.org/spec-html/5.1/openmp.html
-- Project analysis: `/root/JarvisVault/03 Projects/GromacsMexicano/01 Analisis/`
+- Project analysis: `/root/JarvisVault/03 Projects/DM UAMI/01 Analisis/`
 
 **Physics validation issues?** Reference:
 - Fortran code: `/home/alejandre/Programa_DM/` (scientists' baseline)
-- Test case: `/home/alejandre/GromacsMexicano/Prueba/`
+- Test case: `/home/alejandre/DM UAMI/Prueba/`
 
 **Build issues?** Check:
 - CMake version: `cmake --version` (require ≥ 3.20)

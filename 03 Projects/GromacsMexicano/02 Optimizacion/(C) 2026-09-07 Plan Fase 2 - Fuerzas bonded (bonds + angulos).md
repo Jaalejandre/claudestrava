@@ -1,4 +1,4 @@
-# GromacsMexicano C++ Rewrite — Phase 2 (Bonded Forces) Implementation Plan
+# DM UAMI C++ Rewrite — Phase 2 (Bonded Forces) Implementation Plan
 
 > **For agentic workers:** implement task-by-task. Steps use checkbox (`- [ ]`) syntax. Every formula below is transcribed verbatim from the Fortran read in full (`fzas_de.f` 105 lines, `fzas_angulo.f` 145 lines, `main.f:679-687` call site) on 2026-09-07 — do not "improve" the math, port it exactly.
 
@@ -15,7 +15,7 @@
 ## Global Constraints
 
 - **These routines are pure parsing→arithmetic; "physics validation" means bit-level agreement with the Fortran formulas, verified via:** (a) unit tests on 2–3 atom systems whose energy/force is computed by hand in the test file's comments, and (b) a finite-difference check — analytic force must match `-(U(x+h) - U(x-h)) / (2h)` component-by-component to ~1e-6 relative, for every atom, on a randomized small system. Check (b) is the gold standard and needs no external reference.
-- **Never touch `/home/alejandre/GromacsMexicano/Programa_DM/`.**
+- **Never touch `/home/alejandre/DM UAMI/Programa_DM/`.**
 - **CT 901 verified free of concurrent activity (`who` + `ps aux | grep dm_mx_npt`) before any build/test run** — this project has twice had runs contaminated by concurrent sessions.
 - **One routine per task, one commit per validated task.**
 - **No invented math.** Every formula below is quoted from the Fortran. If the actual file differs from a quote here, STOP and report.

@@ -1,6 +1,6 @@
 # 🚀 PHASE 4 — GPU INTEGRATOR (VELOCITY VERLET + NOSE-HOOVER)
 
-**Base:** `/home/alejandre/GromacsMexicano/Programa_DM_cpp_v1.1/src/`  
+**Base:** `/home/alejandre/DM UAMI/Programa_DM_cpp_v1.1/src/`  
 **Phase 3 baseline:** GPU kernels listos, CPU integrator = bottleneck (19.8 ms/step)  
 **Target:** Mover integrator a GPU (velocity Verlet + thermostat Nose-Hoover)  
 **Hardware:** RTX 5070 Ti (CUDA 13.0)

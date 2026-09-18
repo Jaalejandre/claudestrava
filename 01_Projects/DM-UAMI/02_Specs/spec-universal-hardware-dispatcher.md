@@ -1,5 +1,5 @@
 # Especificación Técnica: Universal Hardware Dispatcher & Multi-Backend
-**Proyecto**: GromacsMexicano  
+**Proyecto**: DM UAMI  
 **Rama de Desarrollo**: `feature/universal-hardware-dispatcher`  
 **Autoridad**: Escuadrón BELSEBU `Daemon` (`daemon-*`)  
 **Fecha**: 2026-09-18
@@ -7,7 +7,7 @@
 ---
 
 ## 1. Visión y Objetivos
-Construir una capa de abstracción de hardware en tiempo de compilación y ejecución que permita a **GromacsMexicano**:
+Construir una capa de abstracción de hardware en tiempo de compilación y ejecución que permita a **DM UAMI**:
 1. **Ejecutarse en cualquier Sistema Operativo**: Linux, Windows (MSVC/WSL2) y macOS (Apple Silicon).
 2. **Autodetección Dinámica de Aceleración**:
    - Si detecta **GPU NVIDIA**: Activa el backend **CUDA Streams** (`RTX`, `Blackwell`, `Ampere`, `Hopper`).

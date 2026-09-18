@@ -11,7 +11,7 @@
 - **Nombre:** `gmx_mexicano_v1_final`
 - **Ubicación (CT 901):** `/home/alejandre/gromacs/gmx_mexicano_v1_final`
 - **Tamaño:** 1.6 MB (ejecutable)
-- **Fuente:** `/home/alejandre/GromacsMexicano/Programa_DM_cpp/build/src/gmx_mexicano`
+- **Fuente:** `/home/alejandre/DM UAMI/Programa_DM_cpp/build/src/gmx_mexicano`
 - **Compilado:** CUDA 13.0, CMake
 
 ---
@@ -52,7 +52,7 @@ cd /home/alejandre/DM_BENCHMARK
 ## ⚠️ NOTAS CRÍTICAS
 
 1. **NO usar `phase4_cuda_v1_stable`** — Era hardcoded UAMI (1024 átomos), no lee archivos.
-2. **Siempre compilar desde `Programa_DM_cpp/` en GromacsMexicano git** — No binarios stale.
+2. **Siempre compilar desde `Programa_DM_cpp/` en DM UAMI git** — No binarios stale.
 3. **Requiere CUDA 13.0** — Set `export CUDACXX=/usr/local/cuda-13.0/bin/nvcc` antes de CMake.
 4. **Entrada estándar GROMACS** — Compatible con `.top`/`.gro`/`.mdp` de GROMACS oficial.
 
@@ -61,7 +61,7 @@ cd /home/alejandre/DM_BENCHMARK
 ## 🔧 Compilación (si necesitas rebuild)
 
 ```bash
-cd /home/alejandre/GromacsMexicano/Programa_DM_cpp
+cd /home/alejandre/DM UAMI/Programa_DM_cpp
 export CUDACXX=/usr/local/cuda-13.0/bin/nvcc
 export PATH=/usr/local/cuda-13.0/bin:$PATH
 rm -rf build && mkdir build && cd build

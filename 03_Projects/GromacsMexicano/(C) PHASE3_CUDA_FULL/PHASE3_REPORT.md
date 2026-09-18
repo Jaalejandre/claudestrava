@@ -1,4 +1,4 @@
-# GromacsMexicano Phase 3 CUDA Implementation - Full Report
+# DM UAMI Phase 3 CUDA Implementation - Full Report
 
 ## Executive Summary
 
@@ -98,7 +98,7 @@ for i = 0 to natoms-1 (parallel):
 
 ```cmake
 cmake_minimum_required(VERSION 3.20)
-project(GromacsMexicano_CUDA_Phase3 VERSION 3.0 LANGUAGES CXX CUDA)
+project(DM UAMI_CUDA_Phase3 VERSION 3.0 LANGUAGES CXX CUDA)
 
 # CUDA Architecture: 75 (T4/RTX 20xx)
 set(CMAKE_CUDA_ARCHITECTURES 75)

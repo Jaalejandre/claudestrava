@@ -32,7 +32,7 @@
 **Agente 1 reportó:** "Implementación exitosa, pragmas agregados a archivos"
 
 **Realidad verificada:**
-- ❌ Editó directorios equivocados (`/root/UAMI_Source` en lugar de `/home/alejandre/GromacsMexicano/DM_NPT_gmx_v3_MASTER`)
+- ❌ Editó directorios equivocados (`/root/UAMI_Source` en lugar de `/home/alejandre/DM UAMI/DM_NPT_gmx_v3_MASTER`)
 - ❌ No linkeó libgomp (sin `-lgomp` explícito)
 - ❌ main.f NO tenía pragmas (verificado con grep)
 - ❌ baros_nh_system.f NO tenía pragmas (Fortran 77 fixed-format incompatible)
@@ -67,7 +67,7 @@
   - Cambio a free-format (`!$omp` vs `!$` column 1)
   - O uso de directivas de comentario especiales
   - O refactorización completa a F95
-- Código en `/home/alejandre/GromacsMexicano/DM_NPT_gmx_v3_MASTER` mezcla F77 fixed + F95 free
+- Código en `/home/alejandre/DM UAMI/DM_NPT_gmx_v3_MASTER` mezcla F77 fixed + F95 free
   - `baros_nh_system.f` = F77 fixed (C en columna 1)
   - `thermo_nh_system.f` = F95 free (moderno)
 - **Resultado:** Pragmas en F95 funcionaron, pero causaron seg fault por dependencia de datos
@@ -142,15 +142,15 @@ Razones:
 3. GPU (CUDA) será explícito en C++ (mejor control)
 4. Timeline: Menos iteraciones de error
 
-**Archivo:** `/home/alejandre/GromacsMexicano/Programa_DM_cpp_v2/` (ya existe — continuaría de ahí)
+**Archivo:** `/home/alejandre/DM UAMI/Programa_DM_cpp_v2/` (ya existe — continuaría de ahí)
 
 ---
 
 ## 📁 ARCHIVOS DE REFERENCIA
 
-- Ejecutable estable: `/home/alejandre/GromacsMexicano/DM_NPT_gmx_v3_MASTER/dm_mx_npt` (613 KB)
+- Ejecutable estable: `/home/alejandre/DM UAMI/DM_NPT_gmx_v3_MASTER/dm_mx_npt` (613 KB)
 - Backup pragmas (failed): `main.f.backup_before_manual_fix`
-- Plan (bueno): `/root/JarvisVault/01 Projects/GromacsMexicano/(C) PLAN DE ATAQUE - FINAL PARA REVISIÓN.md`
+- Plan (bueno): `/root/JarvisVault/01 Projects/DM UAMI/(C) PLAN DE ATAQUE - FINAL PARA REVISIÓN.md`
 - Análisis (bueno): `/root/.hermes/cache/delegation/live/deleg_61121ee9/task-0.log`
 
 ---

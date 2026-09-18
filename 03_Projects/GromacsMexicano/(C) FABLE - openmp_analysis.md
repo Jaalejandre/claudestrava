@@ -1,7 +1,7 @@
-# OpenMP Parallelization Analysis for GromacsMexicano C++ Rewrite
+# OpenMP Parallelization Analysis for DM UAMI C++ Rewrite
 
 **Date:** 2026-09-12  
-**Project:** GromacsMexicano (MD simulation, Fortran→C++ rewrite with CUDA kernels)  
+**Project:** DM UAMI (MD simulation, Fortran→C++ rewrite with CUDA kernels)  
 **Scope:** Planned C++ modules in `PRODUCTION_v3_CPP/src/`: main.cpp, forces.cpp, integrator.cpp, ewald.cpp, neighbor.cpp  
 **Status:** Pre-implementation analysis (source files in development)
 
@@ -9,7 +9,7 @@
 
 ## Executive Summary
 
-The GromacsMexicano C++ rewrite targets **CPU parallelization via OpenMP** for regions where GPU acceleration is unavailable or inefficient. Key opportunities:
+The DM UAMI C++ rewrite targets **CPU parallelization via OpenMP** for regions where GPU acceleration is unavailable or inefficient. Key opportunities:
 
 1. **Bonded forces** (bonds, angles, dihedrals, 1-5 pairs): ~200–300 independent atoms per timestep
 2. **Neighbor list generation** (link-cell): ~10–100 independent cells, fully parallelizable
@@ -591,8 +591,8 @@ namespace omp_helpers {
 
 ## References
 
-1. **Project analysis:** `/root/JarvisVault/03 Projects/GromacsMexicano/01 Analisis/(C) Analisis del programa dm_mx_npt.md`
-2. **Profiling data:** `/root/JarvisVault/03 Projects/GromacsMexicano/01 Analisis/(C) 2026-09-04 Profiling real (nsys) - donde se va el tiempo.md`
-3. **Optimization plan:** `/root/JarvisVault/03 Projects/GromacsMexicano/02 Optimizacion/(C) 2026-09-04 Plan de reescritura a C++.md`
+1. **Project analysis:** `/root/JarvisVault/03 Projects/DM UAMI/01 Analisis/(C) Analisis del programa dm_mx_npt.md`
+2. **Profiling data:** `/root/JarvisVault/03 Projects/DM UAMI/01 Analisis/(C) 2026-09-04 Profiling real (nsys) - donde se va el tiempo.md`
+3. **Optimization plan:** `/root/JarvisVault/03 Projects/DM UAMI/02 Optimizacion/(C) 2026-09-04 Plan de reescritura a C++.md`
 4. **OpenMP spec:** https://www.openmp.org/wp-content/uploads/OpenMP-API-Specification-5.1.pdf (reduction, parallel for, sections)
 5. **MD simulation physics:** Box et al., "Molecular Dynamics Simulations for All"

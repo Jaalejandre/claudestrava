@@ -1,6 +1,6 @@
-# 🎯 PHASE 2 IMPLEMENTATION PLAN — GromacsMexicano
+# 🎯 PHASE 2 IMPLEMENTATION PLAN — DM UAMI
 
-**Base:** `/home/alejandre/GromacsMexicano/Programa_DM_cpp_v1.1/`  
+**Base:** `/home/alejandre/DM UAMI/Programa_DM_cpp_v1.1/`  
 **Baseline Phase 1:** `build/dm_mx_npt_phase1` (13.08s/1000 pasos en toy system)  
 **Target Phase 2:** Paralelizar bonded forces + neighbor list con race condition fix
 
@@ -280,7 +280,7 @@ for (auto& pair14 : cfg.pairs_1_4) {
 
 **Same as Phase 1:**
 ```bash
-cd /home/alejandre/GromacsMexicano/Programa_DM_cpp_v1.1/src
+cd /home/alejandre/DM UAMI/Programa_DM_cpp_v1.1/src
 # Modify integrator.cpp, forces.cpp, neighbor.cpp as per pragmas
 cd ../build_phase2
 cmake .. -DCMAKE_CXX_FLAGS="-O3 -fopenmp -march=native"

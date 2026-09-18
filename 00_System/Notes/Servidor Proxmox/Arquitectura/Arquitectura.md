@@ -55,7 +55,7 @@ flowchart LR
             RCL[CT 113 rclone]
             PT[CT 107 portainer]
             OW[CT 103 openwebui<br/>Ollama GPU]
-            GX[CT 901 ubuntu<br/>GromacsMexicano GPU]
+            GX[CT 901 ubuntu<br/>DM UAMI GPU]
         end
     end
     CF -->|tunnel| T
@@ -97,7 +97,7 @@ flowchart LR
 | 115 | [[CT 115 debmediav2]] | .164 | Stack de media |
 | 116 | [[CT 116 ntfy]] | .179 | Alertas sistema |
 | 400 | [[CT 400 medinotes]] | .132 | SaaS notas médicas |
-| 901 | [[CT 901 ubuntu]] | .230 | GromacsMexicano (GPU) |
+| 901 | [[CT 901 ubuntu]] | .230 | DM UAMI (GPU) |
 
 VM:
 

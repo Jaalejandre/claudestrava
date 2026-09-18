@@ -1,4 +1,4 @@
-# 🎯 RESUMEN EJECUTIVO — Hito GromacsMexicano
+# 🎯 RESUMEN EJECUTIVO — Hito DM UAMI
 
 **Fecha:** 2026-09-12  
 **Responsable:** José (Alejandro)  
@@ -67,7 +67,7 @@ El código **está listo** para ser transformado a C++:
 
 ## ARCHIVOS DOCUMENTACIÓN
 
-- 📋 `/root/JarvisVault/01 Projects/GromacsMexicano/(C) VALIDACIÓN EXITOSA - UAM DM_NPT_gmx_v3.md`
+- 📋 `/root/JarvisVault/01 Projects/DM UAMI/(C) VALIDACIÓN EXITOSA - UAM DM_NPT_gmx_v3.md`
 - 📋 `/root/JarvisVault/00 Notes/(C) LISTA ERRORES UAM - Plan Corrección.md`
 - 📋 `/root/JarvisVault/00 Notes/(C) DIAGNÓSTICO - Problemas UAM DM_NPT_gmx_v3.md`
 - 📋 `/root/JarvisVault/00 Notes/(C) EVIDENCIA - Inconsistencias Estructurales UAM.md`

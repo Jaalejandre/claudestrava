@@ -215,7 +215,7 @@ Necesitamos que Adriana y JL (UAM) resuelvan:
 ## ARCHIVOS PROBLEMÁTICOS
 
 ```
-/home/alejandre/GromacsMexicano/DM_NPT_gmx_v3_MASTER/
+/home/alejandre/DM UAMI/DM_NPT_gmx_v3_MASTER/
 ├── compilar_cuda.sh           ← ❌ Asume gcc-10, CUDA PATH dinámico falla
 ├── main.f                     ← ✓ OK
 ├── interfaz_*.f95             ← 🔴 Conflictos módulos

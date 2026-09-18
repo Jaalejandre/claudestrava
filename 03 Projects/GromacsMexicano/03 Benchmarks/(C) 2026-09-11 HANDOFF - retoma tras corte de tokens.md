@@ -4,7 +4,7 @@
 
 ## Qué se estaba haciendo
 
-Benchmark comparativo en CT 901: binario **baseline** `dm_mx_npt` vs **optimizado** `dm_mx_npt_opt`, caso `Prueba/` (H₂O SPC/E + NaCl, 2544 átomos, 10 000 pasos NPT, copiado a `/home/alejandre/GromacsMexicano/Bench_UAMI_baseline/`).
+Benchmark comparativo en CT 901: binario **baseline** `dm_mx_npt` vs **optimizado** `dm_mx_npt_opt`, caso `Prueba/` (H₂O SPC/E + NaCl, 2544 átomos, 10 000 pasos NPT, copiado a `/home/alejandre/DM UAMI/Bench_UAMI_baseline/`).
 
 ## Evidencia ya generada (antes del corte)
 

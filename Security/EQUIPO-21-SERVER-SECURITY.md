@@ -35,7 +35,7 @@ priority: "🔴 CRÍTICA"
 ```
 ✅ Proxmox VE (192.168.0.52)
 ✅ CT 109 (debian-based, claude-dev)
-✅ CT 901 (ubuntu, GromacsMexicano)
+✅ CT 901 (ubuntu, DM UAMI)
 ✅ CT 103 (ubuntu, Ollama)
 ✅ VM 106 (Home Assistant)
 ```
@@ -168,7 +168,7 @@ Generar reporte:
 |-----------|-------------------|---------|
 | Proxmox VE | Equipo 4 | Proxmox Optimization |
 | Hermes | Equipo 1 | Bot Mode |
-| GromacsMexicano | Equipo 8 | DM UAMI |
+| DM UAMI | Equipo 8 | DM UAMI |
 | Python/npm | Equipo 20 | Dashboard Manager |
 | Home Assistant | Equipo 16 | HA Control |
 | Network | Equipo 22 | Network Monitoring |

@@ -78,7 +78,7 @@ Debería haber una línea con timestamp reciente (indicando que se reinició).
 **En próxima sesión de Hermes:**
 
 ```
-"Crea un Worker Cloudflare que proxy solicitudes a GromacsMexicano"
+"Crea un Worker Cloudflare que proxy solicitudes a DM UAMI"
 
 "Deploy airbnb-admin a Cloudflare Pages"
 

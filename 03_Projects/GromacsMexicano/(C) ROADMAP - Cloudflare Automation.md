@@ -204,7 +204,7 @@ cd gromacs-analyzer
 # 2. Instalar Workers AI
 npm install @cloudflare/ai
 
-# 3. Copiar código de /root/JarvisVault/01 Projects/GromacsMexicano/(C) Cloudflare Worker - Gromacs Analysis.md
+# 3. Copiar código de /root/JarvisVault/01 Projects/DM UAMI/(C) Cloudflare Worker - Gromacs Analysis.md
 # → src/index.js
 
 # 4. Configurar secretos

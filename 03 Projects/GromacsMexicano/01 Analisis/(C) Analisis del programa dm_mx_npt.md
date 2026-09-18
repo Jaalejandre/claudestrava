@@ -2,7 +2,7 @@
 
 > Documento generado por Claude a partir de la lectura del código en
 > `CT 901:/home/alejandre/Programa_DM/` (copia de trabajo con git en
-> `/home/alejandre/GromacsMexicano/`).
+> `/home/alejandre/DM UAMI/`).
 > Fecha: 2026-09-03. Commit base: original de los científicos, sin modificar.
 
 ---

@@ -13,7 +13,7 @@ priority: "🔴 CRÍTICA"
 
 ## Visión
 
-**Especialista en Dinámica Molecular** — Entiende los algoritmos, potenciales, ensambles y optimizaciones del corazón científico de GromacsMexicano.
+**Especialista en Dinámica Molecular** — Entiende los algoritmos, potenciales, ensambles y optimizaciones del corazón científico de DM UAMI.
 
 ```
 Rol: Experto técnico en MD
@@ -43,7 +43,7 @@ Knowledge domains:
 ### 1. ARQUITECTURA ACTUAL (Fortran)
 
 ```fortran
-! /home/alejandre/GromacsMexicano/Programa_DM/
+! /home/alejandre/DM UAMI/Programa_DM/
 
 programa.f95        ! Main loop
   ├─ lista.f95      ! Neighbor list (O(N) culling)
@@ -302,5 +302,5 @@ INICIO: HOY (2026-09-13 23:00 CST)
 
 ---
 
-*"Experto en el corazón científico de GromacsMexicano"*
+*"Experto en el corazón científico de DM UAMI"*
 *EQUIPO 8B: Entiende algoritmos, potenciales, ensambles, GPU optimization*

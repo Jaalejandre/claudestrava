@@ -28,7 +28,7 @@ Configuración de la Mac (`josealejandre`, macOS) para el workspace SatanZote AI
 | --- | --- | --- | --- |
 | `pve` | 192.168.0.52 | root | Host Proxmox — administrar todo |
 | `claude-dev` / `ct109` | 192.168.0.64 | root | Nodo IA: vault, OmniRoute :20128, Telegram |
-| `gromacs` / `ct901` | 192.168.0.230 | alejandre | GromacsMexicano (GPU, CUDA) |
+| `gromacs` / `ct901` | 192.168.0.230 | alejandre | DM UAMI (GPU, CUDA) |
 | `ollama` / `ct103` | 192.168.0.99 | root | Ollama :11434 + Open WebUI :8080 |
 | `vaultwarden` / `ct114` | 192.168.0.30 | root | Gestor de contraseñas |
 | `ntfy` / `ct116` | 192.168.0.179 | root | Notificaciones push |

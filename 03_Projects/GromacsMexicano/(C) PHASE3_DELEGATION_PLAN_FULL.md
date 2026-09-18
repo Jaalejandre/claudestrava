@@ -1,6 +1,6 @@
 # 🚀 PHASE 3 DELEGATION PLAN — FULL GPU PIPELINE (OPTION C)
 
-**Base:** `/home/alejandre/GromacsMexicano/Programa_DM_cpp_v1.1/src/`  
+**Base:** `/home/alejandre/DM UAMI/Programa_DM_cpp_v1.1/src/`  
 **Phase 2 baseline:** `dm_mx_npt_phase2` (0.446s/1000 pasos toy, 37 OpenMP pragmas)  
 **Target:** Add 3 CUDA kernels (pairwise + bonded + reductions) + host orchestration  
 **Hardware:** RTX 5070 Ti (CUDA 13.0, compute capability 8.0+)
@@ -396,7 +396,7 @@ set(CMAKE_CUDA_FLAGS "${CMAKE_CUDA_FLAGS} -O3 -lineinfo")
 
 **Compile:**
 ```bash
-cd /home/alejandre/GromacsMexicano/Programa_DM_cpp_v1.1/build_phase3
+cd /home/alejandre/DM UAMI/Programa_DM_cpp_v1.1/build_phase3
 cmake .. -DCMAKE_CXX_FLAGS="-O3 -fopenmp" -DCMAKE_CUDA_FLAGS="-O3 -arch=sm_80"
 make -j4
 ./dm_mx_npt  # Test: 1000+ steps

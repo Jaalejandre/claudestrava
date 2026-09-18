@@ -1,7 +1,7 @@
 # Cloudflare Workers AI — ¿Útil para ti?
 
 > **Pregunta:** ¿Nos sirve Cloudflare Workers AI?
-> **Respuesta:** **SÍ, mucho.** Especialmente para GromacsMexicano y Entrenador.
+> **Respuesta:** **SÍ, mucho.** Especialmente para DM UAMI y Entrenador.
 
 ---
 
@@ -27,7 +27,7 @@
 
 ## ✅ CASOS DE USO PARA TI
 
-### **1. GromacsMexicano — Análisis de Simulaciones**
+### **1. DM UAMI — Análisis de Simulaciones**
 ```javascript
 // En un Worker
 import { Ai } from '@cloudflare/ai';
@@ -120,7 +120,7 @@ for (const img of images) {
 
 1. **Esperar a que Cloudflare OAuth esté listo**
 2. **Crear primer Worker con Workers AI**
-3. **Conectar a GromacsMexicano results** (analizar logs)
+3. **Conectar a DM UAMI results** (analizar logs)
 4. **Integrar en Entrenador** (predicciones)
 
 ---

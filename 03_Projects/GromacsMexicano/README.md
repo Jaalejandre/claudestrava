@@ -101,7 +101,7 @@ Contiene:
 ## 🗂️ ARCHIVOS EN VAULT
 
 ```
-/root/JarvisVault/01 Projects/GromacsMexicano/
+/root/JarvisVault/01 Projects/DM UAMI/
 ├── (C) ROADMAP - Cloudflare Automation.md
 │   └─ Resumen visual 1 página
 ├── (C) Cloudflare Automation - Plan Completo.md
@@ -121,7 +121,7 @@ Contiene:
 ### HOY (2026-09-12)
 ```bash
 # 1. Leer ROADMAP
-open /root/JarvisVault/01\ Projects/GromacsMexicano/\(C\)\ ROADMAP*
+open /root/JarvisVault/01\ Projects/DM UAMI/\(C\)\ ROADMAP*
 
 # 2. Crear proyecto
 npm create cloudflare@latest gromacs-analyzer -- --type="hello-world"
@@ -319,4 +319,4 @@ Una vez que Phase 3 esté 100% funcionando:
 
 Generated: SatanZote AI  
 Last updated: 2026-09-12  
-Vault path: `/root/JarvisVault/01 Projects/GromacsMexicano/`
+Vault path: `/root/JarvisVault/01 Projects/DM UAMI/`

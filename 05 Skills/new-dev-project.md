@@ -25,7 +25,7 @@ Ya existe un contenedor LXC dedicado a esto, creado con el script `serversathome
 
 ## GPU (RTX 5070 Ti)
 
-`claude-dev` tiene acceso a la misma GPU física que `GromacsMexicano` (CT 901) — el paso de GPU en LXC es por dispositivo (cgroup), no exclusivo tipo VM, así que **ambos contenedores pueden usarla al mismo tiempo** (cuidado con choques de memoria/VRAM si corren cargas pesadas en paralelo).
+`claude-dev` tiene acceso a la misma GPU física que `DM UAMI` (CT 901) — el paso de GPU en LXC es por dispositivo (cgroup), no exclusivo tipo VM, así que **ambos contenedores pueden usarla al mismo tiempo** (cuidado con choques de memoria/VRAM si corren cargas pesadas en paralelo).
 
 - **Driver:** NVIDIA 580.105.08 (userspace only, `--no-kernel-module` — el módulo de kernel real vive en el host Proxmox)
 - **CUDA Toolkit:** 13.0 completo, con `nvcc` en `/usr/local/cuda-13.0/bin/nvcc` (cargado al PATH vía `/etc/profile.d/cuda.sh`, ya en `.bashrc` de root)

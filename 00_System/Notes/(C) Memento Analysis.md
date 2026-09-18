@@ -166,7 +166,7 @@ for task in plan:
 
 ### 🎯 APLICABILIDAD A PHASE 4
 
-**Pregunta:** ¿Puede Memento ayudar con GromacsMexicano?
+**Pregunta:** ¿Puede Memento ayudar con DM UAMI?
 
 **Respuesta:** PARCIALMENTE
 

@@ -146,7 +146,7 @@ CMAKE_PROJECT_DESCRIPTION:STATIC=
 CMAKE_PROJECT_HOMEPAGE_URL:STATIC=
 
 //Value Computed by CMake
-CMAKE_PROJECT_NAME:STATIC=GromacsMexicano_CUDA_Phase3
+CMAKE_PROJECT_NAME:STATIC=DM UAMI_CUDA_Phase3
 
 //Value Computed by CMake
 CMAKE_PROJECT_SPDX_LICENSE:STATIC=
@@ -374,13 +374,13 @@ CUDA_nvToolsExt_LIBRARY:FILEPATH=CUDA_nvToolsExt_LIBRARY-NOTFOUND
 CUDA_rt_LIBRARY:FILEPATH=/usr/lib/x86_64-linux-gnu/librt.a
 
 //Value Computed by CMake
-GromacsMexicano_CUDA_Phase3_BINARY_DIR:STATIC=/root/phase3_cuda/build
+DM UAMI_CUDA_Phase3_BINARY_DIR:STATIC=/root/phase3_cuda/build
 
 //Value Computed by CMake
-GromacsMexicano_CUDA_Phase3_IS_TOP_LEVEL:STATIC=ON
+DM UAMI_CUDA_Phase3_IS_TOP_LEVEL:STATIC=ON
 
 //Value Computed by CMake
-GromacsMexicano_CUDA_Phase3_SOURCE_DIR:STATIC=/root/phase3_cuda
+DM UAMI_CUDA_Phase3_SOURCE_DIR:STATIC=/root/phase3_cuda
 
 //CUDA compiler flags for OpenMP parallelization
 OpenMP_CUDA_FLAGS:STRING=-fopenmp

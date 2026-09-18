@@ -1,4 +1,4 @@
-# GromacsMexicano
+# DM UAMI
 
 Adaptación de un código de dinámica molecular (DM) tipo GROMACS, desarrollada por un grupo de científicos, que incorpora ecuaciones/potenciales propios (LJ, Mie, FDR, Ewald con termostato y barostato Nosé-Hoover, ensamble NPT) y busca ser fácil de usar para gente que **no sabe línea de comandos**. La meta a largo plazo: un programa instalable en muchos dispositivos, que corra en paralelo (CPU multinúcleo + GPU), y adaptable para público general.
 
@@ -32,8 +32,8 @@ El código y la GPU **NO** viven en `claude-dev`. Viven en otro contenedor:
 | Otras versiones | `/home/alejandre/DM_NPT_gmx_v2/`, `/home/alejandre/DM_NVE/` (ver README de Prueba) |
 | GROMACS de referencia | `gromacs-2025.2`, `gromacs-2025.3` compilados en el home |
 
-- **El vault (`03 Projects/GromacsMexicano/`) es para contexto, análisis, planes y benchmarks documentados.** El trabajo real de código ocurre por SSH en CT 901.
-- Una **copia de trabajo con git** del código vive en `/home/alejandre/GromacsMexicano/` (o `Programa_DM` bajo git) para versionar cambios sin tocar el original de los científicos hasta validar.
+- **El vault (`03 Projects/DM UAMI/`) es para contexto, análisis, planes y benchmarks documentados.** El trabajo real de código ocurre por SSH en CT 901.
+- Una **copia de trabajo con git** del código vive en `/home/alejandre/DM UAMI/` (o `Programa_DM` bajo git) para versionar cambios sin tocar el original de los científicos hasta validar.
 - El original de los científicos en `/home/alejandre/Programa_DM/` es **read-only conceptualmente**: no se modifica sin permiso; se trabaja sobre la copia.
 
 ## Process
@@ -93,7 +93,7 @@ El historial documentado pesa ~30k tokens; el estado al día cabe en 2 notas. **
 
 > **Last updated:** 2026-09-10 — **REWRITE C++/CUDA COMPLETO (Fases 0–6).**
 >
-> **Repo CT 901** `/home/alejandre/GromacsMexicano/Programa_DM_cpp/`, rama `master` hasta `53b8dd0`. 20/20 tests (`ctest`) verde. El binario es `gmx_mexicano` (`build/src/`).
+> **Repo CT 901** `/home/alejandre/DM UAMI/Programa_DM_cpp/`, rama `master` hasta `53b8dd0`. 20/20 tests (`ctest`) verde. El binario es `gmx_mexicano` (`build/src/`).
 >
 > **Qué hace hoy:** lee `file.gro`/`file.mdp`/`file.top`, corre dinámica **NPT** (integrador MTS r-RESPA velocity-Verlet + cadenas Nosé-Hoover para termostato y barostato MTTK isotrópico, LJ-ST + Coulomb real + Ewald recíproco en GPU, corrección de dispersión LRC), y reporta promedios ± σ. `--help`, detección automática de GPU/CPU, `install()` + CPack (tarball).
 >

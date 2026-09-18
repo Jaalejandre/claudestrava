@@ -76,7 +76,7 @@
 
 ## 📁 DOCUMENTACIÓN (GUARDAR ESTOS)
 
-**Vault:** `/root/JarvisVault/01 Projects/GromacsMexicano/`
+**Vault:** `/root/JarvisVault/01 Projects/DM UAMI/`
 
 1. `(C) FABLE - ANALYSIS_SUMMARY.txt` — Ejecutivo (13 KB)
 2. `(C) FABLE - QUICK_REFERENCE.md` — Cheat sheet diario (9 KB)
@@ -87,8 +87,8 @@
 7. `(C) QUICK REFERENCE - Paralelización C++.md` — Setup local
 
 **En CT 901:**
-- `/home/alejandre/GromacsMexicano/PRODUCTION_v3_CPP/` ← Baseline compilado
-- `/home/alejandre/GromacsMexicano/PRODUCTION_v3_CPP/CMakeLists.txt` ← OpenMP-ready
+- `/home/alejandre/DM UAMI/PRODUCTION_v3_CPP/` ← Baseline compilado
+- `/home/alejandre/DM UAMI/PRODUCTION_v3_CPP/CMakeLists.txt` ← OpenMP-ready
 
 ---
 

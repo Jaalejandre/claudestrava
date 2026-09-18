@@ -49,7 +49,7 @@ updated: YYYY-MM-DD
 | Campo | Valores | Obligatorio | Ejemplo |
 |-------|--------|------------|---------|
 | `type` | note, project-md, review, analysis, code, howto, reference | ✅ Sí | `type: analysis` |
-| `project` | Nombre del proyecto o "personal" | ✅ Sí | `project: GromacsMexicano` |
+| `project` | Nombre del proyecto o "personal" | ✅ Sí | `project: DM UAMI` |
 | `priority` | high, medium, low | ✅ Sí | `priority: high` |
 | `status` | active, draft, completed, archived, deprecated | ✅ Sí | `status: active` |
 | `tags` | Lista de tags de `Tags-Taxonomy.md` | ✅ Sí (al menos 1) | `tags: [gromacs, cuda]` |
@@ -103,7 +103,7 @@ fi
 
 | Patrón | Ejemplo | Cuándo usar |
 |--------|---------|------------|
-| `Descripcion Corta.md` | `GromacsMexicano Phase 4 Analysis.md` | Archivos sin fecha |
+| `Descripcion Corta.md` | `DM UAMI Phase 4 Analysis.md` | Archivos sin fecha |
 | `YYYYMMDD - Descripcion.md` | `20260917 - Week Review.md` | Notas con fecha |
 | `README.md` | Documentación de proyecto | Archivos de alto nivel |
 | `VAULT-GUIDE.md` | Documentación del sistema | Archivos críticos |
@@ -123,7 +123,7 @@ fi
 
 **✅ Bueno:**
 ```
-01 Projects/GromacsMexicano/04 Documentacion/
+01 Projects/DM UAMI/04 Documentacion/
 ├── ADR-001-Fortran-to-CPP.md
 ├── ADR-002-CUDA-Memory.md
 ├── Physics/
@@ -140,7 +140,7 @@ fi
 
 **❌ Malo:**
 ```
-01 Projects/GromacsMexicano/04 Documentacion/
+01 Projects/DM UAMI/04 Documentacion/
 ├── (C) phase4_optimization.md
 ├── (C) PHASE4_ANALYSIS.md
 ├── physics_analysis_notes.md
@@ -184,7 +184,7 @@ Patrón válido para nombres de archivo:
 ```markdown
 ---
 type: analysis
-project: GromacsMexicano
+project: DM UAMI
 ...
 tags: [gromacs, analysis]
 ---
@@ -228,16 +228,16 @@ Cuando un archivo es generado por IA (análisis, código, documentación):
 
 ```bash
 # ❌ NUNCA subir a git
-01 Projects/GromacsMexicano/03 Builds & Binarios/
+01 Projects/DM UAMI/03 Builds & Binarios/
 ├── phase4_energies.txt              (>5 MB)
 ├── dm_mx_npt_phase3_BINARY           (1.0 MB)
 ├── PHASE3_CUDA_FULL/build/           (8.4 MB)
 └── PHASE4_CUDA_PINNED/build/         (7.2 MB)
 
 # Actualiza .gitignore:
-echo "01 Projects/GromacsMexicano/03 Builds & Binarios/" >> .gitignore
-echo "01 Projects/GromacsMexicano/**/build/" >> .gitignore
-echo "01 Projects/GromacsMexicano/**/*.o" >> .gitignore
+echo "01 Projects/DM UAMI/03 Builds & Binarios/" >> .gitignore
+echo "01 Projects/DM UAMI/**/build/" >> .gitignore
+echo "01 Projects/DM UAMI/**/*.o" >> .gitignore
 ```
 
 ### Cómo Manejar Archivos Grandes
@@ -249,10 +249,10 @@ echo "01 Projects/GromacsMexicano/**/*.o" >> .gitignore
 ssh alejandre@192.168.0.52 "cp benchmark_results.csv /project/gromacs/benchmarks/"
 
 # Crea un README.md que apunte a la ubicación
-cat > "01 Projects/GromacsMexicano/02 Optimizacion/Benchmark-Links.md" << 'EOF'
+cat > "01 Projects/DM UAMI/02 Optimizacion/Benchmark-Links.md" << 'EOF'
 ---
 type: reference
-project: GromacsMexicano
+project: DM UAMI
 priority: medium
 status: active
 tags: [gromacs, benchmark, reference]
@@ -282,7 +282,7 @@ EOF
 ```bash
 # .gitignore lo ignora automáticamente
 # Pero documenta cómo reproducirlo
-cat > "01 Projects/GromacsMexicano/03 Builds & Binarios/README.md" << 'EOF'
+cat > "01 Projects/DM UAMI/03 Builds & Binarios/README.md" << 'EOF'
 # Builds & Binarios
 
 Este directorio contiene artefactos compilados (ignorados en git).
@@ -290,14 +290,14 @@ Este directorio contiene artefactos compilados (ignorados en git).
 Para reproducir:
 
 ```bash
-cd /Users/josealejandre/Obsidian/JarvisVault/01\ Projects/GromacsMexicano/01\ CT\ 901*/
+cd /Users/josealejandre/Obsidian/JarvisVault/01\ Projects/DM UAMI/01\ CT\ 901*/
 mkdir -p build
 cd build
 cmake ..
 make -j8
 ```
 
-**Nota:** Si trabajas en CT 901 remotamente, los binarios viven en `/home/alejandre/GromacsMexicano/Programa_DM_cpp/build/`.
+**Nota:** Si trabajas en CT 901 remotamente, los binarios viven en `/home/alejandre/DM UAMI/Programa_DM_cpp/build/`.
 EOF
 ```
 
@@ -353,7 +353,7 @@ Si dos archivos similares coexisten con contenido valioso en ambos:
 
 ### Aplica a
 
-`01 Projects/GromacsMexicano/00 Codigo Fuente Original/` — es la **referencia congelada**.
+`01 Projects/DM UAMI/00 Codigo Fuente Original/` — es la **referencia congelada**.
 
 ### Protocolo
 
@@ -369,8 +369,8 @@ Si dos archivos similares coexisten con contenido valioso en ambos:
 
 3. **Valida contra original:**
    ```bash
-   diff -u "01 Projects/GromacsMexicano/00 Codigo Fuente Original/forces.f90" \
-           "01 Projects/GromacsMexicano/01 CT 901 - Reescritura C++/forces.cpp"
+   diff -u "01 Projects/DM UAMI/00 Codigo Fuente Original/forces.f90" \
+           "01 Projects/DM UAMI/01 CT 901 - Reescritura C++/forces.cpp"
    ```
 
 4. **Verifica que física no cambié:**
@@ -388,7 +388,7 @@ Si dos archivos similares coexisten con contenido valioso en ambos:
 
 ```bash
 # Marca como assume-unchanged (git no hace tracking)
-git update-index --assume-unchanged "01 Projects/GromacsMexicano/00 Codigo Fuente Original/*"
+git update-index --assume-unchanged "01 Projects/DM UAMI/00 Codigo Fuente Original/*"
 ```
 
 ---
@@ -568,7 +568,7 @@ sed -i '' 's/\[\[Nombre Viejo\]\]/[[Nombre Nuevo]]/g' archivo1.md archivo2.md ..
 
 ```bash
 # ¿Existe el archivo destino?
-ls "01 Projects/GromacsMexicano/Nombre del Archivo.md"
+ls "01 Projects/DM UAMI/Nombre del Archivo.md"
 
 # Si no existe, crea el archivo o usa otra estructura
 ```
@@ -597,7 +597,7 @@ Cuando edites un archivo existente:
 5. **Commita con mensaje claro:**
    ```bash
    git add "tu-archivo.md"
-   git commit -m "docs: update GromacsMexicano physics explanation (2026-09-17)"
+   git commit -m "docs: update DM UAMI physics explanation (2026-09-17)"
    ```
 
 ### Nunca Hagas
@@ -627,7 +627,7 @@ grep -r "nombre del archivo" . --include="*.md" | head -10
 Cuando crees o edites un archivo:
 
 ```markdown
-- [ ] Archivo está en la carpeta correcta (ej: `01 Projects/GromacsMexicano/...`)
+- [ ] Archivo está en la carpeta correcta (ej: `01 Projects/DM UAMI/...`)
 - [ ] Nombre de archivo es descriptivo y sigue convención
 - [ ] Frontmatter YAML está completo (type, project, priority, status, tags, created, updated)
 - [ ] Tags son válidos (solo de Tags-Taxonomy.md)

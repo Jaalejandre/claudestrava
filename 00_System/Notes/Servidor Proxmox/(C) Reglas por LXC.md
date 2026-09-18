@@ -37,7 +37,7 @@
 | 116 | ntfy | Alertas de sistema | ntfy :80 | — | .179 |
 | 117 | difybot | ⚠️ **Dify (agente LLM)** | Dify 1.17.1 (nginx :80/:443, api, web, agent, postgres) | ⚠️ sin IP fija, sin onboot — **regularizar** | .14 (dhcp) |
 | 400 | medinotes | SaaS notas médicas | medinotes (nginx/backend/postgres/redis) | — | .132 |
-| 901 | ubuntu | **GromacsMexicano (GPU)** | Programa_DM (ref congelada), rewrite C++, BASE, gpu-api :5000 | ❌ uvicorn :8877 no documentado → **identificar** | .230 |
+| 901 | ubuntu | **DM UAMI (GPU)** | Programa_DM (ref congelada), rewrite C++, BASE, gpu-api :5000 | ❌ uvicorn :8877 no documentado → **identificar** | .230 |
 | 118 | control | **Controlador (NUEVO)** | SSH keys → todo el stack, scripts deploy | — | .?? |
 
 ## Discrepancias detectadas en la auditoría (2026-09-12)

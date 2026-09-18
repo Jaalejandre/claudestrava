@@ -117,7 +117,7 @@ RESULT: José receives consolidated briefing 07:00 + news digest 07:30
 🌐 NETWORK LAYER
   ✅ Proxmox host (192.168.0.52)              Running
   ✅ CT 109 (claude-dev) 192.168.0.64         Running (Hermes + Vault + OmniRoute)
-  ✅ CT 901 (ubuntu) 192.168.0.230            Running (Phase 4 binary + GromacsMexicano)
+  ✅ CT 901 (ubuntu) 192.168.0.230            Running (Phase 4 binary + DM UAMI)
   ✅ CT 103 (ollama) 192.168.0.99             Running (Local LLM models)
 
 ⚙️  COMPUTE LAYER

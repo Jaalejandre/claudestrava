@@ -25,7 +25,7 @@
 
 ### **GRAPHIFY (Visualización)**
 ```
-GromacsMexicano/
+DM UAMI/
 └─ graphify-out/
    ├─ graph.html (764 KB) ← Grafo interactivo
    ├─ 2026-09-08/, 2026-09-10/ ← Histórico
@@ -38,7 +38,7 @@ GromacsMexicano/
 
 ### **BASE (Memoria Estructurada)**
 ```
-GromacsMexicano/
+DM UAMI/
 └─ .base/
    ├─ base.toml ← Config (domains, rules)
    ├─ domains.toml ← Mapping de dominios
@@ -92,7 +92,7 @@ GromacsMexicano/
 
 ### 1. Ver el estado actual
 ```bash
-cd /home/alejandre/GromacsMexicano
+cd /home/alejandre/DM UAMI
 cat .base/base.toml
 cat .base/domains.toml
 ```
@@ -137,7 +137,7 @@ Actualmente tienes ambos (6 MB de GRAPHIFY sin usar mucho):
 
 # Prioridad: asegurar que BASE esté en uso
 # Comando de prueba:
-cd /home/alejandre/GromacsMexicano
+cd /home/alejandre/DM UAMI
 git status .base/  # Ver si hay cambios nuevos
 ```
 

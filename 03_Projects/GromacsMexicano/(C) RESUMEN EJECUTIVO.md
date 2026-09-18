@@ -68,7 +68,7 @@
 ## ARCHIVOS GENERADOS
 
 ```
-/root/JarvisVault/01 Projects/GromacsMexicano/
+/root/JarvisVault/01 Projects/DM UAMI/
 ├── gromacs-analyzer-worker/       ← Proyecto listo
 ├── (C) DEPLOYMENT EXITOSO.md      ← Detalles técnicos
 ├── (C) RESUMEN FINAL.md           ← Este resumen

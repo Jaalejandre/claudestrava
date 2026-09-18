@@ -1,6 +1,6 @@
 # 🚀 PHASE 4 DELEGATION PLAN — FULL GPU PIPELINE + OPTIMIZATION (OPTION C)
 
-**Base:** `/home/alejandre/GromacsMexicano/Programa_DM_cpp_v1.1/src/`  
+**Base:** `/home/alejandre/DM UAMI/Programa_DM_cpp_v1.1/src/`  
 **Phase 3 baseline:** GPU forces (0.06 ms/step) + CPU integrator (19.8 ms/step) = 19.87 ms total  
 **Target:** Move integrator + thermostat + temp calc to GPU + optimize memory (pinned + async)  
 **Hardware:** RTX 5070 Ti (CUDA 13.0, compute capability 8.0+)
@@ -384,7 +384,7 @@ target_link_libraries(dm_mx_npt PUBLIC ${CUDA_LIBRARIES} OpenMP::OpenMP_CXX m)
 
 **Compile:**
 ```bash
-cd /home/alejandre/GromacsMexicano/Programa_DM_cpp_v1.1/build_phase4
+cd /home/alejandre/DM UAMI/Programa_DM_cpp_v1.1/build_phase4
 cmake .. -DCMAKE_CXX_FLAGS="-O3 -fopenmp" -DCMAKE_CUDA_FLAGS="-O3 -arch=sm_80"
 make -j4
 ./dm_mx_npt  # Test: 1000+ steps

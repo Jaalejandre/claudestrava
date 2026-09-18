@@ -1,4 +1,4 @@
-# GromacsMexicano v3 — ESTADO FINAL
+# DM UAMI v3 — ESTADO FINAL
 
 **Fecha:** 2026-09-11  
 **Status:** ✅ PRODUCCIÓN ESTABLE
@@ -34,7 +34,7 @@
 ## Archivos
 
 ### Binarios
-- **`/home/alejandre/GromacsMexicano/Programa_DM/dm_mx_npt`** (948K)
+- **`/home/alejandre/DM UAMI/Programa_DM/dm_mx_npt`** (948K)
   - ✅ Funciona con GPU (libcudart.so.13 linkado)
   - ✅ 520k pasos validados
   - ❌ OpenMP NO compilado (recompilación muy compleja)
@@ -47,7 +47,7 @@
   - ✅ Válidos, generan ejecuciones correctas
 
 ### Directorio de Trabajo (Copia Limpia)
-- **`/home/alejandre/GromacsMexicano/Prueba_v3_Clean/`** ← **USAR PARA FUTURAS CORRIDAS**
+- **`/home/alejandre/DM UAMI/Prueba_v3_Clean/`** ← **USAR PARA FUTURAS CORRIDAS**
   - Binario + datos organizados
   - ✅ Última prueba exitosa (520k pasos)
   - Listo para `./dm_mx_npt`
@@ -107,7 +107,7 @@ Status: SIN NaN, SIN DIVERGENCIA
 ### Lanzar corrida simple (1000 pasos)
 
 ```bash
-cd /home/alejandre/GromacsMexicano/Prueba_v3_Clean
+cd /home/alejandre/DM UAMI/Prueba_v3_Clean
 
 # Configurar pasos
 sed -i 's/nsteps.*/nsteps 1000/' input.mdp
@@ -183,4 +183,4 @@ tail -f /tmp/dm_3m.log
 
 **Autor:** SatanZote AI  
 **Repositorio:** `/root/JarvisVault`  
-**Proyecto:** GromacsMexicano
+**Proyecto:** DM UAMI

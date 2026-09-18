@@ -1,6 +1,6 @@
 ================================================================================
 PHASE 4 FULL IMPLEMENTATION - DELIVERY CHECKLIST
-GromacsMexicano GPU Integrator Pipeline with Pinned Memory Optimization
+DM UAMI GPU Integrator Pipeline with Pinned Memory Optimization
 ================================================================================
 
 PROJECT REQUIREMENTS

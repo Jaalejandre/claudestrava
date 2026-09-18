@@ -1,4 +1,4 @@
-# GromacsMexicano C++ / CUDA Molecular Dynamics Engine
+# DM UAMI C++ / CUDA Molecular Dynamics Engine
 
 [![C++17](https://img.shields.io/badge/Language-C%2B%2B17-blue.svg)](https://en.cppreference.com/w/cpp/17)
 [![CUDA 13.0](https://img.shields.io/badge/CUDA-13.0%20Ready-green.svg)](https://developer.nvidia.com/cuda-toolkit)

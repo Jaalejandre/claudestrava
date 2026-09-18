@@ -111,7 +111,7 @@ cmake --build . --config Release
 
 # Run
 ./bin/dm_mx_npt_phase3
-# === GromacsMexicano Phase 3 CUDA (Full 3 Kernels) ===
+# === DM UAMI Phase 3 CUDA (Full 3 Kernels) ===
 # System: 100 atoms
 # Bonds: 99, Angles: 98
 # Running 1000 MD steps with CUDA kernels...
@@ -226,7 +226,7 @@ Total Source Code: 1,045 lines (excluding build artifacts)
 
 ---
 
-## Integration into GromacsMexicano
+## Integration into DM UAMI
 
 These three kernels form the foundation for GPU acceleration:
 

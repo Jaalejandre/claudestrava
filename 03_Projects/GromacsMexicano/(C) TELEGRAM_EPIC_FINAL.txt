@@ -50,8 +50,8 @@ SPEEDUP:                     274× 🔥
 ## 🏗️ CODE DELIVERED
 
 **5 binarios compilados & validados:**
-- `/home/alejandre/GromacsMexicano/Programa_DM_cpp_v1.1/build/dm_mx_npt` (Phase 1)
-- `/home/alejandre/GromacsMexicano/Programa_DM_cpp_v1.1/build_phase2/bin/dm_mx_npt` (Phase 2)
+- `/home/alejandre/DM UAMI/Programa_DM_cpp_v1.1/build/dm_mx_npt` (Phase 1)
+- `/home/alejandre/DM UAMI/Programa_DM_cpp_v1.1/build_phase2/bin/dm_mx_npt` (Phase 2)
 - `/root/phase3_cuda/build/bin/dm_mx_npt_phase3` (Phase 3)
 - `/root/phase4_cuda_pinned/build/phase4_cuda` (Phase 4)
 - `/root/phase4_cuda_pinned/phase4_cuda_realdata` (Phase 4 + file I/O + REAL DATA) ✅
@@ -153,7 +153,7 @@ MEASURED SPEEDUP:      274× on THIS system (1024 atoms, 100 steps)
 
 **Hoy ganaste ÉPICO, José. 🏆**
 
-**GromacsMexicano está listo para producción. Listo para tu investigación. Listo para escalar.**
+**DM UAMI está listo para producción. Listo para tu investigación. Listo para escalar.**
 
 ---
 

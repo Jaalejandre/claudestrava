@@ -25,7 +25,7 @@ bash /root/proxmox-community-scripts/ct/redis.sh
 
 ### CI/CD (for automated Phase 4 testing + L'Étape sync)
 ```bash
-# Gitea (lightweight Git server — backup for GromacsMexicano)
+# Gitea (lightweight Git server — backup for DM UAMI)
 bash /root/proxmox-community-scripts/ct/gitea.sh
 
 # Drone CI (lightweight CI/CD — auto-test Phase 4 PRs)
@@ -92,6 +92,6 @@ proxmoxve-community-scripts skill triggers:
 
 1. **Phase 4 Monitoring** (Prometheus + Grafana for GPU trends)
 2. **L'Étape Sync** (InfluxDB time-series for weekly training review)
-3. **Git Backup** (Gitea for GromacsMexicano + EntrenadorL'Étape repos)
+3. **Git Backup** (Gitea for DM UAMI + EntrenadorL'Étape repos)
 4. **CI Testing** (Drone for automated Phase 4 PR validation)
 

@@ -137,7 +137,7 @@ Current:
 ---
 name: gromacs-development
 trigger: Use when...
-description: Parallelize GromacsMexicano GPU code
+description: Parallelize DM UAMI GPU code
 ---
 ```
 
@@ -145,7 +145,7 @@ Should be:
 ```yaml
 ---
 name: gromacs-development
-description: Parallelize GromacsMexicano GPU code
+description: Parallelize DM UAMI GPU code
 when_to_use: "Phase 4 optimization, CUDA kernel parallelization"
 category: scientific-computing
 tags: [gromacs, cuda, gpu]

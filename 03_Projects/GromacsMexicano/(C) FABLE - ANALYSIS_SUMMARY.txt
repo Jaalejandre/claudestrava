@@ -251,7 +251,7 @@ Risk 5: Compiler/OpenMP version incompatibility
 NEXT STEPS (FOR IMPLEMENTATION)
 ================================================================================
 
-1. Create C++ source files in /home/alejandre/GromacsMexicano/PRODUCTION_v3_CPP/src/
+1. Create C++ source files in /home/alejandre/DM UAMI/PRODUCTION_v3_CPP/src/
    ├─ main.cpp (MD loop scaffold)
    ├─ integrator.cpp (parallelized V-V, thermostat, barostat)
    ├─ forces.cpp (bonded forces, including non-bonded fallback for testing)

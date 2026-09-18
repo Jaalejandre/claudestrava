@@ -27,7 +27,7 @@
 
 **Archivo local:**
 ```
-/root/JarvisVault/01 Projects/GromacsMexicano/main_uami.f
+/root/JarvisVault/01 Projects/DM UAMI/main_uami.f
 ```
 
 ---
@@ -114,7 +114,7 @@ Edgar/DM_NPT_gmx_v3/
 **INMEDIATO (hoy):**
 1. ✅ Descargar main_uami.f
 2. ⏭️ Descargar todas las rutinas .f de UAMI
-3. ⏭️ Crear directorio `/home/alejandre/GromacsMexicano/UAMI_baseline/`
+3. ⏭️ Crear directorio `/home/alejandre/DM UAMI/UAMI_baseline/`
 4. ⏭️ Compilar UAMI sin modificaciones (baseline)
 5. ⏭️ Test 1000 pasos, verificar energías
 
@@ -135,7 +135,7 @@ sshpass -p 'JaQUImica-uaMIzt26' ssh jalejandre@pacifico.izt.uam.mx \
 
 **Compilar UAMI baseline (gfortran single-thread):**
 ```bash
-cd /home/alejandre/GromacsMexicano/UAMI_baseline
+cd /home/alejandre/DM UAMI/UAMI_baseline
 gfortran-13 -O3 -ffree-form main.f *.f -o dm_uami
 ```
 

@@ -1,6 +1,6 @@
 # 🚀 PHASE 3 — GPU OPTIMIZATION (CUDA) — INITIAL ANALYSIS
 
-**Base:** `/home/alejandre/GromacsMexicano/Programa_DM_cpp_v1.1/src/`  
+**Base:** `/home/alejandre/DM UAMI/Programa_DM_cpp_v1.1/src/`  
 **Phase 2 baseline:** `dm_mx_npt_phase2` (0.446s/1000 pasos toy)  
 **Hardware:** CT 901 RTX 5070 Ti (CUDA 13.0, cuDNN available)
 

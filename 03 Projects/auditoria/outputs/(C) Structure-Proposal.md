@@ -18,7 +18,7 @@
 
 1. **Convención `NN Nombre/`** — Numerar top-level carpetas (00, 01, 02...) con nombres que describer su propósito.
 2. **Mutua exclusividad** — Cada archivo pertenece a UNA y solo UNA carpeta. Si dudas, va a `04 Ideas & Drafts/Inbox/`.
-3. **Jerarquía clara dentro de proyectos** — Dentro de `01 Projects/GromacsMexicano/`, usar `00 X/`, `01 Y/`, etc.
+3. **Jerarquía clara dentro de proyectos** — Dentro de `01 Projects/DM UAMI/`, usar `00 X/`, `01 Y/`, etc.
 4. **Metadatos YAML** — Frontmatter en todos los .md con campos estándar (type, project, status, tags).
 5. **Centralización de sistema** — `00 System/` es el corazón: instrucciones globales, templates, taxonomía.
 
@@ -57,7 +57,7 @@ JarvisVault/
 ├── 01 Projects/                   [PROYECTOS ACTIVOS]
 │   │                              (Deadline < 6 meses o entregable visible)
 │   │
-│   ├── GromacsMexicano/           ← [CONSOLIDADO] TODO en un lugar
+│   ├── DM UAMI/           ← [CONSOLIDADO] TODO en un lugar
 │   │   │
 │   │   ├── 00 Codigo Fuente Original/
 │   │   │   ├── Programa_DM/       ← Referencia congelada (NUNCA editar)
@@ -123,7 +123,7 @@ JarvisVault/
 │   │   │   └── README.md
 │   │   │
 │   │   ├── README.md                     ← Overview del proyecto
-│   │   │   (type: project-md, project: GromacsMexicano, status: active)
+│   │   │   (type: project-md, project: DM UAMI, status: active)
 │   │   │
 │   │   └── Proyecto-Metadata.base        ← [NUEVO] Vista Obsidian Base
 │   │       (tabla de fases, status, commits, links a notas)
@@ -323,7 +323,7 @@ JarvisVault/
 ├── 10 Archives/                   [PROYECTOS ARCHIVADOS]
 │   │                              (Completados o pausados > 6 meses)
 │   │
-│   ├── GromacsMexicano-Phase3-CUDA-OLD/
+│   ├── DM UAMI-Phase3-CUDA-OLD/
 │   │   ├── 00-Original-Code/
 │   │   ├── 01-Analysis/
 │   │   └── README.md              ← Fecha de archivo, por qué
@@ -463,7 +463,7 @@ JarvisVault/
 |--------|---------|-----|
 | `NN Nombre/` | `00 System/`, `01 Projects/` | Top-level (propósito claro) |
 | `NN X/` dentro de proyecto | `00 Codigo Fuente/`, `01 CT 901/` | Subcarpetas (orden lógico) |
-| `Nombre-Proyecto/` | `GromacsMexicano/`, `Claude Strava/` | Nombres de proyectos (sin número) |
+| `Nombre-Proyecto/` | `DM UAMI/`, `Claude Strava/` | Nombres de proyectos (sin número) |
 | `YYYYMMDD - Evento` | `2026-09-17 - Session 1/` | Sesiones/eventos con fecha |
 
 ### Archivos Markdown
@@ -486,7 +486,7 @@ JarvisVault/
 ```yaml
 ---
 type: [note | project-md | review | skill | draft | analysis | code | howto | reference]
-project: [GromacsMexicano | Claude Strava | Proxmox Infrastructure | ...] 
+project: [DM UAMI | Claude Strava | Proxmox Infrastructure | ...] 
 priority: [high | medium | low]
 status: [active | draft | completed | archived | deprecated]
 tags: [tag1, tag2, tag3]           # Solo de Tags-Taxonomy.md
@@ -501,7 +501,7 @@ updated: YYYY-MM-DD
 ```yaml
 ---
 type: analysis
-project: GromacsMexicano
+project: DM UAMI
 priority: high
 status: active
 tags: [gromacs, cuda, benchmark, completed]
@@ -529,14 +529,14 @@ updated: 2026-09-17
 ```yaml
 ---
 type: project-md
-project: GromacsMexicano
+project: DM UAMI
 priority: medium
 status: active
 tags: [gromacs, decision, cuda]
 created: 2026-01-15
 updated: 2026-09-17
 ---
-# README — GromacsMexicano
+# README — DM UAMI
 ```
 
 ---
@@ -624,13 +624,13 @@ La raíz del vault debe estar **limpia**. Todos los archivos van en carpetas:
 
 | Pregunta | Respuesta |
 |----------|-----------|
-| ¿A dónde va un análisis nuevo de GromacsMexicano? | `01 Projects/GromacsMexicano/02 Optimizacion/` |
-| ¿Dónde guardo un paper sobre CUDA? | `02 Knowledge/Research/IA/` (o bajo GromacsMexicano si es muy específico) |
+| ¿A dónde va un análisis nuevo de DM UAMI? | `01 Projects/DM UAMI/02 Optimizacion/` |
+| ¿Dónde guardo un paper sobre CUDA? | `02 Knowledge/Research/IA/` (o bajo DM UAMI si es muy específico) |
 | ¿Dónde van las notas de entrenamiento? | `01 Projects/Claude Strava/` (si es sesión completada → `02 Sesiones Completadas/`) |
-| ¿Dónde guardo un script de testing? | `01 Projects/GromacsMexicano/06 Scripts Auxiliares/` |
+| ¿Dónde guardo un script de testing? | `01 Projects/DM UAMI/06 Scripts Auxiliares/` |
 | ¿Dónde va un checklist reutilizable? | `03 Operations/Checklists/` |
 | ¿Dónde va una idea loca sin proyecto? | `04 Ideas & Drafts/Nuevas Ideas/` o `Inbox/` |
-| ¿Dónde va un benchmark que generó IA? | `01 Projects/GromacsMexicano/02 Optimizacion/` (con `type: analysis` en frontmatter) |
+| ¿Dónde va un benchmark que generó IA? | `01 Projects/DM UAMI/02 Optimizacion/` (con `type: analysis` en frontmatter) |
 | ¿Dónde va la documentación de un skill nuevo? | `05 Skills/vault-specific-skills/` o `02 Knowledge/Skill Definitions/` |
 | ¿Dónde va un proyecto viejo de Laura? | `10 Archives/Laura-Bernal-[date]/` |
 

@@ -24,7 +24,7 @@
   - **Eficiencia Token/$**: Mantener el 90% del tráfico en Tier Gratuito/Antigravity con cero caídas y presupuesto diario controlado.
   - **Resiliencia 3-2-1**: Backups automáticos de bases de datos y configuraciones a Backblaze B2 (`PVE-BackupSatanzote`).
 
-### Pilar B: Proyecto Insignia Técnico (`GromacsMexicano`)
+### Pilar B: Proyecto Insignia Técnico (`DM UAMI`)
 * **Propósito**: Demostrar capacidad técnica de nivel mundial en computación científica y GPU kernels para validar credenciales en IA/ML.
 * **Código Canónico**: `/root/phase4_cuda_pinned/` en CT 901 (RTX 5070 Ti, CUDA 13.0).
 * **Estado Actual**: Port C++17 completado, 3 CUDA Streams asíncronos activos, speedup de **5.08×** frente a Fortran.

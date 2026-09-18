@@ -123,7 +123,7 @@ wrangler r2 object list gromacs-storage
 ## 💾 ARCHIVOS EN VAULT
 
 ```
-01 Projects/GromacsMexicano/
+01 Projects/DM UAMI/
 ├── gromacs-analyzer-worker/          ← PROYECTO DEPLOYADO
 │   ├── src/index.ts                  (293 líneas, código Worker)
 │   ├── wrangler.toml                 (config Cloudflare)

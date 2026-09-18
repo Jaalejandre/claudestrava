@@ -74,7 +74,7 @@ status: "✅ PRODUCCIÓN LISTA + ACTUALIZADO"
 |-----------|----------|------|-------------|
 | **Production Binary** | VM 119 `/opt/phase4/phase4_cuda` | Production | EQUIPO 8B |
 | **Production Data** | VM 119 `/data/dm-uami/` | Production | EQUIPO 8 + EQUIPO 8B |
-| **Development Code** | CT 901 `/home/alejandre/GromacsMexicano/` | Development | EQUIPO 8B |
+| **Development Code** | CT 901 `/home/alejandre/DM UAMI/` | Development | EQUIPO 8B |
 | **Development Data** | CT 901 `/home/alejandre/dm-uami/` | Development | EQUIPO 8 |
 | **Coordination** | CT 109 (Hermes + cron) | Critical (locked) | EQUIPO 8 |
 
@@ -124,7 +124,7 @@ status: "✅ PRODUCCIÓN LISTA + ACTUALIZADO"
 ```bash
 # CT 901 (Development)
 ssh alejandre@192.168.0.230
-cd /home/alejandre/GromacsMexicano/Programa_DM_cpp
+cd /home/alejandre/DM UAMI/Programa_DM_cpp
 cmake -B build -DCMAKE_BUILD_TYPE=Release && cd build && make -j12
 
 # Test (1k steps, CPU mode)
@@ -180,4 +180,4 @@ nvidia-smi  # Verify GPU
 - `PHASE4-BENCHMARK-COMPLETION-REPORT.md` (benchmark results + validation)
 - `DM-UAMI-Coordination-Team-Setup.md` (original team structure)
 - `UAMI-SIMULATOR-TEAM-PAPA.md` (research extension)
-- Vault: `/root/JarvisVault/03 Projects/GromacsMexicano/`
+- Vault: `/root/JarvisVault/03 Projects/DM UAMI/`

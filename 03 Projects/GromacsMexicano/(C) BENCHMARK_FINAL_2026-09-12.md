@@ -1,7 +1,7 @@
 # Benchmark Final: Phase 4 CUDA vs GROMACS Oficial
 
 **Fecha:** 2026-09-12  
-**Proyecto:** GromacsMexicano - DM UAMI Motor Optimizado  
+**Proyecto:** DM UAMI - DM UAMI Motor Optimizado  
 **Status:** ✅ VALIDADO - Motor operativo con compatibilidad GROMACS
 
 ---

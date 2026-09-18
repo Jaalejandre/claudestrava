@@ -68,8 +68,8 @@ for (int i = 0; i < N; i++) {
 ## RESEARCH SOURCES
 
 ### Reference Files
-- **Fortran original:** `/home/alejandre/GromacsMexicano/Programa_DM/` (LISTA subroutine)
-- **Phase 4 C++ code:** `/home/alejandre/GromacsMexicano/Programa_DM_cpp/` (structure reference)
+- **Fortran original:** `/home/alejandre/DM UAMI/Programa_DM/` (LISTA subroutine)
+- **Phase 4 C++ code:** `/home/alejandre/DM UAMI/Programa_DM_cpp/` (structure reference)
 - **Technical analysis:** `~/JarvisVault/00 System/Research-Drafts/DM-UAMI-Phase5-Design-Analysis.md` (Kernel 1 section)
 - **Performance baseline:** Phase 4 achieves 930.8 st/s
 
@@ -220,14 +220,14 @@ git commit -m "Phase5a COMPLETE: LISTA kernel ready + tested + documented"
 
 ```
 Source Code:
-  ~/GromacsMexicano/Programa_DM_cpp/phase5a_lista/
+  ~/DM UAMI/Programa_DM_cpp/phase5a_lista/
     ├── lista_kernel.cu          (GPU kernel)
     ├── lista_wrapper.cpp        (host API)
     ├── CMakeLists.txt           (build)
     └── include/lista.h          (public interface)
 
 Tests:
-  ~/GromacsMexicano/Programa_DM_cpp/phase5a_lista/
+  ~/DM UAMI/Programa_DM_cpp/phase5a_lista/
     └── test_lista.cu            (validation suite)
 
 Binary:

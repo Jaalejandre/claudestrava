@@ -2,7 +2,7 @@
 
 > **Status:** Worker creado, compilado, listo para desplegar
 > **Fecha:** 2026-09-12  
-> **Ubicación:** `/root/JarvisVault/01 Projects/GromacsMexicano/gromacs-analyzer-worker/`
+> **Ubicación:** `/root/JarvisVault/01 Projects/DM UAMI/gromacs-analyzer-worker/`
 
 ---
 
@@ -51,7 +51,7 @@ gromacs-analyzer-worker/
 wrangler r2 bucket create gromacs-storage
 
 # 2. Desplegar Worker (incorpora R2 bindings)
-cd ~/JarvisVault/01\ Projects/GromacsMexicano/gromacs-analyzer-worker/
+cd ~/JarvisVault/01\ Projects/DM UAMI/gromacs-analyzer-worker/
 wrangler deploy
 
 # 3. Probar manualmente
@@ -266,7 +266,7 @@ RESULTADOS EN R2:
 
 ## 📚 REFERENCIAS
 
-- **Proyecto local:** `/root/JarvisVault/01 Projects/GromacsMexicano/gromacs-analyzer-worker/`
+- **Proyecto local:** `/root/JarvisVault/01 Projects/DM UAMI/gromacs-analyzer-worker/`
 - **Documentación:** README.md dentro del proyecto
 - **Plan completo:** `(C) Cloudflare Automation - Plan Completo.md`
 - **Roadmap:** `(C) ROADMAP - Cloudflare Automation.md`

@@ -144,7 +144,7 @@ Memory BW: 180 GB/s → 250+ GB/s (estimated)
 **Deployment Steps:**
 ```bash
 # CT 901 (prepare)
-cd /home/alejandre/GromacsMexicano/Programa_DM_cpp
+cd /home/alejandre/DM UAMI/Programa_DM_cpp
 cmake -DCMAKE_BUILD_TYPE=Release -DPHASE=5 -B build_phase5
 cd build_phase5 && make -j12
 # → Binary: ./phase4_cuda (Phase 5 version)
@@ -176,7 +176,7 @@ ssh root@192.168.0.119 "/opt/phase4/phase4_cuda --version"
 
 **Source Code Location:**
 ```
-/home/alejandre/GromacsMexicano/Programa_DM_cpp/
+/home/alejandre/DM UAMI/Programa_DM_cpp/
 ├─ src/
 │  ├─ phase4_kernel.cu (existing)
 │  ├─ phase5_reduction_tree.cu (NEW)
@@ -304,5 +304,5 @@ done
 
 - **Infrastructure:** `/root/JarvisVault/Operations/DM-UAMI-DEPLOYMENT-ENVIRONMENT-2.0.md`
 - **Phase 4 Results:** `/root/JarvisVault/Operations/PHASE4-BENCHMARK-COMPLETION-REPORT.md`
-- **Source Code:** CT 901 `/home/alejandre/GromacsMexicano/Programa_DM_cpp/`
+- **Source Code:** CT 901 `/home/alejandre/DM UAMI/Programa_DM_cpp/`
 - **Data:** VM 119 `/data/dm-uami/`

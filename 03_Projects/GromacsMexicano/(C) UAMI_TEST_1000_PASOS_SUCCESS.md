@@ -164,7 +164,7 @@ time /home/alejandre/UAMI_Source/dm_mx_npt
 - `/home/alejandre/UAMI_Test/dm.log` — output del programa
 
 **Documentación:**
-- `/root/JarvisVault/01 Projects/GromacsMexicano/ESTRATEGIA_v3_UAMI.md` — plan de trabajo
+- `/root/JarvisVault/01 Projects/DM UAMI/ESTRATEGIA_v3_UAMI.md` — plan de trabajo
 - Este archivo: `(C) UAMI_TEST_1000_PASOS_SUCCESS.md`
 
 ---

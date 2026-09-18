@@ -2,7 +2,7 @@
                    PHASE 3 CUDA - DELIVERY CHECKLIST
 ═══════════════════════════════════════════════════════════════════════════════
 
-PROJECT: GromacsMexicano Phase 3 FULL - GPU-Accelerated MD Kernels
+PROJECT: DM UAMI Phase 3 FULL - GPU-Accelerated MD Kernels
 DATE: 2026-09-12
 STATUS: ✅ COMPLETE
 

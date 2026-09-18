@@ -123,7 +123,7 @@ server {
 | **DNS** | No (usa OS resolver) | Sí (Cloudflare nameserver) | **Cloudflare** ✅ |
 | **Uptime** | Depende de CT 109 | 99.99% SLA | **Cloudflare** ✅ |
 | **Complejidad Ops** | Alta (config manual) | Baja (dashboard) | **Cloudflare** ✅ |
-| **Para GromacsMexicano** | N/A (CT 901, CUDA) | N/A (no es web) | — |
+| **Para DM UAMI** | N/A (CT 901, CUDA) | N/A (no es web) | — |
 | **Para Claude Strava** | ✅ OK (interno) | ⚠️ Posible (solo web) | **Nginx** ✅ |
 | **Para airbnb-admin** | ✅ Bueno | ✅ Mejor (WAF + bot block) | **Depende spec** |
 

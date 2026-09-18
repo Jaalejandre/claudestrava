@@ -120,7 +120,7 @@ cd /root/phase4_cuda_pinned
 
 ## ✅ Sign-Off
 
-**Author:** José (Alejandro) — GromacsMexicano Project  
+**Author:** José (Alejandro) — DM UAMI Project  
 **Validation:** 2026-09-12 18:30 CDMX  
 **Status:** **APPROVED FOR PRODUCTION USE**
 

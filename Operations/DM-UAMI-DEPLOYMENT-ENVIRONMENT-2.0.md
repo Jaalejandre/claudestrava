@@ -193,7 +193,7 @@ version: "2.0"
 ssh alejandre@192.168.0.230
 
 # 2. ACTIVATE DEVELOPMENT WORKSPACE
-cd /home/alejandre/GromacsMexicano
+cd /home/alejandre/DM UAMI
 source env/activate  # if exists, else create:
 #   python3 -m venv env
 #   source env/bin/activate
@@ -282,7 +282,7 @@ done
 # → Output: energy + performance in .gro files
 
 # 5. UPLOAD RESULTS TO VAULT
-rsync -avz /data/dm-uami/results/ /mnt/vault/03\ Projects/GromacsMexicano/03\ Benchmarks/
+rsync -avz /data/dm-uami/results/ /mnt/vault/03\ Projects/DM UAMI/03\ Benchmarks/
 ```
 
 **Performance Targets:**
@@ -315,7 +315,7 @@ rsync -avz /data/dm-uami/results/ /mnt/vault/03\ Projects/GromacsMexicano/03\ Be
 - [x] GCC 11+
 - [x] CUDA 12.0 (CPU mode for testing)
 - [x] Python 3.10+ venv
-- [x] Source code: /home/alejandre/GromacsMexicano/Programa_DM_cpp/
+- [x] Source code: /home/alejandre/DM UAMI/Programa_DM_cpp/
 - [x] Data: /home/alejandre/dm-uami/ (synced with VM 119)
 - [x] SSH access: Direct + pct exec available
 - [x] Build system: CMake configured
@@ -377,8 +377,8 @@ rsync -avz /data/dm-uami/results/ /mnt/vault/03\ Projects/GromacsMexicano/03\ Be
 - **Live Report:** `/root/phase4_report.json`
 - **Binary Location:** VM 119 `/opt/phase4/phase4_cuda`
 - **Data Location:** VM 119 `/data/dm-uami/`
-- **Development:** CT 901 `/home/alejandre/GromacsMexicano/Programa_DM_cpp/`
-- **Vault Index:** `/root/JarvisVault/03 Projects/GromacsMexicano/(C) INDEX - DM-UAMI Validation Archive.md`
+- **Development:** CT 901 `/home/alejandre/DM UAMI/Programa_DM_cpp/`
+- **Vault Index:** `/root/JarvisVault/03 Projects/DM UAMI/(C) INDEX - DM-UAMI Validation Archive.md`
 
 ---
 

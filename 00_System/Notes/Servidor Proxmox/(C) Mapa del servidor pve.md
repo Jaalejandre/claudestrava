@@ -70,7 +70,7 @@ Todos con `onboot: 1`. IP `.x` = `192.168.0.x`.
 | 117 | `difybot` | **.14** (fija) | 2 / 4 GB / 20 GB | ⚠️ **Dify 1.17.1** (plataforma agente LLM) — nginx :80/:443 + api + web + agent + postgres + sandbox. **Regularizado 2026-09-12: IP fija + onboot 1.** Creado 2026-09-11. Ver [[(C) Reglas por LXC]]. |
 | 118 | `control` | **.23** | 1 / 1 GB / 5 GB | **🆕 Controlador (2026-09-12)** — SSH keys a los 19 CTs + host pve, script `audit-stack.sh`, base de deploys. Ver [[(C) Reglas por LXC]]. |
 | 400 | medinotes | .132 | 2 / 4 GB / 40 GB | Docker: `medinotes` (nginx :80/:443, backend :8000, postgres, redis) — SaaS de notas médicas |
-| 901 | `ubuntu` (Ubuntu 24.04.4 LTS) | **.230** | **12 / 12 GB / 100 GB** | **GromacsMexicano** — ver detalle abajo. **usa GPU**. tag `lxgpu` |
+| 901 | `ubuntu` (Ubuntu 24.04.4 LTS) | **.230** | **12 / 12 GB / 100 GB** | **DM UAMI** — ver detalle abajo. **usa GPU**. tag `lxgpu` |
 
 #### CT 109 `claude-dev` (.64) — nodo de IA
 
@@ -84,7 +84,7 @@ Todos con `onboot: 1`. IP `.x` = `192.168.0.x`.
 | `hermes-gateway.service`        | 6060                                                                            | **Hermes** — orquestador LLM (default: combo `orquestador` de OmniRoute). Ver [[(C) OmniRoute - arquitectura y routing]] |
 | `airbnb-admin.service`          | 8877                                                                            | **airbnb-admin — INSTANCIA CANÓNICA** (v2, auto-sync, DIAS_SEMANA; app.py md5 `182353d9`). `/project/prototipos/airbnb-admin/` |
 | `confirma-citas.service`        | 8090                                                                            | App de confirmación de citas. `/project/confirma-citas/app.py` |
-| `gromacs-benchmark.service`     | 8851                                                                            | Benchmark del rewrite de GromacsMexicano |
+| `gromacs-benchmark.service`     | 8851                                                                            | Benchmark del rewrite de DM UAMI |
 | `crowdsec` + bouncer            | 8083                                                                            | seguridad del nodo |
 | `cloudflared`                   | 20241 (local)                                                                   | túnel Cloudflare para exponer el UI de Claude Code |
 | `docker` + `containerd`         | —                                                                               | instalado, sin contenedores corriendo (2026-09-12) |
@@ -107,10 +107,10 @@ Plex `:32400`, Jellyseerr `:5055` (`pedirpeliculas.satanzote.me`), Sonarr `:8989
 - IP fija `.14` + `onboot 1` (antes DHCP sin onboot — hubiera muerto en reinicio).
 - Creado 2026-09-11 12:39. Ver [[(C) Reglas por LXC]] — pendiente confirmar propósito con el usuario.
 
-#### CT 901 `ubuntu` (.230) — GromacsMexicano
+#### CT 901 `ubuntu` (.230) — DM UAMI
 
 - `/home/alejandre/Programa_DM/` — código Fortran+CUDA de los científicos (**referencia congelada**)
-- `/home/alejandre/GromacsMexicano/Programa_DM_cpp/` — reescritura a C++ (CMake), repo git
+- `/home/alejandre/DM UAMI/Programa_DM_cpp/` — reescritura a C++ (CMake), repo git
 - `/home/alejandre/Prueba/` — caso de prueba (agua + NaCl); GROMACS 2025.2/2025.3 de referencia compilados en el home
 - **Claude Code** (`/usr/bin/claude`) → enruta por OmniRoute (CT 109) → suscripción Claude Code
 - **BASE** (`~/.local/bin/base`) — memoria/grafo del rewrite (reemplazó a Ruflo). Ver [[(C) 2026-09-07 BASE para memoria del rewrite C++.md]]
@@ -180,7 +180,7 @@ Segundo túnel Cloudflare en CT 109 para el UI de Claude Code.
 - **CT 901**: `notify_telegram.sh` para alertas salientes.
 - Plugin **Claudian** corre en la Mac (Obsidian).
 
-### GromacsMexicano — `03 Projects/GromacsMexicano/`
+### DM UAMI — `03 Projects/DM UAMI/`
 - **CT 901 `ubuntu`** (todo el cómputo): código Fortran+CUDA, reescritura C++, RTX 5070 Ti, Claude Code, BASE.
 - **CT 109**: OmniRoute como gateway de tokens para el Claude Code de CT 901.
 - **CT 901**: `gpu-api` (:5000) para monitorear la GPU (único canónico; `gpu-top` de CT 112 eliminado 2026-09-12).
@@ -216,10 +216,10 @@ OmniRoute (CT 109 :20128)  ← gateway único de tokens LLM
   ├── Claude Code (CT 901) ──> OmniRoute ──> suscripción Claude
   └── [debería] OpenWebUI + Ollama ──> OmniRoute también
 
-BASE (CT 901)  ← memoria/grafo, SOLO GromacsMexicano por ahora
+BASE (CT 901)  ← memoria/grafo, SOLO DM UAMI por ahora
 Telegram: bridge (CT 109 :3001, entrada) + notify_telegram.sh (CT 901, salida)
 
-GromacsMexicano ── CT 901 (Fortran/CUDA/C++, GPU) + OmniRoute + BASE + Telegram
+DM UAMI ── CT 901 (Fortran/CUDA/C++, GPU) + OmniRoute + BASE + Telegram
 Claude Strava ──── rutina en la nube de Claude (no usa el server) + repo GitHub claudestrava
 ```
 
@@ -233,7 +233,7 @@ Claude Strava ──── rutina en la nube de Claude (no usa el server) + repo
 | 4 | **CT 101 `debian`** (512 MB, 2 sitios en Docker) duplica el rol de CT 111 apps-prod | Migrar `enlinea-saas` y `satanzote-studio` a CT 111 y apagar CT 101. |
 | 5 | ✅ **Resuelto 2026-09-11** — passthrough de GPU quitado de CT 109 (staged en config; **reinicio automático programado para 2026-09-12 03:00 CST** vía `ct109-reboot-gpu.timer`). Se confirmó **cero dependencias CUDA** en 109: chequeo diario y benchmark consultan GPU vía SSH a CT 901. Config respaldada en `/root/lxc-109.conf.bak-20260911` en el host. Queda pendiente decidir si también se quita `lxc.apparmor.profile: unconfined`. |
 | 6 | ✅ **Resuelto 2026-09-12** — Monitoreo de GPU: `gpu-top` de CT 112 eliminado (sin GPU). Queda `gpu-api` (CT 901 :5000) como único. |
-| 7 | **BASE solo en GromacsMexicano** | Cuando arranque Claude Strava, **reusar el mismo BASE** (otro proyecto en el mismo grafo, o BASE en CT 109), no montar otra herramienta de memoria. |
+| 7 | **BASE solo en DM UAMI** | Cuando arranque Claude Strava, **reusar el mismo BASE** (otro proyecto en el mismo grafo, o BASE en CT 109), no montar otra herramienta de memoria. |
 
 ### Regla para no volver a ser redundante
 
@@ -247,7 +247,7 @@ Claude Strava ──── rutina en la nube de Claude (no usa el server) + repo
 - ✅ **VM 200 `debian-brain`** — **IDENTIFICADA y ELIMINADA 2026-09-11**: precursora de automatización, inactiva desde ~abr-26, duplicaba funciones ya migradas (n8n→CT 110, airbnb→CT 112, strava→nube). `qm destroy 200 --purge` con backup final en `backups` (09-10). Disk LVM liberado.
 - **Discos casi llenos**: CT 103 (93%), CT 115 (86%), CT 101 y CT 113 al 100% de sus 1.9 GB. Mover CT 103 a `nvme-fast`.
 - **CT 901 `maxmem` 24 GB → bajar a ~12 GB** (uso real 0.3 GB idle; los picos de MD son CPU/GPU).
-- **GPU RTX 5070 Ti** compartida a **2 CTs (103 y 901)** desde 2026-09-11 (se quitó el passthrough de CT 109). GromacsMexicano ya verifica `nvidia-smi` libre antes de medir.
+- **GPU RTX 5070 Ti** compartida a **2 CTs (103 y 901)** desde 2026-09-11 (se quitó el passthrough de CT 109). DM UAMI ya verifica `nvidia-smi` libre antes de medir.
 - Sin HA ni replicación: si muere `local-lvm` se pierden todos los guests entre backups. El `vzdump` 21:00 → `backups` (3.8 TB) + `rclone` offsite (CT 113) es la única red.
 
 ## Optimización de memoria 2026-09-08

@@ -56,6 +56,6 @@ Características implementadas y validadas:
 
 ---
 
-**Compilado desde:** `/home/alejandre/GromacsMexicano/Programa_DM_cpp`  
+**Compilado desde:** `/home/alejandre/DM UAMI/Programa_DM_cpp`  
 **Commit:** `308867f` (HEAD)  
 **Binary:** `/home/alejandre/gromacs/gmx_mexicano_v1_final` (1.6 MB)

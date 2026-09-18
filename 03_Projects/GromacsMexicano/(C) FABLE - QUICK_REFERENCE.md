@@ -1,4 +1,4 @@
-# Quick Reference: OpenMP Parallelization for GromacsMexicano
+# Quick Reference: OpenMP Parallelization for DM UAMI
 
 ## TL;DR — Key Takeaways
 
@@ -178,7 +178,7 @@ awk '/Energy/ {print $2}' /tmp/parallel.log | compare_to_gate
 
 ### Test 1: Compile & link check
 ```bash
-cd /home/alejandre/GromacsMexicano/PRODUCTION_v3_CPP
+cd /home/alejandre/DM UAMI/PRODUCTION_v3_CPP
 mkdir -p build && cd build
 cmake -DCMAKE_BUILD_TYPE=Release \
       -DCMAKE_CXX_FLAGS="-O3 -march=native -fopenmp" ..
@@ -189,7 +189,7 @@ ldd ./bin/dm_mx_npt | grep -i omp  # Should show libomp
 ### Test 2: Single-thread correctness
 ```bash
 export OMP_NUM_THREADS=1
-./bin/dm_mx_npt < /home/alejandre/GromacsMexicano/Prueba/input.mdp > serial.log
+./bin/dm_mx_npt < /home/alejandre/DM UAMI/Prueba/input.mdp > serial.log
 diff serial.log /home/alejandre/Programa_DM/Prueba/dm.log | head -20
 # Should be identical (or < 1e-10 difference for FP ops)
 ```
@@ -269,8 +269,8 @@ Are you implementing C++ source files from scratch?
 
 **OpenMP Specification:** https://www.openmp.org/spec-html/5.1/openmp.html  
 **Project Physics Reference:** `/home/alejandre/Programa_DM/` (Fortran baseline on CT 901)  
-**Test Case:** `/home/alejandre/GromacsMexicano/Prueba/` (water+NaCl, 2544 atoms)  
-**CMake Build:** `/home/alejandre/GromacsMexicano/PRODUCTION_v3_CPP/CMakeLists.txt` (already has OpenMP)
+**Test Case:** `/home/alejandre/DM UAMI/Prueba/` (water+NaCl, 2544 atoms)  
+**CMake Build:** `/home/alejandre/DM UAMI/PRODUCTION_v3_CPP/CMakeLists.txt` (already has OpenMP)
 
 ---
 

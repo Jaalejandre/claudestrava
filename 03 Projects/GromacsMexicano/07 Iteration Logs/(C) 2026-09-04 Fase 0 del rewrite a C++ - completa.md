@@ -1,6 +1,6 @@
 # Fase 0 del rewrite a C++ — completa (2026-09-04)
 
-Ejecutado con subagent-driven development sobre el plan en `02 Optimizacion/(C) 2026-09-04 Plan de reescritura a C++.md`. Commits en CT 901 (`/home/alejandre/GromacsMexicano/`, rama `master`, sin branches — mismo patrón que toda la optimización GPU anterior): `ca9ef61..ddbc798`.
+Ejecutado con subagent-driven development sobre el plan en `02 Optimizacion/(C) 2026-09-04 Plan de reescritura a C++.md`. Commits en CT 901 (`/home/alejandre/DM UAMI/`, rama `master`, sin branches — mismo patrón que toda la optimización GPU anterior): `ca9ef61..ddbc798`.
 
 ## Qué se construyó
 

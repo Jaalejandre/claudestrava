@@ -1,4 +1,4 @@
-# 🏆 GromacsMexicano — Épico Completado (2026-09-12)
+# 🏆 DM UAMI — Épico Completado (2026-09-12)
 
 ## Status Final: ✅ PRODUCTION READY
 
@@ -94,7 +94,7 @@
 ## 📁 Deliverables
 
 ### Source Code
-- `/home/alejandre/GromacsMexicano/Programa_DM_cpp_v1.1/` (Phases 1+2)
+- `/home/alejandre/DM UAMI/Programa_DM_cpp_v1.1/` (Phases 1+2)
 - `/root/phase3_cuda/` (Phase 3)
 - `/root/phase4_cuda_pinned/` (Phase 4 with real data I/O)
 
@@ -182,7 +182,7 @@
 
 | Item | Path |
 |------|------|
-| Production C++ code | `/home/alejandre/GromacsMexicano/Programa_DM_cpp_v1.1/` |
+| Production C++ code | `/home/alejandre/DM UAMI/Programa_DM_cpp_v1.1/` |
 | Phase 4 real data binary | `/root/phase4_cuda_pinned/phase4_cuda_realdata` |
 | Dashboard HTML | `/root/gromacs-dashboard/index.html` |
 | Dashboard server | Systemd service `gromacs-dashboard` (port 8091) |
@@ -199,7 +199,7 @@
 3. **Measure real impact** on actual molecular dynamics runs
 4. **Then decide** on Phase 5 candidates (if needed)
 
-**GromacsMexicano is now GPU-accelerated, benchmarked, validated, and production-ready. 🚀**
+**DM UAMI is now GPU-accelerated, benchmarked, validated, and production-ready. 🚀**
 
 ---
 

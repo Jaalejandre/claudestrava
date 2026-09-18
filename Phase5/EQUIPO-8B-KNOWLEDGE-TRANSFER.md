@@ -24,7 +24,7 @@ EQUIPO 8B: MD EXPERT
 ### A. Arquitectura del Programa Fortran
 
 ```
-UBICACIÓN: /home/alejandre/GromacsMexicano/Programa_DM/
+UBICACIÓN: /home/alejandre/DM UAMI/Programa_DM/
 ├─ programa.f95         (Main loop)
 ├─ lista.f95           (Neighbor list - O(N))
 ├─ fuerzas.f95         (Force computation - 7 casos)
@@ -107,7 +107,7 @@ Fourier: FFT of charge density * kernel
 ### archivo.mdp - Control nstxyz=0
 
 ```mdp
-; GromacsMexicano Long Run (nstxyz=0)
+; DM UAMI Long Run (nstxyz=0)
 integrator              = md
 dt                      = 0.001      ; 1 fs
 nsteps                  = 1000000    ; 1 ns total
@@ -179,7 +179,7 @@ Disk Space Saved:
 TODO PARA EQUIPO 8B:
 
 1. Localizar Programa_DM en CT 901
-   └─ Verificar si está en /home/alejandre/GromacsMexicano/
+   └─ Verificar si está en /home/alejandre/DM UAMI/
    └─ Si no, revisar /root, /opt, o crear link simbólico
 
 2. Copiar archivo.mdp al directorio correcto

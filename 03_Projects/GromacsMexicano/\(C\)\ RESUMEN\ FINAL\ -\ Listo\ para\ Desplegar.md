@@ -48,7 +48,7 @@
 
 ## 📂 ARCHIVOS ENTREGADOS
 
-### En `/root/JarvisVault/01 Projects/GromacsMexicano/`
+### En `/root/JarvisVault/01 Projects/DM UAMI/`
 
 ```
 ├── gromacs-analyzer-worker/          (Proyecto listo para desplegar)
@@ -82,7 +82,7 @@
 
 ```bash
 # 1. Navegar al proyecto
-cd ~/JarvisVault/01\ Projects/GromacsMexicano/gromacs-analyzer-worker/
+cd ~/JarvisVault/01\ Projects/DM UAMI/gromacs-analyzer-worker/
 
 # 2. Login a Cloudflare (abre navegador)
 wrangler login

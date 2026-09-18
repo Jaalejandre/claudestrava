@@ -246,10 +246,10 @@ FINAL RESULT:
 ## 📁 FINAL DELIVERABLES
 
 **Code repositories (4):**
-1. `/home/alejandre/GromacsMexicano/Programa_DM_cpp_v1.1/` (Phase 1+2)
+1. `/home/alejandre/DM UAMI/Programa_DM_cpp_v1.1/` (Phase 1+2)
 2. `/root/phase3_cuda/` (Phase 3)
 3. `/root/phase4_cuda_pinned/` (Phase 4)
-4. `/root/JarvisVault/01 Projects/GromacsMexicano/` (All documentation)
+4. `/root/JarvisVault/01 Projects/DM UAMI/` (All documentation)
 
 **Executables (4):**
 1. `build/dm_mx_npt` (Phase 1 baseline)

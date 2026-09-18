@@ -1,6 +1,6 @@
-# 🎯 PHASE 1 IMPLEMENTATION PLAN — GromacsMexicano Sept 12
+# 🎯 PHASE 1 IMPLEMENTATION PLAN — DM UAMI Sept 12
 
-**Base:** `/home/alejandre/GromacsMexicano/Programa_DM_cpp_v1.1/`  
+**Base:** `/home/alejandre/DM UAMI/Programa_DM_cpp_v1.1/`  
 **Baseline funcional:** `build/dm_mx_npt` (5.74s/10k pasos, VERIFICADO)  
 **Target:** Agregar OpenMP a loops paralelizables, validar energía ±0.01 kJ/mol
 
@@ -261,7 +261,7 @@ for (int kx = -kmax; kx <= kmax; kx++) {
 
 ### Baseline energy validation
 ```bash
-cd /home/alejandre/GromacsMexicano/Programa_DM_cpp_v1.1/build
+cd /home/alejandre/DM UAMI/Programa_DM_cpp_v1.1/build
 ./dm_mx_npt
 tail -1 dm.log | tee baseline_energy.txt
 # Store baseline_energy.txt in vault

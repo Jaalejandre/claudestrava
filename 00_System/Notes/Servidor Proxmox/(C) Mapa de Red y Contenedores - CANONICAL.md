@@ -50,7 +50,7 @@
 ## Rutas críticas (recordatorio)
 
 - **CT 109 (192.168.0.64):** JarvisVault `/root/JarvisVault`; OmniRoute gateway `:20128`; Hermes `~/.hermes/`; storage.sqlite `/root/.omniroute/storage.sqlite`
-- **CT 901 (192.168.0.230):** GromacsMexicano `Programa_DM_cpp/`, Entrenador L'Étape
+- **CT 901 (192.168.0.230):** DM UAMI `Programa_DM_cpp/`, Entrenador L'Étape
 - **VM 119 (gpu-nvida):** GPU work / UAMI (no CT 901)
 - **CT 103 (openwebui, dhcp):** ~~Ollama host~~ — OJO el hostname en conf es "openwebui", no "ollama". Verificar si aún es Ollama. _Antes 192.168.0.99_
 

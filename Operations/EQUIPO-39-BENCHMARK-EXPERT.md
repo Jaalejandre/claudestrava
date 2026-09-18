@@ -89,7 +89,7 @@ Validar que las mejoras de velocidad (Phase 4: 1x baseline → Phase 5: 1.45x) s
 **SLA:** 3 runs completados en 4 horas
 
 **Funciones:**
-- Compilar Fortran original (congelado en `/home/alejandre/GromacsMexicano/Programa_DM/`)
+- Compilar Fortran original (congelado en `/home/alejandre/DM UAMI/Programa_DM/`)
 - Ejecutar 3 runs (10,000 pasos cada una)
 - Capturar output (energía cada 100 pasos, temperatura)
 - Calcular promedio + desviación estándar

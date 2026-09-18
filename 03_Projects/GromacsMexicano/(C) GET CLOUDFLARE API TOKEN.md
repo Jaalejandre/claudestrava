@@ -21,7 +21,7 @@
 ## PASO 3: Guardar en Wrangler
 ```bash
 # Opción A: Configuración interactiva (recomendado)
-cd ~/JarvisVault/01\ Projects/GromacsMexicano/gromacs-analyzer-worker/
+cd ~/JarvisVault/01\ Projects/DM UAMI/gromacs-analyzer-worker/
 wrangler login
 
 # Te abrirá navegador, autenticas, listo.

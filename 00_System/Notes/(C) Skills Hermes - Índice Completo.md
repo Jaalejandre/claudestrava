@@ -12,7 +12,7 @@
    - Fortran + CUDA remote build
    - Gromacs simulation validation
    - MD sim: file org, verify GPU, test before long runs
-   - **Uso:** Validar GromacsMexicano en CT 901
+   - **Uso:** Validar DM UAMI en CT 901
 
 2. **`proxmox`** ⭐⭐⭐
    - Access/manage Proxmox VE server over SSH
@@ -55,7 +55,7 @@
 
 ## 🛠️ SKILLS PARA PROYECTOS ESPECÍFICOS
 
-### **GromacsMexicano & MD Simulations**
+### **DM UAMI & MD Simulations**
 - **`scientific-computing`** (arriba) — CRITICAL
 - **`proxmox`** (arriba) — CRITICAL para CT 901
 
@@ -164,7 +164,7 @@
 
 ### Patrón: **Cargar skill antes de necesitar algo**
 ```
-1. Usuario pide: "Revisar GromacsMexicano en CT 901"
+1. Usuario pide: "Revisar DM UAMI en CT 901"
 2. Yo: Cargar skill_view('scientific-computing') 
 3. Leer instrucciones (GPU check, compile, test protocol)
 4. Ejecutar con procedimiento probado
@@ -187,7 +187,7 @@
 ## ✅ RECOMENDACIÓN: SKILLS A USAR ESTA SEMANA
 
 1. **`proxmox`** — Revisar estado del servidor
-2. **`scientific-computing`** — Validar GromacsMexicano (test 1000+ átomos)
+2. **`scientific-computing`** — Validar DM UAMI (test 1000+ átomos)
 3. **`weekly-update`** — Sincronizar CLAUDE.md con progreso
 4. **`software-development`** — Code review de cambios
 5. **`note-taking`** — Documentar hallazgos en vault

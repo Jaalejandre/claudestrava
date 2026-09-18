@@ -84,7 +84,7 @@ Every Friday at 17:00 CST:
 
 - Analysis: ~/JarvisVault/00 System/Research-Drafts/DM-UAMI-Phase5-Design-Analysis.md
 - Plan: ~/JarvisVault/00 System/Phase5-Agent-Creation-Plan.md
-- Code: ~/GromacsMexicano/Programa_DM_cpp/phase5*_*/
+- Code: ~/DM UAMI/Programa_DM_cpp/phase5*_*/
 - Git branches: feature/phase5a-* through feature/phase5d-*
 
 ---

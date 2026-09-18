@@ -1,4 +1,4 @@
-# Graph Report - GromacsMexicano  (2026-09-13)
+# Graph Report - DM UAMI  (2026-09-13)
 
 ## Corpus Check
 - 109 files · ~93,578 words
@@ -17,9 +17,9 @@
 ## Community Hubs (Navigation)
 - (C) FABLE - examples.cpp
 - OpenMP Parallelization Implementation Checklist
-- GromacsMexicano Phase 3 CUDA Implementation - Full Report
+- DM UAMI Phase 3 CUDA Implementation - Full Report
 - Gromacs Automation on Cloudflare — Plan Completo
-- GromacsMexicano Phase 4 CUDA Implementation - Full Report
+- DM UAMI Phase 4 CUDA Implementation - Full Report
 - Phase 3 CUDA Implementation - Delivery Summary
 - Config
 - Config
@@ -30,13 +30,13 @@
 - Gromacs Analyzer — Cloudflare Worker + Workers AI
 - Gromacs Analyzer — Cloudflare Worker + Workers AI
 - Gromacs Cloudflare Automation — ÍNDICE MAESTRO
-- 🎯 PHASE 1 IMPLEMENTATION PLAN — GromacsMexicano Sept 12
+- 🎯 PHASE 1 IMPLEMENTATION PLAN — DM UAMI Sept 12
 - 🏆 GROMACSMEXICANO — PHASES 1+2+3 COMPLETADAS
-- 🏆 GromacsMexicano — Épico Completado (2026-09-12)
+- 🏆 DM UAMI — Épico Completado (2026-09-12)
 - 🏆 REPORTE FINAL — GROMACSMEXICANO PHASE 1 + 2 COMPLETADAS
-- GromacsMexicano v3 — ESTADO FINAL
+- DM UAMI v3 — ESTADO FINAL
 - Cloudflare Worker: Gromacs Analysis Pipeline
-- Quick Reference: OpenMP Parallelization for GromacsMexicano
+- Quick Reference: OpenMP Parallelization for DM UAMI
 - Config
 - 📊 LOOPS PARALELIZABLES — PHASE 2
 - ✅ TEST UAMI BASELINE: 1000 PASOS COMPLETADO
@@ -44,12 +44,12 @@
 - 🎉 GROMACS CLOUDFLARE WORKER — DEPLOYMENT EXITOSO
 - 📊 REPORTE SUPERVISIÓN — Paralelización OpenMP+GPU
 - 🚀 GROMACS AUTOMATION ROADMAP
-- 🎯 DECISIÓN EJECUTIVA — Paralelización GromacsMexicano
+- 🎯 DECISIÓN EJECUTIVA — Paralelización DM UAMI
 - 🚀 PHASE 3 — GPU OPTIMIZATION (CUDA) — INITIAL ANALYSIS
 - 🏆 GROMACSMEXICANO — PHASES 1+2+3+4 COMPLETADAS (100% DONE)
 - 🎯 PLAN DE ATAQUE REFINADO — Paralelización OpenMP+GPU
 - 🚀 PLAN PARALELIZACIÓN — DM_NPT_gmx_v3
-- GromacsMexicano OpenMP Parallelization Workflow
+- DM UAMI OpenMP Parallelization Workflow
 - 🏆 BENCHMARK FINAL — PHASE 1 vs PHASE 4 (REAL MOLECULAR SYSTEM)
 - 🚀 PHASE 4 — GPU INTEGRATOR (VELOCITY VERLET + NOSE-HOOVER)
 - BASE vs GRAPHIFY — Análisis & Recomendación
@@ -70,11 +70,11 @@
 - Estrategia v3 UAMI — Línea Base vs GPU+Paralelo
 - gromacs-analyzer/src/index.ts
 - gromacs-analyzer-worker/src/index.ts
-- OpenMP Parallelization Analysis for GromacsMexicano C++ Rewrite
+- OpenMP Parallelization Analysis for DM UAMI C++ Rewrite
 - 🚀 PHASE 3 DELEGATION PLAN — FULL GPU PIPELINE (OPTION C)
 - integrator.cu
 - 🎯 PLAN DE ATAQUE — Paralelización GPU+CPU (BORRADOR)
-- 🎯 RESUMEN EJECUTIVO — Hito GromacsMexicano
+- 🎯 RESUMEN EJECUTIVO — Hito DM UAMI
 - ✅ UAMI BASELINE LISTO
 - ✅ TEST UAMI EN CT 901: ÉXITO
 - vector
@@ -100,7 +100,7 @@
 - (C) PHASE1_SRC_CODE/src/forces.cpp
 - 🚀 PHASE 3 FULL GPU EN DELEGACIÓN
 - 🚀 PHASE 4 FULL EN DELEGACIÓN
-- QUICK REFERENCE — GromacsMexicano Paralelización
+- QUICK REFERENCE — DM UAMI Paralelización
 - DEPLOY INSTRUCTIONS — Gromacs Worker
 - gromacs-analyzer/test/tsconfig.json
 - gromacs-analyzer-worker/test/tsconfig.json
@@ -120,8 +120,8 @@
 - Angle
 - (C) PHASE4_CUDA_PINNED/include/config.h
 - Angle
-- Phase 4 CUDA Implementation - GromacsMexicano
-- 🚀 ESTADO ACTUAL — Paralelización GromacsMexicano Sept 12
+- Phase 4 CUDA Implementation - DM UAMI
+- 🚀 ESTADO ACTUAL — Paralelización DM UAMI Sept 12
 - 2. `forces.cpp` — Bonded Force Calculation
 - 3. `integrator.cpp` — Velocity-Verlet, Thermostat, Barostat
 - 5. `main.cpp` — MD Loop, I/O, Energy Calculations
@@ -154,8 +154,8 @@
 2. `Config` - 32 edges
 3. `Config` - 32 edges
 4. `Config` - 23 edges
-5. `Phase 4 CUDA Implementation - GromacsMexicano` - 17 edges
-6. `GromacsMexicano Phase 3 CUDA Implementation - Full Report` - 14 edges
+5. `Phase 4 CUDA Implementation - DM UAMI` - 17 edges
+6. `DM UAMI Phase 3 CUDA Implementation - Full Report` - 14 edges
 7. `compilerOptions` - 13 edges
 8. `compilerOptions` - 13 edges
 9. `Gromacs Automation on Cloudflare — Plan Completo` - 13 edges
@@ -186,7 +186,7 @@ Nodes (38): Angle, i, j, k, theta0, Atoms, f, m (+30 more)
 Cohesion: 0.05
 Nodes (38): Benchmarks, Build Commands, Build Environment, Code, Compilation & Testing, Contact & Escalation, Deliverables, Documentation (+30 more)
 
-### Community 2 - "GromacsMexicano Phase 3 CUDA Implementation - Full Report"
+### Community 2 - "DM UAMI Phase 3 CUDA Implementation - Full Report"
 Cohesion: 0.05
 Nodes (36): 1. CUDA Kernel 1: Pairwise Forces (`kernel_pairwise`), 1. GPU-CPU Overlap, 2. CUDA Kernel 2: Bonded Forces (`kernel_bonded`), 2. Shared Memory Optimization, 2a. Bond Forces (`kernel_bonded_bonds`), 2b. Angle Forces (`kernel_bonded_angles`), 3. CUDA Kernel 3: Neighbor List (`kernel_neighbor`), 3. Reduced Precision (+28 more)
 
@@ -194,7 +194,7 @@ Nodes (36): 1. CUDA Kernel 1: Pairwise Forces (`kernel_pairwise`), 1. GPU-CPU Ov
 Cohesion: 0.06
 Nodes (34): Activar cron automático, Alertas automáticas (opcional), Alternativa: SSH Key en Cloudflare KV, Archivos necesarios, ✅ CHECKLIST FINAL, ⚠️ CONFIGURACIÓN CRÍTICA, Costo, Dashboard en Cloudflare (+26 more)
 
-### Community 4 - "GromacsMexicano Phase 4 CUDA Implementation - Full Report"
+### Community 4 - "DM UAMI Phase 4 CUDA Implementation - Full Report"
 Cohesion: 0.06
 Nodes (31): Architecture Overview, Async Stream Orchestration, Build Commands, CMakeLists.txt Configuration, Compilation & Build, Compilation Summary, Conclusion, Energy Evolution (+23 more)
 
@@ -238,7 +238,7 @@ Nodes (26): 1. Crear R2 Bucket, 2. Configurar Secrets, 3. Desplegar, 4. Probar, 
 Cohesion: 0.08
 Nodes (24): 1. **cloudflare-workers-ai-gromacs**, 1. ROADMAP (START HERE), 2. **cloudflare-r2-storage**, 2. PLAN COMPLETO (DETALLES), 3. **cloudflare-agent-tracing**, 3. WORKER CODE (IMPLEMENTACIÓN), 🗂️ ARCHIVOS EN VAULT, 📊 ARQUITECTURA VISUAL (+16 more)
 
-### Community 15 - "🎯 PHASE 1 IMPLEMENTATION PLAN — GromacsMexicano Sept 12"
+### Community 15 - "🎯 PHASE 1 IMPLEMENTATION PLAN — DM UAMI Sept 12"
 Cohesion: 0.08
 Nodes (23): Baseline energy validation, 🔧 BUILD CONFIGURATION, Delegation task, 📁 DELIVERABLES, **ewald.cpp**, **forces.cpp**, 📋 IMPLEMENTATION CHECKLIST, **integrator.cpp** (+15 more)
 
@@ -246,7 +246,7 @@ Nodes (23): Baseline energy validation, 🔧 BUILD CONFIGURATION, Delegation tas
 Cohesion: 0.08
 Nodes (23): 🎯 ANÁLISIS DETALLADO PHASE 3, 📁 ARCHIVOS ARCHIVADOS EN VAULT, **BASELINE (Fortran original)**, 📊 BENCHMARKS FINALES (Comparativa completa), 📋 CHECKLIST FINAL, 🏁 COMPARATIVA FINAL: 4 VERSIONES, 🏆 CONCLUSIÓN, **CPU Integrator Bottleneck** (+15 more)
 
-### Community 17 - "🏆 GromacsMexicano — Épico Completado (2026-09-12)"
+### Community 17 - "🏆 DM UAMI — Épico Completado (2026-09-12)"
 Cohesion: 0.09
 Nodes (22): 🎯 AI/Agent-Driven Methodology, Binaries (Production-Ready), 📋 Critical Lessons (Reusable), Dashboard, 🚀 Dashboard Features, 📁 Deliverables, Documentation (Vault), 🎉 Final Tally (+14 more)
 
@@ -254,7 +254,7 @@ Nodes (22): 🎯 AI/Agent-Driven Methodology, Binaries (Production-Ready), 📋 
 Cohesion: 0.09
 Nodes (22): 🎯 ANÁLISIS DE SPEEDUP, 📁 ARCHIVOS GUARDADOS EN VAULT, 📊 BENCHMARKS FINALES, ✅ CHECKLIST FINAL, 📋 COMPARATIVA FINAL, 🏁 CONCLUSIÓN, **Documentación metodológica (para evitar rework futuro)**, **FORTRAN BASELINE (Original)** (+14 more)
 
-### Community 19 - "GromacsMexicano v3 — ESTADO FINAL"
+### Community 19 - "DM UAMI v3 — ESTADO FINAL"
 Cohesion: 0.09
 Nodes (22): Archivos, Benchmarks, Binarios, C++ v2 — ❌ RECHAZADO, ✅ CONGELADO Y VALIDADO, Datos de Entrada (Maestro), ❌ DESCARTADO, Directorio de Trabajo (Copia Limpia) (+14 more)
 
@@ -262,7 +262,7 @@ Nodes (22): Archivos, Benchmarks, Binarios, C++ v2 — ❌ RECHAZADO, ✅ CONGEL
 Cohesion: 0.09
 Nodes (21): 📋 ARCHIVOS QUE VAS A NECESITAR, 🎯 ARQUITECTURA, Cloudflare Worker: Gromacs Analysis Pipeline, 🚀 CONEXIÓN: CT 901 → WORKER (Paso 3), 🔧 CONFIGURACIÓN R2 (Paso 2), 💰 COSTO ESTIMADO, Crear bucket en Cloudflare, ⏰ CRON AUTOMÁTICO (+13 more)
 
-### Community 21 - "Quick Reference: OpenMP Parallelization for GromacsMexicano"
+### Community 21 - "Quick Reference: OpenMP Parallelization for DM UAMI"
 Cohesion: 0.09
 Nodes (21): Common Pitfalls & Fixes, Contact & References, Decision Tree: What Should I Do?, Floating-Point Sensitivity (Will Happen — Plan For It), forces.cpp ✅ (DO SECOND — medium risk, high value), integrator.cpp ✅ (DO FIRST — easiest, lowest risk), Key Files Delivered, Load Balancing Cheat Sheet (+13 more)
 
@@ -294,9 +294,9 @@ Nodes (19): 1. **Agentes sin verificación → fracaso silencioso**, 2. **Fortra
 Cohesion: 0.10
 Nodes (19): 🎓 AFTER: OPTIMIZACIONES FUTURAS, ✨ BENEFICIOS, Cada 6 horas, automáticamente:, 💰 COSTOS, 📚 DOCUMENTACIÓN, En Cloudflare Dashboard, En R2, FASE 1️⃣ WORKERS AI (+11 more)
 
-### Community 29 - "🎯 DECISIÓN EJECUTIVA — Paralelización GromacsMexicano"
+### Community 29 - "🎯 DECISIÓN EJECUTIVA — Paralelización DM UAMI"
 Cohesion: 0.11
-Nodes (18): 🎯 DECISIÓN EJECUTIVA — Paralelización GromacsMexicano, 📚 DOCUMENTACIÓN COMPLETA, El Problema Real, Fase 1: Sincronización GPU (30 min), Fase 2: OpenMP en EK reduction (20 min), Fase 3: OpenMP en velocity update (20 min), Fase 4: Validación Reproducibilidad (1 hora), OPCIÓN A: Paralelizar Fortran 77 CORRECTAMENTE ⭐ RECOMENDADO (+10 more)
+Nodes (18): 🎯 DECISIÓN EJECUTIVA — Paralelización DM UAMI, 📚 DOCUMENTACIÓN COMPLETA, El Problema Real, Fase 1: Sincronización GPU (30 min), Fase 2: OpenMP en EK reduction (20 min), Fase 3: OpenMP en velocity update (20 min), Fase 4: Validación Reproducibilidad (1 hora), OPCIÓN A: Paralelizar Fortran 77 CORRECTAMENTE ⭐ RECOMENDADO (+10 more)
 
 ### Community 30 - "🚀 PHASE 3 — GPU OPTIMIZATION (CUDA) — INITIAL ANALYSIS"
 Cohesion: 0.11
@@ -314,7 +314,7 @@ Nodes (17): 2.1 OpenMP Target: TOP 3 LOOPS (por ganancia/riesgo), 2.2 GPU Optimi
 Cohesion: 0.11
 Nodes (17): ✅ 1. Auditar llamadas CUDA en Fortran, ✅ 2. Crear interfaz Fortran-CUDA (si falta), ✅ 3. Agregar OpenMP a main.f (loops principales), ✅ 4. Recompilar y benchmarking, AUDITORÍA ACTUAL, CPU (Fortran), ESTRATEGIA DE PARALELIZACIÓN, EXPECTATIVAS (+9 more)
 
-### Community 34 - "GromacsMexicano OpenMP Parallelization Workflow"
+### Community 34 - "DM UAMI OpenMP Parallelization Workflow"
 Cohesion: 0.11
 Nodes (17): 🎯 Aplicar a TODOS los proyectos, 📁 Archivos a guardar en vault (post-completion), 📋 CHECKLIST ANTES DE DELEGAR, 🎯 El Error que Cometimos Hoy, **FASE 0: PRE-PLANIFICACIÓN (ANTES DE DELEGAR)**, **FASE 1: ANÁLISIS (Fable)**, **FASE 2: PLAN ESPECÍFICO (TÚ lo haces)**, **FASE 3: DELEGACIÓN (CON PLAN ESPECÍFICO)** (+9 more)
 
@@ -398,9 +398,9 @@ Nodes (10): AnalysisResult, buildAnalysisPrompt(), Env, fetch(), fetchGromacLog(
 Cohesion: 0.24
 Nodes (10): AnalysisResult, buildAnalysisPrompt(), Env, fetch(), fetchGromacLog(), GromacMetrics, parseGromacLog(), parseLlamaResponse() (+2 more)
 
-### Community 55 - "OpenMP Parallelization Analysis for GromacsMexicano C++ Rewrite"
+### Community 55 - "OpenMP Parallelization Analysis for DM UAMI C++ Rewrite"
 Cohesion: 0.18
-Nodes (10): Code Organization (Proposed C++ structure), Executive Summary, Known Pitfalls & Mitigation, MD Simulation Overview, OpenMP helper header (openmp.hpp), OpenMP Parallelization Analysis for GromacsMexicano C++ Rewrite, Project Architecture Context, References (+2 more)
+Nodes (10): Code Organization (Proposed C++ structure), Executive Summary, Known Pitfalls & Mitigation, MD Simulation Overview, OpenMP helper header (openmp.hpp), OpenMP Parallelization Analysis for DM UAMI C++ Rewrite, Project Architecture Context, References (+2 more)
 
 ### Community 56 - "🚀 PHASE 3 DELEGATION PLAN — FULL GPU PIPELINE (OPTION C)"
 Cohesion: 0.18
@@ -414,7 +414,7 @@ Nodes (10): calcTemperature_GPU(), compute_temperature_GPU(), Config, __global__
 Cohesion: 0.18
 Nodes (10): CRITERIOS DE ABORTO, CRITERIOS DE ÉXITO, ESTRUCTURA DEL PLAN (A SER REFINADA), FASE 1: ANÁLISIS ⏳ (En progreso), FASE 2: DISEÑO DEL PLAN (Pendiente), FASE 3: IMPLEMENTACIÓN (Delegada a agente), FASE 4: VALIDACIÓN (Agente 3), 🎯 PLAN DE ATAQUE — Paralelización GPU+CPU (BORRADOR) (+2 more)
 
-### Community 59 - "🎯 RESUMEN EJECUTIVO — Hito GromacsMexicano"
+### Community 59 - "🎯 RESUMEN EJECUTIVO — Hito DM UAMI"
 Cohesion: 0.18
 Nodes (10): 1. **Adquisición del código maestro UAM** ✅, 2. **Refactorización para gcc-13** ✅, 3. **Compilación exitosa con CUDA** ✅, 4. **Validación 3 × 10K pasos** ✅, ARCHIVOS DOCUMENTACIÓN, DECISIONES IMPORTANTES, NÚMEROS, PRÓXIMO: TRANSFORMACIÓN A C++ (+2 more)
 
@@ -518,9 +518,9 @@ Nodes (6): 🏁 CUANDO TERMINE, 📋 DELIVERABLES ESPERADOS, 🎓 LECCIONES APLI
 Cohesion: 0.29
 Nodes (6): 🎓 APLICADAS, 📊 EXPECTEDADO AL TERMINAR, 🚀 PHASE 4 FULL EN DELEGACIÓN, 🎯 PLAN: GPU INTEGRATOR PIPELINE (OPTION C), 🏁 SPEEDUP ESPERADO, ⏱️ TIMELINE ESPERADO
 
-### Community 85 - "QUICK REFERENCE — GromacsMexicano Paralelización"
+### Community 85 - "QUICK REFERENCE — DM UAMI Paralelización"
 Cohesion: 0.29
-Nodes (6): ⏱️ BASELINE METRICS, 🚫 LO QUE NO HACER, 🎯 META, ✅ PRÓXIMOS PASOS, QUICK REFERENCE — GromacsMexicano Paralelización, 📍 UBICACIONES
+Nodes (6): ⏱️ BASELINE METRICS, 🚫 LO QUE NO HACER, 🎯 META, ✅ PRÓXIMOS PASOS, QUICK REFERENCE — DM UAMI Paralelización, 📍 UBICACIONES
 
 ### Community 86 - "DEPLOY INSTRUCTIONS — Gromacs Worker"
 Cohesion: 0.29
@@ -598,13 +598,13 @@ Nodes (5): Pair14, i, j, scale_coulomb, scale_lj
 Cohesion: 0.33
 Nodes (6): Angle, i, j, k, k_a, theta_eq
 
-### Community 105 - "Phase 4 CUDA Implementation - GromacsMexicano"
+### Community 105 - "Phase 4 CUDA Implementation - DM UAMI"
 Cohesion: 0.33
-Nodes (5): Citation, Contact & Support, File Structure, License, Phase 4 CUDA Implementation - GromacsMexicano
+Nodes (5): Citation, Contact & Support, File Structure, License, Phase 4 CUDA Implementation - DM UAMI
 
-### Community 106 - "🚀 ESTADO ACTUAL — Paralelización GromacsMexicano Sept 12"
+### Community 106 - "🚀 ESTADO ACTUAL — Paralelización DM UAMI Sept 12"
 Cohesion: 0.33
-Nodes (5): ✅ COMPLETADO HOY, ⏳ EN PROGRESO (AHORA), 🚀 ESTADO ACTUAL — Paralelización GromacsMexicano Sept 12, 📊 META PHASE 1, 📋 PRÓXIMOS PASOS (POST-DELEGACIÓN)
+Nodes (5): ✅ COMPLETADO HOY, ⏳ EN PROGRESO (AHORA), 🚀 ESTADO ACTUAL — Paralelización DM UAMI Sept 12, 📊 META PHASE 1, 📋 PRÓXIMOS PASOS (POST-DELEGACIÓN)
 
 ### Community 107 - "2. `forces.cpp` — Bonded Force Calculation"
 Cohesion: 0.40
@@ -722,5 +722,5 @@ _Questions this graph is uniquely positioned to answer:_
   _Cohesion score 0.06504065040650407 - nodes in this community are weakly interconnected._
 - **Should `OpenMP Parallelization Implementation Checklist` be split into smaller, more focused modules?**
   _Cohesion score 0.05128205128205128 - nodes in this community are weakly interconnected._
-- **Should `GromacsMexicano Phase 3 CUDA Implementation - Full Report` be split into smaller, more focused modules?**
+- **Should `DM UAMI Phase 3 CUDA Implementation - Full Report` be split into smaller, more focused modules?**
   _Cohesion score 0.05405405405405406 - nodes in this community are weakly interconnected._

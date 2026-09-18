@@ -86,7 +86,7 @@ readMDP("file.mdp", cfg);      // Read real parameters
 
 ```bash
 # Phase 1 (baseline)
-/home/alejandre/GromacsMexicano/Programa_DM_cpp_v1.1/build/dm_mx_npt
+/home/alejandre/DM UAMI/Programa_DM_cpp_v1.1/build/dm_mx_npt
 # Time: 29.36s / 100 steps
 
 # Phase 4 (GPU optimized, reading same files)

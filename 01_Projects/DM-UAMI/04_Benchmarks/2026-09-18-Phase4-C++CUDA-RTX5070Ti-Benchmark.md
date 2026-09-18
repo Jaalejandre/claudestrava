@@ -1,5 +1,5 @@
 # Benchmark de Validación C++ / CUDA vs Fortran (RTX 5070 Ti)
-**Proyecto**: GromacsMexicano (Dinámica Molecular GPU)  
+**Proyecto**: DM UAMI (Dinámica Molecular GPU)  
 **Host de Cómputo**: CT 901 (`192.168.0.230`)  
 **GPU**: NVIDIA GeForce RTX 5070 Ti (16 GB VRAM, Driver 580.173, CUDA 13.0)  
 **Fecha**: 2026-09-18  
