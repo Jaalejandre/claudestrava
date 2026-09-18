@@ -1,22 +1,22 @@
-# Especificación Técnica: Universal Hardware Dispatcher & Multi-Backend
-**Proyecto**: DM UAMI  
-**Rama de Desarrollo**: `feature/universal-hardware-dispatcher`  
-**Autoridad**: Escuadrón BELSEBU `Daemon` (`daemon-*`)  
-**Fecha**: 2026-09-18
+# Technical Specification: Universal Hardware Dispatcher & Multi-Backend Engine
+**Project**: DM UAMI (Molecular Dynamics C++ / CUDA Engine)  
+**Development Branch**: `feature/universal-hardware-dispatcher`  
+**Authority**: BELSEBU `Daemon` Squad (`daemon-*`)  
+**Date**: 2026-09-18
 
 ---
 
-## 1. Visión y Objetivos
-Construir una capa de abstracción de hardware en tiempo de compilación y ejecución que permita a **DM UAMI**:
-1. **Ejecutarse en cualquier Sistema Operativo**: Linux, Windows (MSVC/WSL2) y macOS (Apple Silicon).
-2. **Autodetección Dinámica de Aceleración**:
-   - Si detecta **GPU NVIDIA**: Activa el backend **CUDA Streams** (`RTX`, `Blackwell`, `Ampere`, `Hopper`).
-   - Si detecta **Solo CPU**: Activa el backend **SIMD Vectorizado** (AVX-512 / AVX2 / ARM NEON) paralelizado con OpenMP.
-3. **Distribución e Instalación Sencilla**: Un solo comando `cmake -B build && cmake --build build`.
+## 1. Vision & Architecture Objectives
+Build a compile-time and runtime hardware abstraction layer allowing **DM UAMI** to:
+1. **Run Cross-Platform**: Linux (Ubuntu, Debian, RHEL), Windows (MSVC / WSL2), and macOS (Apple Silicon).
+2. **Dynamic Hardware Acceleration Auto-Detection**:
+   - **NVIDIA GPU Detected**: Automatically dispatch to the high-performance **CUDA Streams Backend** (`RTX 50-series / Blackwell`, `Ada Lovelace`, `Ampere`, `Hopper`).
+   - **CPU-Only Environment**: Fall back seamlessly to the multithreaded **SIMD Vectorized CPU Backend** (AVX-512 / AVX2 / ARM NEON) accelerated via OpenMP.
+3. **Turnkey Installation**: Single standard build command: `cmake -B build && cmake --build build`.
 
 ---
 
-## 2. Arquitectura de Módulos
+## 2. Component Architecture
 
 ```
                           ┌──────────────────────────┐
@@ -34,15 +34,15 @@ Construir una capa de abstracción de hardware en tiempo de compilación y ejecu
       │   CUDA Backend Engine   │               │    CPU Backend Engine   │
       │ - 3 Async Streams       │               │ - OpenMP Multithreading │
       │ - Kwald Reciprocal GPU  │               │ - AVX-512 / AVX2 / NEON │
-      │ - Link-Cell GPU         │               │ - CPU Link-Cell         │
+      │ - Link-Cell GPU         │               │ - Link-Cell Spatial CPU │
       └─────────────────────────┘               └─────────────────────────┘
 ```
 
 ---
 
-## 3. Interfaces C++ Planificadas
+## 3. Planned C++ Interfaces
 
-### A. Clase `HardwareCapabilities` (`include/hardware_detector.h`)
+### A. Hardware Capabilities Struct (`include/hardware_detector.h`)
 ```cpp
 struct HardwareProfile {
     bool has_cuda;
@@ -61,14 +61,14 @@ struct HardwareProfile {
 };
 ```
 
-### B. Detección en Runtime (`src/hardware_detector.cpp`)
-* Usa `cudaGetDeviceCount` / `cudaGetDeviceProperties` para GPU.
-* Usa intrínsecos `__cpuid` (x86_64) o `sysctl` / `getauxval` (ARM) para CPU.
+### B. Runtime Dispatcher (`src/hardware_detector.cpp`)
+* Utilizes `cudaGetDeviceCount` / `cudaGetDeviceProperties` for GPU interrogation.
+* Utilizes `__cpuid` intrinsics (x86_64) or `sysctl` / `getauxval` (ARM) for vectorization capabilities.
 
 ---
 
-## 4. Plan de Implementación (Fase 2)
-1. **Gate 1**: Completar y verificar la corrida larga de estrés de 3.5h en `main`.
-2. **Gate 2**: Implementar `hardware_detector.cpp` en la rama `feature/universal-hardware-dispatcher`.
-3. **Gate 3**: Portar kernel de fuerzas LJ y Ewald a CPU con directivas OpenMP SIMD `#pragma omp simd`.
-4. **Gate 4**: Testear en máquina Linux x86 sin GPU y validar paridad numérica contra el backend CUDA.
+## 4. Implementation Plan & Milestones
+1. **Gate 1**: Complete and certify 3.5h long-run stress benchmark on `main`.
+2. **Gate 2**: Implement `hardware_detector.cpp` on `feature/universal-hardware-dispatcher`.
+3. **Gate 3**: Implement CPU OpenMP SIMD pair forces and real-space Coulomb.
+4. **Gate 4**: Execute cross-platform validation on x86_64 CPU-only host and verify numerical energy parity against CUDA backend.
