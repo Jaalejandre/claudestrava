@@ -358,11 +358,73 @@
             background: rgba(0, 240, 255, 0.08);
             color: var(--neon-cyan);
             border: 1px solid rgba(0, 240, 255, 0.25);
-            padding: 3px 8px;
-            border-radius: 5px;
-            font-size: 10px;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 11px;
             text-decoration: none;
-            display: inline-block;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            transition: all 0.2s;
+        }
+
+        .btn-badge:hover {
+            background: rgba(0, 240, 255, 0.2);
+            border-color: var(--neon-cyan);
+        }
+
+        /* JUPYTER NOTEBOOKS GRID */
+        .nb-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 12px;
+        }
+
+        .nb-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 12px;
+            padding: 14px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: border-color 0.2s;
+        }
+
+        .nb-card:hover {
+            border-color: var(--neon-cyan);
+        }
+
+        .nb-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text);
+            margin-bottom: 6px;
+        }
+
+        .nb-desc {
+            font-size: 11px;
+            color: var(--text-dim);
+            line-height: 1.4;
+            margin-bottom: 12px;
+        }
+
+        .code-box {
+            background: #020306;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            padding: 10px 12px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 11px;
+            color: var(--neon-cyan);
+            margin-top: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            overflow-x: auto;
         }
 
         footer {
@@ -462,8 +524,107 @@
         </div>
         <canvas id="molCanvas"></canvas>
         <div class="mol-footer">
-            <span id="legendText">🔴 Oxígeno (OW) | 🔵 Hidrógeno (HW) | ⚪ Enlaces Covalentes</span>
+            <span id="legendText">🔴 Oxígeno (OW) | 🔵 Hidrógeno (HW) | ⚪ Enlaces H-O</span>
             <span id="speedText">Vibración térmica @ 300 K</span>
+        </div>
+    </div>
+
+    <!-- CONNECTED COMPUTE NODES TABLE (VOLUNTEER GPU GRID / DÓNDE ESTÁ INSTALADO) -->
+    <div class="section-card">
+        <div class="sec-title">
+            <span>🌐 ENJAMBRE DE CÓMPUTO CIENTÍFICO (NODOS ACTIVOS)</span>
+            <span style="font-size: 10px; color: var(--neon-green);" id="nodeCountBadge">3 Nodos Online</span>
+        </div>
+        <div class="table-responsive">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Nodo / Host</th>
+                        <th>Hardware / GPU</th>
+                        <th>Sistema Operativo & Ubicación</th>
+                        <th>Pasos Calculados</th>
+                        <th>Estado</th>
+                    </tr>
+                </thead>
+                <tbody id="nodesTableBody">
+                    <tr>
+                        <td><strong>CT-901-Satanzote</strong></td>
+                        <td>NVIDIA GeForce RTX 5070 Ti (16GB)</td>
+                        <td>Linux Debian 13 (Proxmox CDMX)</td>
+                        <td style="color: var(--neon-cyan);">20,010,000 st</td>
+                        <td><span style="color: var(--neon-green); font-size: 11px;">● COMPUTANDO</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Papa-Lab-Remote</strong></td>
+                        <td>NVIDIA GPU / CUDA 12+</td>
+                        <td>Windows 11 / Remote Lab</td>
+                        <td style="color: var(--neon-cyan);">5,400,000 st</td>
+                        <td><span style="color: var(--neon-green); font-size: 11px;">● ONLINE</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>UAM-I-Cluster-A</strong></td>
+                        <td>Multi-Core AVX-512 / Apple Silicon</td>
+                        <td>macOS / Linux HPC</td>
+                        <td style="color: var(--neon-cyan);">1,250,000 st</td>
+                        <td><span style="color: var(--neon-green); font-size: 11px;">● STANDBY</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div style="margin-top: 14px;">
+            <div style="font-size: 11px; color: var(--text-dim); margin-bottom: 6px;">
+                <strong>Instalar cliente voluntario en cualquier sistema operativo (Windows, Linux, macOS):</strong>
+            </div>
+            <div class="code-box">
+                <code>curl -O http://ciencia.satanzote.me/worker/dmuami-worker.py && python3 dmuami-worker.py</code>
+                <a href="/worker/dmuami-worker.py" class="btn-badge" download>⬇ DESCARGAR CLIENTE</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- JUPYTER NOTEBOOKS SUITE FOR EDUCATION -->
+    <div class="section-card">
+        <div class="sec-title">
+            <span>📚 JUPYTER NOTEBOOKS INTERACTIVOS PARA ENSEÑANZA</span>
+            <span style="font-size: 10px; color: var(--neon-purple);">Python & PyTorch & CUDA</span>
+        </div>
+        <div class="nb-grid">
+            <div class="nb-card">
+                <div>
+                    <div class="nb-header">
+                        <span>🧪 01. Intro a Dinámica Molecular</span>
+                    </div>
+                    <div class="nb-desc">
+                        Simulación de fluido Lennard-Jones con deslizadores de temperatura, integración Verlet y conservación de energía Hamiltoniana.
+                    </div>
+                </div>
+                <a href="/notebooks/01_Intro_to_Molecular_Dynamics.ipynb" class="btn-badge" download>⬇ DESCARGAR (.IPYNB)</a>
+            </div>
+
+            <div class="nb-card">
+                <div>
+                    <div class="nb-header">
+                        <span>🌊 02. Interfases y Tensión Superficial</span>
+                    </div>
+                    <div class="nb-desc">
+                        Simulación de película líquida (slab), cálculo del tensor de presiones anisótropo y determinación de tensión superficial γ.
+                    </div>
+                </div>
+                <a href="/notebooks/02_Liquid_Vapor_Interfaces_and_Surface_Tension.ipynb" class="btn-badge" download>⬇ DESCARGAR (.IPYNB)</a>
+            </div>
+
+            <div class="nb-card">
+                <div>
+                    <div class="nb-header">
+                        <span>⚡ 03. IA para Búsqueda de Parámetros</span>
+                    </div>
+                    <div class="nb-desc">
+                        Entrenamiento y evaluación del modelo subrogado neuronal para descubrir campos de fuerza en microsegundos (Paper 2024).
+                    </div>
+                </div>
+                <a href="/notebooks/03_AI_Accelerated_ForceField_Parameter_Discovery.ipynb" class="btn-badge" download>⬇ DESCARGAR (.IPYNB)</a>
+            </div>
         </div>
     </div>
 
@@ -576,7 +737,7 @@
                 document.getElementById('resSigma').innerText = data.calibrated_parameters.sigma_nm + ' nm';
                 document.getElementById('resEpsilon').innerText = data.calibrated_parameters.epsilon_kJ_mol + ' kJ/mol';
 
-                // DYNAMIC 3D MOLECULAR CANVAS UPDATE (Reflects the exact simulated result)
+                // DYNAMIC 3D MOLECULAR CANVAS UPDATE
                 currentMolecule = data.code;
                 currentTemp = data.temperature_k;
                 document.getElementById('canvasTitle').innerText = `🔬 VISOR 3D: ${data.molecule.toUpperCase()} A ${data.temperature_k} K (TRAYECTORIA GPU EN VIVO)`;
@@ -754,7 +915,6 @@
 
         let timeTick = 0;
         function render3D() {
-            // Thermal vibration frequency scales with target temperature T
             const tempFactor = Math.sqrt(currentTemp / 300.0);
             timeTick += 0.03 * tempFactor;
             if (!isDragging) rotY += 0.0025;
@@ -773,7 +933,6 @@
                 return { proj, color: a.color, r: a.r, z: proj.z };
             });
 
-            // Prepare render queue
             const renderItems = [];
 
             renderBonds.forEach(([i1, i2]) => {
