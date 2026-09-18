@@ -174,27 +174,30 @@ def send_heartbeat(device_info, steps_done=0, safe_status="OK"):
         }
         
         req_urls = [
+            "http://192.168.0.104/api/worker/heartbeat",
+            "http://192.168.0.104:8900/api/worker/heartbeat",
             "https://ciencia.satanzote.me/api/worker/heartbeat",
             "http://ciencia.satanzote.me/api/worker/heartbeat",
-            "http://192.168.0.109/api/worker/heartbeat",
-            "http://192.168.0.104:8900/api/worker/heartbeat"
+            "http://192.168.0.109/api/worker/heartbeat"
         ]
         
         data = json.dumps(payload).encode('utf-8')
-        last_err = ""
         for url in req_urls:
             try:
-                req = urllib.request.Request(url, data=data, headers={"Content-Type": "application/json", "User-Agent": "DMUAMI-Worker"})
-                with urllib.request.urlopen(req, timeout=4, context=ctx) as res:
+                req = urllib.request.Request(
+                    url,
+                    data=data,
+                    headers={
+                        "Content-Type": "application/json",
+                        "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36"
+                    }
+                )
+                with urllib.request.urlopen(req, timeout=3, context=ctx) as res:
                     if res.status == 200:
                         return True
             except Exception as e:
-                last_err = f"{url} -> {e}"
-                continue
-        print(f"[-] Debug error: {last_err}")
+                pass
     except Exception as e:
-        print(f"[-] Top error: {e}")
-    except:
         pass
     return False
 
