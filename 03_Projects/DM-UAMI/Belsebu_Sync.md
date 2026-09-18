@@ -6,6 +6,10 @@
 | cfe-overlord | UPS & CFE Power Manager | [ACTIVE] | Monitoreo activo, gestor de apagado elegante | 2026-09-18 |
 | scavenger-overlord | Auto-cura Infra | [ACTIVE] | Limpieza de logs y reinicios críticos automático | 2026-09-18 |
 | sentinel-overlord | Auditoría y Reportes | [ACTIVE] | Análisis de carga y reporte consolidado 20:00 | 2026-09-18 |
+| git-sentinel-overlord | Git Gatekeeper & Auditor | [ACTIVE] | Control de calidad, ramas y protección de main | 2026-09-18 |
+| kanban-adapter | Kanban translation layer | [ACTIVE] | Traductor entre Hermes Kanban y MCP | 2026-09-18 |
+| ha-overlord | Home Assistant Manager | [ACTIVE] | Control físico, estados y servicios automatizados | 2026-09-18 |
+| backblaze-mcp | Data Ark Keeper | [ACTIVE] | Gestión de backups B2 y despliegue de políticas | 2026-09-18 |
 
 ## Protocolo:
 1. READ: Consultar estado actual.
