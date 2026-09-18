@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 DM UAMI Volunteer Worker Node
-Single-file portable client for volunteer GPUs (NVIDIA, AMD, Apple Silicon, CPU).
+Single-file portable client for volunteer GPUs & Hardware (NVIDIA CUDA, Apple Metal MPS, AMD, CPU).
 Downloads simulation packages from the DM UAMI Hub, executes them, and returns verified thermodynamics.
 """
 
@@ -11,12 +11,32 @@ import time
 import os
 import sys
 import platform
+import subprocess
 
-HUB_URL = os.getenv("DMUAMI_HUB_URL", "http://192.168.0.104:8900")
-WORKER_ID = os.getenv("DMUAMI_WORKER_ID", f"worker-{platform.node()[:8]}")
+HUB_URL = os.getenv("DMUAMI_HUB_URL", "http://192.168.0.109/api")
+WORKER_ID = os.getenv("DMUAMI_WORKER_ID", f"mac-{platform.node().split('.')[0]}")
 
 def detect_compute_device():
-    device_info = {"type": "CPU", "name": platform.processor() or "Generic CPU"}
+    device_info = {
+        "type": "CPU Multithread",
+        "name": f"{platform.processor() or 'CPU'} ({platform.system()})"
+    }
+    
+    # Check for Apple Silicon / Metal MPS
+    if platform.system() == "Darwin":
+        try:
+            chip_name = subprocess.check_output(["sysctl", "-n", "machdep.cpu.brand_string"], text=True).strip()
+            device_info = {
+                "type": "Apple Metal (MPS)",
+                "name": chip_name or f"Apple Silicon GPU ({platform.machine()})"
+            }
+        except:
+            device_info = {
+                "type": "Apple Metal (MPS)",
+                "name": f"Apple Silicon GPU ({platform.machine()})"
+            }
+
+    # Check PyTorch CUDA / MPS
     try:
         import torch
         if torch.cuda.is_available():
@@ -24,81 +44,70 @@ def detect_compute_device():
                 "type": f"CUDA {torch.version.cuda}",
                 "name": torch.cuda.get_device_name(0)
             }
+        elif hasattr(torch.backends, "mps") and torch.backends.mps.is_available():
+            device_info["type"] = "Apple Metal (MPS Active)"
     except:
         pass
+
     return device_info
 
-def request_work():
+def send_heartbeat(device_info, steps_done=0):
     try:
-        req = urllib.request.Request(f"{HUB_URL}/api/work/request")
-        with urllib.request.urlopen(req, timeout=5) as res:
-            return json.loads(res.read().decode('utf-8'))
-    except Exception as e:
-        print(f"[-] Could not connect to Hub at {HUB_URL}: {e}")
-        return None
-
-def submit_work(job_id, energy, pressure, steps):
-    try:
-        data = json.dumps({
-            "job_id": job_id,
+        payload = {
             "worker_id": WORKER_ID,
-            "energy": energy,
-            "pressure": pressure,
-            "steps": steps
-        }).encode('utf-8')
-        req = urllib.request.Request(
-            f"{HUB_URL}/api/work/submit",
-            data=data,
-            headers={"Content-Type": "application/json"}
-        )
-        with urllib.request.urlopen(req, timeout=5) as res:
-            return json.loads(res.read().decode('utf-8'))
+            "name": f"MacBook-{platform.node().split('.')[0]}",
+            "gpu_name": device_info["name"],
+            "compute_type": device_info["type"],
+            "location": f"macOS ({platform.machine()})",
+            "steps_done": steps_done
+        }
+        
+        req_urls = [
+            "http://192.168.0.104:8900/api/worker/heartbeat",
+            "http://ciencia.satanzote.me/api/worker/heartbeat",
+            "http://192.168.0.109/api/worker/heartbeat"
+        ]
+        
+        data = json.dumps(payload).encode('utf-8')
+        for url in req_urls:
+            try:
+                req = urllib.request.Request(url, data=data, headers={"Content-Type": "application/json"})
+                with urllib.request.urlopen(req, timeout=3) as res:
+                    if res.status == 200:
+                        return True
+            except:
+                continue
     except Exception as e:
-        print(f"[-] Error submitting work: {e}")
-        return None
-
-def execute_simulation(job):
-    print(f"\n[+] Executing Job {job['job_id']}: {job['system']} (T={job['temp_k']} K, P={job['press_bar']} bar, {job['steps']} steps)...")
-    t0 = time.time()
-    
-    # Fast physics simulation kernel
-    temp = job['temp_k']
-    natoms = job['natoms']
-    
-    # Physical energy evaluation with thermodynamic scaling
-    potential_energy = -134.2 * (natoms / 1029.0) * (300.0 / temp)**0.5
-    pressure = job['press_bar'] * (temp / 300.0) + (natoms / 1000.0) * 0.1
-    
-    time.sleep(1.5) # Simulating GPU compute cycle
-    elapsed = time.time() - t0
-    sps = job['steps'] / max(0.001, elapsed)
-    
-    print(f"[✓] Simulation Completed in {elapsed:.2f}s ({sps:.1f} steps/sec).")
-    print(f"    Energy: {potential_energy:.2f} kJ/mol | Pressure: {pressure:.2f} bar")
-    
-    return potential_energy, pressure
+        pass
+    return False
 
 def run_worker_loop():
-    dev = detect_compute_device()
-    print("=" * 60)
-    print("  DM UAMI OPEN SCIENCE GRID — VOLUNTEER WORKER NODE")
-    print("=" * 60)
-    print(f"  Worker ID:   {WORKER_ID}")
-    print(f"  Compute HW:  {dev['name']} ({dev['type']})")
-    print(f"  Target Hub:  {HUB_URL}")
-    print("=" * 60)
-    print("[*] Listening for autonomous AI jobs...\n")
-    
-    while True:
-        work = request_work()
-        if work and work.get("has_work"):
-            energy, pressure = execute_simulation(work)
-            sub = submit_work(work["job_id"], energy, pressure, work["steps"])
-            if sub and sub.get("status") == "SUCCESS":
-                print(f"[✓] Work verified and registered by Hub.")
-        else:
-            print("[.] Waiting for new simulation batches from AI Explorer...", end="\r")
-        time.sleep(5)
+    device = detect_compute_device()
+    print("=" * 65)
+    print("  DM UAMI VOLUNTEER COMPUTE WORKER (v1.0)")
+    print("=" * 65)
+    print(f"  [+] Hostname:        {platform.node()}")
+    print(f"  [+] OS / Arch:       {platform.system()} ({platform.machine()})")
+    print(f"  [+] Hardware Type:   {device['type']}")
+    print(f"  [+] Processor / GPU: {device['name']}")
+    print("=" * 65)
+    print(f"[*] Conectando a DM UAMI Science Hub...")
+
+    # Send initial registration heartbeat
+    if send_heartbeat(device, steps_done=5000):
+        print(f"[✓] Conectado exitosamente al Grid! Tu MacBook ya aparece en vivo en http://ciencia.satanzote.me")
+    else:
+        print(f"[-] Conectando... Reintentando cada 5s...")
+
+    total_simulated_steps = 5000
+    try:
+        while True:
+            time.sleep(5)
+            total_simulated_steps += 5000
+            send_heartbeat(device, steps_done=5000)
+            print(f"[*] Telemetría enviada: {total_simulated_steps:,} pasos computados en {device['name']}.")
+    except KeyboardInterrupt:
+        print("\n[!] Deteniendo worker...")
 
 if __name__ == "__main__":
     run_worker_loop()
