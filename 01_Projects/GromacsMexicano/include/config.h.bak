@@ -1,0 +1,108 @@
+#ifndef CONFIG_H
+#define CONFIG_H
+
+#include <vector>
+#include <string>
+#include <cmath>
+
+// Atom type structure
+struct AtomType {
+    std::string name;
+    double mass;
+    double charge;
+    double sigma;      // Individual LJ sigma parameter
+    double epsilon;    // Individual LJ epsilon parameter
+};
+
+// Bonded force structures
+struct Bond {
+    int i, j;
+    double req;      // equilibrium distance
+    double k_b;      // force constant
+};
+
+struct Angle {
+    int i, j, k;
+    double theta_eq; // equilibrium angle
+    double k_a;      // force constant
+};
+
+struct Dihedral {
+    int i, j, k, l;
+    double phi_eq;   // equilibrium dihedral
+    double k_d;      // force constant
+    int mult;        // multiplicity
+};
+
+struct Pair14 {
+    int i, j;
+    double scale_lj;      // LJ scaling factor
+    double scale_coulomb; // Coulomb scaling factor
+};
+
+struct Config {
+    // System parameters
+    int natoms;
+    double box_size;
+    double dt;
+    int nsteps;
+    int nsave;
+    double temperature;
+    double pressure;
+    
+    // Arrays (allocate dynamically based on natoms)
+    std::vector<double> x, y, z;      // positions
+    std::vector<double> vx, vy, vz;   // velocities
+    std::vector<double> fx, fy, fz;   // forces
+    std::vector<double> mass;         // atomic masses
+    std::vector<double> charge;       // atomic charges (for Coulomb)
+    
+    // Bonded interactions
+    std::vector<Bond> bonds;
+    std::vector<Angle> angles;
+    std::vector<Dihedral> dihedrals;
+    std::vector<Pair14> pairs_1_4;
+    
+    // Non-bonded interactions (Lennard-Jones)
+    std::vector<std::vector<double>> sigma;    // sigma[i][j] matrix
+    std::vector<std::vector<double>> epsilon;  // epsilon[i][j] matrix
+    
+    // Flat LJ parameter matrices (100 elements each = 10x10)
+    // Filled after readTOP() using Lorentz-Berthelot combining rules
+    std::vector<double> sigma_matrix;  // Flat array: sigma[i+j*10]
+    std::vector<double> eps_matrix;    // Flat array: eps[i+j*10]
+    
+    // Atom types (per-atom type assignments from .top file)
+    std::vector<int> types;  // types[atom_idx] = type_id (0-9)
+    
+    // Ewald parameters
+    double ewald_alpha;
+    int ewald_kmax;
+    
+    // GPU device pointers
+    int* d_types;           // Device copy of atom types
+    double* d_sigma;        // Device LJ sigma matrix
+    double* d_eps;          // Device LJ epsilon matrix
+    double* d_sigma12;    // Device LJ sigma^12 matrix (precomputed)
+    double* d_sigma6;     // Device LJ sigma^6 matrix (precomputed)
+double* sigma12;      // Host LJ sigma^12 matrix (precomputed)
+    double* sigma6;       // Host LJ sigma^6 matrix (precomputed)
+    int* d_nlist;           // Device neighbor list
+    int* d_nlist_count;     // Device neighbor count per atom
+    int max_neighbors;      // Max neighbors per atom
+    
+    // Thermostat
+    double tau_t;
+    double Q_mass;
+};
+
+#endif // CONFIG_H
+
+// CUDA Error Checking Macro
+#define CUDA_CHECK(call) { \
+  cudaError_t err = call; \
+  if (err != cudaSuccess) { \
+    fprintf(stderr, "CUDA error at %s:%d: %s\n", __FILE__, __LINE__, cudaGetErrorString(err)); \
+    exit(EXIT_FAILURE); \
+  } \
+}
