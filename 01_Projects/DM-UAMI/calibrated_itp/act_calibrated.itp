@@ -1,0 +1,11 @@
+; DM UAMI Calibrated Force Field Include File
+; Molecule: Acetone (Propanone) (Carbonyl Solvent)
+; Calibrated against experimental data at T = 298.15 K
+[ moleculetype ]
+ACT 3
+
+[ atoms ]
+   1  opls_800    1  ACT  O00    1   -0.4488    15.999 ; sig=0.30579 eps=0.65447
+   2  opls_801    1  ACT  C01    1    0.1496    12.011 ; sig=0.39410 eps=0.49579
+   3  opls_802    1  ACT  C02    1    0.1496    15.031 ; sig=0.39410 eps=0.49579
+   4  opls_802    1  ACT  C03    1    0.1496    15.031 ; sig=0.39410 eps=0.49579

@@ -1,0 +1,10 @@
+; DM UAMI Calibrated Force Field Include File
+; Molecule: Dimethyl Ether (DME) (Linear Ether / Battery Solvent)
+; Calibrated against experimental data at T = 298.15 K
+[ moleculetype ]
+DME 3
+
+[ atoms ]
+   1  opls_180    1  DME  O01    1   -0.4489    15.999 ; sig=0.31680 eps=0.49729
+   2  opls_181    1  DME  C01    1    0.2245    15.031 ; sig=0.38340 eps=0.65691
+   3  opls_181    1  DME  C02    1    0.2245    15.031 ; sig=0.38340 eps=0.65691
