@@ -1,0 +1,14 @@
+; DM UAMI Calibrated Force Field Include File
+; Molecule: Propylene Carbonate (PC) (Cyclic Carbonate / Li-Ion Electrolyte)
+; Calibrated against experimental data at T = 298.15 K
+[ moleculetype ]
+PCH 3
+
+[ atoms ]
+   1  opls_911    1  PCH  O01    1   -0.4491    15.999 ; sig=0.29904 eps=0.62831
+   2  opls_912    1  PCH  C01    1    0.0748    12.011 ; sig=0.39990 eps=0.53552
+   3  opls_913    1  PCH  O02    1   -0.4491    15.999 ; sig=0.29904 eps=0.62831
+   4  opls_913    1  PCH  O03    1   -0.4491    15.999 ; sig=0.29904 eps=0.62831
+   5  opls_914    1  PCH  C02    1    0.0748    13.019 ; sig=0.39990 eps=0.53552
+   6  opls_915    1  PCH  C03    1    0.0748    14.027 ; sig=0.39990 eps=0.53552
+   7  opls_916    1  PCH  C04    1    0.0748    15.031 ; sig=0.39990 eps=0.53552
