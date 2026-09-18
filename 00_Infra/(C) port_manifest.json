@@ -1,0 +1,15 @@
+{
+  "project": "SatanZote Infra",
+  "team": "NetRunner",
+  "policy": "strict-whitelist",
+  "allowed_ports": [
+    { "port": 8899, "protocol": "tcp", "description": "Dashboard", "access": "public" },
+    { "port": 8900, "protocol": "tcp", "description": "Science UAMI", "access": "public" },
+    { "port": 20128, "protocol": "tcp", "description": "OmniRoute", "access": "public" },
+    { "port": 80, "protocol": "tcp", "description": "Web service", "access": "public" },
+    { "port": 445, "protocol": "tcp", "description": "SMB", "access": "internal" },
+    { "port": 139, "protocol": "tcp", "description": "SMB", "access": "internal" }
+  ],
+  "internal_only": [8317, 20130, 20131, 20132, 20241, 8080, 25],
+  "last_audit": "2026-09-19"
+}

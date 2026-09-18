@@ -1,0 +1,19 @@
+{
+  "mcp_servers": {
+    "proxmox": {
+      "command": "/opt/mcp/ProxmoxMCP-Plus/.venv/bin/python3",
+      "args": ["/opt/mcp/ProxmoxMCP-Plus/main.py"],
+      "enabled": true,
+      "env": {
+        "PROXMOX_HOST": "192.168.0.52",
+        "PROXMOX_USER": "root@pam"
+      }
+    }
+  },
+  "platform_skills": {
+    "homeassistant": {
+      "type": "skill",
+      "status": "active"
+    }
+  }
+}
