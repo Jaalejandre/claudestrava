@@ -1,0 +1,25 @@
+{
+  "date": "2026-09-18 05:15:36",
+  "results": {
+    "Small": {
+      "status": "FAILED",
+      "atoms": 192,
+      "raw": "\u2550\u2550\u2550\u2550\u2550\u2550\u2557\n\u2551     PHASE 4 v1.2 - FULL GPU ACCELERATION               \u2551\n\u2551     NO CPU FALLBACK - 100% CUDA SIMULATION             \u2551\n\u255a\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u255d\n\nLoading system from GROMACS files...\nValor de kappa en 1/nm 20.07\nKmax: 5 5 5\nAlpha: 20.07\nTotal k-vectors: 297"
+    },
+    "Medium": {
+      "status": "FAILED",
+      "atoms": 1029,
+      "raw": "\u2550\u2550\u2550\u2550\u2550\u2550\u2557\n\u2551     PHASE 4 v1.2 - FULL GPU ACCELERATION               \u2551\n\u2551     NO CPU FALLBACK - 100% CUDA SIMULATION             \u2551\n\u255a\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u255d\n\nLoading system from GROMACS files...\nValor de kappa en 1/nm 20.07\nKmax: 5 5 5\nAlpha: 20.07\nTotal k-vectors: 297"
+    },
+    "Large": {
+      "status": "FAILED",
+      "atoms": 10125,
+      "raw": "\u2550\u2550\u2550\u2550\u2550\u2550\u2557\n\u2551     PHASE 4 v1.2 - FULL GPU ACCELERATION               \u2551\n\u2551     NO CPU FALLBACK - 100% CUDA SIMULATION             \u2551\n\u255a\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u255d\n\nLoading system from GROMACS files...\nValor de kappa en 1/nm 20.07\nKmax: 5 5 5\nAlpha: 20.07\nTotal k-vectors: 297"
+    }
+  },
+  "errors": [
+    "Error en Small: bash: warning: setlocale: LC_ALL: cannot change locale (en_US.UTF-8)\nERROR reading files: Cannot open file: ./file.gro\nFalling back to hardcoded initialization...\n[INIT] Initializing CUDA Streams...\n[DEBUG] CUDA Streams initialized:\n  stream_list:   0x5fc37e871610\n  stream_forces: 0x5fc37e871590\n  stream_kwald:  0x5fc37e878880\n[INIT] CUDA Streams ready",
+    "Error en Medium: bash: warning: setlocale: LC_ALL: cannot change locale (en_US.UTF-8)\nERROR reading files: Cannot open file: ./file.gro\nFalling back to hardcoded initialization...\n[INIT] Initializing CUDA Streams...\n[DEBUG] CUDA Streams initialized:\n  stream_list:   0x63addaa44650\n  stream_forces: 0x63addaa445d0\n  stream_kwald:  0x63addaa4b8c0\n[INIT] CUDA Streams ready",
+    "Error en Large: bash: warning: setlocale: LC_ALL: cannot change locale (en_US.UTF-8)\nERROR reading files: Cannot open file: ./file.gro\nFalling back to hardcoded initialization...\n[INIT] Initializing CUDA Streams...\n[DEBUG] CUDA Streams initialized:\n  stream_list:   0x605c689fb6c0\n  stream_forces: 0x605c689fb640\n  stream_kwald:  0x605c68a02930\n[INIT] CUDA Streams ready"
+  ]
+}
