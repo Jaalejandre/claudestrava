@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>SOY SATANZOTE // Mobile Ops</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Space+Grotesk:wght@400;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #07070b;
+            --card-bg: rgba(18, 18, 28, 0.85);
+            --card-border: rgba(255, 42, 95, 0.25);
+            --neon-red: #ff2a5f;
+            --neon-cyan: #00f0ff;
+            --neon-green: #00ff66;
+            --neon-purple: #b026ff;
+            --neon-amber: #ffb800;
+            --text-main: #f0f0f8;
+            --text-dim: #7e7e9a;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background-color: var(--bg);
+            background-image: 
+                radial-gradient(circle at 50% 0%, rgba(255, 42, 95, 0.08) 0%, transparent 60%),
+                linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+            background-size: 100% 100%, 20px 20px, 20px 20px;
+            color: var(--text-main);
+            font-family: 'Space Grotesk', sans-serif;
+            min-height: 100vh;
+            padding: 12px;
+            overflow-x: hidden;
+        }
+
+        /* HEADER */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 14px;
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 14px;
+            margin-bottom: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+            backdrop-filter: blur(8px);
+        }
+
+        .logo-box {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .pixel-devil {
+            font-size: 24px;
+            filter: drop-shadow(0 0 8px var(--neon-red));
+            animation: float 2s infinite ease-in-out;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-4px); }
+        }
+
+        .title {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 11px;
+            color: var(--neon-red);
+            letter-spacing: 0.5px;
+            text-shadow: 0 0 10px rgba(255,42,95,0.5);
+        }
+
+        .live-tag {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 10px;
+            color: var(--neon-green);
+            background: rgba(0, 255, 102, 0.1);
+            padding: 4px 8px;
+            border-radius: 20px;
+            border: 1px solid rgba(0, 255, 102, 0.3);
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .pulse-dot {
+            width: 6px;
+            height: 6px;
+            background: var(--neon-green);
+            border-radius: 50%;
+            box-shadow: 0 0 8px var(--neon-green);
+            animation: pulse 1s infinite alternate;
+        }
+
+        @keyframes pulse {
+            from { opacity: 0.4; transform: scale(0.8); }
+            to { opacity: 1; transform: scale(1.2); }
+        }
+
+        /* ARCADE PAC-MAN CANVAS */
+        .arcade-container {
+            position: relative;
+            background: #030308;
+            border: 1px solid rgba(0, 240, 255, 0.3);
+            border-radius: 16px;
+            margin-bottom: 14px;
+            overflow: hidden;
+            box-shadow: 0 0 25px rgba(0, 240, 255, 0.1);
+        }
+
+        .arcade-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 12px;
+            background: rgba(0, 240, 255, 0.05);
+            border-bottom: 1px solid rgba(0, 240, 255, 0.15);
+            font-family: 'Press Start 2P', cursive;
+            font-size: 8px;
+            color: var(--neon-cyan);
+        }
+
+        #arcadeCanvas {
+            width: 100%;
+            height: 230px;
+            display: block;
+        }
+
+        /* METRICS GRID */
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 12px;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 14px;
+            padding: 12px;
+            backdrop-filter: blur(8px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card.wide {
+            grid-column: span 2;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 3px;
+            height: 100%;
+            background: var(--neon-red);
+        }
+
+        .card.gpu::before { background: var(--neon-green); }
+        .card.ai::before { background: var(--neon-purple); }
+        .card.net::before { background: var(--neon-cyan); }
+
+        .card-title {
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--text-dim);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 6px;
+        }
+
+        .card-value {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--text-main);
+            margin-bottom: 4px;
+        }
+
+        .card-sub {
+            font-size: 10px;
+            color: var(--text-dim);
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        /* PROGRESS BARS */
+        .progress-bar-bg {
+            width: 100%;
+            height: 6px;
+            background: rgba(255,255,255,0.08);
+            border-radius: 4px;
+            margin-top: 6px;
+            overflow: hidden;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--neon-cyan), var(--neon-green));
+            border-radius: 4px;
+            transition: width 0.5s ease;
+        }
+
+        /* SQUADS LIST */
+        .squads-container {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 14px;
+            padding: 12px;
+            margin-bottom: 12px;
+        }
+
+        .squad-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .squad-item:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .squad-info {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .squad-icon {
+            font-size: 14px;
+        }
+
+        .squad-name {
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .squad-role {
+            font-size: 10px;
+            color: var(--text-dim);
+        }
+
+        .squad-status {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 9px;
+            padding: 3px 6px;
+            border-radius: 4px;
+            font-weight: 700;
+        }
+
+        footer {
+            text-align: center;
+            padding: 10px;
+            font-size: 10px;
+            color: var(--text-dim);
+            font-family: 'JetBrains Mono', monospace;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HEADER -->
+    <header>
+        <div class="logo-box">
+            <div class="pixel-devil">😈</div>
+            <div>
+                <div class="title">SOY.SATANZOTE</div>
+                <div style="font-size: 9px; color: var(--text-dim); margin-top: 2px;">CT 666 // Autonomous Center</div>
+            </div>
+        </div>
+        <div class="live-tag">
+            <div class="pulse-dot"></div>
+            <span id="liveClock">LIVE</span>
+        </div>
+    </header>
+
+    <!-- PAC-MAN BELSEBU ARCADE CANVAS -->
+    <div class="arcade-container">
+        <div class="arcade-header">
+            <span>⚡ BELSEBU SQUAD MESH</span>
+            <span id="arcadePackets">PACKETS: 142/s</span>
+        </div>
+        <canvas id="arcadeCanvas"></canvas>
+    </div>
+
+    <!-- METRICS GRID -->
+    <div class="metrics-grid">
+        
+        <!-- GPU CARD -->
+        <div class="card wide gpu">
+            <div class="card-title">
+                <span>🔥 NVIDIA RTX 5070 Ti (CT 901)</span>
+                <span id="gpuTemp" style="color: var(--neon-green);">37°C</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; align-items: baseline;">
+                <div class="card-value" id="gpuUtil">83% LOAD</div>
+                <div class="card-sub" id="gpuPower">55.8 W</div>
+            </div>
+            <div class="card-sub" style="margin-top: 4px; color: var(--neon-cyan);" id="gpuTask">
+                Simulación: DM UAMI (20M Steps)
+            </div>
+            <div class="progress-bar-bg">
+                <div class="progress-bar-fill" id="simProgress" style="width: 16%;"></div>
+            </div>
+            <div style="display: flex; justify-content: space-between; margin-top: 4px;" class="card-sub">
+                <span id="simStep">Step: 3,200,000</span>
+                <span id="simPct">16.0%</span>
+            </div>
+        </div>
+
+        <!-- CPU & PROXMOX -->
+        <div class="card">
+            <div class="card-title">
+                <span>🖥️ CPU HOST</span>
+                <span>i5-14600K</span>
+            </div>
+            <div class="card-value" id="cpuTemp">45.0°C</div>
+            <div class="card-sub" id="hostUptime">Up 2 days</div>
+        </div>
+
+        <!-- RAM PROXMOX -->
+        <div class="card">
+            <div class="card-title">
+                <span>💾 RAM TOTAL</span>
+                <span id="ramPct">52%</span>
+            </div>
+            <div class="card-value" id="ramUsed">16.2 GB</div>
+            <div class="card-sub">de 31.0 GB</div>
+        </div>
+
+        <!-- OMNIROUTE AI GATEWAY -->
+        <div class="card wide ai">
+            <div class="card-title">
+                <span>🧠 OMNIROUTE GATEWAY</span>
+                <span style="color: var(--neon-purple);">PORT 20128</span>
+            </div>
+            <div class="card-value" id="omniTokens">14.5M TOKENS</div>
+            <div class="card-sub" style="color: var(--neon-green);" id="omniTier">
+                satanzote-apex (Tier 1 AGY Flash 90% / Claude Pro Guarded)
+            </div>
+        </div>
+
+    </div>
+
+    <!-- SQUADS SECTION -->
+    <div class="squads-container">
+        <div class="card-title" style="margin-bottom: 10px;">
+            <span>🛡️ ESCUADRONES BELSEBU (6 ACTIVOS)</span>
+            <span>CT 666 / 901 / 114</span>
+        </div>
+        <div id="squadsList">
+            <!-- Dynamically populated -->
+        </div>
+    </div>
+
+    <footer>
+        SOY.SATANZOTE.ME // Jose Alejandre Operations // 2026
+    </footer>
+
+    <script>
+        // LIVE DATA POLLING
+        async function updateData() {
+            try {
+                const res = await fetch('/api/status');
+                const data = await res.json();
+                
+                document.getElementById('liveClock').innerText = data.time_str || 'LIVE';
+                
+                // GPU
+                document.getElementById('gpuTemp').innerText = data.gpu.temp_c + '°C';
+                document.getElementById('gpuUtil').innerText = data.gpu.util_pct + '% LOAD';
+                document.getElementById('gpuPower').innerText = data.gpu.power_watts + ' W';
+                document.getElementById('gpuTask').innerText = data.gpu.active_task;
+                document.getElementById('simProgress').style.width = data.gpu.progress_pct + '%';
+                document.getElementById('simStep').innerText = 'Step: ' + data.gpu.step.toLocaleString();
+                document.getElementById('simPct').innerText = data.gpu.progress_pct + '%';
+
+                // Host
+                document.getElementById('cpuTemp').innerText = data.host.cpu_temp;
+                document.getElementById('hostUptime').innerText = 'Up ' + data.host.uptime;
+                document.getElementById('ramPct').innerText = data.host.ram_pct + '%';
+                document.getElementById('ramUsed').innerText = (data.host.ram_used_mb / 1024).toFixed(1) + ' GB';
+
+                // OmniRoute
+                document.getElementById('omniTokens').innerText = (data.omniroute.tokens_today / 1000000).toFixed(2) + 'M TOKENS';
+                document.getElementById('omniTier').innerText = data.omniroute.active_combo + ' • ' + data.omniroute.tier_status;
+
+                // Squads
+                const list = document.getElementById('squadsList');
+                list.innerHTML = data.squads.map(s => `
+                    <div class="squad-item">
+                        <div class="squad-info">
+                            <span class="squad-icon" style="color: ${s.color};">👾</span>
+                            <div>
+                                <div class="squad-name" style="color: ${s.color};">${s.name}</div>
+                                <div class="squad-role">${s.role}</div>
+                            </div>
+                        </div>
+                        <div class="squad-status" style="background: ${s.color}22; color: ${s.color}; border: 1px solid ${s.color}66;">
+                            ${s.status}
+                        </div>
+                    </div>
+                `).join('');
+
+            } catch (e) {
+                console.error(e);
+            }
+        }
+
+        setInterval(updateData, 2000);
+        updateData();
+
+        // RETRO PAC-MAN DIABLITOS CANVAS ENGINE
+        const canvas = document.getElementById('arcadeCanvas');
+        const ctx = canvas.getContext('2d');
+
+        function resizeCanvas() {
+            canvas.width = canvas.parentElement.clientWidth;
+            canvas.height = 230;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        // Mesh Nodes
+        const nodes = [
+            { id: 'master', name: 'SATANZOTE (666)', x: 0.5, y: 0.45, color: '#ff2a5f', radius: 18, isMaster: true },
+            { id: 'daemon', name: 'DAEMON (901)', x: 0.18, y: 0.22, color: '#ff5500', radius: 13 },
+            { id: 'sentinel', name: 'SENTINEL', x: 0.82, y: 0.22, color: '#00ff66', radius: 13 },
+            { id: 'omnimind', name: 'OMNIMIND', x: 0.18, y: 0.78, color: '#b026ff', radius: 13 },
+            { id: 'ark', name: 'ARK (B2)', x: 0.82, y: 0.78, color: '#00f0ff', radius: 13 },
+            { id: 'net', name: 'NETRUNNER', x: 0.5, y: 0.88, color: '#ffb800', radius: 13 }
+        ];
+
+        // Circuit Connections
+        const edges = [
+            [0, 1], [0, 2], [0, 3], [0, 4], [0, 5],
+            [1, 2], [3, 5], [4, 5], [1, 3], [2, 4]
+        ];
+
+        // Diablitos (Pac-Man Style Agents)
+        const diablitos = [
+            { edgeIdx: 0, progress: 0.1, speed: 0.008, color: '#ff2a5f', dir: 1, mouth: 0, name: 'Satan-01' },
+            { edgeIdx: 0, progress: 0.6, speed: 0.007, color: '#ff5500', dir: -1, mouth: 0, name: 'Daemon-X' },
+            { edgeIdx: 1, progress: 0.3, speed: 0.009, color: '#00ff66', dir: 1, mouth: 0, name: 'Sentinel-01' },
+            { edgeIdx: 2, progress: 0.8, speed: 0.006, color: '#b026ff', dir: -1, mouth: 0, name: 'Router-AI' },
+            { edgeIdx: 3, progress: 0.4, speed: 0.008, color: '#00f0ff', dir: 1, mouth: 0, name: 'Ark-Backup' },
+            { edgeIdx: 4, progress: 0.7, speed: 0.009, color: '#ffb800', dir: -1, mouth: 0, name: 'Net-Scan' }
+        ];
+
+        // Glowing Bits/Dots on tracks
+        const dots = [];
+        for (let i = 0; i < 24; i++) {
+            dots.push({
+                edgeIdx: Math.floor(Math.random() * edges.length),
+                pos: Math.random(),
+                eaten: false
+            });
+        }
+
+        let frame = 0;
+
+        function drawDiablito(x, y, angle, color, mouthAngle) {
+            ctx.save();
+            ctx.translate(x, y);
+            ctx.rotate(angle);
+
+            // Body (Pac-Man style with devil horns)
+            ctx.fillStyle = color;
+            ctx.shadowColor = color;
+            ctx.shadowBlur = 10;
+
+            // Main Arc / Body with chomp mouth
+            ctx.beginPath();
+            ctx.arc(0, 0, 9, mouthAngle, Math.PI * 2 - mouthAngle, false);
+            ctx.lineTo(0, 0);
+            ctx.fill();
+
+            // Devil Horns
+            ctx.beginPath();
+            ctx.moveTo(-4, -8);
+            ctx.lineTo(-7, -15);
+            ctx.lineTo(-1, -9);
+            ctx.fill();
+
+            ctx.beginPath();
+            ctx.moveTo(4, -8);
+            ctx.lineTo(7, -15);
+            ctx.lineTo(1, -9);
+            ctx.fill();
+
+            // Glowing Eye
+            ctx.fillStyle = '#ffffff';
+            ctx.shadowBlur = 0;
+            ctx.beginPath();
+            ctx.arc(1, -3, 2, 0, Math.PI * 2);
+            ctx.fill();
+
+            ctx.restore();
+        }
+
+        function animate() {
+            frame++;
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            const w = canvas.width;
+            const h = canvas.height;
+
+            // 1. Draw Circuit Tracks
+            ctx.lineWidth = 2;
+            edges.forEach(([i1, i2]) => {
+                const n1 = nodes[i1];
+                const n2 = nodes[i2];
+                const x1 = n1.x * w;
+                const y1 = n1.y * h;
+                const x2 = n2.x * w;
+                const y2 = n2.y * h;
+
+                // Track Line
+                ctx.strokeStyle = 'rgba(0, 240, 255, 0.15)';
+                ctx.shadowBlur = 0;
+                ctx.beginPath();
+                ctx.moveTo(x1, y1);
+                ctx.lineTo(x2, y2);
+                ctx.stroke();
+            });
+
+            // 2. Draw Data Dots (Pac-Man Pellets)
+            dots.forEach(d => {
+                const edge = edges[d.edgeIdx];
+                const n1 = nodes[edge[0]];
+                const n2 = nodes[edge[1]];
+                const x = n1.x * w + (n2.x * w - n1.x * w) * d.pos;
+                const y = n1.y * h + (n2.y * h - n1.y * h) * d.pos;
+
+                ctx.fillStyle = 'rgba(0, 240, 255, 0.6)';
+                ctx.shadowColor = '#00f0ff';
+                ctx.shadowBlur = 4;
+                ctx.beginPath();
+                ctx.arc(x, y, 2, 0, Math.PI * 2);
+                ctx.fill();
+            });
+
+            // 3. Draw Nodes
+            nodes.forEach(n => {
+                const nx = n.x * w;
+                const ny = n.y * h;
+
+                // Glow ring
+                ctx.strokeStyle = n.color;
+                ctx.shadowColor = n.color;
+                ctx.shadowBlur = n.isMaster ? 15 : 8;
+                ctx.lineWidth = 2;
+                ctx.beginPath();
+                ctx.arc(nx, ny, n.radius + Math.sin(frame * 0.05) * 2, 0, Math.PI * 2);
+                ctx.stroke();
+
+                // Core fill
+                ctx.fillStyle = '#0a0a14';
+                ctx.beginPath();
+                ctx.arc(nx, ny, n.radius, 0, Math.PI * 2);
+                ctx.fill();
+
+                // Center icon
+                ctx.fillStyle = n.color;
+                ctx.font = n.isMaster ? '12px "Press Start 2P"' : '9px "Space Grotesk"';
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'middle';
+                ctx.fillText(n.isMaster ? '666' : n.name.split(' ')[0], nx, ny);
+
+                // Label below
+                ctx.font = '8px "JetBrains Mono"';
+                ctx.fillStyle = '#a0a0c0';
+                ctx.shadowBlur = 0;
+                ctx.fillText(n.name, nx, ny + n.radius + 9);
+            });
+
+            // 4. Update and Draw Diablitos
+            diablitos.forEach(agent => {
+                agent.progress += agent.speed * agent.dir;
+                if (agent.progress >= 1) {
+                    agent.progress = 1;
+                    agent.dir = -1;
+                    agent.edgeIdx = Math.floor(Math.random() * edges.length);
+                } else if (agent.progress <= 0) {
+                    agent.progress = 0;
+                    agent.dir = 1;
+                    agent.edgeIdx = Math.floor(Math.random() * edges.length);
+                }
+
+                const edge = edges[agent.edgeIdx];
+                const n1 = nodes[edge[0]];
+                const n2 = nodes[edge[1]];
+                const x1 = n1.x * w;
+                const y1 = n1.y * h;
+                const x2 = n2.x * w;
+                const y2 = n2.y * h;
+
+                const curX = x1 + (x2 - x1) * agent.progress;
+                const curY = y1 + (y2 - y1) * agent.progress;
+
+                let angle = Math.atan2(y2 - y1, x2 - x1);
+                if (agent.dir === -1) angle += Math.PI;
+
+                const mouth = Math.abs(Math.sin(frame * 0.2)) * 0.45;
+                drawDiablito(curX, curY, angle, agent.color, mouth);
+            });
+
+            requestAnimationFrame(animate);
+        }
+
+        animate();
+    </script>
+</body>
+</html>
