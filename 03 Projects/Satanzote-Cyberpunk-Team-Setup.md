@@ -1,8 +1,8 @@
-# Satanzote Cyberpunk Orchestration Team (RUDR9)
+# Satanzote Cyberpunk Orchestration Team (BELSEBU)
 
 - **Host Node**: CT 666 (`satanzote`, `192.168.0.104`)
 - **Proxmox Master**: `192.168.0.52`
-- **Methodology**: RUDR9 Strict 9-Role Cyberpunk Matrix
+- **Methodology**: BELSEBU Strict 9-Role Cyberpunk Matrix
 - **Created**: 2026-09-18
 
 ---
@@ -23,7 +23,7 @@
 
 ---
 
-## Workflow Sequence (RUDR9 Enforcement)
+## Workflow Sequence (BELSEBU Enforcement)
 
 ```
 [User Goal]

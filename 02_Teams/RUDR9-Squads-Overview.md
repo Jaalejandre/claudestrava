@@ -1,4 +1,4 @@
-# Escuadrones RUDR9 Oficiales de Satanzote
+# Escuadrones BELSEBU Oficiales de Satanzote
 
 | Escuadrón | Dominio Principal | Overlord (CTO) | Host / Nodo de Cómputo |
 |---|---|---|---|
