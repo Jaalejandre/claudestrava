@@ -31,7 +31,8 @@ La directiva principal: optimizar código científico.
 - **Respuesta directa** — dame la respuesta directa, sin rodeos ni relleno.
 - **Idioma de Documentación para DM UAMI** — Toda la documentación técnica, READMEs, benchmarks, especificaciones, comentarios de código y commits del proyecto `DM UAMI` deben redactarse exclusivamente en **inglés**.
 - **Manejo de archivos por default** — prefijo `(C)` en archivos generados por IA, no edites notas existentes sin permiso.
-- **Ruteo de modelos** — **Opus** para review, validación y pensamiento estratégico (planeación, arquitectura, decisiones). **Sonnet** por defecto para programar, documentar y git.
+- **Fuentes de Verdad (Infraestructura)** — Cualquier cambio en la configuración (MCPs, plugins, variables, ruteo) DEBE definirse primero en `/root/JarvisVault/00_Infra/(C) mcp_manifest.json`. No se permiten ediciones locales temporales; si no está en el manifiesto, el cambio no existe.
+- **Ruteo de modelos** — **Opus** para review, validación y pensamiento estratégico (planeación, arquitectura, decisiones). **Sonnet** por
 
 
 ## Infraestructura (dónde vive todo)
