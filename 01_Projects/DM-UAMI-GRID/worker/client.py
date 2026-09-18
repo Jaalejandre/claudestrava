@@ -159,9 +159,14 @@ def is_safe_to_compute():
 
 def send_heartbeat(device_info, steps_done=0, safe_status="OK"):
     try:
+        import ssl
+        ctx = ssl.create_default_context()
+        ctx.check_hostname = False
+        ctx.verify_mode = ssl.CERT_NONE
+        
         payload = {
             "worker_id": WORKER_ID,
-            "name": f"{platform.node().split('.')[0]}",
+            "name": f"MacBook-{platform.node().split('.')[0]}",
             "gpu_name": device_info["name"],
             "compute_type": device_info["type"],
             "location": f"{platform.system()} ({platform.machine()})",
@@ -169,15 +174,17 @@ def send_heartbeat(device_info, steps_done=0, safe_status="OK"):
         }
         
         req_urls = [
-            "http://192.168.0.104:8900/api/worker/heartbeat",
+            "https://ciencia.satanzote.me/api/worker/heartbeat",
             "http://ciencia.satanzote.me/api/worker/heartbeat",
+            "http://192.168.0.109/api/worker/heartbeat",
+            "http://192.168.0.104:8900/api/worker/heartbeat"
         ]
         
         data = json.dumps(payload).encode('utf-8')
         for url in req_urls:
             try:
-                req = urllib.request.Request(url, data=data, headers={"Content-Type": "application/json"})
-                with urllib.request.urlopen(req, timeout=3) as res:
+                req = urllib.request.Request(url, data=data, headers={"Content-Type": "application/json", "User-Agent": "DMUAMI-Worker"})
+                with urllib.request.urlopen(req, data=data, timeout=3, context=ctx) as res:
                     if res.status == 200:
                         return True
             except:
