@@ -181,6 +181,7 @@ def send_heartbeat(device_info, steps_done=0, safe_status="OK"):
         ]
         
         data = json.dumps(payload).encode('utf-8')
+        last_err = ""
         for url in req_urls:
             try:
                 req = urllib.request.Request(url, data=data, headers={"Content-Type": "application/json", "User-Agent": "DMUAMI-Worker"})
@@ -188,7 +189,11 @@ def send_heartbeat(device_info, steps_done=0, safe_status="OK"):
                     if res.status == 200:
                         return True
             except Exception as e:
+                last_err = f"{url} -> {e}"
                 continue
+        print(f"[-] Debug error: {last_err}")
+    except Exception as e:
+        print(f"[-] Top error: {e}")
     except:
         pass
     return False
