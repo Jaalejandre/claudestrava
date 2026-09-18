@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DM UAMI // Open Science Distributed Grid</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Space+Grotesk:wght@400;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #06070d;
+            --card-bg: rgba(15, 17, 28, 0.85);
+            --card-border: rgba(0, 240, 255, 0.2);
+            --neon-cyan: #00f0ff;
+            --neon-green: #00ff66;
+            --neon-purple: #b026ff;
+            --neon-red: #ff2a5f;
+            --neon-amber: #ffb800;
+            --text-main: #f0f2fc;
+            --text-dim: #7b809a;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            background-color: var(--bg);
+            background-image: 
+                radial-gradient(circle at 50% 0%, rgba(0, 240, 255, 0.08) 0%, transparent 60%),
+                linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+            background-size: 100% 100%, 24px 24px, 24px 24px;
+            color: var(--text-main);
+            font-family: 'Space Grotesk', sans-serif;
+            padding: 16px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 20px;
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 16px;
+            margin-bottom: 16px;
+            box-shadow: 0 4px 25px rgba(0,0,0,0.6);
+            backdrop-filter: blur(10px);
+        }
+
+        .logo-box {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-icon {
+            font-size: 28px;
+            filter: drop-shadow(0 0 10px var(--neon-cyan));
+        }
+
+        .title {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 13px;
+            color: var(--neon-cyan);
+            letter-spacing: 0.5px;
+            text-shadow: 0 0 12px rgba(0,240,255,0.6);
+        }
+
+        .live-tag {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 11px;
+            color: var(--neon-green);
+            background: rgba(0, 255, 102, 0.1);
+            padding: 6px 12px;
+            border-radius: 20px;
+            border: 1px solid rgba(0, 255, 102, 0.3);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .pulse-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--neon-green);
+            border-radius: 50%;
+            box-shadow: 0 0 10px var(--neon-green);
+            animation: pulse 1s infinite alternate;
+        }
+
+        @keyframes pulse {
+            from { opacity: 0.4; transform: scale(0.8); }
+            to { opacity: 1; transform: scale(1.2); }
+        }
+
+        /* BANNER */
+        .hero-banner {
+            background: linear-gradient(135deg, rgba(0, 240, 255, 0.1) 0%, rgba(176, 38, 255, 0.1) 100%);
+            border: 1px solid rgba(0, 240, 255, 0.3);
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .hero-text h1 {
+            font-size: 18px;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 6px;
+        }
+
+        .hero-text p {
+            font-size: 12px;
+            color: var(--text-dim);
+            max-width: 600px;
+            line-height: 1.5;
+        }
+
+        .btn-join {
+            background: linear-gradient(90deg, var(--neon-cyan), var(--neon-green));
+            color: #040810;
+            font-weight: 700;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 12px;
+            padding: 10px 18px;
+            border-radius: 8px;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 0 15px rgba(0, 240, 255, 0.4);
+            transition: transform 0.2s;
+        }
+
+        .btn-join:hover {
+            transform: translateY(-2px);
+        }
+
+        /* STATS GRID */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .stat-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 14px;
+            padding: 14px;
+            backdrop-filter: blur(8px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 3px;
+            height: 100%;
+            background: var(--neon-cyan);
+        }
+
+        .stat-card.steps::before { background: var(--neon-green); }
+        .stat-card.nodes::before { background: var(--neon-amber); }
+        .stat-card.ai::before { background: var(--neon-purple); }
+
+        .stat-title {
+            font-size: 11px;
+            color: var(--text-dim);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 6px;
+        }
+
+        .stat-value {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--text-main);
+        }
+
+        /* SECTIONS */
+        .section-box {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 16px;
+            padding: 16px;
+            margin-bottom: 16px;
+        }
+
+        .section-header {
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--neon-cyan);
+            margin-bottom: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* TABLE */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 12px;
+        }
+
+        th {
+            text-align: left;
+            padding: 10px;
+            color: var(--text-dim);
+            font-size: 10px;
+            text-transform: uppercase;
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        td {
+            padding: 10px;
+            border-bottom: 1px solid rgba(255,255,255,0.04);
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .node-tag {
+            background: rgba(0, 240, 255, 0.1);
+            color: var(--neon-cyan);
+            padding: 3px 6px;
+            border-radius: 4px;
+            border: 1px solid rgba(0, 240, 255, 0.2);
+            font-size: 10px;
+        }
+
+        .status-badge {
+            font-size: 9px;
+            padding: 3px 6px;
+            border-radius: 4px;
+            font-weight: 700;
+        }
+
+        .status-badge.active {
+            background: rgba(0, 255, 102, 0.15);
+            color: var(--neon-green);
+            border: 1px solid rgba(0, 255, 102, 0.3);
+        }
+
+        .status-badge.pending {
+            background: rgba(255, 184, 0, 0.15);
+            color: var(--neon-amber);
+            border: 1px solid rgba(255, 184, 0, 0.3);
+        }
+
+        .status-badge.completed {
+            background: rgba(0, 240, 255, 0.15);
+            color: var(--neon-cyan);
+            border: 1px solid rgba(0, 240, 255, 0.3);
+        }
+
+        footer {
+            text-align: center;
+            font-size: 11px;
+            color: var(--text-dim);
+            padding: 16px;
+            font-family: 'JetBrains Mono', monospace;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo-box">
+            <div class="logo-icon">🌐</div>
+            <div>
+                <div class="title">DM UAMI // SWARM GRID</div>
+                <div style="font-size: 10px; color: var(--text-dim); margin-top: 3px;">Open Science Distributed Computational Network</div>
+            </div>
+        </div>
+        <div class="live-tag">
+            <div class="pulse-dot"></div>
+            <span id="liveTime">CONNECTING</span>
+        </div>
+    </header>
+
+    <!-- HERO BANNER -->
+    <div class="hero-banner">
+        <div class="hero-text">
+            <h1>Autonomous Molecular Science for Everyone</h1>
+            <p>A decentralized network of volunteer GPUs powering physics simulations and training autonomous AI potential models for open scientific research.</p>
+        </div>
+        <a href="#join" class="btn-join">
+            <span>⚡ CONNECT YOUR GPU</span>
+        </a>
+    </div>
+
+    <!-- STATS GRID -->
+    <div class="stats-grid">
+        <div class="stat-card steps">
+            <div class="stat-title">Total Steps Computed</div>
+            <div class="stat-value" id="statSteps">22.5M</div>
+        </div>
+        <div class="stat-card nodes">
+            <div class="stat-title">Active Volunteer Nodes</div>
+            <div class="stat-value" id="statNodes">3 GPUs</div>
+        </div>
+        <div class="stat-card ai">
+            <div class="stat-title">AI Auto-Explorations</div>
+            <div class="stat-value" id="statCompleted">48 States</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-title">Queue Status</div>
+            <div class="stat-value" id="statPending" style="color: var(--neon-amber);">5 Pending</div>
+        </div>
+    </div>
+
+    <!-- VOLUNTEER NODES TABLE -->
+    <div class="section-box">
+        <div class="section-header">
+            <span>🖥️ CONNECTED COMPUTE NODES</span>
+            <span style="font-size: 10px; color: var(--text-dim);">Live Telemetry</span>
+        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Node / Contributor</th>
+                    <th>Hardware / Acceleration</th>
+                    <th>Location</th>
+                    <th>Computed Steps</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody id="nodesTable">
+                <!-- Dynamically populated -->
+            </tbody>
+        </table>
+    </div>
+
+    <!-- AUTONOMOUS AI SIMULATION FEED -->
+    <div class="section-box">
+        <div class="section-header">
+            <span>🧬 AUTONOMOUS EXPERIMENTAL STREAM</span>
+            <span style="font-size: 10px; color: var(--neon-purple);">Active Learning Loop</span>
+        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Job ID</th>
+                    <th>Molecular System</th>
+                    <th>Target (T / P)</th>
+                    <th>Dispatched By</th>
+                    <th>Energy Result</th>
+                    <th>State</th>
+                </tr>
+            </thead>
+            <tbody id="jobsTable">
+                <!-- Dynamically populated -->
+            </tbody>
+        </table>
+    </div>
+
+    <!-- QUICKSTART -->
+    <div class="section-box" id="join">
+        <div class="section-header">
+            <span>🚀 RUN A VOLUNTEER WORKER IN 1 MINUTE</span>
+        </div>
+        <p style="font-size: 12px; color: var(--text-dim); margin-bottom: 12px; line-height: 1.6;">
+            Download the single-file worker client and connect your NVIDIA/AMD GPU or Apple Silicon to the open science grid:
+        </p>
+        <div style="background: #030408; padding: 12px; border-radius: 8px; font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--neon-cyan); border: 1px solid rgba(0, 240, 255, 0.2);">
+            curl -O http://192.168.0.104:8900/worker/client.py && python3 client.py
+        </div>
+    </div>
+
+    <footer>
+        DM UAMI OPEN SCIENCE PLATFORM // Jose Alejandre // 2026
+    </footer>
+
+    <script>
+        async function fetchGridStats() {
+            try {
+                const res = await fetch('/api/grid/stats');
+                const data = await res.json();
+                
+                document.getElementById('liveTime').innerText = data.time_str;
+                document.getElementById('statSteps').innerText = (data.total_steps_computed / 1000000).toFixed(1) + 'M';
+                document.getElementById('statNodes').innerText = data.active_nodes_count + ' Nodes';
+                document.getElementById('statCompleted').innerText = data.completed_experiments + ' States';
+                document.getElementById('statPending').innerText = data.pending_experiments + ' Pending';
+
+                // Nodes table
+                const nTable = document.getElementById('nodesTable');
+                nTable.innerHTML = data.workers.map(w => `
+                    <tr>
+                        <td><strong>${w.name}</strong></td>
+                        <td><span class="node-tag">${w.gpu}</span></td>
+                        <td style="color: var(--text-dim);">${w.location}</td>
+                        <td>${w.steps.toLocaleString()} st</td>
+                        <td><span class="status-badge active">${w.status}</span></td>
+                    </tr>
+                `).join('');
+
+                // Jobs table
+                const jTable = document.getElementById('jobsTable');
+                jTable.innerHTML = data.recent_jobs.map(j => `
+                    <tr>
+                        <td><code>${j.id}</code></td>
+                        <td>${j.system}</td>
+                        <td>${j.temp_k} K / ${j.press_bar} bar</td>
+                        <td style="color: var(--neon-purple);">${j.creator}</td>
+                        <td>${j.energy ? j.energy.toFixed(1) + ' kJ/mol' : 'Calculating...'}</td>
+                        <td><span class="status-badge ${j.status.toLowerCase()}">${j.status}</span></td>
+                    </tr>
+                `).join('');
+
+            } catch (e) {
+                console.error(e);
+            }
+        }
+
+        setInterval(fetchGridStats, 3000);
+        fetchGridStats();
+    </script>
+</body>
+</html>
