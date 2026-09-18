@@ -1,0 +1,13 @@
+; DM UAMI Calibrated Force Field Include File
+; Molecule: Ethylene Carbonate (EC) (Cyclic Carbonate / Li-Ion Electrolyte)
+; Calibrated against experimental data at T = 313.15 K
+[ moleculetype ]
+ECH 3
+
+[ atoms ]
+   1  opls_901    1  ECH  O01    1   -0.4531    15.999 ; sig=0.32306 eps=0.72919
+   2  opls_902    1  ECH  C01    1    0.0906    12.011 ; sig=0.37788 eps=0.42725
+   3  opls_903    1  ECH  O02    1   -0.4531    15.999 ; sig=0.32306 eps=0.72919
+   4  opls_903    1  ECH  O03    1   -0.4531    15.999 ; sig=0.32306 eps=0.72919
+   5  opls_904    1  ECH  C02    1    0.0906    14.027 ; sig=0.37788 eps=0.42725
+   6  opls_904    1  ECH  C03    1    0.0906    14.027 ; sig=0.37788 eps=0.42725

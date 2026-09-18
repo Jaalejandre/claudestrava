@@ -1,0 +1,11 @@
+; DM UAMI Calibrated Force Field Include File
+; Molecule: Ethanol (Protic Alcohol)
+; Calibrated against experimental data at T = 298.15 K
+[ moleculetype ]
+EOH 3
+
+[ atoms ]
+   1  opls_116    1  EOH  O01    1   -0.4488    15.999 ; sig=0.32765 eps=0.61304
+   2  opls_117    1  EOH  H01    1    0.1496     1.008 ; sig=0.37253 eps=0.54809
+   3  opls_118    1  EOH  C01    1    0.1496    14.027 ; sig=0.37253 eps=0.54809
+   4  opls_119    1  EOH  C02    1    0.1496    15.031 ; sig=0.37253 eps=0.54809

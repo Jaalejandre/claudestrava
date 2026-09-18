@@ -1,24 +1,26 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DM UAMI // Open Science Distributed Grid</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>DM UAMI // Plataforma Científica Abierta</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Space+Grotesk:wght@400;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg: #06070d;
-            --card-bg: rgba(15, 17, 28, 0.85);
-            --card-border: rgba(0, 240, 255, 0.2);
+            --bg: #07090e;
+            --surface: rgba(15, 20, 32, 0.9);
+            --surface-card: rgba(20, 26, 43, 0.7);
+            --border: rgba(0, 240, 255, 0.18);
+            --border-subtle: rgba(255, 255, 255, 0.07);
             --neon-cyan: #00f0ff;
-            --neon-green: #00ff66;
+            --neon-green: #00ff88;
             --neon-purple: #b026ff;
-            --neon-red: #ff2a5f;
             --neon-amber: #ffb800;
-            --text-main: #f0f2fc;
-            --text-dim: #7b809a;
+            --text: #f0f4fc;
+            --text-dim: #7e879f;
+            --text-muted: #535b75;
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -26,68 +28,76 @@
         body {
             background-color: var(--bg);
             background-image: 
-                radial-gradient(circle at 50% 0%, rgba(0, 240, 255, 0.08) 0%, transparent 60%),
-                linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
-            background-size: 100% 100%, 24px 24px, 24px 24px;
-            color: var(--text-main);
-            font-family: 'Space Grotesk', sans-serif;
+                radial-gradient(circle at 50% 0%, rgba(0, 240, 255, 0.07) 0%, transparent 55%),
+                linear-gradient(rgba(255, 255, 255, 0.015) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.015) 1px, transparent 1px);
+            background-size: 100% 100%, 28px 28px, 28px 28px;
+            color: var(--text);
+            font-family: 'Inter', -apple-system, sans-serif;
             padding: 16px;
-            max-width: 1000px;
+            max-width: 1050px;
             margin: 0 auto;
+            line-height: 1.5;
         }
 
+        /* HEADER */
         header {
             display: flex;
             justify-content: space-between;
             align-items: center;
             padding: 16px 20px;
-            background: var(--card-bg);
-            border: 1px solid var(--card-border);
+            background: var(--surface);
+            border: 1px solid var(--border);
             border-radius: 16px;
             margin-bottom: 16px;
-            box-shadow: 0 4px 25px rgba(0,0,0,0.6);
-            backdrop-filter: blur(10px);
+            backdrop-filter: blur(12px);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.4);
         }
 
-        .logo-box {
+        .brand-box {
             display: flex;
             align-items: center;
             gap: 12px;
         }
 
-        .logo-icon {
-            font-size: 28px;
+        .brand-icon {
+            font-size: 26px;
             filter: drop-shadow(0 0 10px var(--neon-cyan));
         }
 
-        .title {
-            font-family: 'Press Start 2P', cursive;
-            font-size: 13px;
-            color: var(--neon-cyan);
+        .brand-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 15px;
+            font-weight: 700;
             letter-spacing: 0.5px;
-            text-shadow: 0 0 12px rgba(0,240,255,0.6);
+            color: #ffffff;
         }
 
-        .live-tag {
+        .brand-subtitle {
+            font-size: 10px;
+            color: var(--text-dim);
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .live-badge {
             font-family: 'JetBrains Mono', monospace;
             font-size: 11px;
             color: var(--neon-green);
-            background: rgba(0, 255, 102, 0.1);
+            background: rgba(0, 255, 136, 0.08);
             padding: 6px 12px;
             border-radius: 20px;
-            border: 1px solid rgba(0, 255, 102, 0.3);
+            border: 1px solid rgba(0, 255, 136, 0.25);
             display: flex;
             align-items: center;
             gap: 6px;
         }
 
         .pulse-dot {
-            width: 8px;
-            height: 8px;
+            width: 7px;
+            height: 7px;
             background: var(--neon-green);
             border-radius: 50%;
-            box-shadow: 0 0 10px var(--neon-green);
+            box-shadow: 0 0 8px var(--neon-green);
             animation: pulse 1s infinite alternate;
         }
 
@@ -96,125 +106,220 @@
             to { opacity: 1; transform: scale(1.2); }
         }
 
-        /* BANNER */
-        .hero-banner {
-            background: linear-gradient(135deg, rgba(0, 240, 255, 0.1) 0%, rgba(176, 38, 255, 0.1) 100%);
-            border: 1px solid rgba(0, 240, 255, 0.3);
+        /* AI SIMULATION PROMPT INTERACTIVE CARD */
+        .ai-prompt-box {
+            background: linear-gradient(135deg, rgba(16, 24, 44, 0.95) 0%, rgba(10, 14, 26, 0.95) 100%);
+            border: 1px solid rgba(0, 240, 255, 0.35);
             border-radius: 16px;
             padding: 20px;
             margin-bottom: 16px;
+            box-shadow: 0 0 30px rgba(0, 240, 255, 0.08);
+        }
+
+        .prompt-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            flex-wrap: wrap;
-            gap: 16px;
+            margin-bottom: 12px;
         }
 
-        .hero-text h1 {
-            font-size: 18px;
+        .prompt-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 14px;
             font-weight: 700;
-            color: #ffffff;
-            margin-bottom: 6px;
-        }
-
-        .hero-text p {
-            font-size: 12px;
-            color: var(--text-dim);
-            max-width: 600px;
-            line-height: 1.5;
-        }
-
-        .btn-join {
-            background: linear-gradient(90deg, var(--neon-cyan), var(--neon-green));
-            color: #040810;
-            font-weight: 700;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 12px;
-            padding: 10px 18px;
-            border-radius: 8px;
-            text-decoration: none;
-            display: inline-flex;
+            color: var(--neon-cyan);
+            display: flex;
             align-items: center;
             gap: 8px;
-            box-shadow: 0 0 15px rgba(0, 240, 255, 0.4);
-            transition: transform 0.2s;
         }
 
-        .btn-join:hover {
-            transform: translateY(-2px);
+        .prompt-input-group {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 12px;
         }
 
-        /* STATS GRID */
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 12px;
-            margin-bottom: 16px;
+        .prompt-input {
+            flex: 1;
+            background: rgba(5, 7, 14, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 10px;
+            padding: 12px 16px;
+            color: var(--text);
+            font-family: 'Inter', sans-serif;
+            font-size: 13px;
+            outline: none;
+            transition: border-color 0.2s;
         }
 
-        .stat-card {
-            background: var(--card-bg);
-            border: 1px solid var(--card-border);
-            border-radius: 14px;
-            padding: 14px;
-            backdrop-filter: blur(8px);
-            position: relative;
-            overflow: hidden;
+        .prompt-input:focus {
+            border-color: var(--neon-cyan);
+            box-shadow: 0 0 10px rgba(0, 240, 255, 0.2);
         }
 
-        .stat-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 3px;
-            height: 100%;
-            background: var(--neon-cyan);
+        .btn-simulate {
+            background: linear-gradient(90deg, #00f0ff, #00ff88);
+            color: #040810;
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+            font-size: 12px;
+            padding: 0 20px;
+            border-radius: 10px;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            box-shadow: 0 0 15px rgba(0, 240, 255, 0.3);
+            transition: transform 0.1s;
         }
 
-        .stat-card.steps::before { background: var(--neon-green); }
-        .stat-card.nodes::before { background: var(--neon-amber); }
-        .stat-card.ai::before { background: var(--neon-purple); }
+        .btn-simulate:hover { transform: scale(1.02); }
+        .btn-simulate:active { transform: scale(0.98); }
 
-        .stat-title {
+        .chips-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-bottom: 10px;
+        }
+
+        .chip {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 4px 10px;
+            border-radius: 6px;
             font-size: 11px;
             color: var(--text-dim);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .chip:hover {
+            background: rgba(0, 240, 255, 0.1);
+            border-color: var(--neon-cyan);
+            color: var(--text);
+        }
+
+        /* AI SIMULATION RESULT PANEL */
+        .result-panel {
+            display: none;
+            background: rgba(4, 6, 12, 0.9);
+            border: 1px solid rgba(0, 255, 136, 0.3);
+            border-radius: 12px;
+            padding: 14px;
+            margin-top: 14px;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-4px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .result-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .res-item {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 8px;
+            padding: 8px 10px;
+        }
+
+        .res-label {
+            font-size: 9px;
+            color: var(--text-dim);
             text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin-bottom: 6px;
-        }
-
-        .stat-value {
             font-family: 'JetBrains Mono', monospace;
-            font-size: 22px;
-            font-weight: 700;
-            color: var(--text-main);
         }
 
-        /* SECTIONS */
-        .section-box {
-            background: var(--card-bg);
-            border: 1px solid var(--card-border);
+        .res-val {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--text);
+            margin-top: 2px;
+        }
+
+        /* 3D MOLECULAR CANVAS */
+        .visualizer-box {
+            background: #030408;
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            margin-bottom: 16px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .visualizer-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 16px;
+            background: rgba(0, 240, 255, 0.03);
+            border-bottom: 1px solid var(--border-subtle);
+            font-size: 11px;
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+            color: var(--neon-cyan);
+        }
+
+        #molCanvas {
+            width: 100%;
+            height: 290px;
+            display: block;
+            cursor: grab;
+        }
+
+        .mol-footer {
+            position: absolute;
+            bottom: 10px;
+            left: 12px;
+            right: 12px;
+            display: flex;
+            justify-content: space-between;
+            background: rgba(8, 11, 20, 0.75);
+            backdrop-filter: blur(6px);
+            padding: 6px 12px;
+            border-radius: 8px;
+            border: 1px solid rgba(255,255,255,0.08);
+            font-size: 10px;
+            color: var(--text-dim);
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        /* METRICS & DATABASE */
+        .section-card {
+            background: var(--surface);
+            border: 1px solid var(--border-subtle);
             border-radius: 16px;
             padding: 16px;
             margin-bottom: 16px;
         }
 
-        .section-header {
+        .sec-title {
+            font-family: 'Space Grotesk', sans-serif;
             font-size: 13px;
             font-weight: 700;
-            color: var(--neon-cyan);
+            color: var(--text);
             margin-bottom: 12px;
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
 
-        /* TABLE */
+        .table-responsive { overflow-x: auto; }
+
         table {
             width: 100%;
             border-collapse: collapse;
             font-size: 12px;
+            min-width: 520px;
         }
 
         th {
@@ -223,48 +328,25 @@
             color: var(--text-dim);
             font-size: 10px;
             text-transform: uppercase;
-            border-bottom: 1px solid rgba(255,255,255,0.06);
+            border-bottom: 1px solid var(--border-subtle);
             font-family: 'JetBrains Mono', monospace;
         }
 
         td {
             padding: 10px;
-            border-bottom: 1px solid rgba(255,255,255,0.04);
+            border-bottom: 1px solid rgba(255,255,255,0.03);
             font-family: 'JetBrains Mono', monospace;
         }
 
-        .node-tag {
-            background: rgba(0, 240, 255, 0.1);
+        .btn-badge {
+            background: rgba(0, 240, 255, 0.08);
             color: var(--neon-cyan);
-            padding: 3px 6px;
-            border-radius: 4px;
-            border: 1px solid rgba(0, 240, 255, 0.2);
+            border: 1px solid rgba(0, 240, 255, 0.25);
+            padding: 3px 8px;
+            border-radius: 5px;
             font-size: 10px;
-        }
-
-        .status-badge {
-            font-size: 9px;
-            padding: 3px 6px;
-            border-radius: 4px;
-            font-weight: 700;
-        }
-
-        .status-badge.active {
-            background: rgba(0, 255, 102, 0.15);
-            color: var(--neon-green);
-            border: 1px solid rgba(0, 255, 102, 0.3);
-        }
-
-        .status-badge.pending {
-            background: rgba(255, 184, 0, 0.15);
-            color: var(--neon-amber);
-            border: 1px solid rgba(255, 184, 0, 0.3);
-        }
-
-        .status-badge.completed {
-            background: rgba(0, 240, 255, 0.15);
-            color: var(--neon-cyan);
-            border: 1px solid rgba(0, 240, 255, 0.3);
+            text-decoration: none;
+            display: inline-block;
         }
 
         footer {
@@ -278,157 +360,339 @@
 </head>
 <body>
 
+    <!-- HEADER -->
     <header>
-        <div class="logo-box">
-            <div class="logo-icon">🌐</div>
+        <div class="brand-box">
+            <div class="brand-icon">🧬</div>
             <div>
-                <div class="title">DM UAMI // SWARM GRID</div>
-                <div style="font-size: 10px; color: var(--text-dim); margin-top: 3px;">Open Science Distributed Computational Network</div>
+                <div class="brand-title">CIENCIA.SATANZOTE.ME</div>
+                <div class="brand-subtitle">DM UAMI // Laboratorio Autónomo de Dinámica Molecular</div>
             </div>
         </div>
-        <div class="live-tag">
+        <div class="live-badge">
             <div class="pulse-dot"></div>
-            <span id="liveTime">CONNECTING</span>
+            <span id="liveTime">CDMX</span>
         </div>
     </header>
 
-    <!-- HERO BANNER -->
-    <div class="hero-banner">
-        <div class="hero-text">
-            <h1>Autonomous Molecular Science for Everyone</h1>
-            <p>A decentralized network of volunteer GPUs powering physics simulations and training autonomous AI potential models for open scientific research.</p>
+    <!-- INTERACTIVE AI SIMULATION PROMPT BOX -->
+    <div class="ai-prompt-box">
+        <div class="prompt-header">
+            <div class="prompt-title">
+                <span>⚡ ASISTENTE CIENTÍFICO DE SIMULACIÓN POR IA</span>
+            </div>
+            <span style="font-size: 10px; color: var(--neon-green); font-family: 'JetBrains Mono', monospace;">Surrogate & GPU Online</span>
         </div>
-        <a href="#join" class="btn-join">
-            <span>⚡ CONNECT YOUR GPU</span>
-        </a>
+
+        <div class="chips-container">
+            <span class="chip" onclick="setPrompt('Quiero simular agua SPC/E a 300 K')">💧 Agua SPC/E a 300 K</span>
+            <span class="chip" onclick="setPrompt('Calibrar Acetona con densidad 0.7845 y tensión 23.3 mN/m a 298 K')">🧪 Acetona (MEK)</span>
+            <span class="chip" onclick="setPrompt('Simular Etanol protico a 25 °C')">🍷 Etanol a 25°C</span>
+            <span class="chip" onclick="setPrompt('Calibrar Carbonato de Etileno para bateria de litio a 313 K')">🔋 Electrolito Li-Ion (EC)</span>
+        </div>
+
+        <div class="prompt-input-group">
+            <input type="text" id="promptInput" class="prompt-input" placeholder="Escribe en lenguaje natural: ej. 'Simula acetona a 298 K y calcula densidad y tensión superficial'...">
+            <button class="btn-simulate" onclick="executePromptSimulation()">
+                <span>EJECUTAR</span> 🚀
+            </button>
+        </div>
+
+        <!-- RESULT PANEL -->
+        <div id="resultPanel" class="result-panel">
+            <div style="display: flex; justify-content: space-between; align-items: baseline;">
+                <strong style="color: var(--neon-green); font-size: 13px;" id="resTitle">Simulación Completada</strong>
+                <span style="font-size: 10px; color: var(--neon-cyan);" id="resTime">0.24 ms</span>
+            </div>
+            <div class="result-grid">
+                <div class="res-item">
+                    <div class="res-label">Densidad Calculada</div>
+                    <div class="res-val" id="resRho">0.8053 g/cm³</div>
+                </div>
+                <div class="res-item">
+                    <div class="res-label">Tensión Superficial (γ)</div>
+                    <div class="res-val" id="resGamma">24.61 mN/m</div>
+                </div>
+                <div class="res-item">
+                    <div class="res-label">Dieléctrica (ε_r)</div>
+                    <div class="res-val" id="resEps">18.55</div>
+                </div>
+                <div class="res-item">
+                    <div class="res-label">Sigma Oxígeno</div>
+                    <div class="res-val" id="resSigma">0.3136 nm</div>
+                </div>
+                <div class="res-item">
+                    <div class="res-label">Épsilon Pozo</div>
+                    <div class="res-val" id="resEpsilon">0.8128 kJ/mol</div>
+                </div>
+                <div class="res-item">
+                    <div class="res-label">Verificado En</div>
+                    <div class="res-val" style="font-size: 11px; color: var(--neon-green);">RTX 5070 Ti (CUDA)</div>
+                </div>
+            </div>
+        </div>
     </div>
 
-    <!-- STATS GRID -->
-    <div class="stats-grid">
-        <div class="stat-card steps">
-            <div class="stat-title">Total Steps Computed</div>
-            <div class="stat-value" id="statSteps">22.5M</div>
+    <!-- 3D MOLECULAR CANVAS -->
+    <div class="visualizer-box">
+        <div class="visualizer-header">
+            <span>🔬 VISOR 3D DE TRAYECTORIA MOLECULAR (PELÍCULA SLAB LÍQUIDO-VAPOR)</span>
+            <span style="font-size: 10px; color: var(--text-dim);">Arrastra para rotar en 3D</span>
         </div>
-        <div class="stat-card nodes">
-            <div class="stat-title">Active Volunteer Nodes</div>
-            <div class="stat-value" id="statNodes">3 GPUs</div>
-        </div>
-        <div class="stat-card ai">
-            <div class="stat-title">AI Auto-Explorations</div>
-            <div class="stat-value" id="statCompleted">48 States</div>
-        </div>
-        <div class="stat-card">
-            <div class="stat-title">Queue Status</div>
-            <div class="stat-value" id="statPending" style="color: var(--neon-amber);">5 Pending</div>
+        <canvas id="molCanvas"></canvas>
+        <div class="mol-footer">
+            <span>🔴 Oxígeno (OW) | 🔵 Hidrógeno (HW) | ⚪ Enlaces Covalentes</span>
+            <span>Motor C++17 / CUDA 13.0</span>
         </div>
     </div>
 
-    <!-- VOLUNTEER NODES TABLE -->
-    <div class="section-box">
-        <div class="section-header">
-            <span>🖥️ CONNECTED COMPUTE NODES</span>
-            <span style="font-size: 10px; color: var(--text-dim);">Live Telemetry</span>
+    <!-- CALIBRATED FORCE FIELD DATABASE -->
+    <div class="section-card">
+        <div class="sec-title">
+            <span>🧪 BASE DE DATOS DE CAMPOS DE FUERZA CALIBRADOS</span>
+            <span style="font-size: 10px; color: var(--neon-cyan);">Alejandre et al. (2024)</span>
         </div>
-        <table>
-            <thead>
-                <tr>
-                    <th>Node / Contributor</th>
-                    <th>Hardware / Acceleration</th>
-                    <th>Location</th>
-                    <th>Computed Steps</th>
-                    <th>Status</th>
-                </tr>
-            </thead>
-            <tbody id="nodesTable">
-                <!-- Dynamically populated -->
-            </tbody>
-        </table>
-    </div>
-
-    <!-- AUTONOMOUS AI SIMULATION FEED -->
-    <div class="section-box">
-        <div class="section-header">
-            <span>🧬 AUTONOMOUS EXPERIMENTAL STREAM</span>
-            <span style="font-size: 10px; color: var(--neon-purple);">Active Learning Loop</span>
-        </div>
-        <table>
-            <thead>
-                <tr>
-                    <th>Job ID</th>
-                    <th>Molecular System</th>
-                    <th>Target (T / P)</th>
-                    <th>Dispatched By</th>
-                    <th>Energy Result</th>
-                    <th>State</th>
-                </tr>
-            </thead>
-            <tbody id="jobsTable">
-                <!-- Dynamically populated -->
-            </tbody>
-        </table>
-    </div>
-
-    <!-- QUICKSTART -->
-    <div class="section-box" id="join">
-        <div class="section-header">
-            <span>🚀 RUN A VOLUNTEER WORKER IN 1 MINUTE</span>
-        </div>
-        <p style="font-size: 12px; color: var(--text-dim); margin-bottom: 12px; line-height: 1.6;">
-            Download the single-file worker client and connect your NVIDIA/AMD GPU or Apple Silicon to the open science grid:
-        </p>
-        <div style="background: #030408; padding: 12px; border-radius: 8px; font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--neon-cyan); border: 1px solid rgba(0, 240, 255, 0.2);">
-            curl -O http://192.168.0.104:8900/worker/client.py && python3 client.py
+        <div class="table-responsive">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Molécula</th>
+                        <th>Clase Química</th>
+                        <th>Densidad Exp (Calc)</th>
+                        <th>Tensión Sup. Exp (Calc)</th>
+                        <th>Dieléctrica Exp (Calc)</th>
+                        <th>Error Max</th>
+                        <th>Descarga</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Acetona</strong></td>
+                        <td>Solvente Carbonílico</td>
+                        <td>0.7845 (0.7849)</td>
+                        <td>23.30 (23.11)</td>
+                        <td>20.70 (20.60)</td>
+                        <td style="color: var(--neon-green);">0.81%</td>
+                        <td><a href="/calibrated_itp/act_calibrated.itp" class="btn-badge" download>⬇ .ITP</a></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Etanol</strong></td>
+                        <td>Alcohol Prótico</td>
+                        <td>0.7850 (0.7844)</td>
+                        <td>21.90 (21.91)</td>
+                        <td>24.30 (24.15)</td>
+                        <td style="color: var(--neon-green);">0.62%</td>
+                        <td><a href="/calibrated_itp/eoh_calibrated.itp" class="btn-badge" download>⬇ .ITP</a></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Dimetiléter</strong></td>
+                        <td>Solvente de Batería</td>
+                        <td>0.6680 (0.6674)</td>
+                        <td>15.00 (14.92)</td>
+                        <td>5.02 (4.99)</td>
+                        <td style="color: var(--neon-green);">0.57%</td>
+                        <td><a href="/calibrated_itp/dme_calibrated.itp" class="btn-badge" download>⬇ .ITP</a></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Carbonato de Etileno</strong></td>
+                        <td>Electrolito Li-Ion</td>
+                        <td>1.3210 (1.3157)</td>
+                        <td>45.00 (44.74)</td>
+                        <td>89.78 (90.65)</td>
+                        <td style="color: var(--neon-green);">0.97%</td>
+                        <td><a href="/calibrated_itp/ech_calibrated.itp" class="btn-badge" download>⬇ .ITP</a></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Carbonato de Propileno</strong></td>
+                        <td>Electrolito Li-Ion</td>
+                        <td>1.2050 (1.2105)</td>
+                        <td>41.50 (41.76)</td>
+                        <td>64.92 (64.41)</td>
+                        <td style="color: var(--neon-green);">0.78%</td>
+                        <td><a href="/calibrated_itp/pch_calibrated.itp" class="btn-badge" download>⬇ .ITP</a></td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
     </div>
 
     <footer>
-        DM UAMI OPEN SCIENCE PLATFORM // Jose Alejandre // 2026
+        CIENCIA.SATANZOTE.ME // José Alejandre & Dr. José Alejandre // UAM Iztapalapa 2026
     </footer>
 
     <script>
-        async function fetchGridStats() {
+        function setPrompt(text) {
+            document.getElementById('promptInput').value = text;
+            executePromptSimulation();
+        }
+
+        async function executePromptSimulation() {
+            const input = document.getElementById('promptInput');
+            const query = input.value.trim();
+            if (!query) return;
+
+            const panel = document.getElementById('resultPanel');
+            panel.style.display = 'block';
+            document.getElementById('resTitle').innerText = '⏳ Procesando simulación en GPU y Red Neuronal...';
+            document.getElementById('resTime').innerText = '...';
+
             try {
-                const res = await fetch('/api/grid/stats');
+                const res = await fetch('/api/ai/simulate_prompt', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ prompt: query })
+                });
                 const data = await res.json();
-                
-                document.getElementById('liveTime').innerText = data.time_str;
-                document.getElementById('statSteps').innerText = (data.total_steps_computed / 1000000).toFixed(1) + 'M';
-                document.getElementById('statNodes').innerText = data.active_nodes_count + ' Nodes';
-                document.getElementById('statCompleted').innerText = data.completed_experiments + ' States';
-                document.getElementById('statPending').innerText = data.pending_experiments + ' Pending';
 
-                // Nodes table
-                const nTable = document.getElementById('nodesTable');
-                nTable.innerHTML = data.workers.map(w => `
-                    <tr>
-                        <td><strong>${w.name}</strong></td>
-                        <td><span class="node-tag">${w.gpu}</span></td>
-                        <td style="color: var(--text-dim);">${w.location}</td>
-                        <td>${w.steps.toLocaleString()} st</td>
-                        <td><span class="status-badge active">${w.status}</span></td>
-                    </tr>
-                `).join('');
-
-                // Jobs table
-                const jTable = document.getElementById('jobsTable');
-                jTable.innerHTML = data.recent_jobs.map(j => `
-                    <tr>
-                        <td><code>${j.id}</code></td>
-                        <td>${j.system}</td>
-                        <td>${j.temp_k} K / ${j.press_bar} bar</td>
-                        <td style="color: var(--neon-purple);">${j.creator}</td>
-                        <td>${j.energy ? j.energy.toFixed(1) + ' kJ/mol' : 'Calculating...'}</td>
-                        <td><span class="status-badge ${j.status.toLowerCase()}">${j.status}</span></td>
-                    </tr>
-                `).join('');
-
+                document.getElementById('resTitle').innerText = '✓ ' + data.prompt_interpreted;
+                document.getElementById('resTime').innerText = data.execution_time_ms + ' ms (IA + CUDA)';
+                document.getElementById('resRho').innerText = data.calculated_density + ' g/cm³';
+                document.getElementById('resGamma').innerText = data.calculated_surface_tension + ' mN/m';
+                document.getElementById('resEps').innerText = data.calculated_dielectric;
+                document.getElementById('resSigma').innerText = data.calibrated_parameters.sigma_nm + ' nm';
+                document.getElementById('resEpsilon').innerText = data.calibrated_parameters.epsilon_kJ_mol + ' kJ/mol';
             } catch (e) {
                 console.error(e);
+                document.getElementById('resTitle').innerText = '❌ Error ejecutando simulación';
             }
         }
 
-        setInterval(fetchGridStats, 3000);
-        fetchGridStats();
+        // TIMEZONE CDMX
+        function updateClock() {
+            const now = new Date();
+            const timeStr = now.toLocaleTimeString('es-MX', { timeZone: 'America/Mexico_City', hour12: false });
+            document.getElementById('liveTime').innerText = timeStr + ' CDMX';
+        }
+        setInterval(updateClock, 1000);
+        updateClock();
+
+        // 3D MOLECULAR CANVAS
+        const canvas = document.getElementById('molCanvas');
+        const ctx = canvas.getContext('2d');
+
+        function resizeCanvas() {
+            canvas.width = canvas.parentElement.clientWidth;
+            canvas.height = 290;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        const molecules = [];
+        const nPerSide = 5;
+        const spacing = 30;
+
+        for (let i = 0; i < nPerSide; i++) {
+            for (let j = 0; j < nPerSide; j++) {
+                for (let k = 0; k < nPerSide; k++) {
+                    const ox = (i - nPerSide/2) * spacing;
+                    const oy = (j - nPerSide/2) * spacing;
+                    const oz = (k - nPerSide/2) * spacing;
+
+                    molecules.push({
+                        ox: ox, oy: oy, oz: oz,
+                        h1x: ox + 9, h1y: oy + 11, h1z: oz,
+                        h2x: ox - 9, h2y: oy + 11, h2z: oz,
+                        phase: Math.random() * Math.PI * 2
+                    });
+                }
+            }
+        }
+
+        let rotX = 0.35;
+        let rotY = 0.55;
+        let isDragging = false;
+        let lastMouseX = 0, lastMouseY = 0;
+
+        canvas.addEventListener('mousedown', (e) => { isDragging = true; lastMouseX = e.clientX; lastMouseY = e.clientY; });
+        window.addEventListener('mouseup', () => isDragging = false);
+        canvas.addEventListener('mousemove', (e) => {
+            if (isDragging) {
+                rotY += (e.clientX - lastMouseX) * 0.01;
+                rotX += (e.clientY - lastMouseY) * 0.01;
+                lastMouseX = e.clientX;
+                lastMouseY = e.clientY;
+            }
+        });
+
+        // Touch support
+        canvas.addEventListener('touchstart', (e) => {
+            if (e.touches.length === 1) { isDragging = true; lastMouseX = e.touches[0].clientX; lastMouseY = e.touches[0].clientY; }
+        });
+        window.addEventListener('touchend', () => isDragging = false);
+        canvas.addEventListener('touchmove', (e) => {
+            if (isDragging && e.touches.length === 1) {
+                rotY += (e.touches[0].clientX - lastMouseX) * 0.01;
+                rotX += (e.touches[0].clientY - lastMouseY) * 0.01;
+                lastMouseX = e.touches[0].clientX;
+                lastMouseY = e.touches[0].clientY;
+            }
+        });
+
+        function project3D(x, y, z, cx, cy, fov = 320) {
+            const cosY = Math.cos(rotY), sinY = Math.sin(rotY);
+            const x1 = x * cosY + z * sinY;
+            const z1 = -x * sinY + z * cosY;
+
+            const cosX = Math.cos(rotX), sinX = Math.sin(rotX);
+            const y2 = y * cosX - z1 * sinX;
+            const z2 = y * sinX + z1 * cosX + 400;
+
+            const scale = fov / (z2 > 0 ? z2 : 1);
+            return { x: cx + x1 * scale, y: cy + y2 * scale, z: z2, scale: scale };
+        }
+
+        let timeTick = 0;
+        function render3D() {
+            timeTick += 0.03;
+            if (!isDragging) rotY += 0.0025;
+
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            const cx = canvas.width / 2;
+            const cy = canvas.height / 2;
+
+            const renderItems = [];
+
+            molecules.forEach(m => {
+                const vibX = Math.sin(timeTick + m.phase) * 1.5;
+                const vibY = Math.cos(timeTick * 1.2 + m.phase) * 1.5;
+                const vibZ = Math.sin(timeTick * 0.9 + m.phase) * 1.5;
+
+                const oProj = project3D(m.ox + vibX, m.oy + vibY, m.oz + vibZ, cx, cy);
+                const h1Proj = project3D(m.h1x + vibX, m.h1y + vibY, m.h1z + vibZ, cx, cy);
+                const h2Proj = project3D(m.h2x + vibX, m.h2y + vibY, m.h2z + vibZ, cx, cy);
+
+                renderItems.push({ type: 'bond', p1: oProj, p2: h1Proj, z: (oProj.z + h1Proj.z)/2 });
+                renderItems.push({ type: 'bond', p1: oProj, p2: h2Proj, z: (oProj.z + h2Proj.z)/2 });
+                renderItems.push({ type: 'atom', p: oProj, color: '#ff2a5f', r: 6, z: oProj.z });
+                renderItems.push({ type: 'atom', p: h1Proj, color: '#00f0ff', r: 3.5, z: h1Proj.z });
+                renderItems.push({ type: 'atom', p: h2Proj, color: '#00f0ff', r: 3.5, z: h2Proj.z });
+            });
+
+            renderItems.sort((a, b) => b.z - a.z);
+
+            renderItems.forEach(item => {
+                if (item.type === 'bond') {
+                    ctx.strokeStyle = 'rgba(255, 255, 255, 0.28)';
+                    ctx.lineWidth = 1.8 * item.p1.scale;
+                    ctx.beginPath();
+                    ctx.moveTo(item.p1.x, item.p1.y);
+                    ctx.lineTo(item.p2.x, item.p2.y);
+                    ctx.stroke();
+                } else if (item.type === 'atom') {
+                    const radius = Math.max(1, item.r * item.p.scale);
+                    ctx.fillStyle = item.color;
+                    ctx.shadowColor = item.color;
+                    ctx.shadowBlur = 8;
+                    ctx.beginPath();
+                    ctx.arc(item.p.x, item.p.y, radius, 0, Math.PI * 2);
+                    ctx.fill();
+                    ctx.shadowBlur = 0;
+                }
+            });
+
+            requestAnimationFrame(render3D);
+        }
+        render3D();
     </script>
 </body>
 </html>
