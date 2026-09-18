@@ -326,6 +326,7 @@ class GridRequestHandler(http.server.SimpleHTTPRequestHandler):
             try:
                 req_data = json.loads(body)
                 prompt_text = req_data.get("prompt", "")
+                user_name = req_data.get("user_name", "Anónimo")
                 parsed = parse_ai_prompt(prompt_text)
                 
                 # Insert job into SQLite FIFO Queue
@@ -334,7 +335,7 @@ class GridRequestHandler(http.server.SimpleHTTPRequestHandler):
                 cur = conn.cursor()
                 cur.execute("""
                 INSERT INTO jobs (id, system_name, code, natoms, temperature_k, target_density, target_gamma, target_eps, steps, status, progress, created_by, created_at)
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, 'QUEUED', 0, 'USER_WEB', ?)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, 'QUEUED', 0, ?, ?)
                 """, (
                     job_id,
                     parsed["molecule"],
@@ -345,6 +346,7 @@ class GridRequestHandler(http.server.SimpleHTTPRequestHandler):
                     parsed["target_surface_tension"],
                     parsed["target_dielectric"],
                     10000,
+                    user_name,
                     time.time()
                 ))
                 conn.commit()

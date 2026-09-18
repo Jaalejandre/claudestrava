@@ -474,12 +474,13 @@
             <span class="chip" onclick="setPrompt('Calibrar Carbonato de Etileno para bateria de litio a 313 K')">🔋 Electrolito Li-Ion (EC)</span>
         </div>
 
-        <div class="prompt-input-group">
-            <input type="text" id="promptInput" class="prompt-input" placeholder="Escribe tu instrucción: ej. 'Simula acetona a 298 K y calcula densidad y tensión superficial'...">
-            <button class="btn-simulate" onclick="executePromptSimulation()">
-                <span>EJECUTAR</span> 🚀
-            </button>
-        </div>
+                <div class="prompt-input-group">
+                    <input type="text" id="userNameInput" class="prompt-input" placeholder="Tu nombre (ej. José, Dr. Alejandre, Estudiante UAM...)" style="max-width: 200px;">
+                    <input type="text" id="promptInput" class="prompt-input" placeholder="Escribe tu instrucción: ej. 'Simula acetona a 298 K'...">
+                    <button class="btn-simulate" onclick="executePromptSimulation()">
+                        <span>EJECUTAR</span> 🚀
+                    </button>
+                </div>
 
         <!-- RESULT PANEL -->
         <div id="resultPanel" class="result-panel">
@@ -550,13 +551,14 @@
                     <tr>
                         <th>ID del Trabajo</th>
                         <th>Molécula / Sistema</th>
+                        <th>Solicitado Por</th>
                         <th>Temperatura</th>
                         <th>Progreso / Resultado</th>
                         <th>Estado</th>
                     </tr>
                 </thead>
                 <tbody id="queueTableBody">
-                    <tr><td colspan="5" style="color: var(--text-muted); text-align: center;">Sin trabajos en cola — envía una simulación desde el prompt ⬆</td></tr>
+                    <tr><td colspan="6" style="color: var(--text-muted); text-align: center;">Sin trabajos en cola — envía una simulación desde el prompt ⬆</td></tr>
                 </tbody>
             </table>
         </div>
@@ -749,6 +751,8 @@
             const query = input.value.trim();
             if (!query) return;
 
+            const userName = document.getElementById('userNameInput').value.trim() || 'Anónimo';
+
             const panel = document.getElementById('resultPanel');
             panel.style.display = 'block';
             document.getElementById('resTitle').innerText = '⏳ Procesando simulación en GPU y Red Neuronal...';
@@ -758,7 +762,7 @@
                 const res = await fetch('/api/ai/simulate_prompt', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ prompt: query })
+                    body: JSON.stringify({ prompt: query, user_name: userName })
                 });
                 const data = await res.json();
 
@@ -845,7 +849,7 @@
                 if (data.active_job) {
                     activePanel.style.display = 'block';
                     document.getElementById('activeJobTitle').innerText = `▶ ${data.active_job.system_name} a ${data.active_job.temperature_k} K`;
-                    document.getElementById('activeJobWorker').innerText = data.active_job.assigned_worker || 'CT-901';
+                    document.getElementById('activeJobWorker').innerText = `${data.active_job.created_by || 'Anónimo'} → ${data.active_job.assigned_worker || 'CT-901'}`;
                     document.getElementById('activeJobProgress').style.width = `${data.active_job.progress || 0}%`;
                 } else {
                     activePanel.style.display = 'none';
@@ -861,6 +865,7 @@
                     tr.innerHTML = `
                         <td><strong>${j.id}</strong></td>
                         <td>${j.system_name}</td>
+                        <td>${j.created_by || 'Anónimo'}</td>
                         <td>${j.temperature_k} K</td>
                         <td><span style="color: var(--neon-amber);">Posición #${idx + 1}</span></td>
                         <td><span style="color: var(--neon-amber); font-size: 11px;">⏳ EN COLA</span></td>
@@ -873,6 +878,7 @@
                     tr.innerHTML = `
                         <td style="color: var(--text-muted);">${j.id}</td>
                         <td>${j.system_name}</td>
+                        <td>${j.created_by || 'Anónimo'}</td>
                         <td>${j.temperature_k} K</td>
                         <td style="color: var(--neon-green);">ρ=${j.result_density} g/cm³ | γ=${j.result_gamma} mN/m</td>
                         <td><span style="color: var(--neon-green); font-size: 11px;">✓ COMPLETADO</span></td>
@@ -881,7 +887,7 @@
                 });
                 
                 if (data.queued_jobs.length === 0 && data.completed_jobs.length === 0) {
-                    tbody.innerHTML = '<tr><td colspan="5" style="color: var(--text-muted); text-align: center;">Sin trabajos en cola — envía una simulación desde el prompt ⬆</td></tr>';
+                    tbody.innerHTML = '<tr><td colspan="6" style="color: var(--text-muted); text-align: center;">Sin trabajos en cola — envía una simulación desde el prompt ⬆</td></tr>';
                 }
             } catch (e) {
                 console.error("Queue fetch error:", e);
