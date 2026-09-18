@@ -36,7 +36,7 @@
 
 ## 3. Topología Final Optimizada (10 Contenedores Esenciales)
 
-1. **`CT 666 (satanzote)`**: Cerebro, Hermes Agent, RUDR9 Squads, Backblaze MCP (16 GB / 16 vCPU).
+1. **`CT 666 (satanzote)`**: Cerebro, Hermes Agent, BELSEBU Squads, Backblaze MCP (16 GB / 16 vCPU).
 2. **`CT 901 (ct901)`**: HPC, CUDA, Dinámica Molecular (GPU Passthrough).
 3. **`CT 100 (nginxproxymanager)`**: Reverse Proxy `*.satanzote.me`.
 4. **`CT 108 (cloudflared)`**: Cloudflare Zero-Trust Tunnel.

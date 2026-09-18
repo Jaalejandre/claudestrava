@@ -1,16 +1,16 @@
-# Escuadrón RUDR9: The Data Ark (`ark-*`)
+# Escuadrón BELSEBU: The Data Ark (`ark-*`)
 ## Resiliencia de Datos, Backups Multi-Cloud & Disaster Recovery
 
 - **Host Maestro**: CT 666 (`satanzote`, `192.168.0.104`)
 - **Nodos de Almacenamiento**: Proxmox Storage (`/mnt/backups`), Backblaze B2 (`PVE-BackupSatanzote`), Cloudflare R2, GitHub, Vaultwarden.
-- **Metodología**: RUDR9 Estricto (9 Roles Cyberpunk)
+- **Metodología**: BELSEBU Estricto (9 Roles Cyberpunk)
 - **Estrategia**: Regla 3-2-1 de Respaldos (3 copias, 2 medios distintos, 1 offsite inmutable).
 
 ---
 
 ## Matriz de Operativos de `The Data Ark`
 
-| # | Operativo | Rol RUDR9 | Misión Específica |
+| # | Operativo | Rol BELSEBU | Misión Específica |
 |---|---|---|---|
 | 1 | **`ark-overlord`** | **Prime Backup CTO** | Conducción estratégica de la política 3-2-1, control de RPO/RTO y asignación de tareas. |
 | 2 | **`ark-tactician`** | **Retention & Policy Planner** | Diseño de esquemas de retención GFS (diario/semanal/mensual) y presupuestos de disco. |
