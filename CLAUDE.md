@@ -29,6 +29,7 @@ La directiva principal: optimizar código científico.
 
 - **Comunicación directa y sin filtro** — reta mis ideas, no endulces, dime cuando esté equivocado.
 - **Respuesta directa** — dame la respuesta directa, sin rodeos ni relleno.
+- **Idioma de Documentación para DM UAMI** — Toda la documentación técnica, READMEs, benchmarks, especificaciones, comentarios de código y commits del proyecto `DM UAMI` deben redactarse exclusivamente en **inglés**.
 - **Manejo de archivos por default** — prefijo `(C)` en archivos generados por IA, no edites notas existentes sin permiso.
 - **Ruteo de modelos** — **Opus** para review, validación y pensamiento estratégico (planeación, arquitectura, decisiones). **Sonnet** por defecto para programar, documentar y git.
 
