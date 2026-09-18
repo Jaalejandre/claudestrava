@@ -123,7 +123,7 @@ LECTURA (todos):
 
 ESCRITURA (por área):
   • 02 Plan Entrenamiento/: Equipo 15 (L'Étape)
-  • 03 Projects/GromacsMexicano/: Equipos 8, 14 (UAMI)
+  • 03 Projects/DM UAMI/: Equipos 8, 14 (UAMI)
   • 03 Projects/Prototipos/: Equipo 18 (Strategic Ideas)
   • Operations/: Equipos 12 (Governance), 19 (Vault)
   • Strategic-Ideas/: Equipo 18

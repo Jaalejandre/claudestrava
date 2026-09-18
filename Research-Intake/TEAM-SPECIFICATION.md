@@ -167,7 +167,7 @@ Contains matrix multiplication and memory optimization patterns directly applica
 
 ## Related Projects
 - DM UAMI Phase 5 (LISTA kernel parallelization)
-- GromacsMexicano (GPU optimization)
+- DM UAMI (GPU optimization)
 
 ## Next Steps
 **Action:** INTEGRATE

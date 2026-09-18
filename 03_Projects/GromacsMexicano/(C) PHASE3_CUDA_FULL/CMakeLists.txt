@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.20)
-project(GromacsMexicano_CUDA_Phase3 VERSION 3.0 LANGUAGES CXX CUDA)
+project(DM UAMI_CUDA_Phase3 VERSION 3.0 LANGUAGES CXX CUDA)
 
 # C++ and CUDA standards
 set(CMAKE_CXX_STANDARD 17)

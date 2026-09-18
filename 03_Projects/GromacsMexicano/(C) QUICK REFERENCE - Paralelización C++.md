@@ -1,4 +1,4 @@
-# QUICK REFERENCE — GromacsMexicano Paralelización
+# QUICK REFERENCE — DM UAMI Paralelización
 
 **Actualizado:** 2026-09-12 12:52 CDMX
 
@@ -8,9 +8,9 @@
 
 | Item | Path |
 |------|------|
-| **C++ Baseline** | `/home/alejandre/GromacsMexicano/PRODUCTION_v3_CPP/dm_mx_npt_baseline_cpp` |
-| **Benchmark Log** | `/home/alejandre/GromacsMexicano/PRODUCTION_v3_CPP/results/benchmark_cpp.log` |
-| **Source Code** | `/home/alejandre/GromacsMexicano/Prof_UAMI/` |
+| **C++ Baseline** | `/home/alejandre/DM UAMI/PRODUCTION_v3_CPP/dm_mx_npt_baseline_cpp` |
+| **Benchmark Log** | `/home/alejandre/DM UAMI/PRODUCTION_v3_CPP/results/benchmark_cpp.log` |
+| **Source Code** | `/home/alejandre/DM UAMI/Prof_UAMI/` |
 | **Test Inputs** | `/home/alejandre/UAMI_Test/file.{gro,top,mdp}` |
 
 ---

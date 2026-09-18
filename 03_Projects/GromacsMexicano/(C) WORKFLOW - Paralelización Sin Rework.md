@@ -1,11 +1,11 @@
 ---
-name: GromacsMexicano Parallelization Workflow
+name: DM UAMI Parallelization Workflow
 purpose: Systematic approach to parallelizing C++ MD code without rework
 tags: [gromacs, openmp, c++, molecular-dynamics, parallelization]
 date_created: 2026-09-12
 ---
 
-# GromacsMexicano OpenMP Parallelization Workflow
+# DM UAMI OpenMP Parallelization Workflow
 
 **CRÍTICO:** Este flujo previene rework. Aplica para TODOS los proyectos futuros.
 
@@ -34,7 +34,7 @@ date_created: 2026-09-12
 
 ```bash
 ssh alejandre@192.168.0.230 \
-  "cd /home/alejandre/GromacsMexicano/Programa_DM_cpp_v1.1/src && \
+  "cd /home/alejandre/DM UAMI/Programa_DM_cpp_v1.1/src && \
    wc -l *.cpp && \
    grep -n 'for.*natoms\|for.*i < ' *.cpp | head -20"
 ```
@@ -65,9 +65,9 @@ Guardar energías en vault: `baseline_energies.txt`
 
 ```
 Analiza EXACTAMENTE estos archivos:
-- /home/alejandre/GromacsMexicano/Programa_DM_cpp_v1.1/src/integrator.cpp (líneas X-Y)
-- /home/alejandre/GromacsMexicano/Programa_DM_cpp_v1.1/src/forces.cpp (líneas A-B)
-- /home/alejandre/GromacsMexicano/Programa_DM_cpp_v1.1/src/ewald.cpp (líneas P-Q)
+- /home/alejandre/DM UAMI/Programa_DM_cpp_v1.1/src/integrator.cpp (líneas X-Y)
+- /home/alejandre/DM UAMI/Programa_DM_cpp_v1.1/src/forces.cpp (líneas A-B)
+- /home/alejandre/DM UAMI/Programa_DM_cpp_v1.1/src/ewald.cpp (líneas P-Q)
 
 Para CADA loop:
 1. Número de línea exacto
@@ -144,7 +144,7 @@ Formato EXACTO:
 **Context a agente:**
 
 ```
-Base: /home/alejandre/GromacsMexicano/Programa_DM_cpp_v1.1/
+Base: /home/alejandre/DM UAMI/Programa_DM_cpp_v1.1/
 Binary funcional: build/dm_mx_npt
 Test inputs: /home/alejandre/UAMI_Test/file.{gro,top,mdp}
 
@@ -246,11 +246,11 @@ Esto no es solo para Gromacs. Próximas veces:
 ## 📁 Archivos a guardar en vault (post-completion)
 
 ```
-(C) GromacsMexicano Phase 1 - Baseline energies.txt
-(C) GromacsMexicano Phase 1 - Implementation plan.md
-(C) GromacsMexicano Phase 1 - Code diffs.patch
-(C) GromacsMexicano Phase 1 - Benchmark results.txt
-(C) GromacsMexicano Phase 1 - Validation report.md
+(C) DM UAMI Phase 1 - Baseline energies.txt
+(C) DM UAMI Phase 1 - Implementation plan.md
+(C) DM UAMI Phase 1 - Code diffs.patch
+(C) DM UAMI Phase 1 - Benchmark results.txt
+(C) DM UAMI Phase 1 - Validation report.md
 ```
 
 Update memory with:

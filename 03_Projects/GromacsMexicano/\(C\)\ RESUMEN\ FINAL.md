@@ -32,7 +32,7 @@
 ## 🚀 PRÓXIMO PASO (CUANDO TENGAS TERMINAL)
 
 ```bash
-cd ~/JarvisVault/01\ Projects/GromacsMexicano/gromacs-analyzer-worker/
+cd ~/JarvisVault/01\ Projects/DM UAMI/gromacs-analyzer-worker/
 
 wrangler login
 

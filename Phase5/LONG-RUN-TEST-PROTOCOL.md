@@ -18,7 +18,7 @@ Output: error.dat (energy/temp/pressure vs step)
 
 ### PHASE 2: EXTRACT error.dat
 ```
-Location: ~/GromacsMexicano/Programa_DM_cpp/output/error.dat
+Location: ~/DM UAMI/Programa_DM_cpp/output/error.dat
 
 Format:
   Step  Energy(eV)  KinE(eV)  PotE(eV)  Temp(K)  Press(bar)

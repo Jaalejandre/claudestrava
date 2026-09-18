@@ -5,20 +5,20 @@ ip: 192.168.0.230
 so: Ubuntu 24.04.4 LTS
 servicios: GROMACS 2025.2/2025.3, CUDA, Claude Code, BASE
 puertos: SSH (22), gpu-api :5000
-proyectos: GromacsMexicano (Flagship)
+proyectos: DM UAMI (Flagship)
 gpu: RTX 5070 Ti (passthrough)
 actualizado: 2026-09-08
 ---
 
-# CT 901 — ubuntu (.230) — GromacsMexicano
+# CT 901 — ubuntu (.230) — DM UAMI
 
-**El CT de cómputo científico.** Todo el trabajo de GromacsMexicano vive aquí. **No se toca para otros proyectos.**
+**El CT de cómputo científico.** Todo el trabajo de DM UAMI vive aquí. **No se toca para otros proyectos.**
 
 ## Qué corre / proyectos
 | Ruta | Qué es |
 |---|---|
 | `/home/alejandre/Programa_DM/` | código Fortran+CUDA de los científicos (**referencia congelada**) |
-| `/home/alejandre/GromacsMexicano/` | **reescritura C++** (CMake, repo git) — proyecto activo |
+| `/home/alejandre/DM UAMI/` | **reescritura C++** (CMake, repo git) — proyecto activo |
 | `/home/alejandre/gromacs-2025.2/`, `gromacs-2025.3/` | GROMACS de referencia compilados |
 | `/home/alejandre/Prueba/` | caso de prueba (agua + NaCl) |
 | `DM_NPT_gmx_v2`, `gmx-test`, `Sistemas` | casos/benchmarks auxiliares |

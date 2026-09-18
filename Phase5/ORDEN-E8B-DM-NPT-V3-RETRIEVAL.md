@@ -49,7 +49,7 @@ ls -la
 ### PASO 2: Obtener main.F (2 min)
 ```bash
 # Copiar main.F a CT 901
-scp ~/Edgar/DM_NPT_v3/main.F alejandre@192.168.0.230:/root/GromacsMexicano/
+scp ~/Edgar/DM_NPT_v3/main.F alejandre@192.168.0.230:/root/DM UAMI/
 
 # Verificar
 md5sum ~/Edgar/DM_NPT_v3/main.F
@@ -58,7 +58,7 @@ md5sum ~/Edgar/DM_NPT_v3/main.F
 ### PASO 3: Comparar con Phase 4 (10 min)
 ```bash
 # En CT 901:
-diff -u ~/GromacsMexicano/Programa_DM/main.F ~/GromacsMexicano/main.F
+diff -u ~/DM UAMI/Programa_DM/main.F ~/DM UAMI/main.F
 
 # Cambios esperados: 
 #   • PEQUEÑOS (algoritmo nuclear igual)
@@ -68,7 +68,7 @@ diff -u ~/GromacsMexicano/Programa_DM/main.F ~/GromacsMexicano/main.F
 
 ### PASO 4: Compilar en CT 901 (5 min)
 ```bash
-cd /root/GromacsMexicano
+cd /root/DM UAMI
 gfortran -O3 -march=native main.F -o gromacs_npt
 ./gromacs_npt -h  # Verificar compilación
 ```

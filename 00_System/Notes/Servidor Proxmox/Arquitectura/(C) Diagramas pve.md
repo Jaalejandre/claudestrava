@@ -62,7 +62,7 @@ flowchart TB
         end
 
         subgraph HPC["Cómputo"]
-            G901["CT 901 ubuntu (.230)<br/>GromacsMexicano C++ CUDA<br/>gpu-api :5000"]
+            G901["CT 901 ubuntu (.230)<br/>DM UAMI C++ CUDA<br/>gpu-api :5000"]
         end
 
         subgraph VMS["VMs"]
@@ -136,7 +136,7 @@ flowchart TB
     MAC["Mac — Obsidian<br/>monta /Volumes/JarvisVault"]
     GH["GitHub<br/>Jaalejandre/claudestrava (privado)"]
     OR["OmniRoute :20128 — CT 109<br/>gateway único de tokens LLM"]
-    CC["Claude Code — CT 901<br/>GromacsMexicano"]
+    CC["Claude Code — CT 901<br/>DM UAMI"]
     OL["Ollama — CT 103<br/>LLM local GPU"]
     NTF["ntfy :80 — CT 116<br/>alertas de sistema"]
     TG["Telegram bridge :3001 — CT 109<br/>+ notify_telegram.sh en CT 901"]

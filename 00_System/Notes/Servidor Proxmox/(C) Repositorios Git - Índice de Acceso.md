@@ -8,11 +8,11 @@
 
 ## 🎯 ACCESO RÁPIDO
 
-### GromacsMexicano
-- **Ubicación:** `/home/alejandre/GromacsMexicano/` (CT 901)
+### DM UAMI
+- **Ubicación:** `/home/alejandre/DM UAMI/` (CT 901)
 - **Tamaño:** 464 MB
 - **Estado Git:** 30+ commits, master branch
-- **SSH:** `ssh alejandre@192.168.0.230` → `cd GromacsMexicano`
+- **SSH:** `ssh alejandre@192.168.0.230` → `cd DM UAMI`
 - **O directo:** `ssh root@192.168.0.52 "pct exec 901 -- ..."`
 
 **Estructura Principal:**
@@ -85,7 +85,7 @@ tasks/                  ← Task tracking (todo.md)
 
 | Proyecto | Local Primaria | Backup | Remote | Protocolo |
 |----------|-----------------|--------|--------|-----------|
-| **GromacsMexicano** | CT 901 `/home/alejandre/GromacsMexicano/` | `/project/backups/REPO_INDEX.txt` | ❌ No | SSH + pct exec |
+| **DM UAMI** | CT 901 `/home/alejandre/DM UAMI/` | `/project/backups/REPO_INDEX.txt` | ❌ No | SSH + pct exec |
 | **EntrenadorLEtape** | CT 901 `/home/alejandre/EntrenadorLEtape/` | `/project/backups/REPO_INDEX.txt` | ❌ No | SSH + pct exec |
 | **Vault (claudestrava)** | CT 109 `/root/JarvisVault/` | GitHub ✅ | `git@github.com:Jaalejandre/claudestrava.git` | Git + Samba |
 
@@ -93,10 +93,10 @@ tasks/                  ← Task tracking (todo.md)
 
 ## 🔧 CÓMO NAVEGAR
 
-### Listar commits recientes (GromacsMexicano)
+### Listar commits recientes (DM UAMI)
 ```bash
 ssh alejandre@192.168.0.230
-cd GromacsMexicano
+cd DM UAMI
 git log --oneline -20
 git status
 ```
@@ -109,20 +109,20 @@ git diff <hash1> <hash2>  # Comparar commits
 
 ### Acceso desde CT 109 (Hermes)
 ```bash
-ssh root@192.168.0.52 "pct exec 901 -- git -C /home/alejandre/GromacsMexicano log --oneline -20"
+ssh root@192.168.0.52 "pct exec 901 -- git -C /home/alejandre/DM UAMI log --oneline -20"
 ssh root@192.168.0.52 "pct exec 901 -- git -C /home/alejandre/EntrenadorLEtape status"
 ```
 
 ### Copiar archivo específico a CT 109
 ```bash
-scp alejandre@192.168.0.230:/home/alejandre/GromacsMexicano/Programa_DM_cpp_v2/CMakeLists.txt /tmp/
+scp alejandre@192.168.0.230:/home/alejandre/DM UAMI/Programa_DM_cpp_v2/CMakeLists.txt /tmp/
 ```
 
 ---
 
 ## ⚠️ PROBLEMAS CONOCIDOS
 
-1. **GromacsMexicano**: Ownership caído (root vs alejandre) — **REPARADO 2026-09-12**
+1. **DM UAMI**: Ownership caído (root vs alejandre) — **REPARADO 2026-09-12**
 2. **EntrenadorLEtape**: Ownership caído (root vs alejandre) — **REPARADO 2026-09-12**
 3. **Ambos**: Sin remote GitHub configurado
    - **Solución:** Crear repos públicos en GitHub + conectar SSH keys desde CT 901
@@ -132,7 +132,7 @@ scp alejandre@192.168.0.230:/home/alejandre/GromacsMexicano/Programa_DM_cpp_v2/C
 
 ## 📅 PRÓXIMOS PASOS
 
-- [ ] Crear GitHub repos: `Jaalejandre/GromacsMexicano` y `Jaalejandre/EntrenadorLEtape`
+- [ ] Crear GitHub repos: `Jaalejandre/DM UAMI` y `Jaalejandre/EntrenadorLEtape`
 - [ ] Conectar SSH keys en CT 901 para push
 - [ ] Configurar CI/CD (GitHub Actions) para tests automáticos
 - [ ] Sincronizar EntrenadorLEtape code a repo privado (Garmin creds no públicos)
@@ -141,7 +141,7 @@ scp alejandre@192.168.0.230:/home/alejandre/GromacsMexicano/Programa_DM_cpp_v2/C
 
 ## 📞 REFERENCIAS RÁPIDAS
 
-**Ver todo lo que se construyó en GromacsMexicano:**
+**Ver todo lo que se construyó en DM UAMI:**
 ```
 git log --all --graph --decorate --oneline
 ```

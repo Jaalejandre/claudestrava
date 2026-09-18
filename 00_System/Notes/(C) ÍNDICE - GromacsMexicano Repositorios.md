@@ -1,4 +1,4 @@
-# 📋 ÍNDICE MAESTRO — GromacsMexicano Repositorios
+# 📋 ÍNDICE MAESTRO — DM UAMI Repositorios
 
 **Última revisión:** 2026-09-12  
 **Status:** ORGANIZACIÓN EN PROGRESO
@@ -16,7 +16,7 @@ Tener UN SOLO lugar donde saber:
 
 ## 📂 ESTRUCTURA ACTUAL EN CT 901
 
-**Ubicación:** `/home/alejandre/GromacsMexicano/`  
+**Ubicación:** `/home/alejandre/DM UAMI/`  
 **Tamaño total:** ~500 MB  
 **Git:** Sí, hay repo local
 
@@ -78,7 +78,7 @@ Tener UN SOLO lugar donde saber:
 ### Paso 1: TRAER CÓDIGO CORRECTO (Hoy)
 ```
 De: pacifico.izt.uam.mx/Edgar/DM_NPT_v3/
-A: /home/alejandre/GromacsMexicano/DM_NPT_v3_MASTER/ (nuevo)
+A: /home/alejandre/DM UAMI/DM_NPT_v3_MASTER/ (nuevo)
 ├── main.f (ACTUALIZADO CON SLATER + LINKCELL CUDA)
 ├── *.f *.f95 (todas las rutinas)
 ├── *.cu (kernels CUDA)
@@ -134,7 +134,7 @@ cd Edgar/DM_NPT_v3
 # Copiar todo a CT 901
 
 # 2. Organizar CT 901
-cd ~/GromacsMexicano
+cd ~/DM UAMI
 mkdir -p ARCHIVED
 mv Prueba* ARCHIVED/
 mv Demo* ARCHIVED/

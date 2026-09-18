@@ -9,7 +9,7 @@
 
 ## 🎯 El Problema en Una Oración
 
-Tu vault de 477 archivos tiene **fragmentación crítica** (GromacsMexicano en 3 lugares), **falta de metadatos** (67% sin frontmatter), y **archivos huérfanos en raíz**, pero **es totalmente recuperable** con una reorganización sistemática.
+Tu vault de 477 archivos tiene **fragmentación crítica** (DM UAMI en 3 lugares), **falta de metadatos** (67% sin frontmatter), y **archivos huérfanos en raíz**, pero **es totalmente recuperable** con una reorganización sistemática.
 
 ---
 
@@ -17,7 +17,7 @@ Tu vault de 477 archivos tiene **fragmentación crítica** (GromacsMexicano en 3
 
 | Aspecto | Estado | Severidad | Impacto |
 |---------|--------|-----------|---------|
-| **Fragmentación de GromacsMexicano** | 3 ubicaciones (01, 03, raíz) | 🔴 Crítica | No sabes cuál es la fuente de verdad |
+| **Fragmentación de DM UAMI** | 3 ubicaciones (01, 03, raíz) | 🔴 Crítica | No sabes cuál es la fuente de verdad |
 | **Metadatos (Frontmatter)** | 32.8% (147/448 archivos) | 🟠 Alta | No puedes filtrar por proyecto/estado |
 | **Archivos en raíz** | 11 archivos sueltos | 🟠 Alta | Raíz sucia, difícil de navegar |
 | **Wikilinks rotos** | 37 detectados | 🟡 Media | Links que no funcionan |
@@ -31,7 +31,7 @@ Tu vault de 477 archivos tiene **fragmentación crítica** (GromacsMexicano en 3
 
 | Métrica | Antes | Después | Mejora |
 |---------|-------|---------|--------|
-| Fragmentación GromacsMexicano | 3 ubicaciones | 1 (centralizado) | ✅ 100% |
+| Fragmentación DM UAMI | 3 ubicaciones | 1 (centralizado) | ✅ 100% |
 | Archivos sin metadatos | 301/448 (67%) | ~50/448 (11%) | ✅ 80% |
 | Archivos en raíz | 11 | 0 | ✅ Limpio |
 | Directorios con errores | 2 | 0 | ✅ Reparado |
@@ -51,7 +51,7 @@ Tu vault de 477 archivos tiene **fragmentación crítica** (GromacsMexicano en 3
 - ❌ Eliminar directorios con backslash literal
 - ❌ Eliminar/llenar archivos vacíos
 
-### Fase 2: Consolidar GromacsMexicano (2 horas) ⭐ CRÍTICA
+### Fase 2: Consolidar DM UAMI (2 horas) ⭐ CRÍTICA
 - Determinar fuente de verdad
 - Fusionar 01 Projects + 03 Projects en estructura coherente
 - Archivar código viejo en ARCHIVE-*
@@ -90,7 +90,7 @@ Tu vault de 477 archivos tiene **fragmentación crítica** (GromacsMexicano en 3
 
 ```
 00 System/       ← El motor (CLAUDE.md, GOALS.md, Templates, Agents)
-01 Projects/     ← Proyectos activos (GromacsMexicano, Claude Strava, Proxmox)
+01 Projects/     ← Proyectos activos (DM UAMI, Claude Strava, Proxmox)
 02 Knowledge/    ← Base de conocimiento (Cursos, Libros, Research)
 03 Operations/   ← Notas operacionales (Diario, Reviews, Checklists)
 04 Ideas & Drafts/ ← WIP (Ideas, Prototipos, Inbox)
@@ -123,7 +123,7 @@ updated: YYYY-MM-DD
 ```
 
 **Beneficios:**
-- Filtra fácilmente: "mostrar todos los análisis de GromacsMexicano"
+- Filtra fácilmente: "mostrar todos los análisis de DM UAMI"
 - Agentes IA leen metadatos y evitan duplicación
 - Búsquedas en Obsidian son más precisas
 
@@ -179,7 +179,7 @@ updated: YYYY-MM-DD
 
 ### Mañana o este fin de semana
 - [ ] Ejecuta Fases 0–1 (Preparación + Limpiar)
-- [ ] Decisión: ¿quién consolidará GromacsMexicano? (Fase 2)
+- [ ] Decisión: ¿quién consolidará DM UAMI? (Fase 2)
 
 ### Próxima semana
 - [ ] Completa Fases 2–8
@@ -219,9 +219,9 @@ Revertir es `git revert` si algo sale mal.
 
 **R:** Puedes hacerlo solo siguiendo el plan de Audit-Report. Si prefieres que un agente lo automatice, dime y lo lanzo.
 
-### P: ¿Qué pasa con GromacsMexicano que está en CT 901?
+### P: ¿Qué pasa con DM UAMI que está en CT 901?
 
-**R:** El código fuente en CT 901 (`/home/alejandre/GromacsMexicano/`) es SEPARADO. El vault solo documenta y linkea. El vault tiene una estructura paralela para control de versión y notas.
+**R:** El código fuente en CT 901 (`/home/alejandre/DM UAMI/`) es SEPARADO. El vault solo documenta y linkea. El vault tiene una estructura paralela para control de versión y notas.
 
 ---
 
@@ -229,14 +229,14 @@ Revertir es `git revert` si algo sale mal.
 
 ### Inmediatos (después de Fase 8)
 - ✅ Raíz del vault limpia
-- ✅ GromacsMexicano consolidado y versionado
+- ✅ DM UAMI consolidado y versionado
 - ✅ Estructura clara (sabes dónde está cada cosa)
 - ✅ Gitignore actualizado (sin binarios gigantes)
 
 ### A 1 mes
 - ✅ Metadatos completos (todos los .md tienen frontmatter)
 - ✅ Búsquedas más rápidas y precisas
-- ✅ Filtros funcionales en Obsidian ("mostrar drafts de GromacsMexicano")
+- ✅ Filtros funcionales en Obsidian ("mostrar drafts de DM UAMI")
 
 ### A 3 meses
 - ✅ Primera limpieza trimestral exitosa
@@ -261,7 +261,7 @@ Si algo se rompe durante la migración:
 
 1. ✅ `git log` muestra commit "refactor: reorganizar vault structure"
 2. ✅ Estructura nueva existe: `ls 00\ System/ 01\ Projects/ ... 10\ Archives/`
-3. ✅ GromacsMexicano está en UNA ubicación: `01 Projects/GromacsMexicano/`
+3. ✅ DM UAMI está en UNA ubicación: `01 Projects/DM UAMI/`
 4. ✅ Archivos en raíz = 0 (a excepción de .git, .obsidian, .gitignore)
 5. ✅ Frontmatter en ~90% de .md activos
 6. ✅ Obsidian abre sin errores de wikilinks rotos
@@ -311,7 +311,7 @@ Este vault es **funcional pero necesita estructura**. Las reglas de esta auditor
 
 - **Eres developer + emprendedor** — la estructura refleja eso (proyectos + knowledge).
 - **Tienes 171 archivos generados por IA** — son valiosos, pero sin metadatos son "ruido".
-- **GromacsMexicano es tu proyecto insignia** — merece una estructura clara y mantenible.
+- **DM UAMI es tu proyecto insignia** — merece una estructura clara y mantenible.
 - **El vault escala** — después de la migración, agregar 100 archivos más es trivial.
 
 ---

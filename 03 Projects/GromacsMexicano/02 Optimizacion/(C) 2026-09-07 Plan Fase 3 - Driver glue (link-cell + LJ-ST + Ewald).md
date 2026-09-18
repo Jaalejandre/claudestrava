@@ -1,4 +1,4 @@
-# GromacsMexicano C++ Rewrite — Phase 3 (Non-bonded Driver Glue) Implementation Plan
+# DM UAMI C++ Rewrite — Phase 3 (Non-bonded Driver Glue) Implementation Plan
 
 > Implement task-by-task. Every signature / formula below is transcribed from the source read in full on 2026-09-07: `lista_linkcell_cuda.cu` (347 l), `fzas_lj_st_cuda.cu` (388 l), `kwald_cuda.cu` (524 l), `lista.f`, `check.f` (73 l), `kappa_coulomb.f` (20 l), `compute_kmax_ewald.f` (41 l), `setup2.f` (57 l), `intra.f` (118 l), `cofm.f` (92 l), `xyz_cofm.f` (38 l), `main.f:625-985` + `:1020-1045` + `:1451-1460`.
 
@@ -235,7 +235,7 @@ EwaldSetup ewald_setup(double boxx, double boxy, double boxz,
 - [ ] **Step 1:** `rkappa` — port `kappa_coulomb.f`: `rkappa = 0.05; while (std::erfc(rkappa*rcut)/rcut > error_coul) rkappa += 0.02;`. (`derfc` → `std::erfc`.)
 - [ ] **Step 2:** `kmaxx/y/z` — port `compute_kmax_ewald.f`: `logtol = -std::log(error_coul)`; (rkappa already set, so the `if (alfa <= 0)` branch is skipped); `kcut = 2*rkappa*std::sqrt(logtol)`; for each axis `x = kcut*box_i/(2π)`, `kmax_i = (int)x; if ((double)kmax_i < x) kmax_i++;` then `if (kmax_i < 1) kmax_i = 1;`.
 - [ ] **Step 3:** `kvec` — port `setup2.f`: `kmax = max(kmaxx,kmaxy,kmaxz); ksqmax = kmax*kmax; B = 1/(4*rkappa*rkappa); vol = boxx*boxy*boxz; twopi = 2π;` then the triple loop `KX = 0..kmaxx`, `KY = -kmaxy..kmaxy`, `KZ = -kmaxz..kmaxz`, keeping `ksq <= ksqmax && ksq != 0`, `rksq = (2π·KX/boxx)² + (2π·KY/boxy)² + (2π·KZ/boxz)²`, `kvec.push_back(twopi * std::exp(-B*rksq) / rksq / vol)`. **The iteration order must match `kwald_init_cuda`'s internal k-vector loop** (also `ix 0..kmaxx, iy -kmaxy..kmaxy, iz -kmaxz..kmaxz`, same keep condition) — verified identical when reading both. Do NOT reorder.
-- [ ] **Step 4: Validate against `dm.log`.** `ssh alejandre@192.168.0.230 "grep -E 'rkappa,kmaxx|Valor de kappa' GromacsMexicano/Prueba/dm.log"` — assert C++ `rkappa` matches the printed value to `1e-8`, and `kmaxx/y/z` match exactly. For `kvec`: no printed reference, but assert `kvec.size()` equals `kwald_init_cuda`'s `g_nk` (call `kwald_init_cuda` with the C++ setup and expose/compare `g_nk` — or just assert the size is what SETUP2's loop produces for `fixtures/file.gro`'s box, computed independently in the test).
+- [ ] **Step 4: Validate against `dm.log`.** `ssh alejandre@192.168.0.230 "grep -E 'rkappa,kmaxx|Valor de kappa' DM UAMI/Prueba/dm.log"` — assert C++ `rkappa` matches the printed value to `1e-8`, and `kmaxx/y/z` match exactly. For `kvec`: no printed reference, but assert `kvec.size()` equals `kwald_init_cuda`'s `g_nk` (call `kwald_init_cuda` with the C++ setup and expose/compare `g_nk` — or just assert the size is what SETUP2's loop produces for `fixtures/file.gro`'s box, computed independently in the test).
 - [ ] **Step 5: commit.**
 
 ---

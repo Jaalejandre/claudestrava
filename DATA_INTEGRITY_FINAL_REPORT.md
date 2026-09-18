@@ -26,7 +26,7 @@ JarvisVault         → GitHub (via systemd)  ✗ BLOCKED (security)
 ```
 
 **Blocker**: GitHub Push Protection detected Cloudflare token (cfut_...) in commit 462a424.
-- File: `01 Projects/GromacsMexicano/gromacs-analyzer-worker/gromacs-analyzer/DEPLOY.sh`
+- File: `01 Projects/DM UAMI/gromacs-analyzer-worker/gromacs-analyzer/DEPLOY.sh`
 - Action taken: Redacted token in latest commit, but old commit remains in history
 - GitHub rule: Push blocked until historical token removed or unblocked
 

@@ -1,4 +1,4 @@
-/root/JarvisVault/03 Projects/GromacsMexicano/phase4_cuda_pinned/build/CMakeFiles/test_parser.dir
-/root/JarvisVault/03 Projects/GromacsMexicano/phase4_cuda_pinned/build/CMakeFiles/phase4_cuda.dir
-/root/JarvisVault/03 Projects/GromacsMexicano/phase4_cuda_pinned/build/CMakeFiles/edit_cache.dir
-/root/JarvisVault/03 Projects/GromacsMexicano/phase4_cuda_pinned/build/CMakeFiles/rebuild_cache.dir
+/root/JarvisVault/03 Projects/DM UAMI/phase4_cuda_pinned/build/CMakeFiles/test_parser.dir
+/root/JarvisVault/03 Projects/DM UAMI/phase4_cuda_pinned/build/CMakeFiles/phase4_cuda.dir
+/root/JarvisVault/03 Projects/DM UAMI/phase4_cuda_pinned/build/CMakeFiles/edit_cache.dir
+/root/JarvisVault/03 Projects/DM UAMI/phase4_cuda_pinned/build/CMakeFiles/rebuild_cache.dir

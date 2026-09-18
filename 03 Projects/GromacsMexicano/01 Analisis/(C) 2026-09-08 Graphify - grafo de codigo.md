@@ -5,13 +5,13 @@ herramienta: graphify 0.9.56 (uv tool con extra [openai], en CT 901)
 commit: 475be68d
 ---
 
-# Graphify — grafo de código de GromacsMexicano
+# Graphify — grafo de código de DM UAMI
 
 Grafo de código generado con [Graphify](https://github.com/Graphify-Labs/graphify) (AST tree-sitter, local, sin LLM para el código; etiquetas de comunidad con modelo local `qwen2.5-coder:14b` vía Ollama en CT 103 — **sin OmniRoute**).
 
 - **751 nodos · 1 097 aristas · 136 comunidades** sobre Fortran + C++ + CUDA.
-- Grafo interactivo: `![[(C) 2026-09-08 graphify grafo de codigo.html]]` (abrir en navegador; en CT 901: `~/GromacsMexicano/graphify-out/graph.html`).
-- Regenerar tras cambios: `graphify update .` (sin costo de API) en `~/GromacsMexicano` de CT 901.
+- Grafo interactivo: `![[(C) 2026-09-08 graphify grafo de codigo.html]]` (abrir en navegador; en CT 901: `~/DM UAMI/graphify-out/graph.html`).
+- Regenerar tras cambios: `graphify update .` (sin costo de API) en `~/DM UAMI` de CT 901.
 - Etiquetado de comunidades (local, sin OmniRoute): `OLLAMA_BASE_URL=http://192.168.0.99:11434/v1 graphify label . --backend=ollama --model=qwen2.5-coder:14b --missing-only`
 - **Automatización (2026-09-08):** hook `post-commit` instalado (`graphify hook install`) → rebuild automático en cada commit (log: `~/.cache/graphify-rebuild.log`). Cron semanal dom 20:00 → `update` + `label --missing-only` (log: `/tmp/graphify-cron.log`).
 - Skill `/graphify` registrado en el Claude Code de CT 901.

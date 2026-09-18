@@ -1,5 +1,5 @@
-# Análisis de Optimizaciones para Fases 5+ GromacsMexicano
-**Proyecto:** GromacsMexicano CUDA Phase 4  
+# Análisis de Optimizaciones para Fases 5+ DM UAMI
+**Proyecto:** DM UAMI CUDA Phase 4  
 **Autor:** Análisis Automático  
 **Fecha:** Sept 12, 2024  
 **Alcance:** Fases 5 y superiores

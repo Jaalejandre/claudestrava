@@ -1,6 +1,6 @@
 ================================================================================
 PHASE 3 vs PHASE 4 TIMING ANALYSIS REPORT
-GromacsMexicano GPU Acceleration - Pinned Memory + Async Streams
+DM UAMI GPU Acceleration - Pinned Memory + Async Streams
 ================================================================================
 
 EXECUTIVE SUMMARY

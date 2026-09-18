@@ -47,7 +47,7 @@ Intenté refactorizar `DM_NPT_gmx_v3` para compilar en CT 901 (gcc-13 + CUDA-13.
 
 1. **ROI bajo:** 4+ horas de refactor manual vs. usar código que YA funciona
 2. **Riesgo de errores:** Cambios Fortran F95 sin compilador cercano a UAM = bugs introducidos
-3. **No es el objetivo:** El objetivo es VALIDAR GromacsMexicano, no arreglar código UAM
+3. **No es el objetivo:** El objetivo es VALIDAR DM UAMI, no arreglar código UAM
 4. **Jos tiene urgencia:** 3 meses para conseguir job en AI — mejor invertir time en portfolio que en debugging UAM
 
 ---

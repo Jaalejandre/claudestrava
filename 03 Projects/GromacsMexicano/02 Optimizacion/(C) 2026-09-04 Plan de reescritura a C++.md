@@ -1,19 +1,19 @@
-# GromacsMexicano C++ Rewrite — Implementation Plan
+# DM UAMI C++ Rewrite — Implementation Plan
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
-**Goal:** Replace the Fortran 77/95 driver code of GromacsMexicano with C++, so the program can be built and installed with a standard cross-platform toolchain (CMake) like GROMACS itself, while keeping the already-optimized and physics-validated CUDA kernels intact.
+**Goal:** Replace the Fortran 77/95 driver code of DM UAMI with C++, so the program can be built and installed with a standard cross-platform toolchain (CMake) like GROMACS itself, while keeping the already-optimized and physics-validated CUDA kernels intact.
 
 **Architecture:** Incremental strangler-fig migration. The Fortran program (`Programa_DM/main.f` + ~100 supporting `.f`/`.f95` files, 14 002 lines total) stays the frozen reference implementation throughout. A new C++ project (`Programa_DM_cpp/`) is built alongside it, one subsystem at a time, each subsystem validated against the Fortran reference before the next one starts. The 8 existing `.cu` files (already C++, already validated, already optimized — see `03 Benchmarks/`) are relocated into the new project's build **unchanged** in early phases; only their host-side callers move from Fortran/`ISO_C_BINDING` to native C++.
 
 **Tech Stack:** C++17, CMake ≥3.24 (`enable_language(CUDA)`, `CMAKE_CUDA_ARCHITECTURES`), the existing CUDA 13.0 toolchain already installed on CT 901 (`nvcc -arch=sm_120`), no third-party dependencies in the initial phases (add a `.gro`/`.top` parsing library only if hand-rolled parsing becomes a bottleneck — not assumed up front).
 
-**Spec:** No separate spec doc — the existing Fortran source at `/home/alejandre/GromacsMexicano/Programa_DM/` (CT 901, `ssh alejandre@192.168.0.230`) IS the spec. Physics reference: `/home/alejandre/GromacsMexicano/Prueba/dm.log` (SPC/E water + NaCl, NPT, 2544 atoms: 800 water + 72 Na + 72 Cl).
+**Spec:** No separate spec doc — the existing Fortran source at `/home/alejandre/DM UAMI/Programa_DM/` (CT 901, `ssh alejandre@192.168.0.230`) IS the spec. Physics reference: `/home/alejandre/DM UAMI/Prueba/dm.log` (SPC/E water + NaCl, NPT, 2544 atoms: 800 water + 72 Na + 72 Cl).
 
 ## Global Constraints
 
 - **Physics validated at every phase gate** — energies (Potential/Kinetic/Total/DeltaE), temperature, pressure, density must fall within the statistical error already established (`Total = -89.05846 ± 0.01195 kJ/mol` from the current validated reference `ca9ef61`). No phase is "done" without this check passing 3x clean.
-- **Never touch `/home/alejandre/GromacsMexicano/Programa_DM/` while it's the reference** — all new work happens in a sibling directory, same git repo, same working tree (`/home/alejandre/GromacsMexicano/`).
+- **Never touch `/home/alejandre/DM UAMI/Programa_DM/` while it's the reference** — all new work happens in a sibling directory, same git repo, same working tree (`/home/alejandre/DM UAMI/`).
 - **CT 901 must be verified free of concurrent activity (`who` + `ps aux | grep dm_mx_npt`) before every benchmark/validation run** — this project has twice had runs killed or contaminated by concurrent sessions on the same box.
 - **One subsystem per phase, one commit per validated subsystem** — this project already lost real time once (cambio #3, reverted) from an ambitious single-shot restructure that looked correct but wasn't. Small validated steps, not a big-bang rewrite.
 - **Scope discipline:** only the code paths the current test case actually exercises get ported first (GROMACS-style `.top`/`.gro`/`.mdp` I/O, LJ-ST + Ewald reciprocal, harmonic bonds + angles, link-cell neighbor list, Nosé-Hoover NPT barostat/thermostat). Mie and FDR potential variants, the shifted-force (`_sf`) LJ variant, and the `_f77` CPU-reference comparison paths are **not used by the live test case** (confirmed: `dm.log` reports `Potencial LJ-ST (truncated)`) and are deferred to a later phase — do not port them "just in case."
@@ -41,9 +41,9 @@ Total realistic estimate: **8-12 sessions** of focused work for phases 0-5, assu
 ## Task 1: CMake project skeleton
 
 **Files:**
-- Create: `/home/alejandre/GromacsMexicano/Programa_DM_cpp/CMakeLists.txt`
-- Create: `/home/alejandre/GromacsMexicano/Programa_DM_cpp/src/main.cpp`
-- Create: `/home/alejandre/GromacsMexicano/Programa_DM_cpp/.gitignore`
+- Create: `/home/alejandre/DM UAMI/Programa_DM_cpp/CMakeLists.txt`
+- Create: `/home/alejandre/DM UAMI/Programa_DM_cpp/src/main.cpp`
+- Create: `/home/alejandre/DM UAMI/Programa_DM_cpp/.gitignore`
 
 **Interfaces:**
 - Produces: a `gmx_mexicano` executable target and a `gmx_kernels` static library target, both defined in `CMakeLists.txt`, that later tasks link against.
@@ -63,7 +63,7 @@ if(NOT DEFINED CMAKE_CUDA_ARCHITECTURES)
   set(CMAKE_CUDA_ARCHITECTURES 120)  # RTX 5070 Ti (Blackwell) on CT 901
 endif()
 
-project(GromacsMexicanoCpp LANGUAGES CXX CUDA)
+project(DM UAMICpp LANGUAGES CXX CUDA)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -98,7 +98,7 @@ target_link_libraries(gmx_mexicano PRIVATE gmx_kernels)
 #include <cstdio>
 
 int main() {
-    std::printf("GromacsMexicano C++ — Phase 0 build OK\n");
+    std::printf("DM UAMI C++ — Phase 0 build OK\n");
     return 0;
 }
 ```
@@ -113,22 +113,22 @@ build/
 - [ ] **Step 5: Copy the three existing validated `.cu` files into `src/kernels/` unchanged**
 
 ```bash
-mkdir -p /home/alejandre/GromacsMexicano/Programa_DM_cpp/src/kernels
-cp /home/alejandre/GromacsMexicano/Programa_DM/lista_linkcell_cuda.cu \
-   /home/alejandre/GromacsMexicano/Programa_DM/fzas_lj_st_cuda.cu \
-   /home/alejandre/GromacsMexicano/Programa_DM/kwald_cuda.cu \
-   /home/alejandre/GromacsMexicano/Programa_DM_cpp/src/kernels/
+mkdir -p /home/alejandre/DM UAMI/Programa_DM_cpp/src/kernels
+cp /home/alejandre/DM UAMI/Programa_DM/lista_linkcell_cuda.cu \
+   /home/alejandre/DM UAMI/Programa_DM/fzas_lj_st_cuda.cu \
+   /home/alejandre/DM UAMI/Programa_DM/kwald_cuda.cu \
+   /home/alejandre/DM UAMI/Programa_DM_cpp/src/kernels/
 ```
 
 Do **not** edit these files in this task — byte-for-byte copies of the versions validated in `ca9ef61`. Confirm with `diff`:
 
 ```bash
-diff /home/alejandre/GromacsMexicano/Programa_DM/lista_linkcell_cuda.cu \
-     /home/alejandre/GromacsMexicano/Programa_DM_cpp/src/kernels/lista_linkcell_cuda.cu
-diff /home/alejandre/GromacsMexicano/Programa_DM/fzas_lj_st_cuda.cu \
-     /home/alejandre/GromacsMexicano/Programa_DM_cpp/src/kernels/fzas_lj_st_cuda.cu
-diff /home/alejandre/GromacsMexicano/Programa_DM/kwald_cuda.cu \
-     /home/alejandre/GromacsMexicano/Programa_DM_cpp/src/kernels/kwald_cuda.cu
+diff /home/alejandre/DM UAMI/Programa_DM/lista_linkcell_cuda.cu \
+     /home/alejandre/DM UAMI/Programa_DM_cpp/src/kernels/lista_linkcell_cuda.cu
+diff /home/alejandre/DM UAMI/Programa_DM/fzas_lj_st_cuda.cu \
+     /home/alejandre/DM UAMI/Programa_DM_cpp/src/kernels/fzas_lj_st_cuda.cu
+diff /home/alejandre/DM UAMI/Programa_DM/kwald_cuda.cu \
+     /home/alejandre/DM UAMI/Programa_DM_cpp/src/kernels/kwald_cuda.cu
 ```
 Expected: no output from any `diff` (files identical).
 
@@ -137,7 +137,7 @@ Expected: no output from any `diff` (files identical).
 ```bash
 export PATH=/usr/local/cuda/bin:$PATH
 export LD_LIBRARY_PATH=/usr/local/cuda/lib64:$LD_LIBRARY_PATH
-cd /home/alejandre/GromacsMexicano/Programa_DM_cpp
+cd /home/alejandre/DM UAMI/Programa_DM_cpp
 cmake -B build -S . -DCMAKE_BUILD_TYPE=Release
 cmake --build build -j
 ```
@@ -148,12 +148,12 @@ Expected: build succeeds, produces `build/src/gmx_mexicano`.
 ```bash
 ./build/src/gmx_mexicano
 ```
-Expected output: `GromacsMexicano C++ — Phase 0 build OK`
+Expected output: `DM UAMI C++ — Phase 0 build OK`
 
 - [ ] **Step 8: Commit**
 
 ```bash
-cd /home/alejandre/GromacsMexicano
+cd /home/alejandre/DM UAMI
 git add Programa_DM_cpp
 git commit -m "cpp: Phase 0 - CMake skeleton, relocate validated CUDA kernels unchanged
 
@@ -168,7 +168,7 @@ task's history)."
 A library that compiles but was never invoked isn't proven — this task calls one kernel end-to-end on synthetic data, closing the gap between "it builds" and "it works," before any real physics is ported in Phase 1+.
 
 **Files:**
-- Modify: `/home/alejandre/GromacsMexicano/Programa_DM_cpp/src/main.cpp`
+- Modify: `/home/alejandre/DM UAMI/Programa_DM_cpp/src/main.cpp`
 
 **Interfaces:**
 - Consumes: `extern "C" void lista_linkcell_cuda(int maxnat, int maxlist, int nat, const double *rx, const double *ry, const double *rz, double boxx, double boxy, double boxz, int *nblist1, int *nblist2, int *npares, double rlist, const int *inicio_mol)` — signature confirmed by reading `kernels/lista_linkcell_cuda.cu` in this session, unchanged by Task 1's copy.
@@ -205,7 +205,7 @@ int main() {
                          nblist1.data(), nblist2.data(),
                          &npares, 1.5, inicio_mol.data());
 
-    std::printf("GromacsMexicano C++ - Phase 0 build OK\n");
+    std::printf("DM UAMI C++ - Phase 0 build OK\n");
     std::printf("Smoke test: lista_linkcell_cuda found %d pairs (expected 6)\n", npares);
     return (npares == 6) ? 0 : 1;
 }
@@ -228,7 +228,7 @@ Do not proceed to Phase 1 on a failing smoke test — it would mean the CMake CU
 - [ ] **Step 4: Commit**
 
 ```bash
-cd /home/alejandre/GromacsMexicano
+cd /home/alejandre/DM UAMI
 git add Programa_DM_cpp/src/main.cpp
 git commit -m "cpp: Phase 0 - smoke-test lista_linkcell_cuda through the CMake build
 

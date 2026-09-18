@@ -74,11 +74,11 @@ Proxmox:              192.168.0.52, 31 GB RAM
 - Archivo está en tu Mac
 
 **Requerido:**
-- Ruta exacta: `~/GromacsMexicano/Programa_DM/programa.f95`
+- Ruta exacta: `~/DM UAMI/Programa_DM/programa.f95`
 - O binario precompilado
 
 **ACCIÓN:** 
-- Sí tienes: scp ~/GromacsMexicano/ alejandre@192.168.0.230:/root/
+- Sí tienes: scp ~/DM UAMI/ alejandre@192.168.0.230:/root/
 - Cuando esté: Ejecutamos corrida real GPU (18 minutos)
 - Resultado: Validar estabilidad Phase 5 completa
 
@@ -154,7 +154,7 @@ Proxmox:              192.168.0.52, 31 GB RAM
 ### Código Fortran
 ```
 Status: ❌ MISSING
-Location: ??? (esperado ~/GromacsMexicano/Programa_DM/)
+Location: ??? (esperado ~/DM UAMI/Programa_DM/)
 Impact: Bloquea corrida GPU real
 Required by: 2026-09-14 (HOY)
 ```

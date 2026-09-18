@@ -244,7 +244,7 @@ events:
       Compilation of the CXX compiler identification source "CMakeCXXCompilerId.cpp" produced "a.out"
       
       The CXX compiler identification is GNU, found in:
-        /root/JarvisVault/03 Projects/GromacsMexicano/phase4_cuda_pinned/build/CMakeFiles/4.2.3/CompilerIdCXX/a.out
+        /root/JarvisVault/03 Projects/DM UAMI/phase4_cuda_pinned/build/CMakeFiles/4.2.3/CompilerIdCXX/a.out
       
   -
     kind: "find-v1"
@@ -1190,9 +1190,9 @@ events:
       #$ PTXAS_FLAGS=
       #$ rm tmp/a_dlink.reg.c
       #$ gcc -D__CUDA_ARCH_LIST__=750 -E -x c++ -D__CUDACC__ -D__NVCC__  "-I/usr/local/cuda-13.0/bin/../targets/x86_64-linux/include"   "-isystem" "/usr/local/cuda-13.0/bin/../targets/x86_64-linux/include/cccl"    -D__CUDACC_VER_MAJOR__=13 -D__CUDACC_VER_MINOR__=0 -D__CUDACC_VER_BUILD__=88 -D__CUDA_API_VER_MAJOR__=13 -D__CUDA_API_VER_MINOR__=0 -D__NVCC_DIAG_PRAGMA_SUPPORT__=1 -D__CUDACC_DEVICE_ATOMIC_BUILTINS__=1 -include "cuda_runtime.h" -m64 "CMakeCUDACompilerId.cu" -o "tmp/CMakeCUDACompilerId.cpp4.ii" 
-      #$ cudafe++ --c++17 --static-host-stub --device-hidden-visibility --gnu_version=150200 --display_error_number --orig_src_file_name "CMakeCUDACompilerId.cu" --orig_src_path_name "/root/JarvisVault/03 Projects/GromacsMexicano/phase4_cuda_pinned/build/CMakeFiles/4.2.3/CompilerIdCUDA/CMakeCUDACompilerId.cu" --allow_managed  --m64 --parse_templates --gen_c_file_name "tmp/CMakeCUDACompilerId.cudafe1.cpp" --stub_file_name "CMakeCUDACompilerId.cudafe1.stub.c" --gen_module_id_file --module_id_file_name "tmp/CMakeCUDACompilerId.module_id" "tmp/CMakeCUDACompilerId.cpp4.ii" 
+      #$ cudafe++ --c++17 --static-host-stub --device-hidden-visibility --gnu_version=150200 --display_error_number --orig_src_file_name "CMakeCUDACompilerId.cu" --orig_src_path_name "/root/JarvisVault/03 Projects/DM UAMI/phase4_cuda_pinned/build/CMakeFiles/4.2.3/CompilerIdCUDA/CMakeCUDACompilerId.cu" --allow_managed  --m64 --parse_templates --gen_c_file_name "tmp/CMakeCUDACompilerId.cudafe1.cpp" --stub_file_name "CMakeCUDACompilerId.cudafe1.stub.c" --gen_module_id_file --module_id_file_name "tmp/CMakeCUDACompilerId.module_id" "tmp/CMakeCUDACompilerId.cpp4.ii" 
       #$ gcc -D__CUDA_ARCH__=750 -D__CUDA_ARCH_LIST__=750 -E -x c++  -DCUDA_DOUBLE_MATH_FUNCTIONS -D__CUDACC__ -D__NVCC__  "-I/usr/local/cuda-13.0/bin/../targets/x86_64-linux/include"   "-isystem" "/usr/local/cuda-13.0/bin/../targets/x86_64-linux/include/cccl"    -D__CUDACC_VER_MAJOR__=13 -D__CUDACC_VER_MINOR__=0 -D__CUDACC_VER_BUILD__=88 -D__CUDA_API_VER_MAJOR__=13 -D__CUDA_API_VER_MINOR__=0 -D__NVCC_DIAG_PRAGMA_SUPPORT__=1 -D__CUDACC_DEVICE_ATOMIC_BUILTINS__=1 -include "cuda_runtime.h" -m64 "CMakeCUDACompilerId.cu" -o "tmp/CMakeCUDACompilerId.cpp1.ii" 
-      #$ "$CICC_PATH/cicc" --c++17 --static-host-stub --device-hidden-visibility --gnu_version=150200 --display_error_number --orig_src_file_name "CMakeCUDACompilerId.cu" --orig_src_path_name "/root/JarvisVault/03 Projects/GromacsMexicano/phase4_cuda_pinned/build/CMakeFiles/4.2.3/CompilerIdCUDA/CMakeCUDACompilerId.cu" --allow_managed   -arch compute_75 -m64 --no-version-ident -ftz=0 -prec_div=1 -prec_sqrt=1 -fmad=1 --include_file_name "CMakeCUDACompilerId.fatbin.c" -tused --module_id_file_name "tmp/CMakeCUDACompilerId.module_id" --gen_c_file_name "tmp/CMakeCUDACompilerId.cudafe1.c" --stub_file_name "tmp/CMakeCUDACompilerId.cudafe1.stub.c" --gen_device_file_name "tmp/CMakeCUDACompilerId.cudafe1.gpu"  "tmp/CMakeCUDACompilerId.cpp1.ii" -o "tmp/CMakeCUDACompilerId.ptx"
+      #$ "$CICC_PATH/cicc" --c++17 --static-host-stub --device-hidden-visibility --gnu_version=150200 --display_error_number --orig_src_file_name "CMakeCUDACompilerId.cu" --orig_src_path_name "/root/JarvisVault/03 Projects/DM UAMI/phase4_cuda_pinned/build/CMakeFiles/4.2.3/CompilerIdCUDA/CMakeCUDACompilerId.cu" --allow_managed   -arch compute_75 -m64 --no-version-ident -ftz=0 -prec_div=1 -prec_sqrt=1 -fmad=1 --include_file_name "CMakeCUDACompilerId.fatbin.c" -tused --module_id_file_name "tmp/CMakeCUDACompilerId.module_id" --gen_c_file_name "tmp/CMakeCUDACompilerId.cudafe1.c" --stub_file_name "tmp/CMakeCUDACompilerId.cudafe1.stub.c" --gen_device_file_name "tmp/CMakeCUDACompilerId.cudafe1.gpu"  "tmp/CMakeCUDACompilerId.cpp1.ii" -o "tmp/CMakeCUDACompilerId.ptx"
       #$ ptxas -arch=sm_75 -m64  "tmp/CMakeCUDACompilerId.ptx"  -o "tmp/CMakeCUDACompilerId.sm_75.cubin" 
       #$ fatbinary --create="tmp/CMakeCUDACompilerId.fatbin" -64 --cicc-cmdline="-ftz=0 -prec_div=1 -prec_sqrt=1 -fmad=1 " "--image3=kind=elf,sm=75,file=tmp/CMakeCUDACompilerId.sm_75.cubin" "--image3=kind=ptx,sm=75,file=tmp/CMakeCUDACompilerId.ptx" --embedded-fatbin="tmp/CMakeCUDACompilerId.fatbin.c" 
       #$ gcc -D__CUDA_ARCH__=750 -D__CUDA_ARCH_LIST__=750 -c -x c++  -DCUDA_DOUBLE_MATH_FUNCTIONS -Wno-psabi "-I/usr/local/cuda-13.0/bin/../targets/x86_64-linux/include"   "-isystem" "/usr/local/cuda-13.0/bin/../targets/x86_64-linux/include/cccl"   -m64 "tmp/CMakeCUDACompilerId.cudafe1.cpp" -o "tmp/CMakeCUDACompilerId.o" 
@@ -1205,7 +1205,7 @@ events:
       Compilation of the CUDA compiler identification source "CMakeCUDACompilerId.cu" produced "a.out"
       
       The CUDA compiler identification is NVIDIA, found in:
-        /root/JarvisVault/03 Projects/GromacsMexicano/phase4_cuda_pinned/build/CMakeFiles/4.2.3/CompilerIdCUDA/a.out
+        /root/JarvisVault/03 Projects/DM UAMI/phase4_cuda_pinned/build/CMakeFiles/4.2.3/CompilerIdCUDA/a.out
       The host compiler identification is GNU
       
   -
@@ -1279,9 +1279,9 @@ events:
         found 'SYSTEM_INCLUDES=' string: ["-isystem" "/usr/local/cuda-13.0/bin/../targets/x86_64-linux/include/cccl"  ]
         considering line: [#$ rm tmp/a_dlink.reg.c]
         considering line: [gcc -D__CUDA_ARCH_LIST__=750 -E -x c++ -D__CUDACC__ -D__NVCC__  "-I/usr/local/cuda-13.0/bin/../targets/x86_64-linux/include"   "-isystem" "/usr/local/cuda-13.0/bin/../targets/x86_64-linux/include/cccl"    -D__CUDACC_VER_MAJOR__=13 -D__CUDACC_VER_MINOR__=0 -D__CUDACC_VER_BUILD__=88 -D__CUDA_API_VER_MAJOR__=13 -D__CUDA_API_VER_MINOR__=0 -D__NVCC_DIAG_PRAGMA_SUPPORT__=1 -D__CUDACC_DEVICE_ATOMIC_BUILTINS__=1 -include "cuda_runtime.h" -m64 "CMakeCUDACompilerId.cu" -o "tmp/CMakeCUDACompilerId.cpp4.ii" ]
-        considering line: [cudafe++ --c++17 --static-host-stub --device-hidden-visibility --gnu_version=150200 --display_error_number --orig_src_file_name "CMakeCUDACompilerId.cu" --orig_src_path_name "/root/JarvisVault/03 Projects/GromacsMexicano/phase4_cuda_pinned/build/CMakeFiles/4.2.3/CompilerIdCUDA/CMakeCUDACompilerId.cu" --allow_managed  --m64 --parse_templates --gen_c_file_name "tmp/CMakeCUDACompilerId.cudafe1.cpp" --stub_file_name "CMakeCUDACompilerId.cudafe1.stub.c" --gen_module_id_file --module_id_file_name "tmp/CMakeCUDACompilerId.module_id" "tmp/CMakeCUDACompilerId.cpp4.ii" ]
+        considering line: [cudafe++ --c++17 --static-host-stub --device-hidden-visibility --gnu_version=150200 --display_error_number --orig_src_file_name "CMakeCUDACompilerId.cu" --orig_src_path_name "/root/JarvisVault/03 Projects/DM UAMI/phase4_cuda_pinned/build/CMakeFiles/4.2.3/CompilerIdCUDA/CMakeCUDACompilerId.cu" --allow_managed  --m64 --parse_templates --gen_c_file_name "tmp/CMakeCUDACompilerId.cudafe1.cpp" --stub_file_name "CMakeCUDACompilerId.cudafe1.stub.c" --gen_module_id_file --module_id_file_name "tmp/CMakeCUDACompilerId.module_id" "tmp/CMakeCUDACompilerId.cpp4.ii" ]
         considering line: [gcc -D__CUDA_ARCH__=750 -D__CUDA_ARCH_LIST__=750 -E -x c++  -DCUDA_DOUBLE_MATH_FUNCTIONS -D__CUDACC__ -D__NVCC__  "-I/usr/local/cuda-13.0/bin/../targets/x86_64-linux/include"   "-isystem" "/usr/local/cuda-13.0/bin/../targets/x86_64-linux/include/cccl"    -D__CUDACC_VER_MAJOR__=13 -D__CUDACC_VER_MINOR__=0 -D__CUDACC_VER_BUILD__=88 -D__CUDA_API_VER_MAJOR__=13 -D__CUDA_API_VER_MINOR__=0 -D__NVCC_DIAG_PRAGMA_SUPPORT__=1 -D__CUDACC_DEVICE_ATOMIC_BUILTINS__=1 -include "cuda_runtime.h" -m64 "CMakeCUDACompilerId.cu" -o "tmp/CMakeCUDACompilerId.cpp1.ii" ]
-        considering line: ["$CICC_PATH/cicc" --c++17 --static-host-stub --device-hidden-visibility --gnu_version=150200 --display_error_number --orig_src_file_name "CMakeCUDACompilerId.cu" --orig_src_path_name "/root/JarvisVault/03 Projects/GromacsMexicano/phase4_cuda_pinned/build/CMakeFiles/4.2.3/CompilerIdCUDA/CMakeCUDACompilerId.cu" --allow_managed   -arch compute_75 -m64 --no-version-ident -ftz=0 -prec_div=1 -prec_sqrt=1 -fmad=1 --include_file_name "CMakeCUDACompilerId.fatbin.c" -tused --module_id_file_name "tmp/CMakeCUDACompilerId.module_id" --gen_c_file_name "tmp/CMakeCUDACompilerId.cudafe1.c" --stub_file_name "tmp/CMakeCUDACompilerId.cudafe1.stub.c" --gen_device_file_name "tmp/CMakeCUDACompilerId.cudafe1.gpu"  "tmp/CMakeCUDACompilerId.cpp1.ii" -o "tmp/CMakeCUDACompilerId.ptx"]
+        considering line: ["$CICC_PATH/cicc" --c++17 --static-host-stub --device-hidden-visibility --gnu_version=150200 --display_error_number --orig_src_file_name "CMakeCUDACompilerId.cu" --orig_src_path_name "/root/JarvisVault/03 Projects/DM UAMI/phase4_cuda_pinned/build/CMakeFiles/4.2.3/CompilerIdCUDA/CMakeCUDACompilerId.cu" --allow_managed   -arch compute_75 -m64 --no-version-ident -ftz=0 -prec_div=1 -prec_sqrt=1 -fmad=1 --include_file_name "CMakeCUDACompilerId.fatbin.c" -tused --module_id_file_name "tmp/CMakeCUDACompilerId.module_id" --gen_c_file_name "tmp/CMakeCUDACompilerId.cudafe1.c" --stub_file_name "tmp/CMakeCUDACompilerId.cudafe1.stub.c" --gen_device_file_name "tmp/CMakeCUDACompilerId.cudafe1.gpu"  "tmp/CMakeCUDACompilerId.cpp1.ii" -o "tmp/CMakeCUDACompilerId.ptx"]
         considering line: [ptxas -arch=sm_75 -m64  "tmp/CMakeCUDACompilerId.ptx"  -o "tmp/CMakeCUDACompilerId.sm_75.cubin" ]
         considering line: [fatbinary --create="tmp/CMakeCUDACompilerId.fatbin" -64 --cicc-cmdline="-ftz=0 -prec_div=1 -prec_sqrt=1 -fmad=1 " "--image3=kind=elf,sm=75,file=tmp/CMakeCUDACompilerId.sm_75.cubin" "--image3=kind=ptx,sm=75,file=tmp/CMakeCUDACompilerId.ptx" --embedded-fatbin="tmp/CMakeCUDACompilerId.fatbin.c" ]
         considering line: [gcc -D__CUDA_ARCH__=750 -D__CUDA_ARCH_LIST__=750 -c -x c++  -DCUDA_DOUBLE_MATH_FUNCTIONS -Wno-psabi "-I/usr/local/cuda-13.0/bin/../targets/x86_64-linux/include"   "-isystem" "/usr/local/cuda-13.0/bin/../targets/x86_64-linux/include/cccl"   -m64 "tmp/CMakeCUDACompilerId.cudafe1.cpp" -o "tmp/CMakeCUDACompilerId.o" ]
@@ -1336,9 +1336,9 @@ events:
         found 'SYSTEM_INCLUDES=' string: ["-isystem" "/usr/local/cuda-13.0/bin/../targets/x86_64-linux/include/cccl"  ]
         considering line: [#$ rm tmp/a_dlink.reg.c]
         considering line: [gcc -D__CUDA_ARCH_LIST__=750 -E -x c++ -D__CUDACC__ -D__NVCC__  "-I/usr/local/cuda-13.0/bin/../targets/x86_64-linux/include"   "-isystem" "/usr/local/cuda-13.0/bin/../targets/x86_64-linux/include/cccl"    -D__CUDACC_VER_MAJOR__=13 -D__CUDACC_VER_MINOR__=0 -D__CUDACC_VER_BUILD__=88 -D__CUDA_API_VER_MAJOR__=13 -D__CUDA_API_VER_MINOR__=0 -D__NVCC_DIAG_PRAGMA_SUPPORT__=1 -D__CUDACC_DEVICE_ATOMIC_BUILTINS__=1 -include "cuda_runtime.h" -m64 "CMakeCUDACompilerId.cu" -o "tmp/CMakeCUDACompilerId.cpp4.ii" ]
-        considering line: [cudafe++ --c++17 --static-host-stub --device-hidden-visibility --gnu_version=150200 --display_error_number --orig_src_file_name "CMakeCUDACompilerId.cu" --orig_src_path_name "/root/JarvisVault/03 Projects/GromacsMexicano/phase4_cuda_pinned/build/CMakeFiles/4.2.3/CompilerIdCUDA/CMakeCUDACompilerId.cu" --allow_managed  --m64 --parse_templates --gen_c_file_name "tmp/CMakeCUDACompilerId.cudafe1.cpp" --stub_file_name "CMakeCUDACompilerId.cudafe1.stub.c" --gen_module_id_file --module_id_file_name "tmp/CMakeCUDACompilerId.module_id" "tmp/CMakeCUDACompilerId.cpp4.ii" ]
+        considering line: [cudafe++ --c++17 --static-host-stub --device-hidden-visibility --gnu_version=150200 --display_error_number --orig_src_file_name "CMakeCUDACompilerId.cu" --orig_src_path_name "/root/JarvisVault/03 Projects/DM UAMI/phase4_cuda_pinned/build/CMakeFiles/4.2.3/CompilerIdCUDA/CMakeCUDACompilerId.cu" --allow_managed  --m64 --parse_templates --gen_c_file_name "tmp/CMakeCUDACompilerId.cudafe1.cpp" --stub_file_name "CMakeCUDACompilerId.cudafe1.stub.c" --gen_module_id_file --module_id_file_name "tmp/CMakeCUDACompilerId.module_id" "tmp/CMakeCUDACompilerId.cpp4.ii" ]
         considering line: [gcc -D__CUDA_ARCH__=750 -D__CUDA_ARCH_LIST__=750 -E -x c++  -DCUDA_DOUBLE_MATH_FUNCTIONS -D__CUDACC__ -D__NVCC__  "-I/usr/local/cuda-13.0/bin/../targets/x86_64-linux/include"   "-isystem" "/usr/local/cuda-13.0/bin/../targets/x86_64-linux/include/cccl"    -D__CUDACC_VER_MAJOR__=13 -D__CUDACC_VER_MINOR__=0 -D__CUDACC_VER_BUILD__=88 -D__CUDA_API_VER_MAJOR__=13 -D__CUDA_API_VER_MINOR__=0 -D__NVCC_DIAG_PRAGMA_SUPPORT__=1 -D__CUDACC_DEVICE_ATOMIC_BUILTINS__=1 -include "cuda_runtime.h" -m64 "CMakeCUDACompilerId.cu" -o "tmp/CMakeCUDACompilerId.cpp1.ii" ]
-        considering line: ["$CICC_PATH/cicc" --c++17 --static-host-stub --device-hidden-visibility --gnu_version=150200 --display_error_number --orig_src_file_name "CMakeCUDACompilerId.cu" --orig_src_path_name "/root/JarvisVault/03 Projects/GromacsMexicano/phase4_cuda_pinned/build/CMakeFiles/4.2.3/CompilerIdCUDA/CMakeCUDACompilerId.cu" --allow_managed   -arch compute_75 -m64 --no-version-ident -ftz=0 -prec_div=1 -prec_sqrt=1 -fmad=1 --include_file_name "CMakeCUDACompilerId.fatbin.c" -tused --module_id_file_name "tmp/CMakeCUDACompilerId.module_id" --gen_c_file_name "tmp/CMakeCUDACompilerId.cudafe1.c" --stub_file_name "tmp/CMakeCUDACompilerId.cudafe1.stub.c" --gen_device_file_name "tmp/CMakeCUDACompilerId.cudafe1.gpu"  "tmp/CMakeCUDACompilerId.cpp1.ii" -o "tmp/CMakeCUDACompilerId.ptx"]
+        considering line: ["$CICC_PATH/cicc" --c++17 --static-host-stub --device-hidden-visibility --gnu_version=150200 --display_error_number --orig_src_file_name "CMakeCUDACompilerId.cu" --orig_src_path_name "/root/JarvisVault/03 Projects/DM UAMI/phase4_cuda_pinned/build/CMakeFiles/4.2.3/CompilerIdCUDA/CMakeCUDACompilerId.cu" --allow_managed   -arch compute_75 -m64 --no-version-ident -ftz=0 -prec_div=1 -prec_sqrt=1 -fmad=1 --include_file_name "CMakeCUDACompilerId.fatbin.c" -tused --module_id_file_name "tmp/CMakeCUDACompilerId.module_id" --gen_c_file_name "tmp/CMakeCUDACompilerId.cudafe1.c" --stub_file_name "tmp/CMakeCUDACompilerId.cudafe1.stub.c" --gen_device_file_name "tmp/CMakeCUDACompilerId.cudafe1.gpu"  "tmp/CMakeCUDACompilerId.cpp1.ii" -o "tmp/CMakeCUDACompilerId.ptx"]
         considering line: [ptxas -arch=sm_75 -m64  "tmp/CMakeCUDACompilerId.ptx"  -o "tmp/CMakeCUDACompilerId.sm_75.cubin" ]
         considering line: [fatbinary --create="tmp/CMakeCUDACompilerId.fatbin" -64 --cicc-cmdline="-ftz=0 -prec_div=1 -prec_sqrt=1 -fmad=1 " "--image3=kind=elf,sm=75,file=tmp/CMakeCUDACompilerId.sm_75.cubin" "--image3=kind=ptx,sm=75,file=tmp/CMakeCUDACompilerId.ptx" --embedded-fatbin="tmp/CMakeCUDACompilerId.fatbin.c" ]
         considering line: [gcc -D__CUDA_ARCH__=750 -D__CUDA_ARCH_LIST__=750 -c -x c++  -DCUDA_DOUBLE_MATH_FUNCTIONS -Wno-psabi "-I/usr/local/cuda-13.0/bin/../targets/x86_64-linux/include"   "-isystem" "/usr/local/cuda-13.0/bin/../targets/x86_64-linux/include/cccl"   -m64 "tmp/CMakeCUDACompilerId.cudafe1.cpp" -o "tmp/CMakeCUDACompilerId.o" ]
@@ -1388,8 +1388,8 @@ events:
     checks:
       - "Detecting CXX compiler ABI info"
     directories:
-      source: "/root/JarvisVault/03 Projects/GromacsMexicano/phase4_cuda_pinned/build/CMakeFiles/CMakeScratch/TryCompile-JzH3Iu"
-      binary: "/root/JarvisVault/03 Projects/GromacsMexicano/phase4_cuda_pinned/build/CMakeFiles/CMakeScratch/TryCompile-JzH3Iu"
+      source: "/root/JarvisVault/03 Projects/DM UAMI/phase4_cuda_pinned/build/CMakeFiles/CMakeScratch/TryCompile-JzH3Iu"
+      binary: "/root/JarvisVault/03 Projects/DM UAMI/phase4_cuda_pinned/build/CMakeFiles/CMakeScratch/TryCompile-JzH3Iu"
     cmakeVariables:
       CMAKE_CUDA_ARCHITECTURES: "75"
       CMAKE_CXX_FLAGS: ""
@@ -1400,11 +1400,11 @@ events:
       variable: "CMAKE_CXX_ABI_COMPILED"
       cached: true
       stdout: |
-        Change Dir: '/root/JarvisVault/03 Projects/GromacsMexicano/phase4_cuda_pinned/build/CMakeFiles/CMakeScratch/TryCompile-JzH3Iu'
+        Change Dir: '/root/JarvisVault/03 Projects/DM UAMI/phase4_cuda_pinned/build/CMakeFiles/CMakeScratch/TryCompile-JzH3Iu'
         
         Run Build Command(s): /bin/cmake -E env VERBOSE=1 /bin/gmake -f Makefile cmTC_d218d/fast
         /bin/gmake  -f CMakeFiles/cmTC_d218d.dir/build.make CMakeFiles/cmTC_d218d.dir/build
-        gmake[1]: Entering directory '/root/JarvisVault/03 Projects/GromacsMexicano/phase4_cuda_pinned/build/CMakeFiles/CMakeScratch/TryCompile-JzH3Iu'
+        gmake[1]: Entering directory '/root/JarvisVault/03 Projects/DM UAMI/phase4_cuda_pinned/build/CMakeFiles/CMakeScratch/TryCompile-JzH3Iu'
         Building CXX object CMakeFiles/cmTC_d218d.dir/CMakeCXXCompilerABI.cpp.o
         /bin/c++   -v -o CMakeFiles/cmTC_d218d.dir/CMakeCXXCompilerABI.cpp.o -c /usr/share/cmake-4.2/Modules/CMakeCXXCompilerABI.cpp
         Using built-in specs.
@@ -1465,7 +1465,7 @@ events:
         GNU ld (GNU Binutils for Ubuntu) 2.46
         COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_d218d' '-foffload-options=-l_GCC_stdc++' '-foffload-options=-l_GCC_m' '-shared-libgcc' '-mtune=generic' '-march=x86-64' '-dumpdir' 'cmTC_d218d.'
         /bin/c++  -v -Wl,-v CMakeFiles/cmTC_d218d.dir/CMakeCXXCompilerABI.cpp.o -o cmTC_d218d
-        gmake[1]: Leaving directory '/root/JarvisVault/03 Projects/GromacsMexicano/phase4_cuda_pinned/build/CMakeFiles/CMakeScratch/TryCompile-JzH3Iu'
+        gmake[1]: Leaving directory '/root/JarvisVault/03 Projects/DM UAMI/phase4_cuda_pinned/build/CMakeFiles/CMakeScratch/TryCompile-JzH3Iu'
         
       exitCode: 0
   -
@@ -1506,11 +1506,11 @@ events:
       Parsed CXX implicit link information:
         link line regex: [^( *|.*[/\\])(ld[0-9]*(|\\.[a-rt-z][a-z]*|\\.s[a-np-z][a-z]*|\\.so[a-z]+)|CMAKE_LINK_STARTFILE-NOTFOUND|([^/\\]+-)?ld|collect2)[^/\\]*( |$)]
         linker tool regex: [^[ 	]*(->|"|[0-9]+>[ 	-]*Build:[ 	0-9]+ ms[ 	]*)?[ 	]*(([^"]*[/\\])?(ld[0-9]*(|\\.[a-rt-z][a-z]*|\\.s[a-np-z][a-z]*|\\.so[a-z]+)))("|,| |$)]
-        ignore line: [Change Dir: '/root/JarvisVault/03 Projects/GromacsMexicano/phase4_cuda_pinned/build/CMakeFiles/CMakeScratch/TryCompile-JzH3Iu']
+        ignore line: [Change Dir: '/root/JarvisVault/03 Projects/DM UAMI/phase4_cuda_pinned/build/CMakeFiles/CMakeScratch/TryCompile-JzH3Iu']
         ignore line: []
         ignore line: [Run Build Command(s): /bin/cmake -E env VERBOSE=1 /bin/gmake -f Makefile cmTC_d218d/fast]
         ignore line: [/bin/gmake  -f CMakeFiles/cmTC_d218d.dir/build.make CMakeFiles/cmTC_d218d.dir/build]
-        ignore line: [gmake[1]: Entering directory '/root/JarvisVault/03 Projects/GromacsMexicano/phase4_cuda_pinned/build/CMakeFiles/CMakeScratch/TryCompile-JzH3Iu']
+        ignore line: [gmake[1]: Entering directory '/root/JarvisVault/03 Projects/DM UAMI/phase4_cuda_pinned/build/CMakeFiles/CMakeScratch/TryCompile-JzH3Iu']
         ignore line: [Building CXX object CMakeFiles/cmTC_d218d.dir/CMakeCXXCompilerABI.cpp.o]
         ignore line: [/bin/c++   -v -o CMakeFiles/cmTC_d218d.dir/CMakeCXXCompilerABI.cpp.o -c /usr/share/cmake-4.2/Modules/CMakeCXXCompilerABI.cpp]
         ignore line: [Using built-in specs.]
@@ -1654,8 +1654,8 @@ events:
     checks:
       - "Detecting CUDA compiler ABI info"
     directories:
-      source: "/root/JarvisVault/03 Projects/GromacsMexicano/phase4_cuda_pinned/build/CMakeFiles/CMakeScratch/TryCompile-k1NTlu"
-      binary: "/root/JarvisVault/03 Projects/GromacsMexicano/phase4_cuda_pinned/build/CMakeFiles/CMakeScratch/TryCompile-k1NTlu"
+      source: "/root/JarvisVault/03 Projects/DM UAMI/phase4_cuda_pinned/build/CMakeFiles/CMakeScratch/TryCompile-k1NTlu"
+      binary: "/root/JarvisVault/03 Projects/DM UAMI/phase4_cuda_pinned/build/CMakeFiles/CMakeScratch/TryCompile-k1NTlu"
     cmakeVariables:
       CMAKE_CUDA_ARCHITECTURES: "75"
       CMAKE_CUDA_FLAGS: ""
@@ -1666,11 +1666,11 @@ events:
       variable: "CMAKE_CUDA_ABI_COMPILED"
       cached: true
       stdout: |
-        Change Dir: '/root/JarvisVault/03 Projects/GromacsMexicano/phase4_cuda_pinned/build/CMakeFiles/CMakeScratch/TryCompile-k1NTlu'
+        Change Dir: '/root/JarvisVault/03 Projects/DM UAMI/phase4_cuda_pinned/build/CMakeFiles/CMakeScratch/TryCompile-k1NTlu'
         
         Run Build Command(s): /bin/cmake -E env VERBOSE=1 /bin/gmake -f Makefile cmTC_0cd25/fast
         /bin/gmake  -f CMakeFiles/cmTC_0cd25.dir/build.make CMakeFiles/cmTC_0cd25.dir/build
-        gmake[1]: Entering directory '/root/JarvisVault/03 Projects/GromacsMexicano/phase4_cuda_pinned/build/CMakeFiles/CMakeScratch/TryCompile-k1NTlu'
+        gmake[1]: Entering directory '/root/JarvisVault/03 Projects/DM UAMI/phase4_cuda_pinned/build/CMakeFiles/CMakeScratch/TryCompile-k1NTlu'
         Building CUDA object CMakeFiles/cmTC_0cd25.dir/CMakeCUDACompilerABI.cu.o
         /usr/local/cuda-13.0/bin/nvcc -forward-unknown-to-host-compiler   "--generate-code=arch=compute_75,code=[compute_75,sm_75]"   -Xcompiler=-v -MD -MT CMakeFiles/cmTC_0cd25.dir/CMakeCUDACompilerABI.cu.o -MF CMakeFiles/cmTC_0cd25.dir/CMakeCUDACompilerABI.cu.o.d -x cu -c /usr/share/cmake-4.2/Modules/CMakeCUDACompilerABI.cu -o CMakeFiles/cmTC_0cd25.dir/CMakeCUDACompilerABI.cu.o
         Using built-in specs.
@@ -1795,7 +1795,7 @@ events:
         GNU ld (GNU Binutils for Ubuntu) 2.46
         COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_0cd25' '-L/usr/local/cuda-13.0/targets/x86_64-linux/lib/stubs' '-L/usr/local/cuda-13.0/targets/x86_64-linux/lib' '-foffload-options=-l_GCC_stdc++' '-foffload-options=-l_GCC_m' '-shared-libgcc' '-mtune=generic' '-march=x86-64' '-dumpdir' 'cmTC_0cd25.'
         /bin/g++  -v -Wl,-v CMakeFiles/cmTC_0cd25.dir/CMakeCUDACompilerABI.cu.o -o cmTC_0cd25  -lcudadevrt -lcudart_static -lrt -lpthread -ldl  -L"/usr/local/cuda-13.0/targets/x86_64-linux/lib/stubs" -L"/usr/local/cuda-13.0/targets/x86_64-linux/lib"
-        gmake[1]: Leaving directory '/root/JarvisVault/03 Projects/GromacsMexicano/phase4_cuda_pinned/build/CMakeFiles/CMakeScratch/TryCompile-k1NTlu'
+        gmake[1]: Leaving directory '/root/JarvisVault/03 Projects/DM UAMI/phase4_cuda_pinned/build/CMakeFiles/CMakeScratch/TryCompile-k1NTlu'
         
       exitCode: 0
   -
@@ -1840,11 +1840,11 @@ events:
       Parsed CUDA implicit link information:
         link line regex: [^( *|.*[/\\])(ld[0-9]*(|\\.[a-rt-z][a-z]*|\\.s[a-np-z][a-z]*|\\.so[a-z]+)|CMAKE_LINK_STARTFILE-NOTFOUND|([^/\\]+-)?ld|collect2)[^/\\]*( |$)]
         linker tool regex: [^[ 	]*(->|"|[0-9]+>[ 	-]*Build:[ 	0-9]+ ms[ 	]*)?[ 	]*(([^"]*[/\\])?(ld[0-9]*(|\\.[a-rt-z][a-z]*|\\.s[a-np-z][a-z]*|\\.so[a-z]+)))("|,| |$)]
-        ignore line: [Change Dir: '/root/JarvisVault/03 Projects/GromacsMexicano/phase4_cuda_pinned/build/CMakeFiles/CMakeScratch/TryCompile-k1NTlu']
+        ignore line: [Change Dir: '/root/JarvisVault/03 Projects/DM UAMI/phase4_cuda_pinned/build/CMakeFiles/CMakeScratch/TryCompile-k1NTlu']
         ignore line: []
         ignore line: [Run Build Command(s): /bin/cmake -E env VERBOSE=1 /bin/gmake -f Makefile cmTC_0cd25/fast]
         ignore line: [/bin/gmake  -f CMakeFiles/cmTC_0cd25.dir/build.make CMakeFiles/cmTC_0cd25.dir/build]
-        ignore line: [gmake[1]: Entering directory '/root/JarvisVault/03 Projects/GromacsMexicano/phase4_cuda_pinned/build/CMakeFiles/CMakeScratch/TryCompile-k1NTlu']
+        ignore line: [gmake[1]: Entering directory '/root/JarvisVault/03 Projects/DM UAMI/phase4_cuda_pinned/build/CMakeFiles/CMakeScratch/TryCompile-k1NTlu']
         ignore line: [Building CUDA object CMakeFiles/cmTC_0cd25.dir/CMakeCUDACompilerABI.cu.o]
         ignore line: [/usr/local/cuda-13.0/bin/nvcc -forward-unknown-to-host-compiler   "--generate-code=arch=compute_75 code=[compute_75 sm_75]"   -Xcompiler=-v -MD -MT CMakeFiles/cmTC_0cd25.dir/CMakeCUDACompilerABI.cu.o -MF CMakeFiles/cmTC_0cd25.dir/CMakeCUDACompilerABI.cu.o.d -x cu -c /usr/share/cmake-4.2/Modules/CMakeCUDACompilerABI.cu -o CMakeFiles/cmTC_0cd25.dir/CMakeCUDACompilerABI.cu.o]
         ignore line: [Using built-in specs.]

@@ -104,7 +104,7 @@ LECTURA: Todos los equipos pueden leer TODO
 ESCRITURA:
   • Equipo 2 (Audit): 01 Daily Reviews/
   • Equipo 15 (L'Étape): 02 Plan Entrenamiento/
-  • Equipos 8, 14: 03 Projects/GromacsMexicano/
+  • Equipos 8, 14: 03 Projects/DM UAMI/
   • Equipo 18: 03 Projects/Prototipos/
   • Equipos 12, 19: Operations/
   • Equipo 2: 01 Daily Reviews/

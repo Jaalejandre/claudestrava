@@ -32,7 +32,7 @@ Inventario detallado de qué tecnología hay instalada y qué proyectos vive en 
 | 115 | debmediav2 | Debian 13 | Docker CE + compose, ~20 servicios | stack de media completo (Plex, *arr, descargas, IPTV…) | 32400, 5055, 8989, 7878, 9696, 6767, 9091, 8080, 8265-66, 8181, 4533, 6246, 5690, 8191, 34400-01, 9191, 3030 |
 | 116 | ntfy | Debian 13 | ntfy | alertas de sistema (`pve-alerts`) | 80 |
 | 400 | medinotes | Debian 13 | Docker CE + compose, nginx, FastAPI, postgres:16, redis:7 | SaaS de notas médicas (4 contenedores) | 80, 443, 8000 |
-| 901 | **ubuntu** | Ubuntu 24.04.4 LTS | GROMACS 2025.2/2025.3, CUDA, NVIDIA driver 580, gcc/g++, Claude Code, BASE | **GromacsMexicano**: Fortran+CUDA referencia + reescritura C++ | — (SSH) |
+| 901 | **ubuntu** | Ubuntu 24.04.4 LTS | GROMACS 2025.2/2025.3, CUDA, NVIDIA driver 580, gcc/g++, Claude Code, BASE | **DM UAMI**: Fortran+CUDA referencia + reescritura C++ | — (SSH) |
 
 ## Detalle por contenedor
 
@@ -64,10 +64,10 @@ Tecnologías destacadas: CUDA toolkit 13 completo, Docker CE, nodejs, python 3.1
 
 Todos en Docker (`/opt/media-stack`), ~20 contenedores: Plex, Jellyseerr, Sonarr, Radarr, Prowlarr, Bazarr, Transmission, SABnzbd, Tdarr, Tautulli, Navidrome, Maintainerr, Wizarr, Flaresolverr, Threadfin/xTeVe, Dispatcharr, Kima, Glances.
 
-### GromacsMexicano — CT 901 `ubuntu` (.230)
+### DM UAMI — CT 901 `ubuntu` (.230)
 
 - `/home/alejandre/Programa_DM/` — código Fortran+CUDA de los científicos (**referencia, congelada**)
-- `/home/alejandre/GromacsMexicano/` — reescritura a C++ (CMake, repo git)
+- `/home/alejandre/DM UAMI/` — reescritura a C++ (CMake, repo git)
 - `/home/alejandre/gromacs-2025.2/` y `gromacs-2025.3/` — GROMACS de referencia compilados
 - `/home/alejandre/Prueba/` — caso de prueba (agua + NaCl); también `DM_NPT_gmx_v2`, `gmx-test`, `Sistemas`
 - `claude` en `/usr/bin`, **BASE** en `~/.local/bin/base` (memoria del rewrite)

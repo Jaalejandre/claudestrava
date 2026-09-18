@@ -60,7 +60,7 @@ SatanZote AI/   (vault — físicamente /root/JarvisVault en CT 109, montado en 
 │   └── Servidor Proxmox/  ← mapa del server, UPS, chequeos diarios automáticos
 ├── 03 Projects/           ← Proyectos individuales
 │   ├── Claude Strava/
-│   └── GromacsMexicano/
+│   └── DM UAMI/
 ├── 04 Reviews/            ← Monthly / Quarterly / Yearly / Weekly (vacío por ahora)
 └── 05 Skills/             ← brain-setup, new-project, new-dev-project, proxmox, weekly-update
 ```
@@ -84,7 +84,7 @@ SatanZote AI/   (vault — físicamente /root/JarvisVault en CT 109, montado en 
 
 **Estado actual:** Sin trabajo — renuncié hace ~2 meses.
 
-**Plan:** Desarrollar conocimiento en IA para conseguir el trabajo (GromacsMexicano es el proyecto insignia para demostrarlo).
+**Plan:** Desarrollar conocimiento en IA para conseguir el trabajo (DM UAMI es el proyecto insignia para demostrarlo).
 
 **Riesgos:** Ninguno identificado por ahora. _(Sección para revisar — está algo desactualizada.)_
 
@@ -102,11 +102,11 @@ SatanZote AI/   (vault — físicamente /root/JarvisVault en CT 109, montado en 
 
 ## My Current Projects & Overviews
 
-### GromacsMexicano — `03 Projects/GromacsMexicano/`
+### DM UAMI — `03 Projects/DM UAMI/`
 **Status:** Activo — el proyecto más avanzado.
 Adaptación de un código de dinámica molecular tipo GROMACS (Fortran f77/f95 + kernels CUDA, ecuaciones propias: LJ, Mie, FDR, Ewald, Nosé-Hoover, ensamble NPT). Objetivo: analizarlo, optimizarlo para GPU y reescribirlo, verificando que la física no cambie.
 - **Ronda de optimización CUDA sobre la versión Fortran: cerrada el 2026-09-04 en −45.7% wall time** (3:00.14 → 1:37.77, física validada en cada paso, cero crashes). 7 cambios aplicados, varios intentos fallidos documentados.
-- **Ahora:** reescritura Fortran → C++ en curso en CT 901 (`/home/alejandre/GromacsMexicano/Programa_DM_cpp/`, proyecto CMake). El `Programa_DM/` original de los científicos es referencia congelada, nunca se toca.
+- **Ahora:** reescritura Fortran → C++ en curso en CT 901 (`/home/alejandre/DM UAMI/Programa_DM_cpp/`, proyecto CMake). El `Programa_DM/` original de los científicos es referencia congelada, nunca se toca.
 - **Arquitectura:** todo el cómputo vive en **CT 901 `ubuntu`** (12 vCPU / 24 GB, RTX 5070 Ti, CUDA 13.0), acceso por SSH vía el host Proxmox. El vault es para contexto/análisis/planes/benchmarks. Memoria de agente en **BASE** (`~/.local/bin/base` en CT 901).
 - **Protocolo:** cada cambio se corre 3× (10 000 pasos), se verifica `cudaGetLastError()`, y se confirma que CT 901 esté libre (`who` + `ps aux`) antes de medir.
 

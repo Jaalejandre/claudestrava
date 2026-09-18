@@ -2,7 +2,7 @@
 
 ## Con qué se hizo el benchmark
 
-- **Caso de prueba:** `Prueba/` (el oficial del dashboard) — H₂O SPC/E + NaCl, 2544 átomos, 10 000 pasos, NPT, Ewald real + termostato/barostato Nosé-Hoover (MTTK), `dt=0.0002`, `rcut=1.2nm`, caja 2.9613³ nm³. Copiado a `/home/alejandre/GromacsMexicano/Bench_UAMI_baseline/` (aislado, no se tocó `Prueba/`).
+- **Caso de prueba:** `Prueba/` (el oficial del dashboard) — H₂O SPC/E + NaCl, 2544 átomos, 10 000 pasos, NPT, Ewald real + termostato/barostato Nosé-Hoover (MTTK), `dt=0.0002`, `rcut=1.2nm`, caja 2.9613³ nm³. Copiado a `/home/alejandre/DM UAMI/Bench_UAMI_baseline/` (aislado, no se tocó `Prueba/`).
 - **Binario:** `dm_mx_npt` recompilado en CT901 desde `/home/alejandre/UAMI_Source/` (código de UAM Pacífico, distinto del Fortran de este proyecto), flags de producción `-O3 -march=native`.
 - **Hardware:** CT901, RTX 5070 Ti (`sm_120`, compute capability 12.0), CUDA 13.0, gfortran 13.3. Verificado libre (`who` + `ps aux` + `nvidia-smi`) antes de medir — se encontró y detuvo una corrida de 500k pasos (`/tmp/bench_v3`, con loop de auto-relanzamiento en una sesión bash desde el 9 de sept) que estaba ocupando CPU+GPU al 99%.
 - **Metodología:** 3 corridas limpias, `time ./dm_mx_npt`, mismas condiciones que las filas "Fortran sin Ewald/Optimizado" ya en el dashboard.
@@ -39,10 +39,10 @@ Promedio:  182.14s
 | Fortran sin Ewald Optimizado (-O3, sm_120) | 98.0s | −35.3% |
 | **UAMI_baseline (-O3, sm_120)** | **182.1s** | **+20.3%** |
 
-**UAMI_baseline es más lento** que ambas versiones de "Fortran sin Ewald" — esperado, y no por más pasos (las tres corridas usan los mismos 10 000): el Fortran de este proyecto tiene el bug `NATQ` documentado (`main.f:1641`, ver `CLAUDE.md` del proyecto) que deja el **Ewald recíproco inactivo** — calcula menos física por paso, por eso sale más rápido. UAMI_baseline sí corre el Ewald recíproco completo, y tampoco pasó por la ronda de optimización de kernels (−45.7% wall time, cerrada 2026-09-04) que se aplicó al Fortran de GromacsMexicano.
+**UAMI_baseline es más lento** que ambas versiones de "Fortran sin Ewald" — esperado, y no por más pasos (las tres corridas usan los mismos 10 000): el Fortran de este proyecto tiene el bug `NATQ` documentado (`main.f:1641`, ver `CLAUDE.md` del proyecto) que deja el **Ewald recíproco inactivo** — calcula menos física por paso, por eso sale más rápido. UAMI_baseline sí corre el Ewald recíproco completo, y tampoco pasó por la ronda de optimización de kernels (−45.7% wall time, cerrada 2026-09-04) que se aplicó al Fortran de DM UAMI.
 
 ## Dónde quedó
 
 - Dashboard vivo actualizado: `http://192.168.0.64:8851` (fila `UAMI_baseline` en tarjetas/gráfica/tabla, aviso arriba explicando histórico de Fortran sin Ewald/Optimizado).
 - Binario de producción: `/home/alejandre/UAMI_Source/dm_mx_npt` (recompilado `sm_120`, sin flags de debug).
-- Corridas: `/home/alejandre/GromacsMexicano/Bench_UAMI_baseline/` (`run_final1.log`, `run_final2.log`, `run_final3.log`, `energy.dat`).
+- Corridas: `/home/alejandre/DM UAMI/Bench_UAMI_baseline/` (`run_final1.log`, `run_final2.log`, `run_final3.log`, `energy.dat`).

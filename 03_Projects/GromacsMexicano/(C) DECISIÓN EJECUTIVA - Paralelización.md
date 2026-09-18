@@ -1,4 +1,4 @@
-# 🎯 DECISIÓN EJECUTIVA — Paralelización GromacsMexicano
+# 🎯 DECISIÓN EJECUTIVA — Paralelización DM UAMI
 
 **Fecha:** 2026-09-12 12:20 CDMX  
 **De:** SatanZote AI (supervisor) + Fable (análisis especializado)  
@@ -115,7 +115,7 @@ enddo
 
 ### OPCIÓN C: Transformar a C++
 **Timeline:** 8-12 semanas  
-**Ya tienes:** `/home/alejandre/GromacsMexicano/Programa_DM_cpp_v2/`
+**Ya tienes:** `/home/alejandre/DM UAMI/Programa_DM_cpp_v2/`
 
 **Ventajas:**
 - ✅ Control total

@@ -14,7 +14,7 @@
 ### Estructura en CT 901
 
 ```
-/home/alejandre/GromacsMexicano/UAMI_baseline/
+/home/alejandre/DM UAMI/UAMI_baseline/
 ├── Código fuente (109 archivos)
 │   ├── main.f                (2298 líneas, programa principal)
 │   ├── *.f *.f95             (rutinas Fortran 77/95)
@@ -30,7 +30,7 @@
 
 ## VASE (Producto Baseline)
 
-**Binario:** `/home/alejandre/GromacsMexicano/UAMI_baseline/dm_uami_baseline_binary`
+**Binario:** `/home/alejandre/DM UAMI/UAMI_baseline/dm_uami_baseline_binary`
 
 **Características:**
 - ✅ Código original UAMI
@@ -70,9 +70,9 @@
 
 ## Archivos de referencia
 
-- **Código descargado en vault:** `/root/JarvisVault/01 Projects/GromacsMexicano/main_uami.f` (y otros)
-- **Estrategia:** `/root/JarvisVault/01 Projects/GromacsMexicano/ESTRATEGIA_v3_UAMI.md`
-- **Estado anterior:** `/root/JarvisVault/01 Projects/GromacsMexicano/ESTADO_v3_FINAL.md` (versión antigua, NO usar)
+- **Código descargado en vault:** `/root/JarvisVault/01 Projects/DM UAMI/main_uami.f` (y otros)
+- **Estrategia:** `/root/JarvisVault/01 Projects/DM UAMI/ESTRATEGIA_v3_UAMI.md`
+- **Estado anterior:** `/root/JarvisVault/01 Projects/DM UAMI/ESTADO_v3_FINAL.md` (versión antigua, NO usar)
 
 ---
 

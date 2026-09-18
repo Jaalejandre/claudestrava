@@ -36,7 +36,7 @@ Each profile sets `terminal.cwd` in its `config.yaml`. Hermes reads this via `_p
 ### Profiles Configured (2026-09-17)
 
 #### 1. Profile: `gromacs`
-**`terminal.cwd`**: `/root/JarvisVault/03 Projects/GromacsMexicano`
+**`terminal.cwd`**: `/root/JarvisVault/03 Projects/DM UAMI`
 
 **Use**: C++ code review, GPU optimization, CMake, physics validation.
 

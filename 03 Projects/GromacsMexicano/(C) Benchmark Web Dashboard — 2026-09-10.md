@@ -4,7 +4,7 @@
 
 ## Qué se construyó
 
-Dashboard web interactivo en Flask para comparar los tres motores de GromacsMexicano en tiempo real.
+Dashboard web interactivo en Flask para comparar los tres motores de DM UAMI en tiempo real.
 
 - **URL**: `http://192.168.0.64:8851`
 - **Código**: `/project/prototipos/gromacs-benchmark/app.py` (CT 109)

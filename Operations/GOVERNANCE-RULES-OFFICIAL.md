@@ -40,7 +40,7 @@
 ### **CT 901 (ubuntu) = PRODUCTION ONLY**
 
 **✅ ALLOWED:**
-- GromacsMexicano (molecular dynamics - LIVE)
+- DM UAMI (molecular dynamics - LIVE)
 - EntrenadorLetape (L'Étape training - LIVE)
 - Phase 5 GPU optimization work (LIVE)
 - Production-grade databases

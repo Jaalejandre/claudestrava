@@ -22,8 +22,8 @@ Then @orchestrator, tell me each Bot's favourite colour.
 TASK: Design GPU/CPU parallelization strategy for DM UAMI Phase 5
 
 SOURCES:
-1. /home/alejandre/GromacsMexicano/Programa_DM/ (Fortran original)
-2. /home/alejandre/GromacsMexicano/Programa_DM_cpp/ (Phase 4 C++)
+1. /home/alejandre/DM UAMI/Programa_DM/ (Fortran original)
+2. /home/alejandre/DM UAMI/Programa_DM_cpp/ (Phase 4 C++)
 3. Phase 4 Performance data (930.8 st/s baseline)
 4. Architecture: RTX 5070 Ti, CT 901, CUDA 13.0
 

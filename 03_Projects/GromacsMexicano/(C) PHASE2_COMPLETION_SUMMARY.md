@@ -1,7 +1,7 @@
 PHASE 2 FULL IMPLEMENTATION SUMMARY
 ===================================
 
-PROJECT: GromacsMexicano Phase 2 OpenMP Parallelization (6 Loops)
+PROJECT: DM UAMI Phase 2 OpenMP Parallelization (6 Loops)
 STATUS: ✓ COMPLETE & VERIFIED
 DATE: 2026-09-12
 COMPILATION: Clean (0 errors, 5 warnings)

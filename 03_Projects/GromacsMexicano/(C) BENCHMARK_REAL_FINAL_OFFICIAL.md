@@ -157,7 +157,7 @@ Realistic speedup vs Fortran: 1-6× (accounting for system scaling, different al
 - ✅ Methodology documented (workflow reutilizable)
 - ✅ Benchmark validated
 
-**GromacsMexicano is now a GPU-accelerated molecular dynamics simulator.**
+**DM UAMI is now a GPU-accelerated molecular dynamics simulator.**
 
 **Ready for production. Ready for your research. Ready to scale.**
 

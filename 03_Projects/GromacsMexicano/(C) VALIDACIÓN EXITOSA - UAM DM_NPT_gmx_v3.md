@@ -118,9 +118,9 @@ Comando link:
 
 ## ARCHIVOS
 
-- **Ejecutable:** `/home/alejandre/GromacsMexicano/DM_NPT_gmx_v3_MASTER/dm_mx_npt` (613 KB)
+- **Ejecutable:** `/home/alejandre/DM UAMI/DM_NPT_gmx_v3_MASTER/dm_mx_npt` (613 KB)
 - **dm.log:** En CT 901, también guardado en vault (referencia)
-- **Código fuente:** `/home/alejandre/GromacsMexicano/DM_NPT_gmx_v3_MASTER/*.f95` (refactorizado)
+- **Código fuente:** `/home/alejandre/DM UAMI/DM_NPT_gmx_v3_MASTER/*.f95` (refactorizado)
 
 ---
 

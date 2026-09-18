@@ -1,6 +1,6 @@
-# Brief de programación — Sonnet headless (GromacsMexicano, 2026-09-11)
+# Brief de programación — Sonnet headless (DM UAMI, 2026-09-11)
 
-Eres el **programador** del proyecto GromacsMexicano (rol: implementar, no analizar). Corres en CT 901 como `alejandre`. Fecha: 2026-09-11.
+Eres el **programador** del proyecto DM UAMI (rol: implementar, no analizar). Corres en CT 901 como `alejandre`. Fecha: 2026-09-11.
 
 ## Contexto (resumen ejecutivo)
 
@@ -25,12 +25,12 @@ Ese no-determinismo impide validar **bit a bit** un cambio de plomería que ya d
 2. Con semilla fija: **2 corridas → `energy.dat` con md5 IDÉNTICOS**. Cero NaN/Inf (verificar `energy.dat` con el comando de abajo).
 3. Sin semilla fija (default): 2 corridas → md5 distintos (sigue siendo aleatorio).
 4. `cudaGetLastError()` sin errores (el binario ya lo checa o verifica exit code 0).
-5. NO tocas el original de los científicos (`/home/alejandre/Programa_DM/`) ni el rewrite C++ (`/home/alejandre/GromacsMexicano/Programa_DM_cpp/`). Trabaja en `/home/alejandre/UAMI_Source/` (copia de trabajo, ya tiene git o haz `git init` antes de empezar si no lo tiene).
+5. NO tocas el original de los científicos (`/home/alejandre/Programa_DM/`) ni el rewrite C++ (`/home/alejandre/DM UAMI/Programa_DM_cpp/`). Trabaja en `/home/alejandre/UAMI_Source/` (copia de trabajo, ya tiene git o haz `git init` antes de empezar si no lo tiene).
 
 ## Protocolo obligatorio (del proyecto)
 
 - Antes de cada corrida: verificar CT 901 libre → `ps aux | grep -E "dm_mx_npt|gmx_mexicano" | grep -v grep` y `nvidia-smi` (GPU sin uso).
-- Correr desde `/home/alejandre/GromacsMexicano/Bench_UAMI_baseline/` con `time ./<binario>` (el caso de prueba oficial, 2544 átomos, 10 000 pasos, NPT).
+- Correr desde `/home/alejandre/DM UAMI/Bench_UAMI_baseline/` con `time ./<binario>` (el caso de prueba oficial, 2544 átomos, 10 000 pasos, NPT).
 - Cada corrida ~2.5-3 min. Mínimo 2 corridas por configuración.
 - Si una corrida supera 5 min o crashea → abortar y reportar.
 

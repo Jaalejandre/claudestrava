@@ -1,6 +1,6 @@
 # 📑 DM-UAMI Validation Archive — Index 2026-09-12
 
-**Location:** `/root/JarvisVault/03 Projects/GromacsMexicano/`
+**Location:** `/root/JarvisVault/03 Projects/DM UAMI/`
 
 ## 📊 Executive Report
 - **`(C) DM-UAMI VALIDATION FINAL 2026-09-12.md`** — Complete validation summary (4.6K)

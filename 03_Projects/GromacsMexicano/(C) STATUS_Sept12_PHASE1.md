@@ -1,4 +1,4 @@
-# 🚀 ESTADO ACTUAL — Paralelización GromacsMexicano Sept 12
+# 🚀 ESTADO ACTUAL — Paralelización DM UAMI Sept 12
 
 **Timestamp:** 2026-09-12 13:40 CDMX  
 **Status:** FASE 1 EN DELEGACIÓN

@@ -26,25 +26,25 @@ El vault contiene **477 archivos** (448 Markdown + 29 binarios/datos) distribuid
 |---------|-------|-----------|
 | Tamaño total | 113 MB (61 MB en .opencode, ~30 MB contenido) | Normal |
 | Archivos vacíos | 5 | Baja (limpieza fácil) |
-| Duplicación GromacsMexicano | 3 ubicaciones (01, 03, raíz) | **CRÍTICA** |
+| Duplicación DM UAMI | 3 ubicaciones (01, 03, raíz) | **CRÍTICA** |
 | Archivos sin frontmatter | 301/448 (67%) | Alta |
 | Wikilinks rotos detectados | 37 | Media |
 | Convención de nombres | Inconsistente (espacios, _, mayúsculas) | Media |
 | Directorios con backslash literal | 2 | **CRÍTICA** (bloquea Samba) |
 
-**Diagnóstico:** El vault es **funcional pero requiere consolidación**. La fragmentación de GromacsMexicano es el bloqueador #1. El sistema de metadatos es débil (32.8% frontmatter, sin tags centralizados).
+**Diagnóstico:** El vault es **funcional pero requiere consolidación**. La fragmentación de DM UAMI es el bloqueador #1. El sistema de metadatos es débil (32.8% frontmatter, sin tags centralizados).
 
-**Recomendación:** Reorganizar en 7 carpetas top-level mutuamente excluyentes, consolidar GromacsMexicano, estandarizar metadatos YAML, y eliminar archivos huérfanos.
+**Recomendación:** Reorganizar en 7 carpetas top-level mutuamente excluyentes, consolidar DM UAMI, estandarizar metadatos YAML, y eliminar archivos huérfanos.
 
 ---
 
 ## Hallazgos Críticos
 
-### 🔴 Crítica 1: GromacsMexicano — Triple Fragmentación
+### 🔴 Crítica 1: DM UAMI — Triple Fragmentación
 
 **Ubicaciones:**
-- `01 Projects/GromacsMexicano/` — **381 archivos, 22 MB** (fases de código IA históricas: PHASE1–PHASE4 con builds completos)
-- `03 Projects/GromacsMexicano/` — **60 archivos, 2.4 MB** (estructura organizada: 00 Código Fuente Original → 07 Iteration Logs)
+- `01 Projects/DM UAMI/` — **381 archivos, 22 MB** (fases de código IA históricas: PHASE1–PHASE4 con builds completos)
+- `03 Projects/DM UAMI/` — **60 archivos, 2.4 MB** (estructura organizada: 00 Código Fuente Original → 07 Iteration Logs)
 - Raíz y subcarpetas — **binarios, builds, logs dispersos** (~14 MB en `phase4_energies.txt`, `PHASE3_CUDA_FULL/build/`, `PHASE4_CUDA_PINNED/build/`)
 
 **Contenido duplicado:** 6 archivos idénticos en ambas ubicaciones:
@@ -122,7 +122,7 @@ Ejemplos:
 
 - **172 archivos con espacios:** "00 Notes", "03 Projects", "Claude Strava"
 - **116 archivos con guion bajo:** `Test_Sync_`, `phase4_`, `_agent__se_me_acabaron_`
-- **~15 con fecha YYYY-MM-DD:** Usados en GromacsMexicano (buena práctica, pero no sistemática)
+- **~15 con fecha YYYY-MM-DD:** Usados en DM UAMI (buena práctica, pero no sistemática)
 - **~20 PascalCase:** README.md, SKILL.md, CLAUDE.md (documentación + tools)
 
 **Problema:** Sin convención clara, las búsquedas alfanuméricas ordenan raramente.
@@ -164,15 +164,15 @@ JarvisVault/
 │   ├── Research-Drafts/            (Phase 5 design)
 │   └── ...
 │
-├── 01 Projects/                    (72 archivos, 22.4 MB) ← GromacsMexicano v1
-│   └── GromacsMexicano/            (PHASE1–PHASE4 histórico)
+├── 01 Projects/                    (72 archivos, 22.4 MB) ← DM UAMI v1
+│   └── DM UAMI/            (PHASE1–PHASE4 histórico)
 │
 ├── 01\ Projects/                   ← ERROR: backslash literal, vacío o casi
 │
 ├── 02 Plan de Entrenamiento/       (14 archivos)
 │
-├── 03 Projects/                    (144 archivos, 2.8 MB) ← GromacsMexicano v2 + otros
-│   ├── GromacsMexicano/            (estructura nueva: 00–07)
+├── 03 Projects/                    (144 archivos, 2.8 MB) ← DM UAMI v2 + otros
+│   ├── DM UAMI/            (estructura nueva: 00–07)
 │   ├── Claude Strava/              (entrenamiento L'Étape)
 │   ├── Entrenador L'Etape CDMX/
 │   ├── Infraestructura/
@@ -214,8 +214,8 @@ JarvisVault/
 
 | Carpeta | Archivos | Tamaño | Descripción |
 |---------|----------|--------|-------------|
-| 01 Projects/GromacsMexicano/ | 381 | 22 MB | **CRÍTICA:** Código antiguo + builds |
-| 03 Projects/GromacsMexicano/ | 60 | 2.4 MB | Reorganizado, pero duplicado |
+| 01 Projects/DM UAMI/ | 381 | 22 MB | **CRÍTICA:** Código antiguo + builds |
+| 03 Projects/DM UAMI/ | 60 | 2.4 MB | Reorganizado, pero duplicado |
 | 03 Projects/ (otras) | 84 | 400K | Claude Strava, Prototipos, etc. |
 | 00 Notes/Servidor Proxmox/ | 35 | 180K | Documentación infra OK |
 | 00 System/ | 17 | 400K | Coordinación IA dispersa |
@@ -233,8 +233,8 @@ JarvisVault/
 **Total:** 171 archivos (38% del vault)
 
 **Distribución:**
-- `01 Projects/GromacsMexicano/` — 74 (43%)
-- `03 Projects/GromacsMexicano/` — 45 (26%)
+- `01 Projects/DM UAMI/` — 74 (43%)
+- `03 Projects/DM UAMI/` — 45 (26%)
 - `00 Notes/Servidor Proxmox/` — 17 (10%)
 - `03 Projects/Prototipos/` — 10 (6%)
 - `03 Projects/Claude Strava/` — 9 (5%)
@@ -261,7 +261,7 @@ Por carpeta:
 
 | Tipo | Ejemplos | Cantidad |
 |------|----------|----------|
-| Documentación de proyecto | GromacsMexicano/*.md | 110+ |
+| Documentación de proyecto | DM UAMI/*.md | 110+ |
 | Análisis/Benchmarks | `(C) BENCHMARK_*.md` | 25+ |
 | Notas de entrenamiento | Claude Strava/... | 30+ |
 | Documentación de infraestructura | Servidor Proxmox/... | 35+ |
@@ -339,7 +339,7 @@ JarvisVault/
 │
 ├── 01 Projects/                ← Proyectos ACTIVOS con deadline o entregable visible.
 │   │                              Regla: si no se ha tocado en > 6 meses, mover a 10 Archives.
-│   ├── GromacsMexicano/        ← (CONSOLIDADO: TODO de 01 Projects + 03 Projects + raíz)
+│   ├── DM UAMI/        ← (CONSOLIDADO: TODO de 01 Projects + 03 Projects + raíz)
 │   │   ├── 00 Codigo Fuente Original/   ← Referencia congelada (nunca editar)
 │   │   ├── 01 CT 901 - Reescritura C++/ ← Versión en desarrollo (CT 901 Ubuntu)
 │   │   ├── 02 Optimizacion CUDA/        ← Benchmarks, perfiles, decisiones
@@ -405,7 +405,7 @@ JarvisVault/
 │
 ├── 10 Archives/                ← Proyectos inactivos (> 6 meses sin tocar)
 │   │                              o decididos como "no seguir". Estructura espejo de 01 Projects.
-│   ├── GromacsMexicano-Phase3-CUDA-OLD/
+│   ├── DM UAMI-Phase3-CUDA-OLD/
 │   ├── (otros proyectos viejos)/
 │   └── README.md               ← Índice de archivos, por qué se archivó
 │
@@ -420,7 +420,7 @@ JarvisVault/
 
 | Cambio | Anterior → Nuevo | Razón |
 |--------|------------------|-------|
-| **GromacsMexicano** | Fragmentado (01, 03, raíz) → **01 Projects/GromacsMexicano/** (consolidado) | Evita duplicación, versión única |
+| **DM UAMI** | Fragmentado (01, 03, raíz) → **01 Projects/DM UAMI/** (consolidado) | Evita duplicación, versión única |
 | **CLAUDE.md, GOALS.md** | Raíz → **00 System/** | Instrucciones globales centralizadas |
 | **Archivos de IA-Coordinación** | Raíz + 00 System → **00 System/Agents/** | Operaciones centralizadas |
 | **Reviews** | 04 Reviews/ (estructura plana) → **03 Operations/Weekly|Monthly|Quarterly/** | Jerarquía clara de cadencia |
@@ -441,7 +441,7 @@ JarvisVault/
 ```yaml
 ---
 type: [note | project-md | review | skill | draft | analysis]
-project: [GromacsMexicano | Claude Strava | Proxmox Infrastructure | ...]
+project: [DM UAMI | Claude Strava | Proxmox Infrastructure | ...]
 priority: [high | medium | low]
 status: [active | draft | completed | archived]
 tags: [tag1, tag2, tag3]              # Usar solo de Tags-Taxonomy.md
@@ -454,7 +454,7 @@ updated: YYYY-MM-DD
 ```yaml
 ---
 type: analysis
-project: GromacsMexicano
+project: DM UAMI
 priority: high
 status: active
 tags: [gromacs, cuda, optimization]
@@ -471,7 +471,7 @@ updated: 2026-09-17
 
 **Ejemplos válidos:**
 - `20260917 - Weekly Review Claude Strava.md` ✅
-- `GromacsMexicano Phase 4 Benchmark.md` ✅
+- `DM UAMI Phase 4 Benchmark.md` ✅
 - `CT 901 Setup Log.md` ✅
 
 **Ejemplos inválidos:**
@@ -489,10 +489,10 @@ updated: 2026-09-17
 
 **Ejemplo:**
 ```
-03 Projects/GromacsMexicano/04 Documentacion/
+03 Projects/DM UAMI/04 Documentacion/
 ├── (C) PHASE4 Energy Convergence Analysis.md  ← Cambiar a:
 ├── PHASE4 Energy Convergence Analysis.md      ✅
-└── (frontmatter: type: analysis, project: GromacsMexicano)
+└── (frontmatter: type: analysis, project: DM UAMI)
 ```
 
 ### Regla 4: Gestión de Archivos Grandes
@@ -509,8 +509,8 @@ updated: 2026-09-17
 
 **Archivos del vault a .gitignore ya:**
 ```
-01 Projects/GromacsMexicano/**/build/
-03 Projects/GromacsMexicano/03 Builds & Binarios/
+01 Projects/DM UAMI/**/build/
+03 Projects/DM UAMI/03 Builds & Binarios/
 *.o, *.a, *.so, *.exe
 phase4_energies.txt (>5MB)
 PHASE3_CUDA_FULL/build/
@@ -534,12 +534,12 @@ find /Users/josealejandre/Obsidian/JarvisVault/04\ Ideas\ \&\ Drafts -mtime +180
 
 ### Regla 6: Archivos de Código Fuente — Nunca Editación Manual
 
-**Aplica a:** `01 Projects/GromacsMexicano/00 Codigo Fuente Original/`
+**Aplica a:** `01 Projects/DM UAMI/00 Codigo Fuente Original/`
 
 **Protocolo:**
 - Marcar carpeta como **read-only** en git:
   ```bash
-  git update-index --assume-unchanged 01\ Projects/GromacsMexicano/00\ Codigo\ Fuente\ Original/*
+  git update-index --assume-unchanged 01\ Projects/DM UAMI/00\ Codigo\ Fuente\ Original/*
   ```
 - Si necesitas cambiar: crear rama (`feature/refactor-*`), cambiar en `01 .../01 CT 901 - Reescritura C++/`, luego validar contra original.
 - Nunca editar directamente `00 Codigo Fuente Original/` — es referencia congelada.
@@ -558,7 +558,7 @@ find /Users/josealejandre/Obsidian/JarvisVault/04\ Ideas\ \&\ Drafts -mtime +180
 ```
 Weekly review + vault updates — 2026-09-17
 
-- Consolidated GromacsMexicano sources (01 Projects → 03 Projects)
+- Consolidated DM UAMI sources (01 Projects → 03 Projects)
 - Added Phase 4 energy convergence analysis
 - Updated Claude Strava training week 8
 - Cleaned up old audit reports
@@ -625,19 +625,19 @@ rm -f ".bot-team-final-summary.txt"
 rm -f ".satanzote-daily-audit-summary.txt"
 ```
 
-### Fase 2: Consolidar GromacsMexicano (2 horas)
+### Fase 2: Consolidar DM UAMI (2 horas)
 
 **Paso 2.1: Determinar fuente de verdad**
 
 Necesitas decidir manualmente: ¿cuál es la versión "oficial"?
 
-- **`01 Projects/GromacsMexicano/`** — Código histórico de fases (PHASE1–PHASE4)
-- **`03 Projects/GromacsMexicano/`** — Estructura nueva, organizada
+- **`01 Projects/DM UAMI/`** — Código histórico de fases (PHASE1–PHASE4)
+- **`03 Projects/DM UAMI/`** — Estructura nueva, organizada
 
-Recomendación: **Fusionar ambas en `01 Projects/GromacsMexicano/`** siguiendo esta estructura:
+Recomendación: **Fusionar ambas en `01 Projects/DM UAMI/`** siguiendo esta estructura:
 
 ```
-01 Projects/GromacsMexicano/
+01 Projects/DM UAMI/
 ├── 00 Codigo Fuente Original/          ← (de 03 Projects, congelado)
 ├── 01 CT 901 - Reescritura C++/        ← (de 03 Projects, en desarrollo)
 ├── 02 Optimizacion CUDA/               ← (de 03 Projects)
@@ -645,9 +645,9 @@ Recomendación: **Fusionar ambas en `01 Projects/GromacsMexicano/`** siguiendo e
 ├── 04 Documentacion/                   ← (de 03 Projects + fase analysis de 01)
 ├── 05 Investigacion/                   ← (de 01 Projects)
 ├── 06 Scripts Auxiliares/              ← (nuevo, helpers)
-├── ARCHIVE-Phase1-Legacy/              ← (de 01 Projects/GromacsMexicano/PHASE1*, PHASE2*)
-├── ARCHIVE-Phase3-CUDA-Full/           ← (de 01 Projects/GromacsMexicano/PHASE3*)
-├── ARCHIVE-Phase4-CUDA-Pinned/         ← (de 01 Projects/GromacsMexicano/PHASE4*)
+├── ARCHIVE-Phase1-Legacy/              ← (de 01 Projects/DM UAMI/PHASE1*, PHASE2*)
+├── ARCHIVE-Phase3-CUDA-Full/           ← (de 01 Projects/DM UAMI/PHASE3*)
+├── ARCHIVE-Phase4-CUDA-Pinned/         ← (de 01 Projects/DM UAMI/PHASE4*)
 ├── README.md                           ← (nuevo, overview)
 └── Proyecto-Metadata.base              ← (nuevo, vista de estado)
 ```
@@ -656,35 +656,35 @@ Recomendación: **Fusionar ambas en `01 Projects/GromacsMexicano/`** siguiendo e
 
 ```bash
 # Backup of both before we start
-cp -r "01 Projects/GromacsMexicano" "/tmp/gromacs-01-backup"
-cp -r "03 Projects/GromacsMexicano" "/tmp/gromacs-03-backup"
+cp -r "01 Projects/DM UAMI" "/tmp/gromacs-01-backup"
+cp -r "03 Projects/DM UAMI" "/tmp/gromacs-03-backup"
 
 # Move 03 structure to 01 (es más organizada)
-rsync -av "03 Projects/GromacsMexicano/00 Codigo Fuente Original/" \
-  "01 Projects/GromacsMexicano/00 Codigo Fuente Original/" --delete
+rsync -av "03 Projects/DM UAMI/00 Codigo Fuente Original/" \
+  "01 Projects/DM UAMI/00 Codigo Fuente Original/" --delete
 
-rsync -av "03 Projects/GromacsMexicano/01 CT 901"* \
-  "01 Projects/GromacsMexicano/01 CT 901 - Reescritura C++/"
+rsync -av "03 Projects/DM UAMI/01 CT 901"* \
+  "01 Projects/DM UAMI/01 CT 901 - Reescritura C++/"
 
-rsync -av "03 Projects/GromacsMexicano/02 Optimizacion"* \
-  "01 Projects/GromacsMexicano/02 Optimizacion CUDA/"
+rsync -av "03 Projects/DM UAMI/02 Optimizacion"* \
+  "01 Projects/DM UAMI/02 Optimizacion CUDA/"
 
 # etc... (repite para carpetas 03–07 de "03 Projects/")
 
 # Archiva el viejo código de fases
-mkdir -p "01 Projects/GromacsMexicano/ARCHIVE-Phase1-Legacy"
-mv "01 Projects/GromacsMexicano/"{PHASE1*,PHASE2*} "01 Projects/GromacsMexicano/ARCHIVE-Phase1-Legacy/" 2>/dev/null
+mkdir -p "01 Projects/DM UAMI/ARCHIVE-Phase1-Legacy"
+mv "01 Projects/DM UAMI/"{PHASE1*,PHASE2*} "01 Projects/DM UAMI/ARCHIVE-Phase1-Legacy/" 2>/dev/null
 
 # Limpia binarios y builds (los pones en .gitignore, no los subes)
-mkdir -p "01 Projects/GromacsMexicano/03 Builds & Binarios"
-mv "01 Projects/GromacsMexicano"/**/*.o "01 Projects/GromacsMexicano/03 Builds & Binarios/" 2>/dev/null
-mv "01 Projects/GromacsMexicano"/**/build "01 Projects/GromacsMexicano/03 Builds & Binarios/" 2>/dev/null
+mkdir -p "01 Projects/DM UAMI/03 Builds & Binarios"
+mv "01 Projects/DM UAMI"/**/*.o "01 Projects/DM UAMI/03 Builds & Binarios/" 2>/dev/null
+mv "01 Projects/DM UAMI"/**/build "01 Projects/DM UAMI/03 Builds & Binarios/" 2>/dev/null
 ```
 
 **Paso 2.3: Eliminar duplicado en 03 Projects**
 
 ```bash
-rm -rf "03 Projects/GromacsMexicano"
+rm -rf "03 Projects/DM UAMI"
 ```
 
 ### Fase 3: Mover Archivos Sueltos (30 min)
@@ -723,7 +723,7 @@ mv "03 Projects/Prototipos" "04 Ideas & Drafts/Prototipos"
 **Paso 4.1: Determinar qué es "activo" vs "archivado"**
 
 Proyectos activos (deadline < 6 meses):
-- ✅ GromacsMexicano (trabajo en progreso)
+- ✅ DM UAMI (trabajo en progreso)
 - ✅ Claude Strava (deadline 2026-11-15)
 - ✅ Proxmox Infrastructure (mantenimiento continuo)
 - ❓ B2-Backup-Strategy (activo pero bajo prioridad)
@@ -768,7 +768,7 @@ status: active
 # Taxonomía de Tags
 
 ## Proyectos
-- `gromacs` — Dinámica molecular (Gromacs Mexicano)
+- `gromacs` — Dinámica molecular (DM UAMI)
 - `strava` — Entrenamiento y fitness (Claude Strava, L'Étape)
 - `proxmox` — Infraestructura de servidor
 - `ops` — Operaciones y rutina diaria
@@ -837,7 +837,7 @@ updated: YYYY-MM-DD
 
 ## Metrics
 - Training: X km, Y hours
-- GromacsMexicano: Phase, iteration, blocker
+- DM UAMI: Phase, iteration, blocker
 - Other projects: status
 
 EOF
@@ -887,11 +887,11 @@ find . -name '*.md' -type f ! -path './.git/*' ! -path './.opencode/*' -exec sh 
 
 **Paso 6.2: Agregar frontmatter mínimo a .md de proyectos activos**
 
-Ejemplo: `01 Projects/GromacsMexicano/README.md`
+Ejemplo: `01 Projects/DM UAMI/README.md`
 
 Antes:
 ```markdown
-# GromacsMexicano — Dinámica Molecular
+# DM UAMI — Dinámica Molecular
 
 ## Resumen
 ...
@@ -901,7 +901,7 @@ Después:
 ```markdown
 ---
 type: project-md
-project: GromacsMexicano
+project: DM UAMI
 priority: high
 status: active
 tags: [gromacs, cuda, optimization]
@@ -909,7 +909,7 @@ created: 2026-01-15
 updated: 2026-09-17
 ---
 
-# GromacsMexicano — Dinámica Molecular
+# DM UAMI — Dinámica Molecular
 
 ## Resumen
 ...
@@ -924,13 +924,13 @@ updated: 2026-09-17
 ```bash
 cat >> ".gitignore" << 'EOF'
 
-# GromacsMexicano builds (no subir binarios)
-01 Projects/GromacsMexicano/03 Builds & Binarios/
-01 Projects/GromacsMexicano/**/build/
-01 Projects/GromacsMexicano/**/*.o
-01 Projects/GromacsMexicano/**/*.a
-01 Projects/GromacsMexicano/**/*.so
-01 Projects/GromacsMexicano/**/phase4_energies.txt
+# DM UAMI builds (no subir binarios)
+01 Projects/DM UAMI/03 Builds & Binarios/
+01 Projects/DM UAMI/**/build/
+01 Projects/DM UAMI/**/*.o
+01 Projects/DM UAMI/**/*.a
+01 Projects/DM UAMI/**/*.so
+01 Projects/DM UAMI/**/phase4_energies.txt
 
 # Temporary draft files
 04 Ideas & Drafts/Inbox/
@@ -958,7 +958,7 @@ git add -A
 git commit -m "refactor: reorganizar vault structure según auditoría 2026-09-17
 
 Cambios:
-- Consolidate GromacsMexicano (01 Projects + 03 Projects → 01 Projects)
+- Consolidate DM UAMI (01 Projects + 03 Projects → 01 Projects)
 - Move system files: CLAUDE.md, GOALS.md → 00 System/
 - Move coordination: AI-Carrillo-* → 00 System/Agents/
 - Move reviews: 04 Reviews/ → 03 Operations/
@@ -1034,7 +1034,7 @@ git push origin main
 
 | Métrica | Antes | Después | Mejora |
 |---------|-------|---------|--------|
-| Fragmentación GromacsMexicano | 3 ubicaciones | 1 centralizado | ✅ |
+| Fragmentación DM UAMI | 3 ubicaciones | 1 centralizado | ✅ |
 | Archivos sin frontmatter | 301/448 (67%) | ~50/448 (11%) | ✅ |
 | Archivos en raíz | 11 | 0 | ✅ |
 | Directorios con errores | 2 (backslash) | 0 | ✅ |

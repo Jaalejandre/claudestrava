@@ -347,7 +347,7 @@ Zeros-Vendedor DECIDE:
 ESCALA A JOSÉ si:
   ❌ Presupuesto tokens exceed $150/mes
   ❌ Equipo adicional requerido (hiring)
-  ❌ Productivo conflict con GromacsMexicano
+  ❌ Productivo conflict con DM UAMI
   ❌ Viralidad exponencial (scaling infra)
 ```
 
@@ -370,7 +370,7 @@ E34 (Zeros-Vendedor) OBJETIVO:
     • ROI positivo (tokens < revenue)
   
   Restricción:
-    • No interfiere GromacsMexicano
+    • No interfiere DM UAMI
     • Presupuesto tokens $100-150/mes
     • Servidores SatanZote únicamente
     • Equipo existente (no hiring)

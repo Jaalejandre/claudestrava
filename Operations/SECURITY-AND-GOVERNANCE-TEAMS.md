@@ -84,7 +84,7 @@
 **CT 901 (ubuntu) — PRODUCTION ONLY**
 ```
 ✅ ALLOWED:
-  • GromacsMexicano (molecular dynamics - LIVE)
+  • DM UAMI (molecular dynamics - LIVE)
   • EntrenadorLetape (L'Étape training - LIVE)
   • Production databases
   • Long-running computations
@@ -183,7 +183,7 @@ Ready? Let me know.
 ```
 ✅ DEPLOYMENT APPROVED
 
-What: GromacsMexicano v1.2.1 (CUDA parallelization)
+What: DM UAMI v1.2.1 (CUDA parallelization)
 Where: CT 901
 When: Ready to deploy
 

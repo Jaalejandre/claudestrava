@@ -163,7 +163,7 @@ python3 /root/gromacs-dashboard/compare_gromacs.py
 
 ## 🔗 Referencias
 
-- **Phase 1 binary:** `/home/alejandre/GromacsMexicano/Programa_DM_cpp_v1.1/build/dm_mx_npt`
+- **Phase 1 binary:** `/home/alejandre/DM UAMI/Programa_DM_cpp_v1.1/build/dm_mx_npt`
 - **Phase 4 binary:** `/root/phase4_cuda_pinned/phase4_cuda_realdata`
 - **Test data:** `/home/alejandre/UAMI_Test/` (file.gro, file.top, file.mdp)
 - **Scripts:** `/root/gromacs-dashboard/{validation_report.py, longrun_benchmark.py}`

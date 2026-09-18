@@ -1,4 +1,4 @@
-# Phase 4 CUDA Implementation - GromacsMexicano
+# Phase 4 CUDA Implementation - DM UAMI
 
 ## Quick Start
 
@@ -20,7 +20,7 @@ make -j4
 
 Expected output:
 ```
-GromacsMexicano Phase 4 CUDA Implementation
+DM UAMI Phase 4 CUDA Implementation
 Pinned Memory + Async Streams + 3 Kernels
 ...
 Phase 4 Results
@@ -175,7 +175,7 @@ Timeline:
 
 ```cmake
 cmake_minimum_required(VERSION 3.20)
-project(GromacsMexicano_Phase4 LANGUAGES CXX CUDA)
+project(DM UAMI_Phase4 LANGUAGES CXX CUDA)
 
 set(CMAKE_CUDA_STANDARD 17)
 set(CMAKE_CXX_STANDARD 17)
@@ -512,7 +512,7 @@ cmake ..
 
 ```bibtex
 @software{gromacsmexicano_phase4,
-  title={GromacsMexicano Phase 4: GPU Integrator Pipeline with Pinned Memory},
+  title={DM UAMI Phase 4: GPU Integrator Pipeline with Pinned Memory},
   author={GPU Accelerated MD Team},
   year={2024},
   url={https://github.com/...}
@@ -523,7 +523,7 @@ cmake ..
 
 ## License
 
-This Phase 4 implementation builds on the GromacsMexicano project.
+This Phase 4 implementation builds on the DM UAMI project.
 See LICENSE file for full details.
 
 ---

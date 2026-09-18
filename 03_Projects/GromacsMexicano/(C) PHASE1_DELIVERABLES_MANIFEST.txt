@@ -39,7 +39,7 @@ PROJECT STRUCTURE
 BUILD ARTIFACTS (in project directory)
 ================================================================================
 
-/home/alejandre/GromacsMexicano/PRODUCTION_v3_CPP/
+/home/alejandre/DM UAMI/PRODUCTION_v3_CPP/
 ├── build_phase1/
 │   ├── bin/
 │   │   └── dm_mx_npt              [Compiled binary]
@@ -147,10 +147,10 @@ FILE LOCATIONS FOR REFERENCE
 ================================================================================
 
 Plan Document:
-  /root/JarvisVault/01\ Projects/GromacsMexicano/(C)\ PHASE1_IMPLEMENTATION_PLAN.md
+  /root/JarvisVault/01\ Projects/DM UAMI/(C)\ PHASE1_IMPLEMENTATION_PLAN.md
 
 Source Repository (original):
-  /home/alejandre/GromacsMexicano/PRODUCTION_v3_CPP/
+  /home/alejandre/DM UAMI/PRODUCTION_v3_CPP/
 
 Workspace Deliverables:
   /root/src_phase1_openmp/          ← Modified source
@@ -165,7 +165,7 @@ QUICK START
 
 To recompile and test:
 
-  cd /home/alejandre/GromacsMexicano/PRODUCTION_v3_CPP/build_phase1
+  cd /home/alejandre/DM UAMI/PRODUCTION_v3_CPP/build_phase1
   cmake .. -DCMAKE_CXX_FLAGS="-O3 -fopenmp -march=native"
   make -j4
   ./bin/dm_mx_npt

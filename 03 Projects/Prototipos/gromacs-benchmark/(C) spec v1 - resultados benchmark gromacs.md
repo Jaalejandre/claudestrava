@@ -1,6 +1,6 @@
-# Spec: GromacsMexicano Benchmark Results
+# Spec: DM UAMI Benchmark Results
 
-Página web estática de una sola pantalla para presentar los resultados del benchmark de GromacsMexicano a los científicos del proyecto. Muestra comparativa de tiempos entre versiones y la pregunta pendiente para los científicos.
+Página web estática de una sola pantalla para presentar los resultados del benchmark de DM UAMI a los científicos del proyecto. Muestra comparativa de tiempos entre versiones y la pregunta pendiente para los científicos.
 
 ## Stack
 
@@ -29,7 +29,7 @@ Página web estática de una sola pantalla para presentar los resultados del ben
 ## Diseño
 
 - Fondo oscuro (#0f1117), tipografía limpia (sans-serif del sistema)
-- Header con título "GromacsMexicano — Benchmark de Rendimiento" y subtítulo "Agua SPC/E + NaCl · 2544 átomos · 10,000 pasos · RTX 5070 Ti"
+- Header con título "DM UAMI — Benchmark de Rendimiento" y subtítulo "Agua SPC/E + NaCl · 2544 átomos · 10,000 pasos · RTX 5070 Ti"
 - **Sección 1: Gráfica de barras horizontal** comparando las 4 versiones por tiempo promedio (segundos). Las barras deben ser proporcionales al tiempo. Colores:
   - Original: rojo (#e74c3c)
   - Optimizado: verde (#2ecc71)
@@ -47,7 +47,7 @@ Página web estática de una sola pantalla para presentar los resultados del ben
   >
   > Los benchmarks actuales asumen el comportamiento del Fortran original (NATQ=0 en el loop).
 
-- Footer discreto: "GromacsMexicano · CT 901 Ubuntu · Benchmark 2026-09-10"
+- Footer discreto: "DM UAMI · CT 901 Ubuntu · Benchmark 2026-09-10"
 - Responsive (se ve bien en pantalla grande y en tablet)
 - Sin animaciones innecesarias — estilo técnico/limpio
 

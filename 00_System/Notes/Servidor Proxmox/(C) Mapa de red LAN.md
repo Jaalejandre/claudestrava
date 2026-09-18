@@ -52,7 +52,7 @@ Topología completa de la red local, resultado del barrido del 2026-09-11. Compl
 | .216 | BC:24:11:6A:EE:6F | Proxmox | CT 102 uptimekuma | Documentado |
 | .221 | 68:7F:F0:68:69:8D | TP-Link Limited | ¿Deco/Archer (mesh)? | Smart home |
 | .228 | 6A:BB:4B:B0:DA:1F | MAC aleatoria | **Apple iOS 15.x/macOS** — SSH :22, Kerberos :88, ARD VNC :5900, AirTunes :5000/:7000, eppc :3031 | ⚠️ Sin identificar |
-| .230 | BC:24:11:58:B9:C7 | Proxmox | CT 901 ubuntu (GromacsMexicano) | Documentado |
+| .230 | BC:24:11:58:B9:C7 | Proxmox | CT 901 ubuntu (DM UAMI) | Documentado |
 | .23 | BC:24:11:* | Proxmox | **CT 118 `control`** — controlador SSH del stack (NUEVO 2026-09-12) | Documentado |
 
 ## Hallazgos del barrido

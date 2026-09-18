@@ -57,11 +57,11 @@
 
 | Item | Ubicación | Estado |
 |------|-----------|--------|
-| **Baseline C++** | `/home/alejandre/GromacsMexicano/PRODUCTION_v3_CPP/` | ✅ Compilado |
+| **Baseline C++** | `/home/alejandre/DM UAMI/PRODUCTION_v3_CPP/` | ✅ Compilado |
 | **Phase 1 OpenMP** | Integrado en PRODUCTION_v3_CPP | ✅ Compilado |
 | **CMakeLists.txt** | PRODUCTION_v3_CPP/ | ✅ OpenMP-ready |
-| **Documentación Fable** | `/root/JarvisVault/01 Projects/GromacsMexicano/(C) FABLE-*` | ✅ Archivado |
-| **Master Plan** | `/root/JarvisVault/01 Projects/GromacsMexicano/(C) MASTER PLAN*` | ✅ Completo |
+| **Documentación Fable** | `/root/JarvisVault/01 Projects/DM UAMI/(C) FABLE-*` | ✅ Archivado |
+| **Master Plan** | `/root/JarvisVault/01 Projects/DM UAMI/(C) MASTER PLAN*` | ✅ Completo |
 | **Benchmarks** | PRODUCTION_v3_CPP/results/ | ✅ Archivados |
 
 ---

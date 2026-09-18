@@ -2,7 +2,7 @@
 PHASE 4 CUDA PINNED MEMORY IMPLEMENTATION - DELIVERABLES MANIFEST
 ================================================================================
 
-PROJECT: GromacsMexicano Phase 4 FULL (OPTION C)
+PROJECT: DM UAMI Phase 4 FULL (OPTION C)
 LOCATION: /root/phase4_cuda_pinned/
 DATE: September 12, 2024
 STATUS: COMPLETE ✓

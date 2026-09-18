@@ -4,7 +4,7 @@
 
 ## 📍 Ubicación
 ```
-~/JarvisVault/01 Projects/GromacsMexicano/gromacs-analyzer-worker/
+~/JarvisVault/01 Projects/DM UAMI/gromacs-analyzer-worker/
 ```
 
 ## 🚀 DESPLEGAR (UN COMANDO)
@@ -12,7 +12,7 @@
 Cuando tengas acceso a terminal en CT 109:
 
 ```bash
-cd ~/JarvisVault/01\ Projects/GromacsMexicano/gromacs-analyzer-worker/
+cd ~/JarvisVault/01\ Projects/DM UAMI/gromacs-analyzer-worker/
 
 wrangler login
 ```

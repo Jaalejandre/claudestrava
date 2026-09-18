@@ -90,7 +90,7 @@
 | **901** | **ubuntu** | 192.168.0.230 | **DESARROLLO: Gromacs, Entrenador L'Étape** | 12 vCPU, 24 GB RAM, RTX 5070 Ti |
 
 **Detalles CT 901:**
-- **GromacsMexicano** — C++ rewrite (Fortran + CUDA)
+- **DM UAMI** — C++ rewrite (Fortran + CUDA)
 - **EntrenadorLEtape** — Dashboard L'Étape CDMX (http://192.168.0.230:8003)
 - CUDA 13.0 instalado
 - SSH accesible vía `ssh alejandre@192.168.0.230`
@@ -156,7 +156,7 @@ Tu Mac (Tailscale 100.x.x.x)
     ↓
 SSH a CT 901 (192.168.0.230 o vía Tailscale)
     ↓
-GromacsMexicano / EntrenadorLEtape
+DM UAMI / EntrenadorLEtape
     ↓
 Results → Vault (CT 109, Samba) → GitHub (claudestrava)
 ```
@@ -190,7 +190,7 @@ Internet (dominio satanzote.me)
 
 **RTX 5070 Ti** (compartida via passthrough):
 - **CT 109 (claude-dev):** Hermes + OmniRoute (cuando corre modelos)
-- **CT 901 (ubuntu):** GromacsMexicano benchmarks + CUDA
+- **CT 901 (ubuntu):** DM UAMI benchmarks + CUDA
 - **CT 103 (openwebui):** Ollama inferencia
 
 ⚠️ **Nota:** No corre simultáneamente en los 3. Necesita coordinación.

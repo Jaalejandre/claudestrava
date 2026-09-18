@@ -118,7 +118,7 @@ T+1 min: Si línea no vuelve
 T+10 min: Si línea no vuelve
   → Alerta "SHUTDOWN EN 3 MINUTOS"
   → Iniciar graceful shutdown ordenado:
-    1. Pausar todos trabajos (Hermes, GromacsMexicano)
+    1. Pausar todos trabajos (Hermes, DM UAMI)
     2. Cerrar conexiones de bases de datos
     3. Flush buffers a disco
     4. Commit últimas transacciones

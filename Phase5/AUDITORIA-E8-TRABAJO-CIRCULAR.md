@@ -24,7 +24,7 @@ issue: "Trabajo circular, sin progreso medible"
 
 ### Root Cause: Información Incompleta
 
-**Suposición inicial:** Código Fortran en CT 901 (`/home/alejandre/GromacsMexicano/`)
+**Suposición inicial:** Código Fortran en CT 901 (`/home/alejandre/DM UAMI/`)
 **Realidad:** NO EXISTE en CT 901
 
 **Consecuencia:** E8 (DM UAMI) no puede ejecutar corrida → trabajo circular
@@ -58,7 +58,7 @@ Ciclo Actual (❌ INEFICIENTE):
 
 ```
 1. Ruta exacta del archivo .f95
-   "~/GromacsMexicano/Programa_DM/programa.f95"
+   "~/DM UAMI/Programa_DM/programa.f95"
    
 2. Binario precompilado
    "~/gromacs/programa"

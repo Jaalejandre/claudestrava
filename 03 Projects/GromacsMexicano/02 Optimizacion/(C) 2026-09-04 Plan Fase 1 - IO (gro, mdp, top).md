@@ -1,4 +1,4 @@
-# GromacsMexicano C++ Rewrite — Phase 1 (I/O) Implementation Plan
+# DM UAMI C++ Rewrite — Phase 1 (I/O) Implementation Plan
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
@@ -13,7 +13,7 @@
 ## Global Constraints
 
 - **Physics validated at every phase gate** — this phase parses data, it doesn't compute forces, so "physics validation" here means: every parsed number must match the Fortran reference's own startup printout exactly (these are text-format parsers — there is no floating-point accumulation to introduce 1σ-style tolerance; a mismatch is a bug, not noise).
-- **Never touch `/home/alejandre/GromacsMexicano/Programa_DM/`** — read-only reference. All new work in `Programa_DM_cpp/`.
+- **Never touch `/home/alejandre/DM UAMI/Programa_DM/`** — read-only reference. All new work in `Programa_DM_cpp/`.
 - **CT 901 must be verified free of concurrent activity (`who` + `ps aux | grep dm_mx_npt`) before every build/test run.**
 - **One subsystem per task, one commit per validated task, task-scoped review before the next task starts** — Phase 0's final review caught a real bug (CMake architecture ordering) precisely because each task stayed small enough to review properly; don't undo that discipline here by batching unrelated parsers into one commit.
 - **No physics/numeric logic invented** — every formula, every validation check, every default value in this plan is copied from the Fortran source that was read in full to write it. If an implementer finds the actual file content differs from what's quoted here, STOP and report rather than guessing — this plan is only as good as the reads it's based on, and a fresh subagent has no way to tell a stale quote from a real spec without asking.
@@ -112,7 +112,7 @@ int main() {
 - [ ] **Step 2: Run it to confirm it fails to build** (the header doesn't exist yet)
 
 ```
-ssh alejandre@192.168.0.230 "cd GromacsMexicano/Programa_DM_cpp && export PATH=/usr/local/cuda/bin:\$PATH; export LD_LIBRARY_PATH=/usr/local/cuda/lib64:\$LD_LIBRARY_PATH; cmake --build build -j 2>&1 | tail -20"
+ssh alejandre@192.168.0.230 "cd DM UAMI/Programa_DM_cpp && export PATH=/usr/local/cuda/bin:\$PATH; export LD_LIBRARY_PATH=/usr/local/cuda/lib64:\$LD_LIBRARY_PATH; cmake --build build -j 2>&1 | tail -20"
 ```
 Expected: a compile error, `gro_file.hpp` not found (the test file exists but the header it includes doesn't).
 
@@ -178,10 +178,10 @@ Expected: `test_gro_file: all assertions passed`, ctest reports `1/1 Test #N: gr
 
 Add a second test (append to `test_gro_file.cpp` or add a second `main`-free check — simplest is a second assertion block in the same `main()`) that reads the **actual** `Prueba/file.gro` (copy it next to the test binary or reference it by relative path from the build directory — simplest: `ssh` a copy into `Programa_DM_cpp/tests/fixtures/file.gro` and reference that fixed path) and asserts:
 - `frame.nat == 2544`
-- `nearly_equal(frame.boxx, 3.00454, 1e-4)`, same for `boxy`, `boxz` (from `Programa_DM/Prueba/file.gro`'s actual box line — read it yourself via `ssh alejandre@192.168.0.230 "tail -1 GromacsMexicano/Prueba/file.gro"` to get the exact value the file currently has, since the box drifts slightly run-to-run under NPT and the checked-in fixture reflects whatever the last run left it at; use whatever `tail -1` actually shows, not the value quoted in this plan, since this file mutates every simulation run and the plan was written at one point in time)
+- `nearly_equal(frame.boxx, 3.00454, 1e-4)`, same for `boxy`, `boxz` (from `Programa_DM/Prueba/file.gro`'s actual box line — read it yourself via `ssh alejandre@192.168.0.230 "tail -1 DM UAMI/Prueba/file.gro"` to get the exact value the file currently has, since the box drifts slightly run-to-run under NPT and the checked-in fixture reflects whatever the last run left it at; use whatever `tail -1` actually shows, not the value quoted in this plan, since this file mutates every simulation run and the plan was written at one point in time)
 - `frame.symbol2[0]` and `frame.resid_name[0]` are non-empty strings (don't hardcode the exact first atom's identity into the plan — inspect `head -3 file.gro` yourself and assert against what you actually see, for the same reason as the box value above)
 
-Copy the fixture: `ssh alejandre@192.168.0.230 "cat GromacsMexicano/Prueba/file.gro" > /tmp/file_gro_fixture` then transfer it into `Programa_DM_cpp/tests/fixtures/file.gro` on the remote.
+Copy the fixture: `ssh alejandre@192.168.0.230 "cat DM UAMI/Prueba/file.gro" > /tmp/file_gro_fixture` then transfer it into `Programa_DM_cpp/tests/fixtures/file.gro` on the remote.
 
 - [ ] **Step 8: Commit**
 
@@ -372,7 +372,7 @@ ctest --test-dir build --output-on-failure -R mdp_file
 
 - [ ] **Step 6: Validate against the real fixture**
 
-Copy `Prueba/file.mdp` into `Programa_DM_cpp/tests/fixtures/file.mdp` (same transfer pattern as Task 1). Add a third check in `test_mdp_file.cpp`: `read_mdp("tests/fixtures/file.mdp", <boxx from the file.gro fixture in Task 1, i.e. whatever value that fixture's last line actually has>)` and assert every field matches what `Programa_DM/Prueba/dm.log`'s startup dump prints (the "Parametros de integracion" / "Frecuencias de escritura" / etc. section, `mdp.f:798-865`) — fetch the actual current values with `ssh alejandre@192.168.0.230 "grep -A3 'Parametros de integracion' GromacsMexicano/Prueba/dm.log"` (and similarly for the other sections) rather than trusting any specific numbers quoted in this plan, since `file.mdp` could have been edited since this plan was written.
+Copy `Prueba/file.mdp` into `Programa_DM_cpp/tests/fixtures/file.mdp` (same transfer pattern as Task 1). Add a third check in `test_mdp_file.cpp`: `read_mdp("tests/fixtures/file.mdp", <boxx from the file.gro fixture in Task 1, i.e. whatever value that fixture's last line actually has>)` and assert every field matches what `Programa_DM/Prueba/dm.log`'s startup dump prints (the "Parametros de integracion" / "Frecuencias de escritura" / etc. section, `mdp.f:798-865`) — fetch the actual current values with `ssh alejandre@192.168.0.230 "grep -A3 'Parametros de integracion' DM UAMI/Prueba/dm.log"` (and similarly for the other sections) rather than trusting any specific numbers quoted in this plan, since `file.mdp` could have been edited since this plan was written.
 
 - [ ] **Step 7: Commit**
 

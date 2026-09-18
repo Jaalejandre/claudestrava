@@ -11,7 +11,7 @@
 ```
 ┌─────────────────────────────────────────────────────┐
 │         GROMACS EN CT 901                           │
-│  /home/alejandre/GromacsMexicano/Programa_DM_cpp/  │
+│  /home/alejandre/DM UAMI/Programa_DM_cpp/  │
 │              dm.log (output)                        │
 └────────────────────┬────────────────────────────────┘
                      │
@@ -169,7 +169,7 @@ async function fetchGromacsMDLog(env) {
   // Opción 3: Via Tailscale (si tienes IP Tailscale)
   
   const ct901Host = env.CT901_HOST;
-  const logPath = '/home/alejandre/GromacsMexicano/Programa_DM_cpp_v2/dm.log';
+  const logPath = '/home/alejandre/DM UAMI/Programa_DM_cpp_v2/dm.log';
   
   try {
     // Usar SSH via Cloudflare Tunnel o ejecutor remoto
@@ -277,7 +277,7 @@ async function fetchGromacsMDLog(env) {
   const host = env.CT901_HOST;
   const user = env.CT901_USER;
   
-  const cmd = `ssh -i /tmp/key ${user}@${host} "cat /home/alejandre/GromacsMexicano/Programa_DM_cpp_v2/dm.log"`;
+  const cmd = `ssh -i /tmp/key ${user}@${host} "cat /home/alejandre/DM UAMI/Programa_DM_cpp_v2/dm.log"`;
   return execSync(cmd).toString();
 }
 ```

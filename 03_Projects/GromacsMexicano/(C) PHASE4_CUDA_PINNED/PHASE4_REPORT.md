@@ -1,4 +1,4 @@
-# GromacsMexicano Phase 4 CUDA Implementation - Full Report
+# DM UAMI Phase 4 CUDA Implementation - Full Report
 
 ## Executive Summary
 
@@ -169,7 +169,7 @@ Coupling: tau_t = 0.1 ps
 
 ```cmake
 cmake_minimum_required(VERSION 3.20)
-project(GromacsMexicano_Phase4 LANGUAGES CXX CUDA)
+project(DM UAMI_Phase4 LANGUAGES CXX CUDA)
 
 set(CMAKE_CUDA_STANDARD 17)
 set(CMAKE_CXX_STANDARD 17)
@@ -498,6 +498,6 @@ Linking:              Success ✓
 
 ---
 
-*Report Generated: Phase 4 CUDA Implementation - GromacsMexicano*  
+*Report Generated: Phase 4 CUDA Implementation - DM UAMI*  
 *Test Date: 2024-09-12*  
 *Status: ✓ COMPLETE*

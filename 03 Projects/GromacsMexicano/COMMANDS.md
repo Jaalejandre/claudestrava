@@ -1,6 +1,6 @@
 # Commands & Skills
 
-Referencia rápida para el proyecto GromacsMexicano.
+Referencia rápida para el proyecto DM UAMI.
 
 ## Acceso al entorno de desarrollo
 
@@ -24,7 +24,7 @@ ssh root@192.168.0.52 "pct exec 901 -- hostname -I"
 |---|---|
 | Código original (científicos) | `/home/alejandre/Programa_DM/` |
 | Caso de prueba | `/home/alejandre/Prueba/` |
-| Copia de trabajo con git | `/home/alejandre/GromacsMexicano/` _(por crear)_ |
+| Copia de trabajo con git | `/home/alejandre/DM UAMI/` _(por crear)_ |
 | GROMACS de referencia | `/home/alejandre/gromacs-2025.3/` |
 
 ## Compilar y correr (código original)

@@ -1,6 +1,6 @@
 # 🎯 PHASE 2 DELEGATION PLAN — FULL 6 LOOPS
 
-**Base:** `/home/alejandre/GromacsMexicano/Programa_DM_cpp_v1.1/src/`  
+**Base:** `/home/alejandre/DM UAMI/Programa_DM_cpp_v1.1/src/`  
 **Phase 1 baseline:** `dm_mx_npt_phase1` (13.08s/1000 pasos toy)  
 **Target:** Add 6 OpenMP pragmas (bonded forces, pairwise, neighbor list)
 
@@ -308,7 +308,7 @@ target_link_libraries(dm_mx_npt PUBLIC OpenMP::OpenMP_CXX m)
 
 **Compile:**
 ```bash
-cd /home/alejandre/GromacsMexicano/Programa_DM_cpp_v1.1/src
+cd /home/alejandre/DM UAMI/Programa_DM_cpp_v1.1/src
 # Apply pragmas above
 cd ../build_phase2
 cmake .. -DCMAKE_CXX_FLAGS="-O3 -fopenmp -march=native"

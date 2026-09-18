@@ -10,7 +10,7 @@ role_csuite: "CTO (Chief Technology Officer)"
 # EQUIPO 41: MOLECULAR DYNAMICS DEVELOPMENT 🧪
 
 ## Misión
-Desarrollar y optimizar el código de dinámica molecular para los proyectos dm UAMI y GromacsMexicano, asegurando rendimiento, portabilidad y correctitud física.
+Desarrollar y optimizar el código de dinámica molecular para los proyectos dm UAMI y DM UAMI, asegurando rendimiento, portabilidad y correctitud física.
 
 ## Objetivo
 Crear un equipo dedicado a la implementación, pruebas y mejora de algoritmos de MD (potenciales LJ, Mie, FDR, Ewald, termostatos Nosé-Hoover, barostatos NPT) en C++/CUDA, con foco en:
@@ -19,7 +19,7 @@ Crear un equipo dedicado a la implementación, pruebas y mejora de algoritmos de
 - Integración con el flujo de trabajo de dm UAMI (entrenamiento L'Étape, análisis de salud).
 
 ## Responsabilidades
-1. Mantener y extender el repositorio de C++ de GromacsMexicano (CT 109 y CT 901).
+1. Mantener y extender el repositorio de C++ de DM UAMI (CT 109 y CT 901).
 2. Desarrollar tests unitarios y de integración para nuevos potenciales y algoritmos.
 3. Realizar benchmarks de rendimiento y escalabilidad.
 4. Colaborar con E39 (Benchmark Expert) para validar mejoras.

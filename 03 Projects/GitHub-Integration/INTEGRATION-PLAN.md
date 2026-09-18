@@ -13,13 +13,13 @@ GitHub MCP Server connects Hermes AI agents to GitHub API via natural language:
 ### Level 1: Read-Only (Safe, No Approval Needed)
 ```
 "List repos in Jaalejandre" → MCP fetches + reports
-"Show recent commits in GromacsMexicano" → MCP fetches logs
+"Show recent commits in DM UAMI" → MCP fetches logs
 "Get Phase 4 PR #47 diff" → MCP retrieves + display
 ```
 
 ### Level 2: Create (Approved by Wizard Phase 1)
 ```
-"Create issue in GromacsMexicano: Phase 4 GPU convergence test" 
+"Create issue in DM UAMI: Phase 4 GPU convergence test" 
   → Wizard Phase 1: check template + requirements
   → MCP creates issue if approved
   → Auto-assign to reviewers
@@ -44,7 +44,7 @@ GitHub MCP Server connects Hermes AI agents to GitHub API via natural language:
 - [ ] **Test command:** "List repos in Jaalejandre" → works?
 - [ ] **Integration test:** Create test issue + Wizard Phase 1 gate
 
-## For Phase 4 (GromacsMexicano)
+## For Phase 4 (DM UAMI)
 
 **Workflow: GPU Kernel PR Review**
 
@@ -99,7 +99,7 @@ GitHub MCP Server connects Hermes AI agents to GitHub API via natural language:
 hermes-agent ask "List public repos in Jaalejandre"
 
 # Test 2: Create issue (Phase 1 gate)
-hermes-agent ask "Create test issue in GromacsMexicano: title 'Test MCP'"
+hermes-agent ask "Create test issue in DM UAMI: title 'Test MCP'"
 # Wizard Phase 1 checklist appears
 # You approve or reject
 

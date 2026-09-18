@@ -15,7 +15,7 @@
   - `Arquitectura/Arquitectura.md`
 
 ### 2. Ubicación UAM/GPU corregida (fue la causa de trabajo circular)
-- **Realidad verificada:** UAMI/Phase4/GPU corre en **VM 119 `gpu-nvida`** (24GB/8cores), NO en CT 901. CT 901 no tiene `~/GromacsMexicano/`.
+- **Realidad verificada:** UAMI/Phase4/GPU corre en **VM 119 `gpu-nvida`** (24GB/8cores), NO en CT 901. CT 901 no tiene `~/DM UAMI/`.
 - **Mi memoria actualizada** para no repetir el error.
 
 ## Aún PENDIENTE (no toqué, para tu decisión)

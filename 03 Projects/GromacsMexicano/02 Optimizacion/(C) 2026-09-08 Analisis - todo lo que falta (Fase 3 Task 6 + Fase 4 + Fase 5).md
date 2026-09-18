@@ -50,8 +50,8 @@ Todo en `Programa_DM_cpp/src/nonbonded.{hpp,cpp}` + `bonded_forces.{hpp,cpp}` + 
 
 ### Infra de soporte (lista, no bloquea)
 - CT 901: `ssh alejandre@192.168.0.230` (vía `ssh root@192.168.0.52` → `pct exec 901 -- su - alejandre`). GPU RTX 5070 Ti + CUDA 13, `nvcc` en `/usr/local/cuda/bin`.
-- Build: `cd ~/GromacsMexicano/Programa_DM_cpp/build && export PATH=/usr/local/cuda/bin:$PATH && cmake . && make <target> && ctest`. Los tests corren desde `tests/` (rutas `fixtures/` relativas).
-- Fortran de referencia: `~/GromacsMexicano/Programa_DM/` — **congelado**, solo lectura (excepción histórica: el guard aditivo de T1, ya idéntico en ambas copias).
+- Build: `cd ~/DM UAMI/Programa_DM_cpp/build && export PATH=/usr/local/cuda/bin:$PATH && cmake . && make <target> && ctest`. Los tests corren desde `tests/` (rutas `fixtures/` relativas).
+- Fortran de referencia: `~/DM UAMI/Programa_DM/` — **congelado**, solo lectura (excepción histórica: el guard aditivo de T1, ya idéntico en ambas copias).
 - Fortran build: `cd Programa_DM && export PATH=/usr/local/cuda/bin:$PATH && ./compilar_release.sh` → binario `dm_mx_npt`.
 - Oráculo físico: `Total = −89.05846 ± 0.01195 kJ/mol` (ref `ca9ef61`).
 - BASE (memoria del proyecto) en CT 901: `base learn` / `base rule add` dominio `REWRITE-CPP`. Requiere `export HF_HOME=$HOME/.cache/huggingface`.
@@ -659,7 +659,7 @@ Fase 5  (gate end-to-end)   [yo verifico, no agente]
 
 ## 9. Resumen ejecutable (para pegar en prompts de agentes)
 
-> El rewrite C++ de GromacsMexicano tiene Fases 0-3(T1-T5) completas y validadas (commit `c3ba387`, 13/13 tests). Falta:
+> El rewrite C++ de DM UAMI tiene Fases 0-3(T1-T5) completas y validadas (commit `c3ba387`, 13/13 tests). Falta:
 > - **Fase 3 Task 6:** `forces.hpp/.cpp` con `compute_all_forces` (une bonded + LJ-ST + Ewald, familias MTS separadas) + gate contra `step0_reference.txt`.
 > - **Fase 4:** integrador MTS r-RESPA velocity-Verlet + Nosé-Hoover NPT. 9 sub-tareas (4.1 Suzuki, 4.2 NH-termostato, 4.3 NH-barostato, 4.4 energías reservorios, 4.5 factores+vcofm+shift, 4.6 LRC dispersion, 4.7 EL INTEGRADOR, 4.8 writers, 4.9 main.cpp). Fuente: `main.f:1204-2221` + `nosinit.f` + `*_nh_system.f` + `factores.f` + `lrc_lj_st.f95`. Todo leído y especificado en `(C) 2026-09-08 Analisis - todo lo que falta`.
 > - **Fase 5:** gate end-to-end 10k pasos vs Fortran, 3× limpio.

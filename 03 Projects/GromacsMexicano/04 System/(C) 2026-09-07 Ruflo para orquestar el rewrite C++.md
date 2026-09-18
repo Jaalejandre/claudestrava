@@ -10,7 +10,7 @@ Ruflo (claude-flow v3.38.21) está instalado en **CT 901**, junto al código, pa
 | Dato | Valor |
 |---|---|
 | Instalado en | CT 901 (`ssh root@192.168.0.52 "pct exec 901 -- su - alejandre -c '<cmd>'"`) |
-| Proyecto Ruflo | `/home/alejandre/GromacsMexicano/` (mismo repo, mismo working tree) |
+| Proyecto Ruflo | `/home/alejandre/DM UAMI/` (mismo repo, mismo working tree) |
 | **Node** | **22 LTS** — Node 24 rompe `better-sqlite3` de Ruflo (crash en `RemoveEnvironmentCleanupHook`, el subsistema de memoria no producía salida). Se bajó de 24 a 22 el 2026-09-07. |
 | Proveedor LLM | Anthropic (`claude-sonnet-4-5`), configurado y probado (`ruflo providers test -p anthropic` → PASS) |
 | Modo | `swarm.maxAgents=1`, `daemon.autoStart=false` — secuencial, sin daemon corriendo por defecto |
@@ -73,6 +73,6 @@ Ruflo ya no llama a la API de Anthropic directo. Pasa por **OmniRoute** para ten
 1. Abrir `http://192.168.0.64:20128` en el navegador de la Mac
 2. Login con `admin` / `11deabril5`
 3. Providers → reconectar/re-autorizar **Claude Code (OAuth)**
-4. Verificar: `ssh root@192.168.0.52 "pct exec 901 -- su - alejandre -c 'cd ~/GromacsMexicano && ruflo providers test -p anthropic'"`
+4. Verificar: `ssh root@192.168.0.52 "pct exec 901 -- su - alejandre -c 'cd ~/DM UAMI && ruflo providers test -p anthropic'"`
 
 Mientras el OAuth no se renueve, los agentes de Ruflo no pueden llamar al LLM.

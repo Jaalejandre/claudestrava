@@ -16,7 +16,7 @@ Decisión registrada en el grafo: `rewrite-cpp.base-reemplaza-a-ruflo-como-siste
 
 ## Arquitectura
 
-- **BASE vive en CT 901** (`ssh root@192.168.0.52 "pct exec 901 -- su - alejandre -c '<cmd>'"`), junto al código, workspace `/home/alejandre/GromacsMexicano/` (`.base/` + `.base-ast/`, ambos en `.gitignore`).
+- **BASE vive en CT 901** (`ssh root@192.168.0.52 "pct exec 901 -- su - alejandre -c '<cmd>'"`), junto al código, workspace `/home/alejandre/DM UAMI/` (`.base/` + `.base-ast/`, ambos en `.gitignore`).
 - Para que los hooks tengan dónde engancharse se **instaló Claude Code en CT 901** (`/usr/bin/claude` v2.1.x, npm global vía root). Antes no había ningún Claude Code ahí — el trabajo del rewrite lo hacía Claudian desde la Mac por SSH.
 - **Claude Code en CT 901 enruta por OmniRoute** (`~/.claude/settings.json` → `ANTHROPIC_BASE_URL=http://192.168.0.64:20128`, `ANTHROPIC_API_KEY=sk-784af7b27f4f9ca0-…`, `ANTHROPIC_MODEL=cc/claude-sonnet-4-5-20250929`). Backend `cc` = suscripción Claude Code OAuth. Probado: `claude -p` → responde.
 - Node 22 LTS (el mismo que pedía Ruflo; Claude Code también corre bien ahí).
@@ -58,7 +58,7 @@ base uninstall                   # quita hooks + binario + sección de CLAUDE.md
 ## Ruteo de modelos (2026-09-08)
 
 - **Sonnet 5** (`cc/claude-sonnet-5`) = modelo por defecto de Claude Code en CT 901 (`~/.claude/settings.json`, `ANTHROPIC_MODEL` + `ANTHROPIC_SMALL_FAST_MODEL`). Cubre programar, documentar y git.
-- **Opus 5** (`cc/claude-opus-5`) para review y pensamiento estratégico, vía subagentes en `~/GromacsMexicano/.claude/agents/`:
+- **Opus 5** (`cc/claude-opus-5`) para review y pensamiento estratégico, vía subagentes en `~/DM UAMI/.claude/agents/`:
   - `reviewer` — code review, validación de física, auditoría de correctitud.
   - `architect` — planeación de fases, trade-offs, decisiones de diseño.
 - Regla en el grafo BASE (`REWRITE-CPP`, rule 6) y en el CLAUDE.md raíz del vault.
