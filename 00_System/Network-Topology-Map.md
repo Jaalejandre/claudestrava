@@ -1,6 +1,6 @@
 # Mapa de Topología de Red (`192.168.0.0/24`)
 **Generado por**: Escuadrón BELSEBU `NetRunner` (`net-*`)  
-**Última actualización**: 2026-09-19 21:05:09 UTC
+**Última actualización**: 2026-09-19 22:00:09 UTC
 
 ---
 
@@ -13,7 +13,7 @@
 
 ---
 
-## 2. Tabla de Dispositivos y Reservas Detectadas (27 IPs Vivas)
+## 2. Tabla de Dispositivos y Reservas Detectadas (23 IPs Vivas)
 
 | Dirección IP | Nombre / Servicio | Tipo de Dispositivo | CT ID | Estado |
 | :--- | :--- | :--- | :--- | :--- |
@@ -27,9 +27,7 @@
 | `192.168.0.30` | **Vaultwarden (CT 114)** | Password Manager (:8000) | `-` | 🟢 Activo |
 | `192.168.0.47` | **Unknown** | Dispositivo LAN / Host | `-` | 🟢 Activo |
 | `192.168.0.61` | **Unknown** | Dispositivo LAN / Host | `-` | 🟢 Activo |
-| `192.168.0.63` | **Unknown** | Dispositivo LAN / Host | `-` | 🟢 Activo |
 | `192.168.0.64` | **Unknown** | Dispositivo LAN / Host | `-` | 🟢 Activo |
-| `192.168.0.65` | **Unknown** | Dispositivo LAN / Host | `-` | 🟢 Activo |
 | `192.168.0.103` | **Unknown** | Dispositivo LAN / Host | `-` | 🟢 Activo |
 | `192.168.0.104` | **Satanzote (CT 666)** | Hermes Agent & OmniRoute (:20128) | `-` | 🟢 Activo |
 | `192.168.0.108` | **Unknown** | Dispositivo LAN / Host | `-` | 🟢 Activo |
@@ -39,11 +37,9 @@
 | `192.168.0.164` | **Unknown** | Dispositivo LAN / Host | `-` | 🟢 Activo |
 | `192.168.0.175` | **Unknown** | Dispositivo LAN / Host | `-` | 🟢 Activo |
 | `192.168.0.197` | **Unknown** | Dispositivo LAN / Host | `-` | 🟢 Activo |
-| `192.168.0.198` | **Unknown** | Dispositivo LAN / Host | `-` | 🟢 Activo |
 | `192.168.0.204` | **Unknown** | Dispositivo LAN / Host | `-` | 🟢 Activo |
 | `192.168.0.216` | **Unknown** | Dispositivo LAN / Host | `-` | 🟢 Activo |
 | `192.168.0.230` | **CT901 HPC (CT 901)** | CUDA & Molecular Dynamics | `-` | 🟢 Activo |
-| `192.168.0.234` | **Unknown** | Dispositivo LAN / Host | `-` | 🟢 Activo |
 
 ---
 
