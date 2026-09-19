@@ -1,6 +1,6 @@
 # Mapa de Topología de Red (`192.168.0.0/24`)
 **Generado por**: Escuadrón BELSEBU `NetRunner` (`net-*`)  
-**Última actualización**: 2026-09-19 06:01:04 UTC
+**Última actualización**: 2026-09-19 07:01:06 UTC
 
 ---
 
@@ -27,13 +27,13 @@
 | `192.168.0.21` | **app-dev** | LXC Container | `112` | 🟢 Activo |
 | `192.168.0.30` | **Vaultwarden (CT 114)** | Password Manager (:8000) | `114` | 🟢 Activo |
 | `192.168.0.61` | **docker** | LXC Container | `107` | 🟢 Activo |
-| `192.168.0.64` | **Unknown** | Dispositivo LAN / Host | `-` | 🟢 Activo |
 | `192.168.0.65` | **Unknown** | Dispositivo LAN / Host | `-` | 🟢 Activo |
 | `192.168.0.103` | **Unknown** | Dispositivo LAN / Host | `-` | 🟢 Activo |
 | `192.168.0.104` | **Satanzote (CT 666)** | Hermes Agent & OmniRoute (:20128) | `666` | 🟢 Activo |
 | `192.168.0.109` | **Nginx Proxy Manager (CT 100)** | Reverse Proxy (*.satanzote.me) | `100` | 🟢 Activo |
 | `192.168.0.110` | **Unknown** | Dispositivo LAN / Host | `-` | 🟢 Activo |
 | `192.168.0.116` | **Unknown** | Dispositivo LAN / Host | `-` | 🟢 Activo |
+| `192.168.0.135` | **Unknown** | Dispositivo LAN / Host | `-` | 🟢 Activo |
 | `192.168.0.149` | **Unknown** | Dispositivo LAN / Host | `-` | 🟢 Activo |
 | `192.168.0.164` | **debmediav2** | LXC Container | `115` | 🟢 Activo |
 | `192.168.0.172` | **Unknown** | Dispositivo LAN / Host | `-` | 🟢 Activo |
