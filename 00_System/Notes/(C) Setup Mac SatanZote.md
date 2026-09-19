@@ -31,7 +31,7 @@ Configuración de la Mac (`josealejandre`, macOS) para el workspace SatanZote AI
 | `gromacs` / `ct901` | 192.168.0.230 | alejandre | DM UAMI (GPU, CUDA) |
 | `ollama` / `ct103` | 192.168.0.99 | root | Ollama :11434 + Open WebUI :8080 |
 | `vaultwarden` / `ct114` | 192.168.0.30 | root | Gestor de contraseñas |
-| `ntfy` / `ct116` | 192.168.0.179 | root | Notificaciones push |
+| `ntfy` / `ct116` | 192.168.0.104 | root | Notificaciones push |
 | `npm` / `ct100` | 192.168.0.109 | root | Nginx Proxy Manager |
 | `omniroute` | 192.168.0.64 | root | Gateway LLM |
 

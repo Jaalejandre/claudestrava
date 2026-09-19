@@ -1,7 +1,7 @@
 ---
 contenedor: 116
 nombre: ntfy
-ip: 192.168.0.179
+ip: 192.168.0.104
 so: Debian 13 (trixie)
 servicios: ntfy
 puertos: 80
