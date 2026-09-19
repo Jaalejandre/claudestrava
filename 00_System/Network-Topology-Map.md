@@ -1,6 +1,6 @@
 # Mapa de Topología de Red (`192.168.0.0/24`)
 **Generado por**: Escuadrón BELSEBU `NetRunner` (`net-*`)  
-**Última actualización**: 2026-09-18 23:01:05 UTC
+**Última actualización**: 2026-09-19 05:01:03 UTC
 
 ---
 
@@ -13,7 +13,7 @@
 
 ---
 
-## 2. Tabla de Dispositivos y Reservas Detectadas (27 IPs Vivas)
+## 2. Tabla de Dispositivos y Reservas Detectadas (25 IPs Vivas)
 
 | Dirección IP | Nombre / Servicio | Tipo de Dispositivo | CT ID | Estado |
 | :--- | :--- | :--- | :--- | :--- |
@@ -22,6 +22,7 @@
 | `192.168.0.11` | **Unbound (CT 105)** | Recursive DNS Resolver | `105` | 🟢 Activo |
 | `192.168.0.12` | **Cloudflared (CT 108)** | Cloudflare Tunnel | `108` | 🟢 Activo |
 | `192.168.0.14` | **difybot** | LXC Container | `117` | 🟢 Activo |
+| `192.168.0.19` | **Unknown** | Dispositivo LAN / Host | `-` | 🟢 Activo |
 | `192.168.0.20` | **Apps Prod / ConfirmaCitas (CT 111)** | Web Apps (:8095) | `111` | 🟢 Activo |
 | `192.168.0.21` | **app-dev** | LXC Container | `112` | 🟢 Activo |
 | `192.168.0.30` | **Vaultwarden (CT 114)** | Password Manager (:8000) | `114` | 🟢 Activo |
@@ -32,9 +33,7 @@
 | `192.168.0.104` | **Satanzote (CT 666)** | Hermes Agent & OmniRoute (:20128) | `666` | 🟢 Activo |
 | `192.168.0.109` | **Nginx Proxy Manager (CT 100)** | Reverse Proxy (*.satanzote.me) | `100` | 🟢 Activo |
 | `192.168.0.110` | **Unknown** | Dispositivo LAN / Host | `-` | 🟢 Activo |
-| `192.168.0.112` | **Unknown** | Dispositivo LAN / Host | `-` | 🟢 Activo |
 | `192.168.0.116` | **Unknown** | Dispositivo LAN / Host | `-` | 🟢 Activo |
-| `192.168.0.135` | **Unknown** | Dispositivo LAN / Host | `-` | 🟢 Activo |
 | `192.168.0.149` | **Unknown** | Dispositivo LAN / Host | `-` | 🟢 Activo |
 | `192.168.0.164` | **debmediav2** | LXC Container | `115` | 🟢 Activo |
 | `192.168.0.172` | **Unknown** | Dispositivo LAN / Host | `-` | 🟢 Activo |
@@ -43,7 +42,6 @@
 | `192.168.0.211` | **Unknown** | Dispositivo LAN / Host | `-` | 🟢 Activo |
 | `192.168.0.216` | **uptimekuma** | LXC Container | `102` | 🟢 Activo |
 | `192.168.0.230` | **CT901 HPC (CT 901)** | CUDA & Molecular Dynamics | `901` | 🟢 Activo |
-| `192.168.0.234` | **Unknown** | Dispositivo LAN / Host | `-` | 🟢 Activo |
 
 ---
 
