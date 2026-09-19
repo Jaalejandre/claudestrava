@@ -1,6 +1,6 @@
 # Mapa de Topología de Red (`192.168.0.0/24`)
 **Generado por**: Escuadrón BELSEBU `NetRunner` (`net-*`)  
-**Última actualización**: 2026-09-19 08:01:08 UTC
+**Última actualización**: 2026-09-19 09:01:09 UTC
 
 ---
 
@@ -33,6 +33,7 @@
 | `192.168.0.109` | **Nginx Proxy Manager (CT 100)** | Reverse Proxy (*.satanzote.me) | `100` | 🟢 Activo |
 | `192.168.0.110` | **Unknown** | Dispositivo LAN / Host | `-` | 🟢 Activo |
 | `192.168.0.116` | **Unknown** | Dispositivo LAN / Host | `-` | 🟢 Activo |
+| `192.168.0.135` | **Unknown** | Dispositivo LAN / Host | `-` | 🟢 Activo |
 | `192.168.0.149` | **Unknown** | Dispositivo LAN / Host | `-` | 🟢 Activo |
 | `192.168.0.164` | **debmediav2** | LXC Container | `115` | 🟢 Activo |
 | `192.168.0.172` | **Unknown** | Dispositivo LAN / Host | `-` | 🟢 Activo |
@@ -41,7 +42,6 @@
 | `192.168.0.211` | **Unknown** | Dispositivo LAN / Host | `-` | 🟢 Activo |
 | `192.168.0.216` | **uptimekuma** | LXC Container | `102` | 🟢 Activo |
 | `192.168.0.230` | **CT901 HPC (CT 901)** | CUDA & Molecular Dynamics | `901` | 🟢 Activo |
-| `192.168.0.234` | **Unknown** | Dispositivo LAN / Host | `-` | 🟢 Activo |
 
 ---
 
