@@ -1,42 +1,23 @@
-# Task Registry - Consolidated (2026-09-20)
+# Task Registry - BELSEBU-RUDR9 Matrix
+## Status: Consolidated Post-Migration (2026-09-18 22:00 UTC)
 
-## Pending Approvals
+### Active Projects & Squads (Last Known State)
+- [x] **Infraestructura (CT 666):** Migración y unificación. (95%)
+- [x] **DM UAMI (Ciencia/CUDA):** Engine base C++/CUDA en CT 901; paridad validada. (45%)
+- [x] **Dashboard Soy SatanZote (:8899):** Core terminado, optimizando telemetría. (75%)
+- [x] **Protocolo BELSEBU-RUDR9:** Sistema completo, CronJobs activos. (100%)
+- [ ] **SASSLA (Seismic):** Pendiente - Integración de alerta sísmica (20%)
+- [ ] **Audit Queue:** Pendiente - Cola de auditoría (10%)
+- [ ] **Prisma ORM Eval:** Pendiente - Evaluación ORM (10%)
+
+### Pending Approvals (Restored)
 - **Team**: SCIENCE & COMPUTE
   - **Task**: Fortran to C++ Behavioral Parity (DM-UAMI)
-  - **Goal**: Ensure 1:1 behavioral parity. The C++ engine MUST output identical scientific results for Ewald/MD routines.
   - **Status**: P1_OPTIMIZATION_URGENT
 
 - **Team**: INFRA & SECURITY
   - **Task**: Swarm Parallelization Strategy (Scalability)
-  - **Goal**: Develop a concrete roadmap to maximize parallel agent execution across Proxmox cluster without token/context saturation. Propose resource allocation, worker-pool sizing, and inter-agent communication bus.
   - **Status**: IN_PROGRESS
 
-- **Team**: COMMAND & UI
-  - **Task**: Evaluate ur-dashboard for Command Center
-  - **Goal**: Audit ur-dashboard (TheStack-ai) as a potential replacement/enhancement for our internal monitoring dashboard.
-  - **Constraints**: Focus on API cost visibility and agent skill monitoring. Must align with Ponytail philosophy.
-  - **Status**: P1_OPTIMIZATION_CRITICAL
-
-- **Team**: INFRA & SECURITY
-  - **Task**: Hermes Optimization Audit (OnlyTerp)
-  - **Goal**: Analyze 'Hermes Optimization Guide' for operational improvements, stability, and production-ready lessons. Extract 'Operational Laws'.
-  - **Status**: P1_OPTIMIZATION_CRITICAL
-
-- **Team**: OPS & BUSINESS
-  - **Task**: OmniRoute Provider Balancing Benchmark
-  - **Goal**: Utilize DM-UAMI C++/CUDA validation cycle as the empirical benchmark.
-  - **Status**: P1_OPTIMIZATION_CRITICAL
-
-- **Team**: INFRA & SECURITY
-  - **Task**: Hermes Platform Expert & Liaison
-  - **Goal**: Sentinel (L3) designated as Lead Hermes Expert.
-  - **Status**: P1_OPTIMIZATION_CRITICAL
-
-## Team Health
-- SCIENCE: ACTIVE
-- INFRA: ACTIVE
-- OPS: ACTIVE
-- COMMAND: ACTIVE
-
-## Last Audit
-2026-09-20 07:50
+### Last Audit
+2026-09-18 22:00:00
