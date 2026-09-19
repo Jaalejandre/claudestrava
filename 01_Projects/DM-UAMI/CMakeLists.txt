@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.20)
-project(DM UAMI_Phase4 LANGUAGES CXX CUDA)
+project(DM_UAMI_Phase4 LANGUAGES CXX CUDA)
 
 # Set CUDA standard
 set(CMAKE_CUDA_STANDARD 17)
