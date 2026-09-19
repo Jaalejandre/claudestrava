@@ -62,7 +62,7 @@ CMAKE_PROJECT_DESCRIPTION:STATIC=
 CMAKE_PROJECT_HOMEPAGE_URL:STATIC=
 
 //Value Computed by CMake
-CMAKE_PROJECT_NAME:STATIC=DM
+CMAKE_PROJECT_NAME:STATIC=DM_UAMI_Phase4
 
 //Path to a program.
 CMAKE_RANLIB:FILEPATH=/usr/bin/ranlib
@@ -77,13 +77,13 @@ CMAKE_STRIP:FILEPATH=/usr/bin/strip
 CMAKE_TAPI:FILEPATH=CMAKE_TAPI-NOTFOUND
 
 //Value Computed by CMake
-DM_BINARY_DIR:STATIC=/root/JarvisVault/01_Projects/DM-UAMI/build
+DM_UAMI_Phase4_BINARY_DIR:STATIC=/root/JarvisVault/01_Projects/DM-UAMI/build
 
 //Value Computed by CMake
-DM_IS_TOP_LEVEL:STATIC=ON
+DM_UAMI_Phase4_IS_TOP_LEVEL:STATIC=ON
 
 //Value Computed by CMake
-DM_SOURCE_DIR:STATIC=/root/JarvisVault/01_Projects/DM-UAMI
+DM_UAMI_Phase4_SOURCE_DIR:STATIC=/root/JarvisVault/01_Projects/DM-UAMI
 
 
 ########################
