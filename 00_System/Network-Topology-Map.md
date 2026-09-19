@@ -1,6 +1,6 @@
 # Mapa de Topología de Red (`192.168.0.0/24`)
 **Generado por**: Escuadrón BELSEBU `NetRunner` (`net-*`)  
-**Última actualización**: 2026-09-19 20:00:10 UTC
+**Última actualización**: 2026-09-19 21:05:09 UTC
 
 ---
 
@@ -13,7 +13,7 @@
 
 ---
 
-## 2. Tabla de Dispositivos y Reservas Detectadas (26 IPs Vivas)
+## 2. Tabla de Dispositivos y Reservas Detectadas (27 IPs Vivas)
 
 | Dirección IP | Nombre / Servicio | Tipo de Dispositivo | CT ID | Estado |
 | :--- | :--- | :--- | :--- | :--- |
@@ -36,13 +36,14 @@
 | `192.168.0.109` | **Nginx Proxy Manager (CT 100)** | Reverse Proxy (*.satanzote.me) | `-` | 🟢 Activo |
 | `192.168.0.110` | **Unknown** | Dispositivo LAN / Host | `-` | 🟢 Activo |
 | `192.168.0.116` | **Unknown** | Dispositivo LAN / Host | `-` | 🟢 Activo |
-| `192.168.0.150` | **Unknown** | Dispositivo LAN / Host | `-` | 🟢 Activo |
 | `192.168.0.164` | **Unknown** | Dispositivo LAN / Host | `-` | 🟢 Activo |
 | `192.168.0.175` | **Unknown** | Dispositivo LAN / Host | `-` | 🟢 Activo |
+| `192.168.0.197` | **Unknown** | Dispositivo LAN / Host | `-` | 🟢 Activo |
+| `192.168.0.198` | **Unknown** | Dispositivo LAN / Host | `-` | 🟢 Activo |
 | `192.168.0.204` | **Unknown** | Dispositivo LAN / Host | `-` | 🟢 Activo |
-| `192.168.0.211` | **Unknown** | Dispositivo LAN / Host | `-` | 🟢 Activo |
 | `192.168.0.216` | **Unknown** | Dispositivo LAN / Host | `-` | 🟢 Activo |
 | `192.168.0.230` | **CT901 HPC (CT 901)** | CUDA & Molecular Dynamics | `-` | 🟢 Activo |
+| `192.168.0.234` | **Unknown** | Dispositivo LAN / Host | `-` | 🟢 Activo |
 
 ---
 
