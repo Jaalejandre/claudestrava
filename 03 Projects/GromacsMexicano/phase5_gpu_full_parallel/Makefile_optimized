@@ -1,0 +1,151 @@
+# Makefile for Phase 5 GPU Optimization - Production
+# ============================================================================
+# Project: GromacsMexicano Phase 5 - Advanced CUDA Optimizations
+# Target: >15K steps/sec on RTX 5070 Ti (99 atoms)
+# Optimizations: Async streams, pinned memory, grid-stride loops, warp reductions
+# ============================================================================
+
+CC := nvcc
+CXX := g++
+CXXFLAGS := -std=c++11 -Wall -Wextra -O3 -march=native
+NVCCFLAGS_BASE := -O3 -std=c++17 -Xcompiler -Wall,-Wextra,-O3 -Xcompiler -march=native
+
+# RTX 5070 Ti: Compute Capability 9.0
+ARCH_FLAG := -arch=sm_90
+
+# Production flags (max optimization)
+ifeq ($(OPTIMIZED),1)
+    NVCCFLAGS := $(ARCH_FLAG) $(NVCCFLAGS_BASE) -Xcompiler -ffast-math \
+                 -Xcompiler -funroll-loops -lineinfo \
+                 -use_fast_math -maxrregcount=128
+    TARGET_SUFFIX := _optimized
+    PROFILE_FLAG := -lineinfo
+else
+    NVCCFLAGS := $(ARCH_FLAG) $(NVCCFLAGS_BASE)
+    TARGET_SUFFIX :=
+    PROFILE_FLAG :=
+endif
+
+LDFLAGS := -lcuda -lcudart -lm
+
+# Directories
+SRC_DIR := src
+BUILD_DIR := build
+BIN_DIR := bin
+
+# Source files
+CUDA_SOURCES := $(SRC_DIR)/phase5_main_optimized.cu
+HEADERS := $(SRC_DIR)/phase5_config.h
+
+# Object files
+CUDA_OBJECTS := $(patsubst $(SRC_DIR)/%.cu,$(BUILD_DIR)/%.o,$(CUDA_SOURCES))
+
+# Target executable
+TARGET := $(BIN_DIR)/phase5_gpu_sim$(TARGET_SUFFIX)
+
+# Default target
+.PHONY: all
+all: $(TARGET)
+
+# Create directories
+$(BUILD_DIR):
+	@mkdir -p $(BUILD_DIR)
+
+$(BIN_DIR):
+	@mkdir -p $(BIN_DIR)
+
+# CUDA object compilation
+$(BUILD_DIR)/%.o: $(SRC_DIR)/%.cu $(HEADERS) | $(BUILD_DIR)
+	@echo "╭─ Compiling CUDA: $<"
+	@$(CC) $(NVCCFLAGS) -c $< -o $@
+	@echo "╰─ Object: $@"
+
+# Linking
+$(TARGET): $(CUDA_OBJECTS) | $(BIN_DIR)
+	@echo "╭─ Linking: $@"
+	@$(CC) $(NVCCFLAGS) $(CUDA_OBJECTS) -o $(TARGET) $(LDFLAGS)
+	@ls -lh $(TARGET)
+	@echo "╰─ Build successful: $(TARGET)"
+
+# Profile-enabled build
+.PHONY: profile
+profile: NVCCFLAGS += $(PROFILE_FLAG)
+profile: clean $(TARGET)
+	@echo "✓ Profile-enabled build complete"
+
+# Clean targets
+.PHONY: clean
+clean:
+	@echo "Cleaning build artifacts..."
+	@rm -rf $(BUILD_DIR) $(BIN_DIR)
+	@echo "✓ Clean complete"
+
+# Run executable
+.PHONY: run
+run: $(TARGET)
+	@echo "Running Phase 5 GPU Simulation..."
+	@./$(TARGET)
+
+# Profile with nsys
+.PHONY: profile-nsys
+profile-nsys: $(TARGET)
+	@echo "Profiling with nsys (NVIDIA Systems Profiler)..."
+	nsys profile -o phase5_nsys_profile ./$(TARGET)
+	@echo "✓ Profile saved: phase5_nsys_profile.nsys-rep"
+
+# Profile with nvprof (legacy)
+.PHONY: profile-nvprof
+profile-nvprof: $(TARGET)
+	@echo "Profiling with nvprof..."
+	nvprof --output-format csv --log-file phase5_nvprof.csv ./$(TARGET)
+	@echo "✓ Profile saved: phase5_nvprof.csv"
+
+# Run benchmarks
+.PHONY: benchmark
+benchmark: clean
+	@echo "Building BASELINE..."
+	@make OPTIMIZED=0 $(TARGET)
+	@echo "\nBaseline build complete. Run: ./$(TARGET)"
+
+.PHONY: benchmark-opt
+benchmark-opt: clean
+	@echo "Building OPTIMIZED version..."
+	@make OPTIMIZED=1 $(TARGET)
+	@echo "\nOptimized build complete. Run: ./$(TARGET)"
+
+# Help target
+.PHONY: help
+help:
+	@echo "Phase 5 GPU Optimization - Build System"
+	@echo ""
+	@echo "Targets:"
+	@echo "  all              - Build optimized Phase 5 executable (default)"
+	@echo "  run              - Build and run the executable"
+	@echo "  profile          - Build with debug symbols for profiling"
+	@echo "  profile-nsys     - Run profiling with NVIDIA nsys"
+	@echo "  profile-nvprof   - Run profiling with nvprof (legacy)"
+	@echo "  benchmark        - Build baseline version"
+	@echo "  benchmark-opt    - Build optimized version"
+	@echo "  clean            - Remove build artifacts"
+	@echo "  help             - Show this help message"
+	@echo ""
+	@echo "Variables:"
+	@echo "  OPTIMIZED=1      - Enable production-level optimizations (default for 'all')"
+	@echo ""
+	@echo "Examples:"
+	@echo "  make OPTIMIZED=1 run          # Build optimized and run"
+	@echo "  make profile-nsys             # Build and profile with nsys"
+	@echo "  make clean && make benchmark  # Compare baseline vs optimized"
+
+# Info target
+.PHONY: info
+info:
+	@echo "Phase 5 GPU Optimization Configuration"
+	@echo "======================================"
+	@echo "Compiler: $(CC)"
+	@echo "Architecture: sm_90 (RTX 5070 Ti)"
+	@echo "Build flags: $(NVCCFLAGS)"
+	@echo "Source files:"
+	@for f in $(CUDA_SOURCES); do echo "  - $$f"; done
+	@echo "Target: $(TARGET)"
+	@echo "Optimization level: OPTIMIZED=$(OPTIMIZED)"

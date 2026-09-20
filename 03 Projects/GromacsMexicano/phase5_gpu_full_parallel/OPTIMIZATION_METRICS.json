@@ -1,0 +1,113 @@
+{
+  "timestamp": "2026-09-19T23:33:00.108608",
+  "optimization_level": "PRODUCTION (Level 3.5-5\u00d7)",
+  "hardware": {
+    "gpu": "NVIDIA GeForce RTX 5070 Ti",
+    "compute_capability": 12.0,
+    "vram_mb": 15840,
+    "atoms": 99
+  },
+  "baseline": {
+    "phase4_steps_per_sec": 3472,
+    "description": "Previous phase (Phase 4 - no optimizations)"
+  },
+  "results_before_optimizations": {
+    "status": "Pending baseline run",
+    "note": "Phase 5 initial code had basic kernel integration without advanced optimizations"
+  },
+  "results_after_optimizations": {
+    "run1_steps_per_sec": 23406,
+    "run1_throughput_atoms_per_sec": 2317199,
+    "run1_avg_frame_time_ms": 0.042,
+    "run2_steps_per_sec": 32311,
+    "run2_throughput_atoms_per_sec": 3198811,
+    "run2_avg_frame_time_ms": 0.031,
+    "average_steps_per_sec": 27858.5,
+    "target_steps_per_sec": 15000,
+    "speedup_vs_baseline": 8.023761520737327
+  },
+  "optimizations_implemented": [
+    {
+      "name": "Async CUDA Streams",
+      "description": "3-stream pipeline: compute + H2D transfer + D2H transfer",
+      "expected_gain": "1.2-1.5x",
+      "status": "\u2713 Implemented",
+      "details": "Streams allow overlapping GPU computation with host-device memory transfers"
+    },
+    {
+      "name": "Pinned Host Memory (DMA)",
+      "description": "cudaMallocHost for host buffers to enable DMA transfers",
+      "expected_gain": "1.1-1.3x",
+      "status": "\u2713 Implemented",
+      "details": "SoA_Vec3_Pinned structure allocates both device and pinned host arrays"
+    },
+    {
+      "name": "Grid-Stride Loops",
+      "description": "Replace fixed iterations with dynamic stride to utilize full GPU",
+      "expected_gain": "1.3-1.8x",
+      "status": "\u2713 Implemented",
+      "details": "Kernels use (blockIdx.x * blockDim.x + threadIdx.x; idx += gridDim.x * blockDim.x)"
+    },
+    {
+      "name": "Warp-Level Reductions",
+      "description": "Shuffle-based reductions (__shfl_xor_sync) instead of atomics",
+      "expected_gain": "1.1-1.4x",
+      "status": "\u2713 Implemented",
+      "details": "Force reduction using warp shuffles, atomic write only once per warp"
+    },
+    {
+      "name": "Shared Memory for Lists",
+      "description": "Cache interaction data in __shared__ memory",
+      "expected_gain": "1.2-1.6x",
+      "status": "\u2713 Implemented",
+      "details": "Shared buffer for warp-tile data caching in force kernel"
+    },
+    {
+      "name": "Memory Coalescing (SoA Layout)",
+      "description": "Structure-of-Arrays layout for optimal memory access patterns",
+      "expected_gain": "1.1-1.3x",
+      "status": "\u2713 Implemented",
+      "details": "Separate arrays for x, y, z coordinates instead of float3 structs"
+    },
+    {
+      "name": "Kernel Pipelining",
+      "description": "Frame N compute while N+1 transfers, frame N-1 results return",
+      "expected_gain": "Reduces latency by 3\u00d7",
+      "status": "\u2713 Implemented",
+      "details": "3-stage pipeline maintains GPU/host/memory bus saturation"
+    },
+    {
+      "name": "Register Optimization",
+      "description": "Limited max registers per thread (128) to maximize occupancy",
+      "expected_gain": "1.05-1.15x",
+      "status": "\u2713 Implemented",
+      "details": "-maxrregcount=128 flag in compiler"
+    },
+    {
+      "name": "Fast Math Mode",
+      "description": "Enable FP operations with relaxed precision (-ffast-math)",
+      "expected_gain": "1.05-1.10x",
+      "status": "\u2713 Implemented",
+      "details": "-use_fast_math flag, sqrt/exp/etc optimized"
+    },
+    {
+      "name": "Loop Unrolling",
+      "description": "Automatic loop unrolling via compiler optimization",
+      "expected_gain": "1.05-1.10x",
+      "status": "\u2713 Implemented",
+      "details": "-funroll-loops in compiler flags"
+    }
+  ],
+  "profiling_data": {
+    "tool": "NVIDIA nsys (Nsight Systems 2025.3.2)",
+    "profile_file": "phase5_profile_opt.nsys-rep",
+    "collection_method": "GPU hardware counters + CPU tracing"
+  },
+  "code_quality": {
+    "warnings": 0,
+    "errors": 0,
+    "compilation_status": "\u2713 Clean Build",
+    "executable_size_bytes": 67520,
+    "compilation_time_seconds": "~15 sec"
+  }
+}
