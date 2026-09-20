@@ -1,0 +1,3 @@
+# DMENERGY version 1
+# units: energies=kJ/mol lengths=nm density=kg/m3 temperature=K pressure=bar time=ps
+# columns: step time_ps vbonds vangles vdiedro ulj15 ucoul15 ulj ucoul ukw ekin epot ethermo ebaro etot pxx pxy pxz pyy pyz pzz lx ly lz volume density temperature pressure

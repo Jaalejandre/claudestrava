@@ -5,7 +5,7 @@
 CC := nvcc
 CXX := g++
 CXXFLAGS := -std=c++11 -Wall -Wextra -O3
-NVCCFLAGS := -arch=sm_80 -O3 -std=c++11 -Xcompiler -Wall -Xcompiler -Wextra
+NVCCFLAGS := -arch=sm_120 -O3 -std=c++17 -Xcompiler -Wall -Xcompiler -Wextra
 LDFLAGS := -lcuda -lcudart -lm
 
 # Directories

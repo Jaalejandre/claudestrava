@@ -1,0 +1,18 @@
+======================================================================
+Automated Parameter Search - GPU Swarm Optimizer
+(C) GromacsMexicano Fase 5+
+======================================================================
+
+Initial parameters: Params(sigma=0.315, rc_lj=1.00, rc_c=1.20, T=300K)
+Search ranges: {'sigma': (0.25, 0.35), 'rcutoff': (0.8, 1.2), 'rcoulomb': (1.0, 1.5)}
+GPU swarm size: 16 (max concurrent)
+GPU swarm throughput: 410K+ steps/sec aggregate
+
+
+======================================================================
+PHASE 1: Grid Search (coarse grain)
+======================================================================
+
+[GRID SEARCH] resolution=5
+  Total candidates: 25
+  Batch 1...

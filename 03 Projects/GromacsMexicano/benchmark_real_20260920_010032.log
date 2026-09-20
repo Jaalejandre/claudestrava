@@ -1,0 +1,10 @@
+======================================================================
+Real GPU Optimization Benchmark
+(C) GromacsMexicano Fase 5
+======================================================================
+
+Binarios detectados:
+  Fortran: /root/benchmarks_suite/fortran_exec/main_fortran ❌
+  Data: /root/benchmarks_suite/fortran_exec/file.gro ✅
+
+❌ Fortran binary no encontrado. Abortando.

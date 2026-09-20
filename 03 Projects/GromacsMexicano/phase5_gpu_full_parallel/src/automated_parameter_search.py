@@ -13,9 +13,9 @@ import threading
 import queue
 import random
 
-GPU_PHASE5_BIN = "/root/JarvisVault/03\ Projects/GromacsMexicano/phase5_gpu_full_parallel/build/phase5_gpu_full"
-DATA_DIR = "/root/JarvisVault/03\ Projects/GromacsMexicano/phase5_gpu_full_parallel/data"
-OUTPUT_DIR = "/root/JarvisVault/03\ Projects/GromacsMexicano/optimization_results"
+GPU_PHASE5_BIN = "/root/JarvisVault/03 Projects/GromacsMexicano/phase5_gpu_full_parallel/build/phase5_gpu_full"
+DATA_DIR = "/root/JarvisVault/03 Projects/GromacsMexicano/phase5_gpu_full_parallel/data"
+OUTPUT_DIR = "/root/JarvisVault/03 Projects/GromacsMexicano/optimization_results"
 
 Path(OUTPUT_DIR).mkdir(parents=True, exist_ok=True)
 

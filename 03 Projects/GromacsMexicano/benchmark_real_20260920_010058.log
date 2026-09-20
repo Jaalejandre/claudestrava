@@ -1,0 +1,37 @@
+======================================================================
+Real GPU Optimization Benchmark
+(C) GromacsMexicano Fase 5
+======================================================================
+
+Binarios detectados:
+  Fortran: /root/benchmarks_suite/dm_fortran_ref ✅
+  Data: /root/benchmarks_suite/fortran_exec/file.gro ✅
+
+Search ranges: {'sigma': (0.3, 0.33), 'rcutoff': (0.9, 1.1)}
+Grid resolution: 3x3 = 9 candidatos
+Parallel workers: 4
+
+======================================================================
+GRID SEARCH (Real Fortran simulations)
+======================================================================
+
+[GRID SEARCH] resolution=3, workers=4
+  Total candidates: 9
+  [BEST 1/9] Params(σ=0.315, rc_lj=0.90, rc_c=1.20, T=300K) error=0.001548
+  [BEST 2/9] Params(σ=0.300, rc_lj=0.90, rc_c=1.20, T=300K) error=0.000860
+  [BEST 3/9] Params(σ=0.300, rc_lj=1.00, rc_c=1.20, T=300K) error=0.000500
+
+======================================================================
+RESULTS
+======================================================================
+Best parameters found:
+   Params(σ=0.300, rc_lj=1.00, rc_c=1.20, T=300K)
+   Error: 0.000500
+
+Performance:
+   Total evaluations: 9
+   Total time: 0.02 seconds
+   Evaluations/sec: 502.71
+
+Results saved: /root/JarvisVault/03 Projects/GromacsMexicano/optimization_results/real_benchmark_20260920_010058.json
+======================================================================

@@ -1,0 +1,168 @@
+{
+  "method": "Real Fortran Simulation + GPU Swarm",
+  "best_params": {
+    "sigma": 0.3,
+    "rcutoff": 1.0,
+    "rcoulomb": 1.2,
+    "temp": 300
+  },
+  "best_error": 0.0005002916947391674,
+  "total_evaluations": 9,
+  "elapsed_seconds": 0.01790308952331543,
+  "evaluations_per_sec": 502.7065294109813,
+  "history": [
+    {
+      "params": {
+        "sigma": 0.315,
+        "rcutoff": 0.9,
+        "rcoulomb": 1.2,
+        "temp": 300
+      },
+      "error": 0.0015481465829026257,
+      "result": {
+        "KE": 370.7168790129311,
+        "PE": -4.165283573076278,
+        "Total_E": 366.5515954398548,
+        "Temp": 300,
+        "Platform": "Fortran",
+        "Time_sec": 0.007554531097412109
+      }
+    },
+    {
+      "params": {
+        "sigma": 0.3,
+        "rcutoff": 0.9,
+        "rcoulomb": 1.2,
+        "temp": 300
+      },
+      "error": 0.0008600275109021254,
+      "result": {
+        "KE": 370.70753088862676,
+        "PE": -4.159966648437637,
+        "Total_E": 366.5475642401891,
+        "Temp": 300,
+        "Platform": "Fortran",
+        "Time_sec": 0.008177995681762695
+      }
+    },
+    {
+      "params": {
+        "sigma": 0.3,
+        "rcutoff": 1.0,
+        "rcoulomb": 1.2,
+        "temp": 300
+      },
+      "error": 0.0005002916947391674,
+      "result": {
+        "KE": 370.31027432634636,
+        "PE": -4.1618840476993295,
+        "Total_E": 366.148390278647,
+        "Temp": 300,
+        "Platform": "Fortran",
+        "Time_sec": 0.008482933044433594
+      }
+    },
+    {
+      "params": {
+        "sigma": 0.3,
+        "rcutoff": 1.1,
+        "rcoulomb": 1.2,
+        "temp": 300
+      },
+      "error": 0.0017047209387012795,
+      "result": {
+        "KE": 369.80202454242385,
+        "PE": -4.162613288582714,
+        "Total_E": 365.63941125384116,
+        "Temp": 300,
+        "Platform": "Fortran",
+        "Time_sec": 0.009035825729370117
+      }
+    },
+    {
+      "params": {
+        "sigma": 0.315,
+        "rcutoff": 1.0,
+        "rcoulomb": 1.2,
+        "temp": 300
+      },
+      "error": 0.0012801477502740399,
+      "result": {
+        "KE": 370.26136884047344,
+        "PE": -4.154871143100632,
+        "Total_E": 366.1064976973728,
+        "Temp": 300,
+        "Platform": "Fortran",
+        "Time_sec": 0.00502467155456543
+      }
+    },
+    {
+      "params": {
+        "sigma": 0.33,
+        "rcutoff": 1.0,
+        "rcoulomb": 1.2,
+        "temp": 300
+      },
+      "error": 0.0005052026815649492,
+      "result": {
+        "KE": 370.5250263931736,
+        "PE": -4.161443197106006,
+        "Total_E": 366.3635831960676,
+        "Temp": 300,
+        "Platform": "Fortran",
+        "Time_sec": 0.003991603851318359
+      }
+    },
+    {
+      "params": {
+        "sigma": 0.315,
+        "rcutoff": 1.1,
+        "rcoulomb": 1.2,
+        "temp": 300
+      },
+      "error": 0.0013131591989010464,
+      "result": {
+        "KE": 370.0211810498077,
+        "PE": -4.1635742523082975,
+        "Total_E": 365.8576067974994,
+        "Temp": 300,
+        "Platform": "Fortran",
+        "Time_sec": 0.0050048828125
+      }
+    },
+    {
+      "params": {
+        "sigma": 0.33,
+        "rcutoff": 0.9,
+        "rcoulomb": 1.2,
+        "temp": 300
+      },
+      "error": 0.0018881915648143043,
+      "result": {
+        "KE": 369.70992989995636,
+        "PE": -4.158121435743393,
+        "Total_E": 365.55180846421297,
+        "Temp": 300,
+        "Platform": "Fortran",
+        "Time_sec": 0.004868745803833008
+      }
+    },
+    {
+      "params": {
+        "sigma": 0.33,
+        "rcutoff": 1.1,
+        "rcoulomb": 1.2,
+        "temp": 300
+      },
+      "error": 0.0010081058139092144,
+      "result": {
+        "KE": 370.1320889350881,
+        "PE": -4.156956762496156,
+        "Total_E": 365.97513217259194,
+        "Temp": 300,
+        "Platform": "Fortran",
+        "Time_sec": 0.004202365875244141
+      }
+    }
+  ]
+}
