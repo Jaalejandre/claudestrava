@@ -1,0 +1,39 @@
+# Phase 5 GPU Project - Git Ignore List
+# Build artifacts
+bin/
+build/
+*.o
+*.a
+*.so
+
+# CUDA compilation
+*.cubin
+*.fatbin
+*.gpu
+*.ptx
+
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Temporary files
+*.tmp
+*.log
+temp/
+
+# Data files
+data/
+*.dat
+*.csv
+*.out
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+.pytest_cache/
