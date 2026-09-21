@@ -1,24 +1,6 @@
 GPU Multi-Sitio: RTX 5070 Ti (CT 901, 16GB) + RTX A5000 (UAM, 24GB). Mac GPU (Apple Silicon, 192.168.0.108) PENDIENTE — OFFLINE, falta autorizar SSH key servidor→Mac. Orchestrator en CT 110:8900 con cola+health. Skill: gpu-multisite-orchestration.
 §
-Belcebú (RUDR9) — Arquitectura de equipos (2026-09-20):
-§
-Framework: RUDR9 (Rapid Unified Development & Response, 9 perfiles). Call-sign operativo: "Belcebú". Plugin Hermes: rudr9-guard. Skill: rudr9-team-orchestration (existe). No renombrar — Belcebú = callsign de RUDR9.
-§
-Estructura:
-- Swarm Workers (N paralelos, GPU-first). Preferir GPU (RTX 5070 Ti local + RTX A5000 UAM).
-- Logger Agent (1 solo central, no 1 por worker). Escribe a vault/00_System/logs/YYYY-MM-DD.jsonl.
-- Log Central: archivo JSONL rotativo diario en vault. Consultable por grep, jq, skill "belcebu-orchestration", u OpenViking (si se indexa).
-§
-Formato log entry:
-{"ts":"ISO8601","team":"nombre","task":"desc","worker_id":"...","status":"done|fail|running","duration_s":N,"gpu_used":"5070|A5000|none","result":"..."}
-§
-GPU Orchestrator existente en 00_AR/GPU_ORCHESTRATOR_*.py (scheduler+worker+queue+monitor). Conectar a log central.
-§
-Execution Policy (2026-09-20): (1) SWARM-FIRST - delegar >30s. (2) GPU-FIRST (5070 Ti local, A5000 UAM). (3) Physics-lock mandatory. (4) Log mandatory al central.
-§
 OmniRoute routing (2026-09-17): Inst1 gratis (Gemini Flash+DeepSeek), Inst2 Claude Haiku fallback, Inst3 Sonnet/Fable crítico. ❌ Ollama unreliable. Budget $2/día. Alert >$0.05/hr, >$3/día. Monitor 15min.
-§
-Cloudflare tunnel (2026-09-17): CT 108 cloudflared ✅ + CT 100 nginx proxy ✅. 7 routes activas (satanzote.me + adguard.home). Operativo.
 §
 ntfy alerts (2026-09-17): Topics satanzote-infrastructure (CPU/RAM/disk), critical (down), omniroute (budget), gromacs, letape. Cron 15min. OmniRoute >75% spend o >$2/día → notifica.
 §
@@ -49,3 +31,5 @@ OmniRoute real status (2026-09-20): Gemini/Claude/CheaperInference FUNCIONALES. 
 User revealed new overarching vision: build a self-sustaining AI server + lab to learn AI (2026-09-20). This redefines scope from pure code optimization to autonomous infrastructure + AI experimentation platform.
 §
 Work style: define framework FIRST before acting. "Vamos hacer las cosas bien" — step back, establish architecture/source-of-truth/principles, then delegate execution. Prefers structured definition over rushing into implementation. Source of truth must be clear before building.
+§
+Belcebú (RUDR9) 2026-09-20: 6 funciones — Científicos(Daemon), Infra(Satanzote), AI/Agentes(OmniMind), Web/UX, Datos(Chronos), Ops(Sofía/Áine). Swarm-first, GPU-first, physics-lock, log mandatory. Log central: vault/00_System/logs/YYYY-MM-DD.jsonl.
