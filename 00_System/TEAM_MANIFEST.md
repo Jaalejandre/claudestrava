@@ -75,7 +75,9 @@
 | Laura Bernal web | `03 Projects/Laura-Bernal/` | ConfirmaCitas |
 | Laura Strava/Garmin | `03 Projects/Laura-Strava-Garmin/` | Strava coach Laura |
 
+**SOUL:** `02_Teams/WebUX-SOUL.md`
 **Skills:** `prototipo-local`, `creative/*` (architecture-diagram, claude-design, p5js, etc.)
+**Evaluación externa:** `01_Projects/WebUX/evaluacion-skills-emilkowalski-mcp-builder.md`
 
 **Logs:** `00_System/logs/` (tag: `webux`)
 
