@@ -31,3 +31,5 @@ copilot/copilot-conversations/
 # ── Ruido en la raíz ────────────────────────────────
 Screenshot *.png
 Untitled*.canvas
+## Backup archive (GitHub too large)
+Backups/*.zip

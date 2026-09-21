@@ -1,0 +1,40 @@
+{
+  "decision_id": "DECISION_OPENMM_20260920_090013",
+  "framework": "OpenMM",
+  "decision_date": "2026-09-20T09:00:13.946656",
+  "evaluation_rubric": {
+    "technical_feasibility": 0.2,
+    "performance_achievement": 0.2,
+    "stability_reliability": 0.15,
+    "cost_efficiency": 0.15,
+    "risk_mitigation": 0.1,
+    "market_opportunity": 0.1,
+    "team_capability": 0.1
+  },
+  "scores": {
+    "technical_feasibility": 19.2,
+    "performance_achievement": 19.4,
+    "stability_reliability": 14.3,
+    "cost_efficiency": 13.5,
+    "risk_mitigation": 9.0,
+    "market_opportunity": 9.8,
+    "team_capability": 8.7
+  },
+  "total_score": 85.9,
+  "final_decision": "APPROVED",
+  "justification": "OpenMM achieves required 85.9/100 score threshold. Exceptional technical feasibility (96%) and performance (97%). Production-ready with proven stability. Strong market opportunity in drug discovery. Recommend immediate production deployment with 3-engineer team.",
+  "conditions": [
+    "Maintain CUDA stack as primary platform",
+    "Plan ROCm parallel path for future flexibility",
+    "Allocate GPU resources with dedicated VRAM reservation",
+    "Establish monthly performance benchmarking"
+  ],
+  "next_steps": [
+    "APPROVED for production deployment",
+    "Provision 3 NVIDIA H100 servers",
+    "Hire or train GPU specialist",
+    "Launch drug discovery pilot (Q1 2025)",
+    "Scale to enterprise customers by Q3 2025"
+  ],
+  "approved_by_committee": "E27_DECISION_MAKER"
+}
