@@ -69,8 +69,8 @@
 | Proyecto | Encuentra en | Documentación |
 |----------|-------------|---------------|
 | Prototipos web | `03 Projects/Prototipos/` | Harness en CT 109:8877 |
-| Entrenador L'Étape | `03 Projects/Plan_Entrenamiento/` | Dashboard CT 901:8003 |
-| Claude Strava coach | `03 Projects/Claude Strava/` | Weekly cron domingos |
+| ~~Entrenador L'Étape~~ | ❌ **RETIRADO** (José pidió quitarlo — 5ª vez) | Dashboard CT 901:8003 — NO mantener, NO arreglar |
+| ~~Claude Strava coach~~ | ❌ **RETIRADO** (depende de L'Étape/plan) | Weekly cron domingos — verificar si aplicar mismo retiro |
 | SoyDashboard | `03_Projects/SoyDashboard/` | Dashboard personal |
 | Laura Bernal web | `03 Projects/Laura-Bernal/` | ConfirmaCitas |
 | Laura Strava/Garmin | `03 Projects/Laura-Strava-Garmin/` | Strava coach Laura |
