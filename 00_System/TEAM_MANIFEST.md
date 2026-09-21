@@ -63,7 +63,7 @@
 ---
 
 ## 🌐 Web / UX
-**Jefe:** *(por asignar — propuesta: E20 Dashboard Manager)*
+**Jefe:** E20 Dashboard Manager (Squad 3)
 **Sede:** CT 109 (claude-dev, 192.168.0.64) + CT 901
 
 | Proyecto | Encuentra en | Documentación |
