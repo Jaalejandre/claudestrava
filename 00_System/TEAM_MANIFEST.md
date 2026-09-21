@@ -124,6 +124,7 @@
 2. **Skills siguen al equipo**, no al revés. Si un skill no tiene equipo, se asigna por función.
 3. **Logs son obligatorios** para toda ejecución de equipo (formato JSONL en `00_System/logs/`).
 4. **Este manifiesto se actualiza** cada vez que se mueve un proyecto o cambia un jefe.
+5. **📐 DIRECTIVA: Todo código → documentado + en biblioteca central.** Cualquier código que genere o modifique un equipo debe (a) tener documentación inline o README que explique qué hace, y (b) estar indexado en OpenViking (CT 118). Sin documentación no está terminado. Sin indexación no existe para los demás equipos. Ops + AI/Agentes mantienen esta política.
 
 ### Prioridad de recursos (quién gana en conflicto)
 1. 🥇 **José** — siempre. Todo se pausa si él pide algo.
