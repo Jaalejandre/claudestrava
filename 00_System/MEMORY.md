@@ -1,6 +1,20 @@
 GPU Multi-Sitio: RTX 5070 Ti (CT 901, 16GB) + RTX A5000 (UAM, 24GB). Mac GPU (Apple Silicon, 192.168.0.108) PENDIENTE — OFFLINE, falta autorizar SSH key servidor→Mac. Orchestrator en CT 110:8900 con cola+health. Skill: gpu-multisite-orchestration.
 §
-SatanZote Execution Policy (2026-09-20): (1) ORQUESTADOR - delegar >30s. (2) SWARM-FIRST cuando possible (multi-GPU parallelism, 16+ workers). (3) USE ALL GPUs: RTX 5070 Ti (local CT 901) + RTX A5000 (pacifico5 UAM) + Mac GPU (fallback). (4) Benchmarks/Sims NUNCA sequential. (5) Physics-lock mandatory antes/durante optimización.
+Belcebú (RUDR9) — Arquitectura de equipos (2026-09-20):
+§
+Framework: RUDR9 (Rapid Unified Development & Response, 9 perfiles). Call-sign operativo: "Belcebú". Plugin Hermes: rudr9-guard. Skill: rudr9-team-orchestration (existe). No renombrar — Belcebú = callsign de RUDR9.
+§
+Estructura:
+- Swarm Workers (N paralelos, GPU-first). Preferir GPU (RTX 5070 Ti local + RTX A5000 UAM).
+- Logger Agent (1 solo central, no 1 por worker). Escribe a vault/00_System/logs/YYYY-MM-DD.jsonl.
+- Log Central: archivo JSONL rotativo diario en vault. Consultable por grep, jq, skill "belcebu-orchestration", u OpenViking (si se indexa).
+§
+Formato log entry:
+{"ts":"ISO8601","team":"nombre","task":"desc","worker_id":"...","status":"done|fail|running","duration_s":N,"gpu_used":"5070|A5000|none","result":"..."}
+§
+GPU Orchestrator existente en 00_AR/GPU_ORCHESTRATOR_*.py (scheduler+worker+queue+monitor). Conectar a log central.
+§
+Execution Policy (2026-09-20): (1) SWARM-FIRST - delegar >30s. (2) GPU-FIRST (5070 Ti local, A5000 UAM). (3) Physics-lock mandatory. (4) Log mandatory al central.
 §
 OmniRoute routing (2026-09-17): Inst1 gratis (Gemini Flash+DeepSeek), Inst2 Claude Haiku fallback, Inst3 Sonnet/Fable crítico. ❌ Ollama unreliable. Budget $2/día. Alert >$0.05/hr, >$3/día. Monitor 15min.
 §
