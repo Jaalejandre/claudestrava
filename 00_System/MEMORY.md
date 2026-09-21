@@ -1,6 +1,6 @@
 GPU Multi-Sitio: RTX 5070 Ti (CT 901, 16GB) + RTX A5000 (UAM, 24GB). Mac GPU (Apple Silicon, 192.168.0.108) PENDIENTE — OFFLINE, falta autorizar SSH key servidor→Mac. Orchestrator en CT 110:8900 con cola+health. Skill: gpu-multisite-orchestration.
 §
-OmniRoute routing (2026-09-17): Inst1 gratis (Gemini Flash+DeepSeek), Inst2 Claude Haiku fallback, Inst3 Sonnet/Fable crítico. ❌ Ollama unreliable. Budget $2/día. Alert >$0.05/hr, >$3/día. Monitor 15min.
+OmniRoute routing (2026-09-20): Inst1 gratis (Gemini Flash+DeepSeek+antigravity), Inst2 Claude Haiku/Pro fallback, Inst3 Sonnet/Fable crítico. ❌ Ollama descartado (CPU host, no cumple 64K contexto + tool calls). Budget $2/día. Alert >$0.05/hr, >$3/día. Monitor 15min.
 §
 ntfy alerts (2026-09-17): Topics satanzote-infrastructure (CPU/RAM/disk), critical (down), omniroute (budget), gromacs, letape. Cron 15min. OmniRoute >75% spend o >$2/día → notifica.
 §

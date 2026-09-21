@@ -124,3 +124,76 @@
 2. **Skills siguen al equipo**, no al revés. Si un skill no tiene equipo, se asigna por función.
 3. **Logs son obligatorios** para toda ejecución de equipo (formato JSONL en `00_System/logs/`).
 4. **Este manifiesto se actualiza** cada vez que se mueve un proyecto o cambia un jefe.
+
+### Prioridad de recursos (quién gana en conflicto)
+1. 🥇 **José** — siempre. Todo se pausa si él pide algo.
+2. 🥈 **Científicos** (Gromacs, GPU) — ganan contra Infra, Web, AI, Ops.
+3. 🥉 **Infra** (backups, red, salud) — gana contra Web, AI, Ops.
+4. **AI/Agentes** (OmniRoute, skills) — gana contra Web, Ops.
+5. **Web/UX** (dashboards) — gana contra Ops.
+6. **Ops** (reportes, RH) — siempre último.
+
+### Límites de recursos
+| Recurso | Límite |
+|---------|--------|
+| GPU RTX 5070 Ti (local) | 1 job a la vez, máx 4h. Reservar vía gpu-reservation-protocol |
+| GPU RTX A5000 (UAM) | 1 job a la vez, máx 8h. Prioridad menor que local |
+| OmniRoute tokens | $2/día global. Si se excede → modo ahorro |
+| Swarm workers | Máx 10 paralelos global, máx 6 por equipo |
+| Log central | Sin límite (texto). Rotación diaria automática |
+
+---
+
+## Protocolo de comunicación entre equipos
+
+### Canal 1 — Log Central (reporte estándar)
+Cada equipo escribe al log al terminar cada tarea. Formato JSONL:
+```json
+{"ts":"ISO8601","team":"infra|cientificos|agentes|webux|datos|ops","task":"desc","worker_id":"...","status":"done|fail|running","duration_s":N,"gpu_used":"5070|A5000|none","result":"..."}
+```
+Cualquier equipo consulta con `grep 'team' 00_System/logs/YYYY-MM-DD.jsonl`.
+
+### Canal 2 — Buzón de peticiones (cross-team requests)
+Si un equipo necesita algo de otro:
+
+```
+00_System/requests/pendientes/  ← tickets activos
+00_System/requests/resueltos/   ← tickets cerrados
+```
+
+**Formato del ticket:** archivo .md con frontmatter YAML:
+```yaml
+---
+desde: webux
+para: infra
+asunto: Necesito subdominio para dashboard
+fecha: 2026-09-20
+prioridad: alta|media|baja
+estado: pendiente
+---
+Descripción detallada de lo que se necesita y por qué.
+```
+
+**Flujo:**
+1. Equipo A crea ticket en `pendientes/` y escribe al log ("solicitud a equipo X")
+2. Equipo B revisa `pendientes/` al iniciar sus tareas
+3. Equipo B resuelve, mueve ticket a `resueltos/`, escribe al log
+4. Si urgente: equipo B usa ntfy (`sanzote-alerts`) para notificar
+
+### Canal 3 — ntfy (urgencia cross-team)
+- **Solo para:** servicio caído, backup fallido, GPU bloqueada >30 min, error crítico.
+- **Topic:** `sanzote-alerts` (ya configurado en health_check.sh)
+- No usar para reportes rutinarios — eso va al log central.
+
+### Canal 4 — Status semanal
+Cada viernes, cada equipo escribe un reporte en `00_System/weekly/`:
+```
+NOMBRE-EQUIPO-YYYY-MM-DD.md
+```
+Contenido:
+- Qué se hizo esta semana
+- Qué está bloqueado
+- Qué necesita de otros equipos
+- Próximos pasos
+
+El jefe de cada equipo es responsable de que exista el weekly antes del viernes a las 18:00.
