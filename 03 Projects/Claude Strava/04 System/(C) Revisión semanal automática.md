@@ -1,7 +1,7 @@
 ---
 tipo: system
 proyecto: claude-strava
-actualizado: 2026-09-09
+actualizado: 2026-10-12
 ---
 
 # (C) Revisión semanal automática — Strava ↔ Plan
@@ -15,8 +15,10 @@ Mecanismo que revisa el progreso real de Strava contra el plan y ajusta si hace 
 | Dónde corre | **Claude cloud** (sesión del proyecto Claude Strava, no local) |
 | Cuándo | **Domingos ~19:00 CDMX** |
 | Qué hace | 1) Lee actividades de la semana desde Strava (MCP Strava) → 2) cruza contra el plan vigente → 3) si aplica, ajusta el plan in-place y lo avisa → 4) escribe en `03 Revisiones Semanales/` → 5) push al repo GitHub |
-| Última revisión | 2026-09-07 (ver [[(C) Revision 2026-09-07]]) |
-| Próxima | **2026-09-14** ⚠️ — la crítica: si dos semanas seguidas en 0 sesiones, se recorren fechas/fases del plan |
+| Última revisión | 2026-10-12 (ver [[(C) Revision 2026-10-12]]) |
+| Próxima | **2026-10-18** (domingo) |
+
+> **⚠️ Hueco detectado (12 oct 2026):** las revisiones del 20 sep, 27 sep y 4 oct no se ejecutaron — hueco de ~4 semanas en la automatización hasta que esta corrida (lunes 12 oct) retomó el ciclo. La regla de la nota al pie ("si algún domingo no corrió, re-disparar manualmente") no se aplicó a tiempo porque nadie detectó el hueco hasta esta revisión. Revisar el disparador programado (horario/vigencia) para confirmar que vuelva a correr los domingos.
 
 ## Reglas de la revisión (contrato)
 
