@@ -1,8 +1,8 @@
 # Plan de Entrenamiento — L'Étape Ciudad de México 60 km
 
-> **Última actualización:** 2026-10-12 (recalibración de fases y de objetivo — ver nota en Fase 1)
+> **Última actualización:** 2026-10-26 (ajuste de progresión outdoor en Fase 2 — ver nota al final de esa sección)
 > **Carrera:** 15 nov 2026 · Ruta corta 60 km · 486 m de altitud acumulada
-> **Hoy:** 12 oct 2026 → **~5 semanas** para la carrera
+> **Hoy:** 26 oct 2026 → **~3 semanas** para la carrera
 > **Días disponibles:** 5/semana · Sin lesiones · Nutrición fuera de este plan (nutriólogo + Monjaro)
 
 ---
@@ -89,6 +89,10 @@ Z1: 0-119 · Z2: 120-148 · Z3: 149-163 · Z4: 164-178 · Z5: 179+
 - **Cadencia:** Z1-Z2, 85-95 rpm — ya se vio esto cerca (87-89 rpm) en las últimas rodadas de Zwift, seguir ahí.
 - **Rodada larga outdoor:** progresión **15 km → 25 km → 30-35 km → 35-40 km** (semanas 6 a 9). Es la primera vez que esta bici sale a la calle bajo este plan — prioridad es completar la distancia en Z2, no el ritmo. 40 km es el tope realista antes del taper, no 58 km.
 - **Test de FTP real:** si se puede meter esta semana o la próxima, todavía vale la pena — sigue siendo la referencia más confiable para las zonas.
+
+> **⚠️ Nota de seguimiento (26 oct 2026):** Semanas 6 y 7 de esta fase (13-19 oct y 20-26 oct) cerradas con **5 actividades en 14 días** (de ~10 esperadas) — mejor que los ciclos de 0-1 sesión de semanas previas, pero sigue sin llegar a 5/semana. Las 5 son otra vez indoor en Zwift (22.2, 24.3, 42.1, 10.6 y 19.6 km): **cero rodadas outdoor, cero fuerza, cero descanso activo.** La prioridad #1 anunciada para la semana 6 — "primera rodada outdoor del ciclo esta semana" — no se cumplió en ninguna de las dos semanas. Quedan ~2 semanas de Fase 2 antes del Taper (arranca 9 nov) y sigue sin haber un solo kilómetro outdoor bajo este plan. Sin señales de sobreentrenamiento (potencia/FC normales en 4 de 5 rodadas; el pico de esfuerzo relativo del 22 oct —41, con 127 W y 135 bpm promedio— es un solo día más duro, no una racha).
+>
+> **Ajuste:** la progresión outdoor 15→25→30-35→35-40 km ya no es realista con el tiempo que queda. Se recalibra a algo más simple y urgente: meter **al menos una rodada outdoor corta (10-15 km)** en la próxima semana, sea la prioridad que sea esa semana. Si tampoco ocurre, el plan asume que la carrera se hará sin preparación outdoor — el objetivo sigue siendo únicamente terminar dentro del límite de tiempo (ya fijado el 12 oct), no se puede bajar más esa expectativa. Fuerza y descanso activo siguen siendo prioridad pero cualquier sesión corta ya suma más que esperar a la sesión "completa".
 
 ---
 
