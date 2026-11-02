@@ -1,8 +1,8 @@
 # Plan de Entrenamiento — L'Étape Ciudad de México 60 km
 
-> **Última actualización:** 2026-10-26 (ajuste de progresión outdoor en Fase 2 — ver nota al final de esa sección)
+> **Última actualización:** 2026-11-02 (se cierra el requisito de rodada outdoor antes de la carrera — ver nota al final de Fase 2)
 > **Carrera:** 15 nov 2026 · Ruta corta 60 km · 486 m de altitud acumulada
-> **Hoy:** 26 oct 2026 → **~3 semanas** para la carrera
+> **Hoy:** 2 nov 2026 → **~2 semanas** para la carrera
 > **Días disponibles:** 5/semana · Sin lesiones · Nutrición fuera de este plan (nutriólogo + Monjaro)
 
 ---
@@ -93,6 +93,14 @@ Z1: 0-119 · Z2: 120-148 · Z3: 149-163 · Z4: 164-178 · Z5: 179+
 > **⚠️ Nota de seguimiento (26 oct 2026):** Semanas 6 y 7 de esta fase (13-19 oct y 20-26 oct) cerradas con **5 actividades en 14 días** (de ~10 esperadas) — mejor que los ciclos de 0-1 sesión de semanas previas, pero sigue sin llegar a 5/semana. Las 5 son otra vez indoor en Zwift (22.2, 24.3, 42.1, 10.6 y 19.6 km): **cero rodadas outdoor, cero fuerza, cero descanso activo.** La prioridad #1 anunciada para la semana 6 — "primera rodada outdoor del ciclo esta semana" — no se cumplió en ninguna de las dos semanas. Quedan ~2 semanas de Fase 2 antes del Taper (arranca 9 nov) y sigue sin haber un solo kilómetro outdoor bajo este plan. Sin señales de sobreentrenamiento (potencia/FC normales en 4 de 5 rodadas; el pico de esfuerzo relativo del 22 oct —41, con 127 W y 135 bpm promedio— es un solo día más duro, no una racha).
 >
 > **Ajuste:** la progresión outdoor 15→25→30-35→35-40 km ya no es realista con el tiempo que queda. Se recalibra a algo más simple y urgente: meter **al menos una rodada outdoor corta (10-15 km)** en la próxima semana, sea la prioridad que sea esa semana. Si tampoco ocurre, el plan asume que la carrera se hará sin preparación outdoor — el objetivo sigue siendo únicamente terminar dentro del límite de tiempo (ya fijado el 12 oct), no se puede bajar más esa expectativa. Fuerza y descanso activo siguen siendo prioridad pero cualquier sesión corta ya suma más que esperar a la sesión "completa".
+
+> **🔧 Ajuste de plan (2 nov 2026):** Semana 8 (27 oct - 2 nov): **3 actividades**, otra vez las 3 indoor en Zwift (Green to Screen 26.2 km/110 W, Peaky Pavé 29.2 km/110 W, California Roll 12 km/105 W — esfuerzo relativo 15, 33 y 15, sin señales de sobreentrenamiento). La rodada outdoor pedida como prioridad #1 la semana pasada **tampoco se hizo** — van ya 8 semanas completas de este plan sin un solo kilómetro outdoor. Tampoco fuerza ni descanso activo registrado. Cadencia se mantiene cerca del rango objetivo (82-86 rpm).
+>
+> Queda **una sola semana de Fase 2 (3-8 nov)** antes de que arranque el Taper (9 nov) — ya se estableció el 12 oct que el Taper no se recorta más. Con esto:
+> - Se da por **cerrado el objetivo de meter una rodada outdoor antes de la carrera como requisito del plan**: si ocurre en la semana del 3-8 nov, mejor, pero el plan ya no depende de ella para nada más.
+> - **El objetivo de carrera no cambia** (terminar dentro del límite de tiempo, fijado el 12 oct).
+> - **Recomendación de carrera dado el cero kilometraje outdoor:** salida deliberadamente conservadora — marchas ligeras desde el arranque (compensa el punto débil de cadencia baja en calle), ritmo Z1-Z2 sostenido, Z3 solo en tramos cortos de subida, y caminar cualquier pendiente que lo exija. El día de la carrera no es momento de probar nada nuevo.
+> - Fuerza y descanso activo: cualquier sesión corta en lo que queda sigue sumando, pero ya no son bloqueantes para el resto del plan.
 
 ---
 
